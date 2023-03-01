@@ -1,247 +1,274 @@
 <template>
-  <div class="about">
-    <TopPage :currentPage="'About Us'" />
+   <div class="about">
+      <TopPage :currentPage="'About Us'" />
 
-    <div class="about-content">
-      <!-- about -->
-      <section class="about-section">
-        <div class="grid wide">
-          <div class="row">
-            <div class="col l-6 m-6 s-12">
-              <div class="about-section-img">
-                <img src="@/assets/images/about/about_bg.png" alt="image" />
-              </div>
+      <div class="about-content">
+         <!-- about -->
+         <section class="about-section">
+            <div class="grid wide">
+               <div class="row">
+                  <div class="col l-6 m-6 s-12">
+                     <div class="about-section-img">
+                        <img
+                           src="@/assets/images/about/about_bg.png"
+                           alt="image"
+                        />
+                     </div>
+                  </div>
+                  <div class="col l-6 m-6 s-12">
+                     <div class="about-section-txt">
+                        <div class="section-title">
+                           <p>Only organic</p>
+                           <h5>The best choice for your business</h5>
+                        </div>
+                        <p class="about-section-para">
+                           Sumptuous, filling, and temptingly healthy, our Biona
+                           Organic Granola with Wild Berries is just the thing
+                           to get you out of bed.
+                        </p>
+                        <ul class="about-section-feature-list">
+                           <li class="about-section-feature-item">
+                              <i class="fa-solid fa-circle-check"></i>
+                              100% Natural
+                           </li>
+                           <li class="about-section-feature-item">
+                              <i class="fa-solid fa-circle-check"></i>
+                              Increases resistance
+                           </li>
+                           <li class="about-section-feature-item">
+                              <i class="fa-solid fa-circle-check"></i>
+                              No growth hormones are used
+                           </li>
+                        </ul>
+                        <button-v-2>
+                           Shop Now
+                           <i class="fa-solid fa-arrow-right"></i>
+                        </button-v-2>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="col l-6 m-6 s-12">
-              <div class="about-section-txt">
-                <div class="section-title">
-                  <p>Only organic</p>
-                  <h5>The best choice for your business</h5>
-                </div>
-                <p class="about-section-para">
-                  Sumptuous, filling, and temptingly healthy, our Biona Organic
-                  Granola with Wild Berries is just the thing to get you out of
-                  bed.
-                </p>
-                <ul class="about-section-feature-list">
-                  <li class="about-section-feature-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    100% Natural
-                  </li>
-                  <li class="about-section-feature-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    Increases resistance
-                  </li>
-                  <li class="about-section-feature-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    No growth hormones are used
-                  </li>
-                </ul>
-                <button-v-2>
-                  Shop Now
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button-v-2>
-              </div>
+         </section>
+         <!-- category -->
+         <section class="category-section">
+            <div class="grid wide">
+               <div class="row">
+                  <div class="col l-12 m-12 s-12">
+                     <div class="section-title">
+                        <p>Only organic</p>
+                        <h5>What We Offer for You</h5>
+                     </div>
+                  </div>
+                  <div class="col l-3 m-6 s-6">
+                     <div
+                        class="category-section-item"
+                        :style="{
+                           backgroundImage: `url(${require('@/assets/images/about/category_1.png')})`,
+                        }"
+                     >
+                        <p class="category-section-item-name">Vegetables</p>
+                     </div>
+                  </div>
+                  <div class="col l-3 m-6 s-6">
+                     <div
+                        class="category-section-item"
+                        :style="{
+                           backgroundImage: `url(${require('@/assets/images/about/category_2.png')})`,
+                        }"
+                     >
+                        <p class="category-section-item-name">Fresh Fruits</p>
+                     </div>
+                  </div>
+                  <div class="col l-3 m-6 s-6">
+                     <div
+                        class="category-section-item"
+                        :style="{
+                           backgroundImage: `url(${require('@/assets/images/about/category_3.png')})`,
+                        }"
+                     >
+                        <p class="category-section-item-name">Spices</p>
+                     </div>
+                  </div>
+                  <div class="col l-3 m-6 s-6">
+                     <div
+                        class="category-section-item"
+                        :style="{
+                           backgroundImage: `url(${require('@/assets/images/about/category_4.png')})`,
+                        }"
+                     >
+                        <p class="category-section-item-name">Dried Food</p>
+                     </div>
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <!-- category -->
-      <section class="category-section">
-        <div class="grid wide">
-          <div class="row">
-            <div class="col l-12 m-12 s-12">
-              <div class="section-title">
-                <p>Only organic</p>
-                <h5>What We Offer for You</h5>
-              </div>
+         </section>
+         <!-- solution -->
+         <section class="solution-section">
+            <div class="grid wide">
+               <div class="row">
+                  <div class="col l-12 m-12 s-12">
+                     <div class="solution-section-content">
+                        <p class="solution-section-ques">HOW CAN WE HELP ?</p>
+                        <h5 class="solution-section-heading">
+                           Awesome Solutions
+                           <br />
+                           <span>100% Success</span>
+                        </h5>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="col l-3 m-6 s-6">
-              <div
-                class="category-section-item"
-                :style="{
-                  backgroundImage: `url(${require('@/assets/images/about/category_1.png')})`,
-                }"
-              >
-                <p class="category-section-item-name">Vegetables</p>
-              </div>
+         </section>
+         <!-- statistical -->
+         <section class="statistical-section" ref="statisticalSection">
+            <Statistical />
+         </section>
+         <!-- offer -->
+         <section class="offer-section">
+            <div class="grid wide">
+               <div class="row">
+                  <div class="col l-6 m-6 s-12">
+                     <div class="offer-section-img">
+                        <img
+                           src="@/assets/images/about/offer_img.png"
+                           alt="image"
+                        />
+                     </div>
+                  </div>
+                  <div class="col l-6 m-6 s-12">
+                     <div class="offer-section-txt">
+                        <div class="section-title">
+                           <p>ORGANIC 100% GENUINE PRODUCT SERVED</p>
+                           <h5>Organic Quality and Perfomance</h5>
+                        </div>
+                        <ul class="offer-section-feature-list">
+                           <li class="offer-section-feature-item">
+                              <div class="offer-section-feature-item-icon">
+                                 <img
+                                    src="@/assets/images/about/security.svg"
+                                    alt="icon"
+                                 />
+                              </div>
+                              <div class="offer-section-feature-item-txt">
+                                 <h6 class="offer-section-feature-item-heading">
+                                    100% Payment Secure
+                                 </h6>
+                                 <p class="offer-section-feature-item-para">
+                                    Apparently we had reached a great height in
+                                    the atmosphere, for the sky was a dead
+                                    black.
+                                 </p>
+                              </div>
+                           </li>
+                           <li class="offer-section-feature-item">
+                              <div class="offer-section-feature-item-icon">
+                                 <img
+                                    src="@/assets/images/about/fresh.svg"
+                                    alt="icon"
+                                 />
+                              </div>
+                              <div class="offer-section-feature-item-txt">
+                                 <h6 class="offer-section-feature-item-heading">
+                                    Completly 100% Fresh
+                                 </h6>
+                                 <p class="offer-section-feature-item-para">
+                                    Apparently we had reached a great height in
+                                    the atmosphere, for the sky was a dead
+                                    black.
+                                 </p>
+                              </div>
+                           </li>
+                           <li class="offer-section-feature-item">
+                              <div class="offer-section-feature-item-icon">
+                                 <img
+                                    src="@/assets/images/about/squad.svg"
+                                    alt="icon"
+                                 />
+                              </div>
+                              <div class="offer-section-feature-item-txt">
+                                 <h6 class="offer-section-feature-item-heading">
+                                    Skip or Cancel Anytime
+                                 </h6>
+                                 <p class="offer-section-feature-item-para">
+                                    Apparently we had reached a great height in
+                                    the atmosphere, for the sky was a dead
+                                    black.
+                                 </p>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="col l-3 m-6 s-6">
-              <div
-                class="category-section-item"
-                :style="{
-                  backgroundImage: `url(${require('@/assets/images/about/category_2.png')})`,
-                }"
-              >
-                <p class="category-section-item-name">Fresh Fruits</p>
-              </div>
+         </section>
+         <!-- team -->
+         <section class="team-section">
+            <div class="grid wide">
+               <div class="row">
+                  <div class="col l-12 m-12 s-12">
+                     <div class="section-title">
+                        <p>NATURE ONLY</p>
+                        <h5>Awesome Team Member</h5>
+                     </div>
+                  </div>
+                  <div class="col l-3 m-6 s-12">
+                     <div class="team-section-item">
+                        <div class="team-section-item-avatar">
+                           <img
+                              src="@/assets/images/about/avt_1.png"
+                              alt="avatar"
+                           />
+                        </div>
+                        <h6 class="team-section-item-name">Anna Harrison</h6>
+                        <p class="team-section-item-role">CO-FOUNDER</p>
+                     </div>
+                  </div>
+                  <div class="col l-3 m-6 s-12">
+                     <div class="team-section-item">
+                        <div class="team-section-item-avatar">
+                           <img
+                              src="@/assets/images/about/avt_2.png"
+                              alt="avatar"
+                           />
+                        </div>
+                        <h6 class="team-section-item-name">Sherri Horton</h6>
+                        <p class="team-section-item-role">FARMER</p>
+                     </div>
+                  </div>
+                  <div class="col l-3 m-6 s-12">
+                     <div class="team-section-item">
+                        <div class="team-section-item-avatar">
+                           <img
+                              src="@/assets/images/about/avt_3.png"
+                              alt="avatar"
+                           />
+                        </div>
+                        <h6 class="team-section-item-name">Sinira Fro</h6>
+                        <p class="team-section-item-role">MANAGING DIRECTOR</p>
+                     </div>
+                  </div>
+                  <div class="col l-3 m-6 s-12">
+                     <div class="team-section-item">
+                        <div class="team-section-item-avatar">
+                           <img
+                              src="@/assets/images/about/avt_4.png"
+                              alt="avatar"
+                           />
+                        </div>
+                        <h6 class="team-section-item-name">Aliesha Preston</h6>
+                        <p class="team-section-item-role">FOUNDER</p>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="col l-3 m-6 s-6">
-              <div
-                class="category-section-item"
-                :style="{
-                  backgroundImage: `url(${require('@/assets/images/about/category_3.png')})`,
-                }"
-              >
-                <p class="category-section-item-name">Spices</p>
-              </div>
-            </div>
-            <div class="col l-3 m-6 s-6">
-              <div
-                class="category-section-item"
-                :style="{
-                  backgroundImage: `url(${require('@/assets/images/about/category_4.png')})`,
-                }"
-              >
-                <p class="category-section-item-name">Dried Food</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- solution -->
-      <section class="solution-section">
-        <div class="grid wide">
-          <div class="row">
-            <div class="col l-12 m-12 s-12">
-              <div class="solution-section-content">
-                <p class="solution-section-ques">HOW CAN WE HELP ?</p>
-                <h5 class="solution-section-heading">
-                  Awesome Solutions
-                  <br />
-                  <span>100% Success</span>
-                </h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- statistical -->
-      <section class="statistical-section" ref="statisticalSection">
-        <Statistical />
-      </section>
-      <!-- offer -->
-      <section class="offer-section">
-        <div class="grid wide">
-          <div class="row">
-            <div class="col l-6 m-6 s-12">
-              <div class="offer-section-img">
-                <img src="@/assets/images/about/offer_img.png" alt="image" />
-              </div>
-            </div>
-            <div class="col l-6 m-6 s-12">
-              <div class="offer-section-txt">
-                <div class="section-title">
-                  <p>ORGANIC 100% GENUINE PRODUCT SERVED</p>
-                  <h5>Organic Quality and Perfomance</h5>
-                </div>
-                <ul class="offer-section-feature-list">
-                  <li class="offer-section-feature-item">
-                    <div class="offer-section-feature-item-icon">
-                      <img
-                        src="@/assets/images/about/security.svg"
-                        alt="icon"
-                      />
-                    </div>
-                    <div class="offer-section-feature-item-txt">
-                      <h6 class="offer-section-feature-item-heading">
-                        100% Payment Secure
-                      </h6>
-                      <p class="offer-section-feature-item-para">
-                        Apparently we had reached a great height in the
-                        atmosphere, for the sky was a dead black.
-                      </p>
-                    </div>
-                  </li>
-                  <li class="offer-section-feature-item">
-                    <div class="offer-section-feature-item-icon">
-                      <img src="@/assets/images/about/fresh.svg" alt="icon" />
-                    </div>
-                    <div class="offer-section-feature-item-txt">
-                      <h6 class="offer-section-feature-item-heading">
-                        Completly 100% Fresh
-                      </h6>
-                      <p class="offer-section-feature-item-para">
-                        Apparently we had reached a great height in the
-                        atmosphere, for the sky was a dead black.
-                      </p>
-                    </div>
-                  </li>
-                  <li class="offer-section-feature-item">
-                    <div class="offer-section-feature-item-icon">
-                      <img src="@/assets/images/about/squad.svg" alt="icon" />
-                    </div>
-                    <div class="offer-section-feature-item-txt">
-                      <h6 class="offer-section-feature-item-heading">
-                        Skip or Cancel Anytime
-                      </h6>
-                      <p class="offer-section-feature-item-para">
-                        Apparently we had reached a great height in the
-                        atmosphere, for the sky was a dead black.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- team -->
-      <section class="team-section">
-        <div class="grid wide">
-          <div class="row">
-            <div class="col l-12 m-12 s-12">
-              <div class="section-title">
-                <p>NATURE ONLY</p>
-                <h5>Awesome Team Member</h5>
-              </div>
-            </div>
-            <div class="col l-3 m-6 s-12">
-              <div class="team-section-item">
-                <div class="team-section-item-avatar">
-                  <img src="@/assets/images/about/avt_1.png" alt="avatar" />
-                </div>
-                <h6 class="team-section-item-name">Anna Harrison</h6>
-                <p class="team-section-item-role">CO-FOUNDER</p>
-              </div>
-            </div>
-            <div class="col l-3 m-6 s-12">
-              <div class="team-section-item">
-                <div class="team-section-item-avatar">
-                  <img src="@/assets/images/about/avt_2.png" alt="avatar" />
-                </div>
-                <h6 class="team-section-item-name">Sherri Horton</h6>
-                <p class="team-section-item-role">FARMER</p>
-              </div>
-            </div>
-            <div class="col l-3 m-6 s-12">
-              <div class="team-section-item">
-                <div class="team-section-item-avatar">
-                  <img src="@/assets/images/about/avt_3.png" alt="avatar" />
-                </div>
-                <h6 class="team-section-item-name">Sinira Fro</h6>
-                <p class="team-section-item-role">MANAGING DIRECTOR</p>
-              </div>
-            </div>
-            <div class="col l-3 m-6 s-12">
-              <div class="team-section-item">
-                <div class="team-section-item-avatar">
-                  <img src="@/assets/images/about/avt_4.png" alt="avatar" />
-                </div>
-                <h6 class="team-section-item-name">Aliesha Preston</h6>
-                <p class="team-section-item-role">FOUNDER</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- contact mail -->
-      <section class="contact-mail-section">
-        <ContactMail />
-      </section>
-    </div>
-  </div>
+         </section>
+         <!-- contact mail -->
+         <section class="contact-mail-section">
+            <ContactMail />
+         </section>
+      </div>
+   </div>
 </template>
 
 <script>
@@ -252,16 +279,16 @@ import Statistical from "@/components/Statistical.vue";
 import ContactMail from "@/components/ContactMail.vue";
 
 export default {
-  name: "AboutPage",
-  components: {
-    TopPage,
-    ButtonV2,
-    Statistical,
-    ContactMail,
-  },
-  setup() {
-    return {};
-  },
+   name: "AboutPage",
+   components: {
+      TopPage,
+      ButtonV2,
+      Statistical,
+      ContactMail,
+   },
+   setup() {
+      return {};
+   },
 };
 </script>
 
@@ -269,407 +296,408 @@ export default {
 @use "@/assets/scss/variables.scss" as *;
 
 @keyframes animateOfferImage {
-  0% {
-    transform: translateY(-10px);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(-10px);
-  }
+   0% {
+      transform: translateY(-10px);
+   }
+   50% {
+      transform: translateY(10px);
+   }
+   100% {
+      transform: translateY(-10px);
+   }
 }
 
 .about {
-  &-content {
-    background: url("@/assets/images/home/bodybg.png") no-repeat left center
-      $bodyColor;
-  }
+   &-content {
+      background: url("@/assets/images/home/bodybg.png") no-repeat left center
+         $bodyColor;
+   }
 
-  .section-title {
-    text-align: center;
-    margin-bottom: 30px;
+   .section-title {
+      text-align: center;
+      margin-bottom: 30px;
 
-    p {
-      color: $primaryColor;
-      font-size: 18px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    h5 {
-      color: $darkTextColor;
-      font-size: 38px;
-      line-height: 1.2;
-      font-weight: bold;
-    }
-  }
-
-  @media (max-width: $maxMobile) {
-    .section-title {
       p {
-        font-size: 16px;
-        margin-bottom: 10px;
+         color: $primaryColor;
+         font-size: 18px;
+         text-transform: uppercase;
+         margin-bottom: 12px;
       }
 
       h5 {
-        font-size: 30px;
+         color: $darkTextColor;
+         font-size: 38px;
+         line-height: 1.2;
+         font-weight: bold;
       }
-    }
-  }
+   }
+
+   @media (max-width: $maxMobile) {
+      .section-title {
+         p {
+            font-size: 16px;
+            margin-bottom: 10px;
+         }
+
+         h5 {
+            font-size: 30px;
+         }
+      }
+   }
 }
 
 .about-section {
-  padding: 100px 0 50px;
+   padding: 100px 0 50px;
 
-  .section-title {
-    text-align: left;
-    margin-bottom: 0;
-  }
+   .section-title {
+      text-align: left;
+      margin-bottom: 0;
+   }
 
-  &-txt {
-    padding-left: 20px;
-  }
+   &-txt {
+      padding-left: 20px;
+   }
 
-  &-para {
-    margin: 20px 0;
-    font-size: 18px;
-    line-height: 1.3;
-    color: #656565;
-  }
+   &-para {
+      margin: 20px 0;
+      font-size: 18px;
+      line-height: 1.3;
+      color: #656565;
+   }
 
-  &-feature-list {
-    display: flex;
-    flex-direction: column;
-  }
+   &-feature-list {
+      display: flex;
+      flex-direction: column;
+   }
 
-  &-feature-item {
-    width: fit-content;
-    padding: 12px 12px;
-    border-radius: 20px;
-    font-weight: bold;
-    color: #5e5e5e;
-    background: #f4f4f4;
-    box-shadow: $cardShadow;
+   &-feature-item {
+      width: fit-content;
+      padding: 12px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      color: #5e5e5e;
+      background: #f4f4f4;
+      box-shadow: $cardShadow;
 
-    & + & {
-      margin-top: 12px;
-    }
+      & + & {
+         margin-top: 12px;
+      }
 
-    i {
-      color: $primaryColor;
-      margin-right: 5px;
-      position: relative;
-    }
-  }
+      i {
+         color: $primaryColor;
+         margin-right: 5px;
+         position: relative;
+      }
+   }
 
-  .button-v2 {
-    margin-top: 40px;
-  }
+   .button-v2 {
+      margin-top: 40px;
+   }
 
-  @media (max-width: $maxTablet) {
-    .button-v2 {
-      margin-top: 30px;
-    }
-  }
+   @media (max-width: $maxTablet) {
+      .button-v2 {
+         margin-top: 30px;
+      }
+   }
 
-  @media (max-width: $maxMobile) {
-    &-img {
-      margin-bottom: 60px;
-    }
-  }
+   @media (max-width: $maxMobile) {
+      &-img {
+         margin-bottom: 60px;
+      }
+   }
 }
 
 .category-section {
-  padding: 100px 0 80px;
-  text-align: center;
+   padding: 100px 0 80px;
+   text-align: center;
 
-  &-item {
-    padding-top: 100%;
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: $cardShadow;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: white;
-    margin-bottom: 40px;
-    position: relative;
+   &-item {
+      padding-top: 100%;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: $cardShadow;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-color: white;
+      margin-bottom: 40px;
+      position: relative;
 
-    &:hover &-name {
-      color: white;
-      background-color: $primaryColor;
-    }
-
-    &-name {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 12px 30px;
-      background: #e7efd3;
-      color: $darkTextColor;
-      font-weight: 600;
-      font-size: 18px;
-      border-radius: 40px;
-      width: fit-content;
-      box-shadow: 0 2px 6px -1px rgb(0 0 0 / 14%);
-      transition: all ease 0.5s;
-    }
-  }
-
-  @media (max-width: $maxMobile) {
-    &-item {
-      &-name {
-        padding: 12px 24px;
-        font-size: 16px;
+      &:hover &-name {
+         color: white;
+         background-color: $primaryColor;
       }
-    }
-  }
 
-  @media (max-width: 400px) {
-    &-item {
       &-name {
-        padding: 10px 20px;
-        font-size: 14px;
+         position: absolute;
+         bottom: -20px;
+         left: 50%;
+         transform: translateX(-50%);
+         padding: 12px 30px;
+         background: #e7efd3;
+         color: $darkTextColor;
+         font-weight: 600;
+         font-size: 18px;
+         border-radius: 40px;
+         width: max-content;
+         box-shadow: 0 2px 6px -1px rgb(0 0 0 / 14%);
+         transition: all ease 0.5s;
       }
-    }
-  }
+   }
+
+   @media (max-width: $maxMobile) {
+      &-item {
+         &-name {
+            padding: 12px 24px;
+            font-size: 16px;
+         }
+      }
+   }
+
+   @media (max-width: 400px) {
+      &-item {
+         &-name {
+            padding: 10px 20px;
+            font-size: 14px;
+         }
+      }
+   }
 }
 
 .solution-section {
-  background: url("@/assets/images/about/solution_bg.jpg") no-repeat;
-  background-position: center;
-  background-size: cover;
-  padding: 200px 0;
-  position: relative;
+   background: url("@/assets/images/about/solution_bg.jpg") no-repeat;
+   background-position: center;
+   background-size: cover;
+   padding: 200px 0;
+   position: relative;
 
-  &::after {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    content: "";
-    background: rgba(13, 13, 13, 0.58);
-    z-index: 1;
-  }
+   &::after {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      content: "";
+      background: rgba(13, 13, 13, 0.58);
+      z-index: 1;
+   }
 
-  &-content {
-    padding-left: 120px;
-    position: relative;
-    z-index: 2;
-  }
-
-  &-ques {
-    font-size: 24px;
-    color: $primaryColor;
-    text-transform: uppercase;
-    text-shadow: 0 1px rgb(0 0 0 / 18%);
-  }
-
-  &-heading {
-    font-size: 50px;
-    font-weight: 800;
-    margin-top: 24px;
-    color: white;
-    text-shadow: 0 1px rgb(0 0 0 / 18%);
-    line-height: 1.2;
-
-    span {
-      color: $primaryColor;
-    }
-  }
-
-  @media (max-width: $maxMobile) {
-    padding: 100px 0;
-
-    &-content {
-      padding-left: 0px;
-    }
-
-    &-ques {
-      font-size: 18px;
-    }
-
-    &-heading {
-      font-size: 32px;
-      margin-top: 18px;
-    }
-  }
-}
-
-.statistical-section {
-  background-image: url("@/assets/images/about/statistical_bg.jpg");
-  .statistical {
-    background-image: none;
-    padding: 100px 0 60px;
-  }
-}
-
-.offer-section {
-  padding: 100px 0;
-
-  .section-title {
-    text-align: left;
-  }
-
-  .row {
-    align-items: center;
-  }
-
-  &-img {
-    background-image: url("@/assets/images/about/offer_bg.png");
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-
-    img {
+   &-content {
+      padding-left: 120px;
       position: relative;
-      left: 20%;
-      top: 60px;
-      animation: animateOfferImage linear 3s infinite;
-      max-width: 450px;
-      width: calc(100% - 120px);
-    }
-  }
+      z-index: 2;
+   }
 
-  &-txt {
-    padding-left: 10px;
-  }
+   &-ques {
+      font-size: 24px;
+      color: $primaryColor;
+      text-transform: uppercase;
+      text-shadow: 0 1px rgb(0 0 0 / 18%);
+   }
 
-  &-feature-item {
-    display: flex;
-    align-items: center;
-
-    & + & {
-      margin-top: 36px;
-    }
-
-    &-icon {
-      margin-right: 20px;
-      background-color: white;
-      padding: 20px;
-      border-radius: 50%;
-      box-shadow: $cardShadow;
-
-      img {
-        width: 38px;
-        height: 38px;
-      }
-    }
-
-    &-txt {
-      color: $darkTextColor;
-    }
-
-    &-heading {
-      font-size: 22px;
+   &-heading {
+      font-size: 50px;
+      font-weight: 800;
+      margin-top: 24px;
+      color: white;
+      text-shadow: 0 1px rgb(0 0 0 / 18%);
       line-height: 1.2;
-      margin-bottom: 8px;
-    }
 
-    &-para {
-      color: #646464;
-      font-size: 18px;
-      line-height: 1.2;
-    }
-  }
-
-  @media (max-width: $maxTablet) {
-    &-img {
-      img {
-        top: 40px;
+      span {
+         color: $primaryColor;
       }
-    }
+   }
 
-    &-feature-item {
-      align-items: flex-start;
-    }
-  }
+   @media (max-width: $maxMobile) {
+      padding: 100px 0;
 
-  @media (max-width: $maxMobile) {
-    &-img {
-      margin-bottom: 50px;
-
-      img {
-        top: 58px;
-      }
-    }
-
-    &-feature-item {
-      & + & {
-        margin-top: 24px;
+      &-content {
+         padding-left: 0px;
       }
 
-      &-icon {
-        padding: 16px;
-
-        img {
-          width: 32px;
-          height: 32px;
-        }
+      &-ques {
+         font-size: 18px;
       }
 
       &-heading {
-        font-size: 20px;
+         font-size: 32px;
+         margin-top: 18px;
+      }
+   }
+}
+
+.statistical-section {
+   background-image: url("@/assets/images/about/statistical_bg.jpg");
+   .statistical {
+      background-image: none;
+      padding: 100px 0 60px;
+   }
+}
+
+.offer-section {
+   padding: 100px 0;
+
+   .section-title {
+      text-align: left;
+   }
+
+   .row {
+      align-items: center;
+   }
+
+   &-img {
+      background-image: url("@/assets/images/about/offer_bg.png");
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+
+      img {
+         position: relative;
+         left: 20%;
+         top: 60px;
+         animation: animateOfferImage linear 3s infinite;
+         max-width: 450px;
+         width: calc(100% - 120px);
+      }
+   }
+
+   &-txt {
+      padding-left: 10px;
+   }
+
+   &-feature-item {
+      display: flex;
+      align-items: center;
+
+      & + & {
+         margin-top: 36px;
+      }
+
+      &-icon {
+         margin-right: 20px;
+         background-color: white;
+         padding: 20px;
+         border-radius: 50%;
+         box-shadow: $cardShadow;
+
+         img {
+            width: 38px;
+            height: 38px;
+         }
+      }
+
+      &-txt {
+         color: $darkTextColor;
+      }
+
+      &-heading {
+         font-size: 22px;
+         line-height: 1.2;
+         margin-bottom: 8px;
       }
 
       &-para {
-        font-size: 16px;
+         color: #646464;
+         font-size: 18px;
+         line-height: 1.2;
       }
-    }
-  }
+   }
 
-  @media (max-width: 450px) {
-    &-img {
-      img {
-        top: 38px;
-        left: 22%;
+   @media (max-width: $maxTablet) {
+      &-img {
+         img {
+            top: 40px;
+         }
       }
-    }
-  }
 
-  @media (max-width: 350px) {
-    &-img {
-      img {
-        left: 24%;
-        top: 25px;
+      &-feature-item {
+         align-items: flex-start;
       }
-    }
-  }
+   }
+
+   @media (max-width: $maxMobile) {
+      &-img {
+         margin-bottom: 50px;
+
+         img {
+            top: 58px;
+         }
+      }
+
+      &-feature-item {
+         & + & {
+            margin-top: 24px;
+         }
+
+         &-icon {
+            padding: 16px;
+
+            img {
+               width: 32px;
+               height: 32px;
+            }
+         }
+
+         &-heading {
+            font-size: 20px;
+         }
+
+         &-para {
+            font-size: 16px;
+         }
+      }
+   }
+
+   @media (max-width: 450px) {
+      &-img {
+         img {
+            top: 38px;
+            left: 22%;
+         }
+      }
+   }
+
+   @media (max-width: 350px) {
+      &-img {
+         img {
+            left: 24%;
+            top: 25px;
+         }
+      }
+   }
 }
 
 .team-section {
-  padding: 100px 0;
-  background: url('@/assets/images/about/team_bg.png') no-repeat center center/cover #f8f8f8;
+   padding: 100px 0;
+   background: url("@/assets/images/about/team_bg.png") no-repeat center
+      center/cover #f8f8f8;
 
-  &-item {
-    margin-bottom: 40px;
-    padding: 0 12px;
-    text-align: center;
+   &-item {
+      margin-bottom: 40px;
+      padding: 0 12px;
+      text-align: center;
 
-    &-avatar {
-      filter: $dropCardShadow;
-      max-width: 400px;
-      margin: 0 auto;
-    }
+      &-avatar {
+         filter: $dropCardShadow;
+         max-width: 400px;
+         margin: 0 auto;
+      }
 
-    &-name {
-      font-size: 24px;
-      color: $darkTextColor;
-      margin: 18px 0 12px;
-    }
+      &-name {
+         font-size: 24px;
+         color: $darkTextColor;
+         margin: 18px 0 12px;
+      }
 
-    &-role {
-      font-size: 18px;
-      color: #9298a3;
-      text-transform: uppercase;
-    }
-  }
+      &-role {
+         font-size: 18px;
+         color: #9298a3;
+         text-transform: uppercase;
+      }
+   }
 }
 
 .contact-mail-section {
-  padding: 100px 0;
+   padding: 100px 0;
 }
 </style>
