@@ -1,0 +1,68 @@
+table ProductCategory {
+  Id int [pk]
+  Name string
+}
+
+table Product {
+  Id int [pk]
+  Name string
+  PriceOld string
+  PriceNew string
+  Rating int
+  ShortDescription string
+  Description string
+  CategoryId int [ref: > ProductCategory.Id]
+}
+
+table ProductReview {
+  Id int [pk]
+  Name string
+  Email string
+  Comment string
+  Rating int
+  ProductId int [ref: > Product.Id]
+}
+
+table Blog {
+  Id int [pk]
+  Title string
+  Author string
+  FeatureImage string
+  Description string
+  Content string
+}
+
+table Subsrcribe {
+  Id int [pk]
+  Email string
+}
+
+table Contact {
+  Id int [pk]
+  Fullname string
+  Email string
+  Subject string
+  Message string
+}
+
+table CouponCode {
+  Id int [pk]
+  Code string
+  Value int
+}
+
+table Order {
+  Id int [pk]
+  Firstname string
+  Lastname string
+  Country string
+  StreetAddress string
+  TownOrCity string
+  Phone string
+  Email string
+  Notes string
+  Products string // exp. [1, 2, 3, ...]
+  CouponId int [ref: > CouponCode.Id]
+  Subtotal string
+  Total string
+}

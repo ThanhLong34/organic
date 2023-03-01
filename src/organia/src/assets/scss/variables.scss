@@ -1,0 +1,25 @@
+// custom color
+$primaryColor: #62a403;
+$secondaryColor: #2e2e2e;
+$lightTextColor: white;
+$darkTextColor: #212121;
+// override colors
+$red: #ff0404;
+$gray: #9299a3;
+$bodyColor: #f2f2f2;
+
+// breakpointes responsive
+$maxMobile: 739px;
+$maxTablet: 1023px;
+$minPC: 1113px;
+
+// z-index
+$zIHeader: 999;
+$zIGoToTopBtn: 99;
+$zIMenuSidebar: 9999;
+$zILoader: 99999;
+$zIAlert: 1000;
+
+// shadow
+$cardShadow: -2px 4px 43px 0 rgb(0 0 0 / 6%);
+$dropCardShadow: drop-shadow(-2px 4px 43px rgba(0, 0, 0, 0.06));
