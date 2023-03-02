@@ -1,50 +1,50 @@
 <template>
-  <div class="blog-v1">
-    <div class="blog-v1-img">
-      <router-link
-        :to="{
-          name: 'blog_details',
-          params: {
-            blogId: 1,
-            blogTitle: 'blog-title',
-          },
-        }"
-      >
-        <img
-          :src="`${require(`@/assets/images/blog/${blog.image}`)}`"
-          alt="blog image"
-        />
-      </router-link>
-    </div>
-    <div class="blog-v1-txt">
-      <time class="blog-v1-time">
-        <i class="fa-solid fa-calendar-days"></i>
-        {{ blog.date }}
-      </time>
-      <h6 class="blog-v1-title">
-        <router-link
-          :to="{
-            name: 'blog_details',
-            params: {
-              blogId: 1,
-              blogTitle: 'blog-title',
-            },
-          }"
-        >
-          {{ blog.title }}
-        </router-link>
-      </h6>
-    </div>
-  </div>
+   <div class="blog-v1">
+      <div class="blog-v1-img">
+         <router-link
+            :to="{
+               name: 'blog_details',
+               params: {
+                  blogId: 1,
+                  blogTitle: 'blog-title',
+               },
+            }"
+         >
+            <img
+               :src="`${require(`@/assets/images/blog/${blog.image}`)}`"
+               alt="blog image"
+            />
+         </router-link>
+      </div>
+      <div class="blog-v1-txt">
+         <time class="blog-v1-time">
+            <i class="fa-solid fa-calendar-days"></i>
+            {{ blog.date }}
+         </time>
+         <h6 class="blog-v1-title">
+            <router-link
+               :to="{
+                  name: 'blog_details',
+                  params: {
+                     blogId: 1,
+                     blogTitle: 'blog-title',
+                  },
+               }"
+            >
+               {{ blog.title }}
+            </router-link>
+         </h6>
+      </div>
+   </div>
 </template>
 
 <script>
 /* eslint-disable */
 export default {
-  name: "BlogV1Component",
-  props: {
-    blog: Object,
-  },
+   name: "BlogV1Component",
+   props: {
+      blog: Object,
+   },
 };
 </script>
 
@@ -52,74 +52,74 @@ export default {
 @use "@/assets/scss/variables.scss" as *;
 
 .blog-v1 {
-  border-radius: 18px;
-  overflow: hidden;
-  cursor: pointer;
+   border-radius: 18px;
+   overflow: hidden;
+   cursor: pointer;
 
-  &:hover &-img {
-    &::before {
-      left: 0;
-      right: 0;
-      opacity: 0;
-      transition: all 400ms linear;
-    }
-  }
+   &:hover &-img {
+      &::before {
+         left: 0;
+         right: 0;
+         opacity: 0;
+         transition: all 400ms linear;
+      }
+   }
 
-  &:hover &-title a {
-    color: $primaryColor;
-  }
+   &:hover &-title a {
+      color: $primaryColor;
+   }
 
-  &-img {
-    position: relative;
-    overflow: hidden;
+   &-img {
+      position: relative;
+      overflow: hidden;
 
-    img {
-      aspect-ratio: 1 / 0.8;
-    }
+      img {
+         aspect-ratio: 1 / 0.8;
+      }
 
-    &::before {
-      background: rgba(255, 255, 255, 0.2);
-      bottom: 0;
-      content: "";
-      left: 50%;
-      position: absolute;
-      right: 51%;
-      top: 0;
-      opacity: 1;
-      pointer-events: none;
-      transition: all 400ms linear;
-    }
-  }
+      &::before {
+         background: rgba(255, 255, 255, 0.2);
+         bottom: 0;
+         content: "";
+         left: 50%;
+         position: absolute;
+         right: 51%;
+         top: 0;
+         opacity: 1;
+         pointer-events: none;
+         transition: all 400ms linear;
+      }
+   }
 
-  &-txt {
-    padding: 28px 24px;
-    background-color: #f9f9f9;
-  }
+   &-txt {
+      padding: 28px 24px;
+      background-color: #f9f9f9;
+   }
 
-  &-time {
-    display: block;
-    font-size: 14px;
-    color: $primaryColor;
-    margin-bottom: 15px;
-    text-transform: uppercase;
+   &-time {
+      display: block;
+      font-size: 14px;
+      color: $primaryColor;
+      margin-bottom: 15px;
+      text-transform: uppercase;
 
-    i {
-      margin-right: 5px;
-    }
-  }
+      i {
+         margin-right: 5px;
+      }
+   }
 
-  &-title {
-    a {
-      font-size: 22px;
-      line-height: 1.2;
-      color: $darkTextColor;
-      font-weight: 500;
-      transition: color ease 0.5s;
-    }
-  }
+   &-title {
+      a {
+         font-size: 22px;
+         line-height: 1.2;
+         color: $darkTextColor;
+         font-weight: 500;
+         transition: color ease 0.5s;
+      }
+   }
 
-  @media (max-width: $maxTablet) {
-    margin-bottom: 60px;
-  }
+   @media (max-width: $maxTablet) {
+      margin-bottom: 60px;
+   }
 }
 </style>
