@@ -78,7 +78,7 @@
                            Bổ sung <span>dinh dưỡng</span>
                         </h5>
                         <p class="icon-section-item-desc">
-                           Dinh dưỡng tươi hoàn toàn từ thiên nhiên.
+                           Dinh dưỡng tươi hoàn toàn tự nhiên.
                         </p>
                         <div class="icon-section-item-btn-wrap">
                            <button-v-1>Đọc thêm</button-v-1>
@@ -186,10 +186,10 @@
                            />
                         </div>
                         <h5 class="icon-section-item-heading">
-                           100% <span>từ thiên nhiên</span>
+                           100% <span>tự nhiên</span>
                         </h5>
                         <p class="icon-section-item-desc">
-                           Sản phẩm hoàn toàn được trồng và nuôi từ thiên nhiên
+                           Sản phẩm hoàn toàn được trồng và nuôi tự nhiên
                         </p>
                         <div class="icon-section-item-btn-wrap">
                            <button-v-1>Đọc thêm</button-v-1>
@@ -228,7 +228,7 @@
                         <ul class="about-section-feature-list">
                            <li class="about-section-feature-item">
                               <i class="fa-solid fa-circle-check"></i>
-                              Sản phẩm từ thiên nhiên
+                              Sản phẩm tự nhiên
                            </li>
                            <li class="about-section-feature-item">
                               <i class="fa-solid fa-circle-check"></i>
@@ -263,6 +263,9 @@
                            <div class="offer-section-timeout-title">
                               NHẬN ƯU ĐÃI NGAY
                            </div>
+                           <p class="offer-section-timeout-end-title">
+                              Kết thúc sau
+                           </p>
                            <ul class="offer-section-timeout-list">
                               <li class="offer-section-timeout-item">
                                  <div class="offer-section-timeout-item-time">
@@ -315,7 +318,7 @@
                   <div class="col l-12 m-12 s-12">
                      <heading-section>
                         <template #prefix>Bổ sung</template>
-                        <template #strong> dinh dưỡng</template>
+                        <template #strong> Dinh dưỡng</template>
                      </heading-section>
                   </div>
                   <div class="col l-5 m-12 s-12">
@@ -501,7 +504,7 @@
                   <div class="col l-12 m-12 s-12">
                      <heading-section>
                         <template #prefix>Hàng</template>
-                        <template #strong> mới về</template>
+                        <template #strong> Mới về</template>
                      </heading-section>
                   </div>
                   <div
@@ -536,8 +539,8 @@
                   <div class="col l-6 m-12 s-12">
                      <div class="blog-section-txt">
                         <heading-section>
-                           <template #strong>Chất lượng </template>
-                           <template #default> tốt nhất</template>
+                           <template #prefix>Chất lượng </template>
+                           <template #strong>Cao</template>
                         </heading-section>
                         <p class="blog-section-para">
                            Hãy cùng chúng tôi xây dựng một bầu khí quyển trong
@@ -1053,6 +1056,10 @@ export default {
          color: $primaryColor;
          font-weight: bold;
          font-size: 20px;
+      }
+
+      &-end-title {
+         margin-top: 12px;
       }
 
       &-list {

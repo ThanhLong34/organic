@@ -1,6 +1,6 @@
 <template>
    <div class="about">
-      <TopPage :currentPage="'About Us'" />
+      <TopPage :currentPage="'Giới thiệu'" />
 
       <div class="about-content">
          <!-- about -->
@@ -18,30 +18,33 @@
                   <div class="col l-6 m-6 s-12">
                      <div class="about-section-txt">
                         <div class="section-title">
-                           <p>Only organic</p>
-                           <h5>The best choice for your business</h5>
+                           <p>THỰC PHẨM HỮU CƠ</p>
+                           <h5>Sự lựa chọn tuyệt vời cho sức khỏe của bạn</h5>
                         </div>
                         <p class="about-section-para">
-                           Sumptuous, filling, and temptingly healthy, our Biona
-                           Organic Granola with Wild Berries is just the thing
-                           to get you out of bed.
+                           Thực phẩm hữu cơ là thực phẩm được sản xuất theo
+                           phương pháp tuân thủ các tiêu chuẩn của canh tác hữu
+                           cơ. Các tiêu chuẩn khác nhau trên toàn thế giới,
+                           nhưng canh tác hữu cơ có các thực hành xoay vòng các
+                           nguồn lực, thúc đẩy cân bằng sinh thái và bảo tồn đa
+                           dạng sinh học.
                         </p>
                         <ul class="about-section-feature-list">
                            <li class="about-section-feature-item">
                               <i class="fa-solid fa-circle-check"></i>
-                              100% Natural
+                              100% tự nhiên
                            </li>
                            <li class="about-section-feature-item">
                               <i class="fa-solid fa-circle-check"></i>
-                              Increases resistance
+                              Tăng sức đề kháng
                            </li>
                            <li class="about-section-feature-item">
                               <i class="fa-solid fa-circle-check"></i>
-                              No growth hormones are used
+                              Không sử dụng Hormone tăng trưởng
                            </li>
                         </ul>
                         <button-v-2>
-                           Shop Now
+                           Cửa hàng
                            <i class="fa-solid fa-arrow-right"></i>
                         </button-v-2>
                      </div>
@@ -55,8 +58,8 @@
                <div class="row">
                   <div class="col l-12 m-12 s-12">
                      <div class="section-title">
-                        <p>Only organic</p>
-                        <h5>What We Offer for You</h5>
+                        <p>Thực phẩm hữu cơ</p>
+                        <h5>Những gì chúng tôi cung cấp cho bạn</h5>
                      </div>
                   </div>
                   <div class="col l-3 m-6 s-6">
@@ -66,7 +69,7 @@
                            backgroundImage: `url(${require('@/assets/images/about/category_1.png')})`,
                         }"
                      >
-                        <p class="category-section-item-name">Vegetables</p>
+                        <p class="category-section-item-name">Rau củ</p>
                      </div>
                   </div>
                   <div class="col l-3 m-6 s-6">
@@ -76,7 +79,7 @@
                            backgroundImage: `url(${require('@/assets/images/about/category_2.png')})`,
                         }"
                      >
-                        <p class="category-section-item-name">Fresh Fruits</p>
+                        <p class="category-section-item-name">Trái cây tươi</p>
                      </div>
                   </div>
                   <div class="col l-3 m-6 s-6">
@@ -86,7 +89,7 @@
                            backgroundImage: `url(${require('@/assets/images/about/category_3.png')})`,
                         }"
                      >
-                        <p class="category-section-item-name">Spices</p>
+                        <p class="category-section-item-name">Gia vị</p>
                      </div>
                   </div>
                   <div class="col l-3 m-6 s-6">
@@ -96,7 +99,7 @@
                            backgroundImage: `url(${require('@/assets/images/about/category_4.png')})`,
                         }"
                      >
-                        <p class="category-section-item-name">Dried Food</p>
+                        <p class="category-section-item-name">Thực phẩm khô</p>
                      </div>
                   </div>
                </div>
@@ -108,11 +111,13 @@
                <div class="row">
                   <div class="col l-12 m-12 s-12">
                      <div class="solution-section-content">
-                        <p class="solution-section-ques">HOW CAN WE HELP ?</p>
+                        <p class="solution-section-ques">
+                           BẠN CẦN GIÚP ĐIỀU GÌ KHÔNG?
+                        </p>
                         <h5 class="solution-section-heading">
-                           Awesome Solutions
+                           Giải đáp thắc mắc
                            <br />
-                           <span>100% Success</span>
+                           <span>100% thành công</span>
                         </h5>
                      </div>
                   </div>
@@ -138,8 +143,10 @@
                   <div class="col l-6 m-6 s-12">
                      <div class="offer-section-txt">
                         <div class="section-title">
-                           <p>ORGANIC 100% GENUINE PRODUCT SERVED</p>
-                           <h5>Organic Quality and Perfomance</h5>
+                           <p>THỰC PHẨM HỮU CƠ 100% CHÍNH HÃNG</p>
+                           <h5>
+                              Luôn đem đến chất lượng tốt nhất tới khách hàng
+                           </h5>
                         </div>
                         <ul class="offer-section-feature-list">
                            <li class="offer-section-feature-item">
@@ -151,12 +158,11 @@
                               </div>
                               <div class="offer-section-feature-item-txt">
                                  <h6 class="offer-section-feature-item-heading">
-                                    100% Payment Secure
+                                    100% thanh toán an toàn
                                  </h6>
                                  <p class="offer-section-feature-item-para">
-                                    Apparently we had reached a great height in
-                                    the atmosphere, for the sky was a dead
-                                    black.
+                                    Chúng tôi đảm bảo an toàn tuyệt đối việc
+                                    thanh toán của bạn.
                                  </p>
                               </div>
                            </li>
@@ -169,12 +175,12 @@
                               </div>
                               <div class="offer-section-feature-item-txt">
                                  <h6 class="offer-section-feature-item-heading">
-                                    Completly 100% Fresh
+                                    Sản phẩm hoàn toàn tươi mới
                                  </h6>
                                  <p class="offer-section-feature-item-para">
-                                    Apparently we had reached a great height in
-                                    the atmosphere, for the sky was a dead
-                                    black.
+                                    Tất cả sản phẩm của chúng tôi đã được kiểm
+                                    nghiệm chặt chẽ và an toàn đến người tiêu
+                                    dùng.
                                  </p>
                               </div>
                            </li>
@@ -187,12 +193,13 @@
                               </div>
                               <div class="offer-section-feature-item-txt">
                                  <h6 class="offer-section-feature-item-heading">
-                                    Skip or Cancel Anytime
+                                    Bỏ hoặc hủy bất cứ lúc nào sản phẩm bị hư
+                                    hại
                                  </h6>
                                  <p class="offer-section-feature-item-para">
-                                    Apparently we had reached a great height in
-                                    the atmosphere, for the sky was a dead
-                                    black.
+                                    Chúng tôi sẵn sàng bỏ hoặc hủy những sản
+                                    phẩm đã bị hư hại. Vì sự an toàn của người
+                                    dùng.
                                  </p>
                               </div>
                            </li>
@@ -208,56 +215,56 @@
                <div class="row">
                   <div class="col l-12 m-12 s-12">
                      <div class="section-title">
-                        <p>NATURE ONLY</p>
-                        <h5>Awesome Team Member</h5>
+                        <p>ĐỘI NGŨ CHUYÊN GIA</p>
+                        <h5>Thành viên xuất sắc</h5>
                      </div>
                   </div>
                   <div class="col l-3 m-6 s-12">
                      <div class="team-section-item">
                         <div class="team-section-item-avatar">
                            <img
-                              src="@/assets/images/about/avt_1.png"
+                              src="@/assets/images/about/huerose.png"
                               alt="avatar"
                            />
                         </div>
-                        <h6 class="team-section-item-name">Anna Harrison</h6>
-                        <p class="team-section-item-role">CO-FOUNDER</p>
+                        <h6 class="team-section-item-name">Huế Rose</h6>
+                        <p class="team-section-item-role">TESTER</p>
                      </div>
                   </div>
                   <div class="col l-3 m-6 s-12">
                      <div class="team-section-item">
                         <div class="team-section-item-avatar">
                            <img
-                              src="@/assets/images/about/avt_2.png"
+                              src="@/assets/images/about/ngocanh.png"
                               alt="avatar"
                            />
                         </div>
-                        <h6 class="team-section-item-name">Sherri Horton</h6>
-                        <p class="team-section-item-role">FARMER</p>
+                        <h6 class="team-section-item-name">Ngọc Ánh</h6>
+                        <p class="team-section-item-role">FRONTEND-DEV</p>
                      </div>
                   </div>
                   <div class="col l-3 m-6 s-12">
                      <div class="team-section-item">
                         <div class="team-section-item-avatar">
                            <img
-                              src="@/assets/images/about/avt_3.png"
+                              src="@/assets/images/about/dunlok.png"
                               alt="avatar"
                            />
                         </div>
-                        <h6 class="team-section-item-name">Sinira Fro</h6>
-                        <p class="team-section-item-role">MANAGING DIRECTOR</p>
+                        <h6 class="team-section-item-name">Dun Lok</h6>
+                        <p class="team-section-item-role">FULLSTACK-DEV</p>
                      </div>
                   </div>
                   <div class="col l-3 m-6 s-12">
                      <div class="team-section-item">
                         <div class="team-section-item-avatar">
                            <img
-                              src="@/assets/images/about/avt_4.png"
+                              src="@/assets/images/about/sonsoixam.png"
                               alt="avatar"
                            />
                         </div>
-                        <h6 class="team-section-item-name">Aliesha Preston</h6>
-                        <p class="team-section-item-role">FOUNDER</p>
+                        <h6 class="team-section-item-name">Sơn Sói Xám</h6>
+                        <p class="team-section-item-role">DESIGNER</p>
                      </div>
                   </div>
                </div>
@@ -668,7 +675,7 @@ export default {
 }
 
 .team-section {
-   padding: 100px 0;
+   padding: 100px 0 60px;
    background: url("@/assets/images/about/team_bg.png") no-repeat center
       center/cover #f8f8f8;
 
@@ -681,6 +688,10 @@ export default {
          filter: $dropCardShadow;
          max-width: 400px;
          margin: 0 auto;
+
+         img {
+            border-radius: 50%;
+         }
       }
 
       &-name {

@@ -198,6 +198,13 @@ export default {
    /* user-select: none; */
 }
 
+* {
+   &::selection {
+      color: white;
+      background-color: $primaryColor;
+   }
+}
+
 body {
    &::-webkit-scrollbar {
       width: 5px;

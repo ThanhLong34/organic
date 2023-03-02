@@ -9,7 +9,7 @@
                   alt="logo"
                />
             </div>
-            <div class="col l-7 m-9 s-0">
+            <div class="col l-7 m-9 s-12">
                <div class="search">
                   <input
                      class="search-input"
@@ -100,9 +100,9 @@ export default {
       color: $primaryColor;
       position: absolute;
       top: 50%;
-      right: 4px;
-      transform: translateY(-50%);
-      font-size: 16px;
+      right: 8px;
+      transform: translateY(-55%);
+      font-size: 20px;
       width: 35px;
       height: 35px;
       border-radius: 50%;
@@ -112,13 +112,21 @@ export default {
 
       &:hover {
          cursor: pointer;
-         color: white;
-         background-color: $primaryColor;
+         color: $secondaryColor;
       }
    }
 
    @media (max-width: $maxTablet) {
       margin: 0 0 0 20px;
+   }
+
+   @media (max-width: $maxMobile) {
+      margin: 10px 0 0 0;
+      width: 100%;
+
+      &-input {
+         font-size: 14px;
+      }
    }
 }
 

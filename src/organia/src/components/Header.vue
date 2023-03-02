@@ -352,12 +352,12 @@ export default {
    }
 
    &-number {
+      width: 20px;
+      height: 20px;
       position: absolute;
       bottom: 70%;
       left: 68%;
-      padding: 6px 0 5px 0;
       border-radius: 50%;
-      min-width: 25px;
       font-size: 14px;
       background: black;
       display: flex;

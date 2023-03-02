@@ -12,7 +12,7 @@
                         <div class="address-item-txt">
                            <p class="address-item-label">Email</p>
                            <p class="address-item-value">
-                              thanhlongedu0304@gmail.com
+                              dragondevshop@gmail.com
                            </p>
                         </div>
                      </div>
@@ -21,7 +21,7 @@
                            <i class="fa-solid fa-phone-volume"></i>
                         </div>
                         <div class="address-item-txt">
-                           <p class="address-item-label">SĐT</p>
+                           <p class="address-item-label">Số điện thoại</p>
                            <p class="address-item-value">035 329 2241</p>
                         </div>
                      </div>
@@ -111,7 +111,7 @@
             </div>
          </div>
          <div class="footer-bottom">
-            <p>© Copyright 2023 by <span>DragonDev</span></p>
+            <p>© 2023 Made by <span>DragonDev</span></p>
             <div class="footer-bottom-payment-img">
                <img src="@/assets/images/payment.png" alt="payment image" />
             </div>
