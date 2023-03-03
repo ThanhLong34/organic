@@ -259,4 +259,19 @@ body {
       font-weight: bold;
    }
 }
+
+/* Override Swiper navigation */
+.swiper-button-next,
+.swiper-button-prev {
+   width: 30px !important;
+   height: 30px !important;
+   border-radius: 50% !important;
+   color: white !important;
+   background-image: linear-gradient(360deg, #92c64e, #4baf50) !important;
+   box-shadow: 0 1px 12px rgb(0 0 0 / 25%);
+   &::after {
+      font-size: 12px !important;
+      font-weight: bold !important;
+   }
+}
 </style>
