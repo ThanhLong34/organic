@@ -117,7 +117,7 @@ export default {
    }
 
    &-content {
-      padding: 100px 0 10px;
+      padding: 100px 0 40px;
       color: $darkTextColor;
    }
 
@@ -194,7 +194,6 @@ export default {
 
    .button-v2 {
       display: block;
-      margin-top: 30px;
       height: 65px;
       line-height: 65px;
    }

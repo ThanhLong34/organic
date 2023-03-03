@@ -1,68 +1,169 @@
+table SystemMenu {
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  title varchar(255)
+  icon varchar(255)
+  routeName varchar(255)
+  isBase boolean
+}
+
+table SystemFunction {
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  api varchar(255)
+  description varchar(1000)
+  method varchar(255)
+}
+
+table SystemRole {
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  name varchar(255)
+}
+
+table SystemRoleMenu {
+  systemRoleId int [ref: > SystemRole.id]
+  systemMenuId int [ref: > SystemMenu.id]
+}
+
+table SystemRoleFunction {
+  systemRoleId int [ref: > SystemRole.id]
+  systemFunctionId int [ref: > SystemFunction.id]
+}
+
+table SystemAdmin {
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  username varchar(255)
+  password varchar(255)
+  nickname varchar(255)
+  avatar varchar(255)
+  systemRoleId int [ref: > SystemRole.id]
+}
+
 table ProductCategory {
-  Id int [pk]
-  Name string
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  name varchar(255)
+  featureImage varchar(255)
+}
+
+table Image {
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  link varchar(255)
+  filename varchar(255)
+  size int
 }
 
 table Product {
-  Id int [pk]
-  Name string
-  PriceOld string
-  PriceNew string
-  Rating int
-  ShortDescription string
-  Description string
-  CategoryId int [ref: > ProductCategory.Id]
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  featureImage varchar(255)
+  name varchar(255)
+  originPrice int
+  promotionPrice int
+  rating tinyint
+  shortDescription varchar(1000)
+  description text
+  isSpecial boolean
+  isNew boolean
+  isBestOffer boolean
+  productCategoryId int [ref: > ProductCategory.id]
+}
+
+table ProductImage {
+  productId int [ref: > Product.id]
+  imageId int [ref: > Image.id]
 }
 
 table ProductReview {
-  Id int [pk]
-  Name string
-  Email string
-  Comment string
-  Rating int
-  ProductId int [ref: > Product.Id]
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  fullname varchar(255)
+  email varchar(255)
+  comment varchar(1000)
+  rating tinyint
+  productId int [ref: > Product.id]
 }
 
 table Blog {
-  Id int [pk]
-  Title string
-  Author string
-  FeatureImage string
-  Description string
-  Content string
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  featureImage varchar(255)
+  title varchar(255)
+  description varchar(1000)
+  content text
+  adminId int [ref: > SystemAdmin.id]
 }
 
-table Subsrcribe {
-  Id int [pk]
-  Email string
+table Subscribe {
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  email varchar(255)
 }
 
 table Contact {
-  Id int [pk]
-  Fullname string
-  Email string
-  Subject string
-  Message string
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  fullname varchar(255)
+  email varchar(255)
+  subject varchar(255)
+  message varchar(1000)
 }
 
 table CouponCode {
-  Id int [pk]
-  Code string
-  Value int
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  code varchar(255)
+  applyToEmail varchar(255)
+  percentValue int
+  isUsed boolean
 }
 
 table Order {
-  Id int [pk]
-  Firstname string
-  Lastname string
-  Country string
-  StreetAddress string
-  TownOrCity string
-  Phone string
-  Email string
-  Notes string
-  Products string // exp. [1, 2, 3, ...]
-  CouponId int [ref: > CouponCode.Id]
-  Subtotal string
-  Total string
+  id int [pk]
+  createdAt timestamp
+  updatedAt timestamp
+  deletedAt timestamp
+  firstname varchar(255)
+  lastname varchar(255)
+  streetAddress varchar(255)
+  city varchar(255)
+  phone varchar(255)
+  email varchar(255)
+  notes varchar(255)
+  couponId int [ref: > CouponCode.id]
+  deliveryCost int
+  totalCost int
+  paymentCost int
+}
+
+table ProductOrder {
+  productId int [ref: > Product.id]
+  orderId int [ref: > Order.id]
 }

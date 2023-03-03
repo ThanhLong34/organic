@@ -10,7 +10,7 @@
                      LỚN &amp; GIẢM GIÁ
                   </p>
                   <p class="contact-mail-para">
-                     Đăng ký để nhận phiếu giảm giá cho đơn hàng từ 150.000đ
+                     Đăng ký để nhận mã giảm giá -30%
                   </p>
                </div>
             </div>
@@ -49,7 +49,7 @@ export default {
       const isShowToastMessage = ref(false);
       const buttonSend = ref(null);
       const propsToastMessage = {
-         message: "Send mail success",
+         message: "Xem mã giảm giá trong email của bạn",
          type: "success",
          secondDisplayNone: 1200,
          secondHideEffect: 4000,

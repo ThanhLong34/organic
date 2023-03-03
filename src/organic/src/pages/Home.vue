@@ -371,7 +371,7 @@
                                     160.000đ
                                  </div>
                                  <h5 class="slider-section-product-name">
-                                    <strong>Bơ</strong> hữu cơ
+                                    <strong>Bơ</strong> tươi
                                  </h5>
                                  <p class="slider-section-product-desc">
                                     Luôn luôn tươi ngon
@@ -404,7 +404,7 @@
                                     160.000đ
                                  </div>
                                  <h5 class="slider-section-product-name">
-                                    <strong>Bắp cải</strong> hữu cơ
+                                    <strong>Bắp cải</strong> tươi
                                  </h5>
                                  <p class="slider-section-product-desc">
                                     Luôn luôn tươi ngon
@@ -437,7 +437,7 @@
                                     160.000đ
                                  </div>
                                  <h5 class="slider-section-product-name">
-                                    <strong>Hành củ</strong> hữu cơ
+                                    <strong>Hành củ</strong> tươi
                                  </h5>
                                  <p class="slider-section-product-desc">
                                     Luôn luôn tươi ngon

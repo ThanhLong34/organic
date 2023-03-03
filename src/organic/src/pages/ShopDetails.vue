@@ -1,7 +1,6 @@
 <template>
    <div class="shop-details">
       <TopPage :currentPage="'Chi tiết sản phẩm'" />
-
       <div class="shop-details-content">
          <div class="shop-details-product">
             <div class="grid wide">
@@ -9,10 +8,37 @@
                   <div class="col l-6 m-12 s-12">
                      <!-- product image -->
                      <div class="shop-details-product-img">
-                        <img
-                           src="@/assets/images/shop_details/exp.png"
-                           alt="product image"
-                        />
+                        <div>
+                           <!-- <img
+                              src="@/assets/images/shop_details/exp.png"
+                              alt="product image"
+                           /> -->
+                           <swiper
+                              :modules="[Thumbs, Navigation]"
+                              :thumbs="{ swiper: thumbsSwiper }"
+                              watch-slides-progress
+                              navigation
+                           >
+                              <swiper-slide>
+                                 <img
+                                    src="@/assets/images/shop_details/exp.png"
+                                    alt="product image"
+                                 />
+                              </swiper-slide>
+                              <swiper-slide>
+                                 <img
+                                    src="@/assets/images/shop_details/exp.png"
+                                    alt="product image"
+                                 />
+                              </swiper-slide>
+                              <swiper-slide>
+                                 <img
+                                    src="@/assets/images/shop_details/exp.png"
+                                    alt="product image"
+                                 />
+                              </swiper-slide>
+                           </swiper>
+                        </div>
                         <button-icon>
                            <i class="fa-regular fa-heart"></i>
                         </button-icon>
@@ -184,7 +210,7 @@ import ProductV2 from "@/components/ProductV2.vue";
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 // import required modules
-import { Autoplay } from "swiper";
+import { Autoplay, Thumbs, Navigation } from "swiper";
 //#endregion
 
 import { ref, reactive, onMounted } from "vue";
@@ -207,6 +233,11 @@ export default {
       });
       const tab = ref("description");
       const modulesSwiper = [Autoplay];
+
+      const thumbsSwiper = ref(null);
+      const setThumbsSwiper = (swiper) => {
+         thumbsSwiper.value = swiper;
+      };
 
       const productsRelated = reactive([
          {
@@ -270,6 +301,10 @@ export default {
          handleSubQuantity,
          handleAddQuantity,
          productsRelated,
+         Navigation,
+         Thumbs,
+         thumbsSwiper,
+         setThumbsSwiper,
       };
    },
 };
@@ -283,6 +318,7 @@ export default {
 
    &-img {
       position: relative;
+      user-select: none;
       .button-icon {
          position: absolute;
          top: 0;

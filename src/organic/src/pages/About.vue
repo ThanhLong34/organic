@@ -263,7 +263,7 @@
                               alt="avatar"
                            />
                         </div>
-                        <h6 class="team-section-item-name">Sơn Sói Xám</h6>
+                        <h6 class="team-section-item-name">Phạm Sơn</h6>
                         <p class="team-section-item-role">DESIGNER</p>
                      </div>
                   </div>
