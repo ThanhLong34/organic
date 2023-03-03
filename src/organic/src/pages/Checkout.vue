@@ -7,16 +7,9 @@
             <div class="row">
                <div class="col l-7 m-5 s-12">
                   <div class="checkout-billing">
-                     <h6 class="checkout-title">Chi tiết đơn hàng</h6>
+                     <h6 class="checkout-title">Thông tin đơn hàng</h6>
                      <div class="checkout-billing-form">
-                        <div class="row">
-                           <div class="col l-6 m-12 s-12">
-                              <InputV2 label="Tên của bạn" :required="true" />
-                           </div>
-                           <div class="col l-6 m-12 s-12">
-                              <InputV2 label="Họ và tên lót" :required="true" />
-                           </div>
-                        </div>
+                        <InputV2 label="Họ và tên" :required="true" />
                         <InputV2 label="Địa chỉ nhà" :required="true" />
                         <InputV2 label="Thành phố" :required="true" />
                         <InputV2 label="Số điện thoại" :required="true" />
@@ -27,7 +20,7 @@
                </div>
                <div class="col l-5 m-7 s-12">
                   <div class="checkout-order">
-                     <h6 class="checkout-title">Đơn hàng của bạn</h6>
+                     <h6 class="checkout-title">Chi tiết đơn hàng</h6>
                      <OrderDetails />
                      <router-link :to="{ name: 'checkout_success' }">
                         <button-v-5 class="checkout-order-btn"

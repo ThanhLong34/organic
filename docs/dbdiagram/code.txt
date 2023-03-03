@@ -1,169 +1,165 @@
 table SystemMenu {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  title varchar(255)
-  icon varchar(255)
-  routeName varchar(255)
-  isBase boolean
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  routeName varchar(255) [not null, unique]
+  isBase boolean [default: 0]
 }
 
 table SystemFunction {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
   api varchar(255)
   description varchar(1000)
   method varchar(255)
 }
 
 table SystemRole {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  name varchar(255)
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  name varchar(255) [not null, unique]
 }
 
 table SystemRoleMenu {
-  systemRoleId int [ref: > SystemRole.id]
-  systemMenuId int [ref: > SystemMenu.id]
+  systemRoleId int [ref: > SystemRole.id, not null]
+  systemMenuId int [ref: > SystemMenu.id, not null]
 }
 
 table SystemRoleFunction {
-  systemRoleId int [ref: > SystemRole.id]
-  systemFunctionId int [ref: > SystemFunction.id]
+  systemRoleId int [ref: > SystemRole.id, not null]
+  systemFunctionId int [ref: > SystemFunction.id, not null]
 }
 
 table SystemAdmin {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  username varchar(255)
-  password varchar(255)
-  nickname varchar(255)
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  username varchar(255) [not null, unique]
+  password varchar(255) [not null]
+  nickname varchar(255) [not null]
   avatar varchar(255)
-  systemRoleId int [ref: > SystemRole.id]
+  systemRoleId int [ref: > SystemRole.id, not null]
 }
 
 table ProductCategory {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  name varchar(255)
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  name varchar(255) [not null, unique]
   featureImage varchar(255)
 }
 
 table Image {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  link varchar(255)
-  filename varchar(255)
-  size int
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  link varchar(255) [not null, unique]
+  filename varchar(255) [not null, unique]
+  size int [default: 0]
 }
 
 table Product {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
   featureImage varchar(255)
-  name varchar(255)
-  originPrice int
-  promotionPrice int
-  rating tinyint
+  name varchar(255) [not null, unique]
+  originPrice int [default: 0]
+  promotionPrice int [default: 0]
   shortDescription varchar(1000)
   description text
-  isSpecial boolean
-  isNew boolean
-  isBestOffer boolean
-  productCategoryId int [ref: > ProductCategory.id]
+  isSpecial boolean [default: 0]
+  isNew boolean [default: 0]
+  isBestOffer boolean [default: 0]
+  productCategoryId int [ref: > ProductCategory.id, not null]
 }
 
 table ProductImage {
-  productId int [ref: > Product.id]
-  imageId int [ref: > Image.id]
+  productId int [ref: > Product.id, not null]
+  imageId int [ref: > Image.id, not null]
 }
 
 table ProductReview {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  fullname varchar(255)
-  email varchar(255)
-  comment varchar(1000)
-  rating tinyint
-  productId int [ref: > Product.id]
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  fullname varchar(255) [not null]
+  email varchar(255) [not null]
+  comment varchar(1000) [not null]
+  rating tinyint [not null]
+  productId int [ref: > Product.id, not null]
 }
 
 table Blog {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
   featureImage varchar(255)
-  title varchar(255)
+  title varchar(255) [not null, unique]
   description varchar(1000)
   content text
-  adminId int [ref: > SystemAdmin.id]
+  adminId int [ref: > SystemAdmin.id, not null]
 }
 
 table Subscribe {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  email varchar(255)
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  email varchar(255) [not null, unique]
 }
 
 table Contact {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  fullname varchar(255)
-  email varchar(255)
-  subject varchar(255)
-  message varchar(1000)
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  fullname varchar(255) [not null]
+  email varchar(255) [not null]
+  subject varchar(255) [not null]
+  message varchar(1000) [not null]
 }
 
 table CouponCode {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  code varchar(255)
-  applyToEmail varchar(255)
-  percentValue int
-  isUsed boolean
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  code varchar(255) [not null, unique]
+  applyToEmail varchar(255) [not null]
+  percentValue int [default: 0]
+  isUsed boolean [default: 0]
 }
 
 table Order {
-  id int [pk]
-  createdAt timestamp
-  updatedAt timestamp
-  deletedAt timestamp
-  firstname varchar(255)
-  lastname varchar(255)
-  streetAddress varchar(255)
-  city varchar(255)
-  phone varchar(255)
-  email varchar(255)
+  id int [pk, increment]
+  createdAt varchar(255)
+  updatedAt varchar(255)
+  deletedAt varchar(255)
+  fullname varchar(255) [not null]
+  streetAddress varchar(255) [not null]
+  city varchar(255) [not null]
+  phone varchar(255) [not null]
+  email varchar(255) [not null]
   notes varchar(255)
-  couponId int [ref: > CouponCode.id]
-  deliveryCost int
-  totalCost int
-  paymentCost int
+  couponCodeId int [ref: > CouponCode.id]
+  deliveryCost int [default: 0]
+  totalCost int [default: 0]
+  paymentCost int [default: 0]
 }
 
 table ProductOrder {
-  productId int [ref: > Product.id]
-  orderId int [ref: > Order.id]
+  productId int [ref: > Product.id, not null]
+  orderId int [ref: > Order.id, not null]
 }

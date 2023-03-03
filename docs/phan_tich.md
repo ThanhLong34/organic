@@ -42,10 +42,10 @@
 
 -  Sản phẩm:
 
-   -  Tên phải phân biệt để tránh trùng router
+   -  Tên phải phân biệt để tránh trùng tên route
    -  Chỉ có danh mục
    -  Thông tin sản phẩm (không chứa hình ảnh)
-   -  Đánh giá của khách hàng (chỉ được phép đánh giá khi SĐT của khách có mua sản phẩm này)
+   -  Đánh giá của khách hàng (chỉ được phép đánh giá khi email của khách có mua sản phẩm này)
 
 -  Bài viết:
 
