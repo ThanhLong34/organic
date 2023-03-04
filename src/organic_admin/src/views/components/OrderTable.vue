@@ -13,51 +13,27 @@
                <thead>
                   <tr>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                      >
                         Tên đăng nhập
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Mã đơn hàng
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Tổng tiền (VND)
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Tạo lúc
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Trạng thái
                      </th>
@@ -79,7 +55,12 @@
                      </td>
                      <td>
                         <p class="text-sm font-weight-bold mb-0">
-                           {{ item.total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}
+                           {{
+                              item.total.toLocaleString("it-IT", {
+                                 style: "currency",
+                                 currency: "VND",
+                              })
+                           }}
                         </p>
                      </td>
                      <td>
@@ -96,11 +77,14 @@
                               'bg-gradient-warning': item.status == 2,
                            }"
                         >
-                           {{ 
-                              item.status == 0 ? 'Đang chờ duyệt' :
-                              item.status == 1 ? 'Đã duyệt' :
-                              item.status == 2 ? 'Đã từ chối' :
-                              'Không biết'
+                           {{
+                              item.status == 0
+                                 ? "Đang chờ duyệt"
+                                 : item.status == 1
+                                 ? "Đã duyệt"
+                                 : item.status == 2
+                                 ? "Đã từ chối"
+                                 : "Không biết"
                            }}
                         </span>
                      </td>
@@ -111,10 +95,7 @@
                               href="javascript:;"
                               @click="openOrderDetailsDialog(item.id)"
                            >
-                              <i
-                                 class="fas fa-eye me-2"
-                                 aria-hidden="true"
-                              ></i
+                              <i class="fas fa-eye me-2" aria-hidden="true"></i
                               >Xem
                            </a>
                            <el-popconfirm
@@ -125,12 +106,7 @@
                            >
                               <template #reference>
                                  <a
-                                    class="
-                                       btn btn-link
-                                       text-danger text-gradient
-                                       px-2
-                                       mb-0
-                                    "
+                                    class="btn btn-link text-danger text-gradient px-2 mb-0"
                                     href="javascript:;"
                                  >
                                     <i
@@ -166,7 +142,12 @@
                <argon-pagination-item next @click="nextPage" />
             </argon-pagination>
             <div class="table-statistics">
-               <span class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ limit }} kết quả trên 1 trang (Tổng <span class="text-dark">{{ totalItem }}</span>)</span>
+               <span
+                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >{{ limit }} kết quả trên 1 trang (Tổng
+                  <span class="text-dark">{{ totalItem }}</span
+                  >)</span
+               >
             </div>
          </div>
          <!-- Dialog table -->
@@ -313,7 +294,7 @@ export default {
          this.getTableData();
       },
       deleteItem(id) {
-         return API.deleteByID(
+         return API.deleteById(
             apiPath + "/order/trash.php",
             id,
             (data) => {
@@ -346,7 +327,7 @@ export default {
       closeOrderDetailsDialog() {
          this.dialogDetails.visible = false;
          this.reload();
-      }
+      },
    },
    created() {
       this.currentPage = 1;

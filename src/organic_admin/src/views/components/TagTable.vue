@@ -23,11 +23,7 @@
                <thead>
                   <tr>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                      >
                         Tên thẻ
                      </th>
@@ -63,12 +59,7 @@
                            >
                               <template #reference>
                                  <a
-                                    class="
-                                       btn btn-link
-                                       text-danger text-gradient
-                                       px-2
-                                       mb-0
-                                    "
+                                    class="btn btn-link text-danger text-gradient px-2 mb-0"
                                     href="javascript:;"
                                  >
                                     <i
@@ -104,7 +95,12 @@
                <argon-pagination-item next @click="nextPage" />
             </argon-pagination>
             <div class="table-statistics">
-               <span class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ limit }} kết quả trên 1 trang (Tổng <span class="text-dark">{{ totalItem }}</span>)</span>
+               <span
+                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >{{ limit }} kết quả trên 1 trang (Tổng
+                  <span class="text-dark">{{ totalItem }}</span
+                  >)</span
+               >
             </div>
          </div>
       </div>
@@ -235,7 +231,7 @@ export default {
          this.getTableData();
       },
       deleteItem(id) {
-         return API.deleteByID(
+         return API.deleteById(
             apiPath + "/tag/trash.php",
             id,
             (data) => {

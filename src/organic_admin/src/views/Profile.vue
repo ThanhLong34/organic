@@ -18,30 +18,23 @@
                   <div class="col-auto">
                      <div class="avatar avatar-xl position-relative">
                         <img
-                           src="../assets/img/dino_cute.jpg"
+                           :src="profile.avatarUrl ?? NoImage"
                            alt="profile_image"
-                           class="shadow-sm w-100 border-radius-lg"
+                           class="shadow-sm w-100 border-radius-lg avatar-border"
                            style="object-fit: cover; aspect-ratio: 1/1"
                         />
                      </div>
                   </div>
                   <div class="col-auto my-auto">
                      <div class="h-100">
-                        <h5 class="mb-1">Nguyễn Thành Long</h5>
+                        <h5 class="mb-1">{{ profile.nickname }}</h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                           Game &amp; Web Developer
+                           {{ profile.systemRoleName }}
                         </p>
                      </div>
                   </div>
                   <div
-                     class="
-                        mx-auto
-                        mt-3
-                        col-lg-4 col-md-6
-                        my-sm-auto
-                        ms-sm-auto
-                        me-sm-0
-                     "
+                     class="mx-auto mt-3 col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0"
                   >
                      <div class="nav-wrapper position-relative end-0">
                         <ul
@@ -50,14 +43,7 @@
                         >
                            <li class="nav-item">
                               <a
-                                 class="
-                                    px-0
-                                    py-1
-                                    mb-0
-                                    nav-link
-                                    active
-                                    my-tab-profile
-                                 "
+                                 class="px-0 py-1 mb-0 nav-link active my-tab-profile"
                                  data-bs-toggle="tab"
                                  href="javascript:;"
                                  role="tab"
@@ -254,11 +240,23 @@
                               class="form-control-label"
                               >Tên đăng nhập</label
                            >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.username"
-                           />
+                           <div class="form-input-wrapper">
+                              <input
+                                 class="form-control"
+                                 type="text"
+                                 :value="profile.username"
+                              />
+                              <a
+                                 class="form-edit"
+                                 href="javascript:;"
+                                 @click.prevent=""
+                              >
+                                 <i
+                                    class="fas fa-pencil-alt me-2"
+                                    aria-hidden="true"
+                                 ></i>
+                              </a>
+                           </div>
                         </div>
                         <div class="col-md-6">
                            <label
@@ -266,103 +264,71 @@
                               class="form-control-label"
                               >Email</label
                            >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.email"
-                           />
+                           <div class="form-input-wrapper">
+                              <input
+                                 class="form-control"
+                                 type="text"
+                                 :value="profile.email"
+                              />
+                              <a
+                                 class="form-edit"
+                                 href="javascript:;"
+                                 @click.prevent=""
+                              >
+                                 <i
+                                    class="fas fa-pencil-alt me-2"
+                                    aria-hidden="true"
+                                 ></i>
+                              </a>
+                           </div>
                         </div>
                         <div class="col-md-6">
                            <label
                               for="example-text-input"
                               class="form-control-label"
-                              >Tên</label
+                              >Biệt danh</label
                            >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.firstname"
-                           />
+                           <div class="form-input-wrapper">
+                              <input
+                                 class="form-control"
+                                 type="text"
+                                 :value="profile.nickname"
+                              />
+                              <a
+                                 class="form-edit"
+                                 href="javascript:;"
+                                 @click.prevent=""
+                              >
+                                 <i
+                                    class="fas fa-pencil-alt me-2"
+                                    aria-hidden="true"
+                                 ></i>
+                              </a>
+                           </div>
                         </div>
                         <div class="col-md-6">
                            <label
                               for="example-text-input"
                               class="form-control-label"
-                              >Họ</label
+                              >Số điện thoại</label
                            >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.lastname"
-                           />
-                        </div>
-                     </div>
-                     <hr class="horizontal dark" />
-                     <p class="text-uppercase text-sm">Thông tin liên hệ</p>
-                     <div class="row">
-                        <div class="col-md-12">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Địa chỉ</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.address"
-                           />
-                        </div>
-                        <div class="col-md-4">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Tỉnh</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.province"
-                           />
-                        </div>
-                        <div class="col-md-4">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Quốc gia</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.country"
-                           />
-                        </div>
-                        <div class="col-md-4">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Mã zip</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.zipCode"
-                           />
-                        </div>
-                     </div>
-                     <hr class="horizontal dark" />
-                     <p class="text-uppercase text-sm">Thông tin khác</p>
-                     <div class="row">
-                        <div class="col-md-12">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Sở thích</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.interest"
-                           />
+                           <div class="form-input-wrapper">
+                              <input
+                                 class="form-control"
+                                 type="text"
+                                 :value="profile.phone"
+                              />
+                              <a
+                                 class="form-edit"
+                                 href="javascript:;"
+                                 @click.prevent=""
+                              >
+                                 <i
+                                    class="fas fa-pencil-alt me-2"
+                                    aria-hidden="true"
+                                 ></i>
+                              </a>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -392,7 +358,7 @@
                            <input
                               class="form-control"
                               type="text"
-                              v-model="newPassword"
+                              v-model="changeValues.password"
                            />
                         </div>
                         <div class="col-md-12">
@@ -410,7 +376,7 @@
                </div>
             </div>
             <div class="col-md-4">
-               <profile-card class="profile-card" />
+               <profile-card class="profile-card" :profile="profile" />
             </div>
          </div>
       </div>
@@ -426,6 +392,7 @@ import ProfileCard from "./components/ProfileCard.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 
 import { ElMessage } from "element-plus";
+import NoImage from "@/assets/img/no-image.jpg";
 
 const body = document.getElementsByTagName("body")[0];
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
@@ -434,29 +401,51 @@ export default {
    name: "profile",
    data() {
       return {
+         NoImage,
          showMenu: false,
          isShowChangePassword: false,
          profile: {
             username: "",
+            nickname: "",
             email: "",
-            firstname: "Thành Long",
-            lastname: "Nguyễn",
-            address: "TT Lạc Dương - TP Đà Lạt",
-            province: "Lâm Đồng",
-            country: "Việt Nam",
-            zipCode: "66000",
-            interest: "Yêu ❤️bé lì❤️",
+            phone: "",
+            avatarUrl: null,
+            systemRoleName: "",
          },
-         newPassword: "",
+         changeValues: {
+            password: "",
+         },
       };
    },
    components: { ProfileCard, ArgonButton },
    methods: {
+      getAvatar() {
+         return API.get(
+            apiPath + "/image/get_item_by_id.php",
+            {
+               id: this.profile.avatarId,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.profile.avatarUrl = data.data.link;
+               } else if (data.code === 2) {
+                  this.profile.avatarUrl = null;
+               }
+            },
+            (error) => {
+               ElMessage({
+                  message: "Có lỗi khi lấy ảnh đại diện",
+                  type: "error",
+               });
+               console.error(error);
+            }
+         );
+      },
       showChangePassword(isShow) {
          this.isShowChangePassword = isShow;
       },
       changePassword() {
-         if (this.newPassword === "") {
+         if (this.changeValues.password === "") {
             ElMessage({
                message: "Bạn phải nhập mật khẩu mới",
                type: "warning",
@@ -465,10 +454,10 @@ export default {
          }
 
          return API.put(
-            apiPath + "/manager_account/change_password.php",
+            apiPath + "/system_admin/change_password.php",
             {
                id: this.$store.state.accountLogin.id,
-               password: this.newPassword
+               password: this.changeValues.password,
             },
             (data) => {
                if (data.code === 1) {
@@ -477,7 +466,7 @@ export default {
                      type: "success",
                   });
 
-                  this.newPassword = "";
+                  this.changeValues.password = "";
                } else if (data.code === 2) {
                   ElMessage({
                      message: "Thay đổi mật khẩu thất bại",
@@ -495,13 +484,15 @@ export default {
          );
       },
    },
+   created() {
+      const accountLogin = this.$store.state.accountLogin;
+      this.profile = { ...accountLogin };
 
+      // get data here
+      this.getAvatar();
+   },
    mounted() {
       this.$store.state.isAbsolute = true;
-
-      const accountLogin = this.$store.state.accountLogin;
-      this.profile.username = accountLogin.username;
-      this.profile.email = accountLogin.email;
 
       setNavPills();
       setTooltip();
@@ -534,6 +525,27 @@ export default {
 
 input.form-control {
    margin-bottom: 1rem;
+}
+
+.avatar-border {
+   object-fit: cover;
+   object-position: center;
+   aspect-ratio: 1;
+}
+
+.form-input-wrapper {
+   position: relative;
+
+   .form-control {
+      padding-right: 2.2rem;
+   }
+
+   .form-edit {
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%);
+   }
 }
 
 @media (max-width: 767px) {

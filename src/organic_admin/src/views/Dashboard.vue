@@ -251,7 +251,10 @@ export default {
                      }
                      return 0;
                   }, 0);
-                  this.paypal.price = this.paypal.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                  this.paypal.price = this.paypal.price.toLocaleString(
+                     "it-IT",
+                     { style: "currency", currency: "VND" }
+                  );
                } else if (data.code === 2) {
                   ElMessage({
                      message: "Không lấy được dữ liệu đơn hàng",
@@ -271,10 +274,10 @@ export default {
       },
    },
    created() {
-      this.getCategories();
-      this.getProjects();
-      this.getCustomerAccounts();
-      this.getOrders();
+      // this.getCategories();
+      // this.getProjects();
+      // this.getCustomerAccounts();
+      // this.getOrders();
    },
 };
 </script>

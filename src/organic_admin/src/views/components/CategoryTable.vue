@@ -23,21 +23,12 @@
                <thead>
                   <tr>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                      >
                         Tên danh mục
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Số lượng dự án
                      </th>
@@ -60,12 +51,7 @@
                      <td class="align-middle">
                         <div class="ms-auto text-end action-btns">
                            <a
-                              class="
-                                 btn btn-link
-                                 text-dark text-gradient
-                                 px-2
-                                 mb-0
-                              "
+                              class="btn btn-link text-dark text-gradient px-2 mb-0"
                               href="javascript:;"
                               @click.prevent="showAddOrEditCard('edit', item)"
                            >
@@ -83,12 +69,7 @@
                            >
                               <template #reference>
                                  <a
-                                    class="
-                                       btn btn-link
-                                       text-danger text-gradient
-                                       px-2
-                                       mb-0
-                                    "
+                                    class="btn btn-link text-danger text-gradient px-2 mb-0"
                                     href="javascript:;"
                                  >
                                     <i
@@ -125,11 +106,7 @@
             </argon-pagination>
             <div class="table-statistics">
                <span
-                  class="
-                     text-uppercase text-secondary text-xxs
-                     font-weight-bolder
-                     opacity-7
-                  "
+                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                   >{{ limit }} kết quả trên 1 trang (Tổng
                   <span class="text-dark">{{ totalItem }}</span
                   >)</span
@@ -273,7 +250,7 @@ export default {
          this.getTableData();
       },
       deleteItem(id) {
-         return API.deleteByID(
+         return API.deleteById(
             apiPath + "/category/trash.php",
             id,
             (data) => {

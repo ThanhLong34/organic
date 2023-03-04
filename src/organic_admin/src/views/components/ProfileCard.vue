@@ -10,12 +10,8 @@
             <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
                <a href="javascript:;">
                   <img
-                     src="../../assets/img/me.jpg"
-                     class="
-                        rounded-circle
-                        img-fluid
-                        border border-2 border-white
-                     "
+                     :src="profile.avatarUrl ?? NoImage"
+                     class="rounded-circle img-fluid border border-2 border-white avatar-circle"
                      style="
                         object-fit: cover;
                         object-position: top;
@@ -73,26 +69,38 @@
          </div>
          <div class="text-center mt-4">
             <h5>
-               Nguyễn Thành Long
-               <span class="font-weight-light">, {{ (new Date().getFullYear()) - 2002 }}</span>
+               {{ profile.nickname }}
             </h5>
             <div class="h6 font-weight-300">
-               <i class="ni location_pin mr-2"></i>Game &amp; Web Developer
+               <i class="ni location_pin mr-2"></i>{{ profile.systemRoleName }}
             </div>
             <div class="h6 mt-4">
-               <i class="ni business_briefcase-24 mr-2"></i>Administrator -
-               DragonDev Shop
+               <i class="ni business_briefcase-24 mr-2"></i>
+               DragonDev Organic-Food
             </div>
-            <div>
-               <i class="ni education_hat mr-2"></i>Đang học tại Trường Đại học Đà Lạt
-            </div>
+            <div><i class="ni education_hat mr-2"></i>CHÀO MỪNG BẠN</div>
          </div>
       </div>
    </div>
 </template>
 
 <script>
+import NoImage from "@/assets/img/no-image.jpg";
+
 export default {
    name: "profile-card",
+   props: {
+      NoImage,
+      profile: {
+         type: Object,
+      },
+   },
 };
 </script>
+
+<style lang="scss" scoped>
+.avatar-circle {
+   margin-bottom: 12px;
+   box-shadow: 0 0.3125rem 0.625rem 0 rgb(0 0 0 / 12%) !important;
+}
+</style>

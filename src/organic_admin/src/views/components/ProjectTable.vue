@@ -23,81 +23,42 @@
                <thead>
                   <tr>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                      >
                         Avatar &amp; Tên dự án
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Giá (VND)
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Tạo lúc
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Cập nhật lúc
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Miễn phí
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Đặc biệt
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Số lượng mua
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Danh mục
                      </th>
@@ -111,7 +72,11 @@
                         <div class="d-flex px-2">
                            <div>
                               <img
-                                 :src="item.avatar ? item.avatar : `${require('@/assets/img/no-image.jpg')}`"
+                                 :src="
+                                    item.avatar
+                                       ? item.avatar
+                                       : `${require('@/assets/img/no-image.jpg')}`
+                                 "
                                  class="avatar avatar-sm rounded-circle me-2"
                                  alt="avatar"
                               />
@@ -123,7 +88,12 @@
                      </td>
                      <td>
                         <p class="text-sm font-weight-bold mb-0">
-                           {{ item.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}
+                           {{
+                              item.price.toLocaleString("it-IT", {
+                                 style: "currency",
+                                 currency: "VND",
+                              })
+                           }}
                         </p>
                      </td>
                      <td>
@@ -138,12 +108,12 @@
                      </td>
                      <td>
                         <p class="text-sm font-weight-bold mb-0">
-                           {{ item.isFree ? 'có' : 'không' }}
+                           {{ item.isFree ? "có" : "không" }}
                         </p>
                      </td>
                      <td>
                         <p class="text-sm font-weight-bold mb-0">
-                           {{ item.isFeatured ? 'có' : 'không'}}
+                           {{ item.isFeatured ? "có" : "không" }}
                         </p>
                      </td>
                      <td>
@@ -162,16 +132,18 @@
                               class="btn btn-link text-info text-gradient px-2 mb-0"
                               href="javascript:;"
                            >
-                              <i
-                                 class="fas fa-eye me-2"
-                                 aria-hidden="true"
-                              ></i
+                              <i class="fas fa-eye me-2" aria-hidden="true"></i
                               >Xem
                            </a>
                            <a
                               class="btn btn-link text-dark text-gradient px-2 mb-0"
                               href="javascript:;"
-                              @click.prevent="$router.push({ name: 'EditProject', params: { id: item.id } })"
+                              @click.prevent="
+                                 $router.push({
+                                    name: 'EditProject',
+                                    params: { id: item.id },
+                                 })
+                              "
                            >
                               <i
                                  class="fas fa-pencil-alt me-2"
@@ -187,12 +159,7 @@
                            >
                               <template #reference>
                                  <a
-                                    class="
-                                       btn btn-link
-                                       text-danger text-gradient
-                                       px-2
-                                       mb-0
-                                    "
+                                    class="btn btn-link text-danger text-gradient px-2 mb-0"
                                     href="javascript:;"
                                  >
                                     <i
@@ -228,7 +195,12 @@
                <argon-pagination-item next @click="nextPage" />
             </argon-pagination>
             <div class="table-statistics">
-               <span class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ limit }} kết quả trên 1 trang (Tổng <span class="text-dark">{{ totalItem }}</span>)</span>
+               <span
+                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >{{ limit }} kết quả trên 1 trang (Tổng
+                  <span class="text-dark">{{ totalItem }}</span
+                  >)</span
+               >
             </div>
          </div>
       </div>
@@ -261,7 +233,7 @@ export default {
          currentPage: 1,
          limit: 10,
          offset: 0,
-         categories: []
+         categories: [],
       };
    },
    methods: {
@@ -298,7 +270,8 @@ export default {
                      isFeatured: item.IsFeatured == 1,
                      numberOfPurchased: parseInt(item.NumberOfPurchased),
                      categoryID: parseInt(item.CategoryID),
-                     categoryName: item.CategoryName != '' ? item.CategoryName : 'Trống',
+                     categoryName:
+                        item.CategoryName != "" ? item.CategoryName : "Trống",
                   }));
                } else if (data.code === 2) {
                   ElMessage({
@@ -369,7 +342,7 @@ export default {
          this.getTableData();
       },
       deleteItem(id) {
-         return API.deleteByID(
+         return API.deleteById(
             apiPath + "/project/trash.php",
             id,
             (data) => {

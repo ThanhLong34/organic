@@ -13,41 +13,22 @@
                <thead>
                   <tr>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                      >
                         Họ tên
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Email
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Tạo lúc
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Trạng thái
                      </th>
@@ -81,11 +62,14 @@
                               'bg-gradient-success': item.status == 2,
                            }"
                         >
-                           {{ 
-                              item.status == 0 ? 'Chưa xem' :
-                              item.status == 1 ? 'Đã xem' :
-                              item.status == 2 ? 'Đã trả lời' :
-                              'Không biết'
+                           {{
+                              item.status == 0
+                                 ? "Chưa xem"
+                                 : item.status == 1
+                                 ? "Đã xem"
+                                 : item.status == 2
+                                 ? "Đã trả lời"
+                                 : "Không biết"
                            }}
                         </span>
                      </td>
@@ -96,10 +80,7 @@
                               href="javascript:;"
                               @click="openMessageDialog(item.id)"
                            >
-                              <i
-                                 class="fas fa-eye me-2"
-                                 aria-hidden="true"
-                              ></i
+                              <i class="fas fa-eye me-2" aria-hidden="true"></i
                               >Xem tin nhắn
                            </a>
                            <el-popconfirm
@@ -110,12 +91,7 @@
                            >
                               <template #reference>
                                  <a
-                                    class="
-                                       btn btn-link
-                                       text-danger text-gradient
-                                       px-2
-                                       mb-0
-                                    "
+                                    class="btn btn-link text-danger text-gradient px-2 mb-0"
                                     href="javascript:;"
                                  >
                                     <i
@@ -151,7 +127,12 @@
                <argon-pagination-item next @click="nextPage" />
             </argon-pagination>
             <div class="table-statistics">
-               <span class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ limit }} kết quả trên 1 trang (Tổng <span class="text-dark">{{ totalItem }}</span>)</span>
+               <span
+                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >{{ limit }} kết quả trên 1 trang (Tổng
+                  <span class="text-dark">{{ totalItem }}</span
+                  >)</span
+               >
             </div>
          </div>
          <!-- Dialog table -->
@@ -295,7 +276,7 @@ export default {
          this.getTableData();
       },
       deleteItem(id) {
-         return API.deleteByID(
+         return API.deleteById(
             apiPath + "/email_contact/trash.php",
             id,
             (data) => {
@@ -328,7 +309,7 @@ export default {
       closeMessageDialog() {
          this.dialogMessage.visible = false;
          this.reload();
-      }
+      },
    },
    created() {
       this.currentPage = 1;

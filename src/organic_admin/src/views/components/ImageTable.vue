@@ -24,31 +24,17 @@
                <thead>
                   <tr>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                      >
                         Hình ảnh
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Kích thước tệp (MB)
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Trạng thái
                      </th>
@@ -90,12 +76,7 @@
                      <td class="align-middle">
                         <div class="ms-auto text-end action-btns">
                            <a
-                              class="
-                                 btn btn-link
-                                 text-info text-gradient
-                                 px-2
-                                 mb-0
-                              "
+                              class="btn btn-link text-info text-gradient px-2 mb-0"
                               href="javascript:;"
                               @click="viewImage(item.link)"
                            >
@@ -127,7 +108,12 @@
                <argon-pagination-item next @click="nextPage" />
             </argon-pagination>
             <div class="table-statistics">
-               <span class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ limit }} kết quả trên 1 trang (Tổng <span class="text-dark">{{ totalItem }}</span>)</span>
+               <span
+                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >{{ limit }} kết quả trên 1 trang (Tổng
+                  <span class="text-dark">{{ totalItem }}</span
+                  >)</span
+               >
             </div>
          </div>
          <el-dialog v-model="dialogVisible">
@@ -275,7 +261,7 @@ export default {
          this.getTableData();
       },
       deleteItem(id) {
-         return API.deleteByID(
+         return API.deleteById(
             apiPath + "/image/delete.php",
             id,
             (data) => {
