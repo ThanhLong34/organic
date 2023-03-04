@@ -6,49 +6,48 @@ require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
 
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: DELETE");
 header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
-addItem($data["name"]);
+// Xóa item
+deleteItem($data["id"]);
 
-function addItem($name)
+function deleteItem($id)
 {
    global $connect;
 
-   if (empty($name)) {
+   if (!$id || $id < 0) {
       $response = new ResponseAPI(9, "Không đủ dữ liệu payload để thực hiện");
       $response->send();
       return;
    }
 
-   if (checkItemExist($name)) {
-      $response = new ResponseAPI(3, "Tên danh mục đã tồn tại");
-      $response->send();
-   } else {
-      $createdAt = getCurrentDatetime();
-
-      $query = "INSERT INTO `category`(`CreatedAt`, `Name`) VALUES('$createdAt', '$name')";
+   if (checkItemInTrash($id)) {
+      $query = "DELETE FROM `systemrole` WHERE `id` = $id AND `deletedAt` IS NOT NULL";
       $result = mysqli_query($connect, $query);
 
       if ($result) {
-         $response = new ResponseAPI(1, "Tạo danh mục thành công");
+         $response = new ResponseAPI(1, "Xóa vai trò thành công");
          $response->send();
       } else {
-         $response = new ResponseAPI(2, "Tạo danh mục thất bại");
+         $response = new ResponseAPI(2, "Xóa vai trò thất bại");
          $response->send();
       }
-   }
 
-   $connect->close();
+      $connect->close();
+   } else {
+      $response = new ResponseAPI(3, "Xóa vai trò thất bại, vai trò chưa được chuyển vào thùng rác");
+      $response->send();
+   }
 }
 
-function checkItemExist($name)
+function checkItemInTrash($id)
 {
    global $connect;
 
-   $query = "SELECT * FROM `category` WHERE `DeletedAt` IS NULL AND `Name` = '$name' LIMIT 1";
+   $query = "SELECT * FROM `systemrole` WHERE `id` = $id AND `deletedAt` IS NOT NULL LIMIT 1";
    $result = mysqli_query($connect, $query);
 
    if ($result && mysqli_num_rows($result) > 0) {

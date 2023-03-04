@@ -6,14 +6,15 @@ require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
 
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
-header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
-deleteItem($data["id"]);
+// Chuyển item vào thùng rác
+trashItem($data["id"]);
 
-function deleteItem($id)
+function trashItem($id)
 {
    global $connect;
 
@@ -23,14 +24,16 @@ function deleteItem($id)
       return;
    }
 
-   $query = "DELETE FROM `tag` WHERE `ID` = $id AND `DeletedAt` IS NOT NULL";
+   $deletedAt = getCurrentDatetime();
+
+   $query = "UPDATE `systemrole` SET `deletedAt` = '$deletedAt' WHERE `id` = $id AND `deletedAt` IS NULL";
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Xóa thẻ thành công");
+      $response = new ResponseAPI(1, "Chuyển vai trò vào thùng rác thành công");
       $response->send();
    } else {
-      $response = new ResponseAPI(2, "Xóa thẻ thất bại");
+      $response = new ResponseAPI(2, "Chuyển vai trò vào thùng rác thất bại");
       $response->send();
    }
 

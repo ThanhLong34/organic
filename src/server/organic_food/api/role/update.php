@@ -11,6 +11,7 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
+// Cập nhật item
 updateItem($data["id"], $data["name"]);
 
 function updateItem($id, $name)
@@ -24,19 +25,19 @@ function updateItem($id, $name)
    }
 
    if (checkItemExist($name)) {
-      $response = new ResponseAPI(3, "Tên thẻ đã tồn tại");
+      $response = new ResponseAPI(3, "Tên vai trò đã tồn tại");
       $response->send();
    } else {
       $updatedAt = getCurrentDatetime();
 
-      $query = "UPDATE `tag` SET `UpdatedAt` = '$updatedAt', `Name` = '$name' WHERE `ID` = $id AND `DeletedAt` IS NULL";
+      $query = "UPDATE `systemrole` SET `updatedAt` = '$updatedAt', `name` = '$name' WHERE `id` = $id AND `deletedAt` IS NULL";
       $result = mysqli_query($connect, $query);
 
       if ($result) {
-         $response = new ResponseAPI(1, "Cập nhật thẻ thành công");
+         $response = new ResponseAPI(1, "Cập nhật vai trò thành công");
          $response->send();
       } else {
-         $response = new ResponseAPI(2, "Cập nhật thẻ thất bại");
+         $response = new ResponseAPI(2, "Cập nhật vai trò thất bại");
          $response->send();
       }
    }
@@ -48,10 +49,10 @@ function checkItemExist($name)
 {
    global $connect;
 
-   $query = "SELECT * FROM `tag` WHERE `DeletedAt` IS NULL AND `Name` = '$name' LIMIT 1";
+   $query = "SELECT * FROM `systemrole` WHERE `deletedAt` IS NULL AND `name` = '$name' LIMIT 1";
    $result = mysqli_query($connect, $query);
 
-   if (mysqli_num_rows($result) > 0) {
+   if ($result && mysqli_num_rows($result) > 0) {
       return true;
    }
 

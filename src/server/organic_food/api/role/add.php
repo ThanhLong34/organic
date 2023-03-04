@@ -11,6 +11,7 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
+// Thêm item
 addItem($data["name"]);
 
 function addItem($name)
@@ -24,19 +25,19 @@ function addItem($name)
    }
 
    if (checkItemExist($name)) {
-      $response = new ResponseAPI(3, "Tên thẻ đã tồn tại");
+      $response = new ResponseAPI(3, "Tên vai trò đã tồn tại");
       $response->send();
    } else {
       $createdAt = getCurrentDatetime();
 
-      $query = "INSERT INTO `tag`(`CreatedAt`, `Name`) VALUES('$createdAt', '$name')";
+      $query = "INSERT INTO `systemrole`(`createdAt`, `name`) VALUES('$createdAt', '$name')";
       $result = mysqli_query($connect, $query);
 
       if ($result) {
-         $response = new ResponseAPI(1, "Tạo thẻ thành công");
+         $response = new ResponseAPI(1, "Tạo vai trò thành công");
          $response->send();
       } else {
-         $response = new ResponseAPI(2, "Tạo thẻ thất bại");
+         $response = new ResponseAPI(2, "Tạo vai trò thất bại");
          $response->send();
       }
    }
@@ -48,10 +49,10 @@ function checkItemExist($name)
 {
    global $connect;
 
-   $query = "SELECT * FROM `tag` WHERE `DeletedAt` IS NULL AND `Name` = '$name' LIMIT 1";
+   $query = "SELECT * FROM `systemrole` WHERE `deletedAt` IS NULL AND `name` = '$name' LIMIT 1";
    $result = mysqli_query($connect, $query);
 
-   if (mysqli_num_rows($result) > 0) {
+   if ($result && mysqli_num_rows($result) > 0) {
       return true;
    }
 

@@ -74,7 +74,7 @@ function checkItemExist($code)
    $query = "SELECT * FROM `order` WHERE `DeletedAt` IS NULL AND `Code` = '$code' LIMIT 1";
    $result = mysqli_query($connect, $query);
 
-   if (mysqli_num_rows($result) > 0) {
+   if ($result && mysqli_num_rows($result) > 0) {
       return true;
    }
 
