@@ -96,9 +96,9 @@ export default {
                      });
                   }
                   this.emailContact = {
-                     id: parseInt(data.data.ID),
+                     id: +data.data.ID,
                      message: data.data.Message,
-                     status: parseInt(data.data.Status),
+                     status: +data.data.Status,
                      createdAt: data.data.CreatedAt,
                   };
                } else if (data.code === 2) {

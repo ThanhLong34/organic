@@ -11,6 +11,7 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
+// ✅ Xóa file ảnh trên server và dữ liệu trong CSDL
 deleteItem($data["id"]);
 
 function deleteItem($id)

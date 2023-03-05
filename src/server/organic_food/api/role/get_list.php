@@ -17,7 +17,7 @@ if (isset($_GET["name"])) {
    $searchByName = $_GET["name"];
 }
 
-// Lấy danh sách item
+// ✅ Lấy danh sách item 
 getList($limit, $offset, $searchByName);
 
 function getList($limit, $offset, $searchByName)

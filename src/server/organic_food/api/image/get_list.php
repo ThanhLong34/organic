@@ -17,6 +17,7 @@ if (isset($_GET["target"])) {
    $target = $_GET["target"];
 }
 
+// ✅ Lấy danh sách hình ảnh
 getList($limit, $offset, $target);
 
 function getList($limit, $offset, $target)

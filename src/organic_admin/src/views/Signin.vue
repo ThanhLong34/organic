@@ -131,9 +131,9 @@ export default {
 
                   const accountLogin = {
                      ...data.data,
-                     id: parseInt(data.data.id),
-                     avatarId: parseInt(data.data.avatarId),
-                     systemRoleId: parseInt(data.data.systemRoleId),
+                     id: +data.data.id,
+                     avatarId: +data.data.avatarId,
+                     systemRoleId: +data.data.systemRoleId,
                   };
 
                   this.$store.dispatch("setAccountLogin", accountLogin);

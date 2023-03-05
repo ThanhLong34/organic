@@ -201,7 +201,7 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.ID,
                      fullname: item.Fullname,
                      email: item.Email,
                      createdAt: item.CreatedAt,

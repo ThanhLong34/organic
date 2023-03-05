@@ -26,14 +26,14 @@ function trashItem($id)
 
    $deletedAt = getCurrentDatetime();
 
-   $query = "UPDATE `systemrole` SET `deletedAt` = '$deletedAt' WHERE `id` = $id AND `deletedAt` IS NULL";
+   $query = "UPDATE `systemadmin` SET `deletedAt` = '$deletedAt' WHERE `id` = $id AND `deletedAt` IS NULL";
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Chuyển vai trò vào thùng rác thành công");
+      $response = new ResponseAPI(1, "Chuyển tài khoản admin vào thùng rác thành công");
       $response->send();
    } else {
-      $response = new ResponseAPI(2, "Chuyển vai trò vào thùng rác thất bại");
+      $response = new ResponseAPI(2, "Chuyển tài khoản admin vào thùng rác thất bại");
       $response->send();
    }
 

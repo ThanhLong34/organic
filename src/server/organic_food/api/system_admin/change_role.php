@@ -11,29 +11,29 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
-// ✅ Chuyển item vào thùng rác
-trashItem($data["id"]);
+// ✅ Thay đổi vai trò
+changeAvatarId($data["id"], $data["systemRoleId"]);
 
-function trashItem($id)
+function changeAvatarId($id, $systemRoleId)
 {
    global $connect;
 
-   if (!$id || $id < 0) {
+   if (!$id || $id < 0 || empty($systemRoleId)) {
       $response = new ResponseAPI(9, "Không đủ dữ liệu payload để thực hiện");
       $response->send();
       return;
    }
 
-   $deletedAt = getCurrentDatetime();
+   $updatedAt = getCurrentDatetime();
 
-   $query = "UPDATE `systemrole` SET `deletedAt` = '$deletedAt' WHERE `id` = $id AND `deletedAt` IS NULL";
+   $query = "UPDATE `systemadmin` SET `updatedAt` = '$updatedAt', `systemRoleId` = '$systemRoleId' WHERE `id` = $id AND `deletedAt` IS NULL LIMIT 1";
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Chuyển vai trò vào thùng rác thành công");
+      $response = new ResponseAPI(1, "Thay đổi vai trò thành công");
       $response->send();
    } else {
-      $response = new ResponseAPI(2, "Chuyển vai trò vào thùng rác thất bại");
+      $response = new ResponseAPI(2, "Thay đổi vai trò thất bại");
       $response->send();
    }
 

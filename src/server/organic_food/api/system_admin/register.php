@@ -11,42 +11,50 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
-// Đăng ký tài khoản truy cập vào hệ thống
-register($data["username"], $data["password"], $data["nickname"], $data["email"], $data["phone"]);
+// ✅ Đăng ký tài khoản truy cập vào hệ thống
+register($data["username"], $data["password"], $data["nickname"], $data["email"], $data["phone"], $data["systemRoleId"]);
 
-function register($username, $password, $nickname, $email, $phone)
+function register($username, $password, $nickname, $email, $phone, $systemRoleId)
 {
    global $connect;
 
-   if (empty($username) || empty($password) || empty($nickname) || empty($email) || empty($phone)) {
+   if (empty($username) || empty($password) || empty($nickname) || empty($email) || empty($phone) || !$systemRoleId || $systemRoleId < 0) {
       $response = new ResponseAPI(9, "Không đủ dữ liệu payload để thực hiện");
       $response->send();
       return;
    }
 
+   // Kiểm tra tên đăng nhập đã tồn tại chưa
    if (checkItemExist($username)) {
       $response = new ResponseAPI(3, "Tên đăng nhập đã tồn tại");
       $response->send();
    } else {
       $password = md5($password);
 
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-         $response = new ResponseAPI(4, "Không đúng định dạng Email");
-         $response->send();
-      } else {
-         $createdAt = getCurrentDatetime();
+      // Kiểm tra định dạng email
+      if (validateEmail($email)) {
+         // Kiểm tra định dạng số điện thoại
+         if (validatePhoneNumber($phone)) {
+            $createdAt = getCurrentDatetime();
 
-         $query = "INSERT INTO `systemadmin`(`createdAt`, `username`, `password`, `nickname`, `email`, `phone`) 
-               VALUES('$createdAt', '$username', '$password', '$nickname', '$email', '$phone')";
-         $result = mysqli_query($connect, $query);
+            $query = "INSERT INTO `systemadmin`(`createdAt`, `username`, `password`, `nickname`, `email`, `phone`, `systemRoleId`) 
+               VALUES('$createdAt', '$username', '$password', '$nickname', '$email', '$phone', '$systemRoleId')";
+            $result = mysqli_query($connect, $query);
 
-         if ($result) {
-            $response = new ResponseAPI(1, "Tạo tài khoản admin thành công");
-            $response->send();
+            if ($result) {
+               $response = new ResponseAPI(1, "Tạo tài khoản admin thành công");
+               $response->send();
+            } else {
+               $response = new ResponseAPI(2, "Tạo tài khoản admin thất bại");
+               $response->send();
+            }
          } else {
-            $response = new ResponseAPI(2, "Tạo tài khoản admin thất bại");
+            $response = new ResponseAPI(5, "Không đúng định dạng số điện thoại");
             $response->send();
          }
+      } else {
+         $response = new ResponseAPI(4, "Không đúng định dạng Email");
+         $response->send();
       }
    }
 

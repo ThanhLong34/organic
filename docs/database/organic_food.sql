@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2023 at 05:43 AM
+-- Generation Time: Mar 05, 2023 at 05:38 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -94,7 +94,18 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filename`, `size`) VALUES
-(2, '11:17:07 04/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6402c643a64cc.jpg', 'project_image6402c643a64cc.jpg', 18581);
+(2, '11:17:07 04/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6402c643a64cc.jpg', 'project_image6402c643a64cc.jpg', 18581),
+(3, '20:20:52 04/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640345b4d71c9.jpg', 'project_image640345b4d71c9.jpg', 7662),
+(4, '20:21:00 04/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640345bc33a5e.jpg', 'project_image640345bc33a5e.jpg', 3659),
+(5, '11:17:42 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640417e6659d3.jpg', 'project_image640417e6659d3.jpg', 7176),
+(6, '11:25:40 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640419c421456.jpg', 'project_image640419c421456.jpg', 6700),
+(7, '11:26:36 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640419fcd2585.jpg', 'project_image640419fcd2585.jpg', 18912),
+(8, '11:27:19 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041a27747fa.jpg', 'project_image64041a27747fa.jpg', 39745),
+(9, '11:28:03 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041a5358b14.jpg', 'project_image64041a5358b14.jpg', 18912),
+(10, '11:31:00 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041b0423f18.jpg', 'project_image64041b0423f18.jpg', 7176),
+(11, '11:32:14 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041b4e26560.gif', 'project_image64041b4e26560.gif', 754376),
+(12, '11:33:01 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041b7d7095b.jpg', 'project_image64041b7d7095b.jpg', 7662),
+(13, '11:33:49 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041bad5d063.jpg', 'project_image64041bad5d063.jpg', 7662);
 
 -- --------------------------------------------------------
 
@@ -259,6 +270,20 @@ CREATE TABLE `systemadmin` (
   `avatarId` int(11) DEFAULT NULL,
   `systemRoleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `systemadmin`
+--
+
+INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `nickname`, `email`, `phone`, `avatarId`, `systemRoleId`) VALUES
+(4, '18:08:50 04/03/2023', '11:33:49 05/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 13, 1),
+(5, '18:46:33 04/03/2023', '20:22:15 04/03/2023', NULL, 'client', '62608e08adc29a8d6dbc9754e659f125', 'Client', 'dragondevshop@gmail.com', '0353292241', 4, 2),
+(7, '19:27:05 04/03/2023', '09:55:01 05/03/2023', NULL, 'test1', '5a105e8b9d40e1329780d62ea2265d8a', 'test1', 'ahihi@gmail.com', '0930100001', NULL, 2),
+(8, '19:27:12 04/03/2023', NULL, NULL, 'test2', 'ad0234829205b9033196ba818f7a872b', 'test2', 'test2@gmail.com', '0930100002', NULL, 3),
+(9, '19:27:19 04/03/2023', NULL, NULL, 'test3', '8ad8757baa8564dc136c1e07507f4a98', 'test3', 'test3@gmail.com', '0930100003', NULL, 3),
+(10, '19:27:34 04/03/2023', NULL, '19:29:16 04/03/2023', 'test4', '86985e105f79b95d6bc918fb45ec7727', 'test4', 'test4@gmail.com', '0930100004', NULL, 4),
+(11, '19:28:02 04/03/2023', NULL, NULL, 'test5', 'e3d704f3542b44a621ebed70dc0efe13', 'test5', 'test5@gmail.com', '0930100005', NULL, 4),
+(12, '09:53:52 05/03/2023', NULL, NULL, 'test6', '4cfad7076129962ee70c36839a1e3e15', 'test6', 'test6@gmail.com', '0930100006', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -495,7 +520,7 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -537,7 +562,7 @@ ALTER TABLE `subscribe`
 -- AUTO_INCREMENT for table `systemadmin`
 --
 ALTER TABLE `systemadmin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `systemfunction`

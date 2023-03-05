@@ -11,7 +11,7 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
-// Cập nhật item
+// ✅ Cập nhật item
 updateItem($data["id"], $data["name"]);
 
 function updateItem($id, $name)

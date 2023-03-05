@@ -8,7 +8,7 @@
       <div class="row justify-content-center">
          <div class="col-4 col-lg-4 order-lg-2">
             <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
-               <a href="javascript:;">
+               <div class="avatar-wrapper">
                   <img
                      :src="profile.avatarUrl ?? NoImage"
                      class="rounded-circle img-fluid border border-2 border-white avatar-circle"
@@ -18,7 +18,21 @@
                         aspect-ratio: 1;
                      "
                   />
-               </a>
+                  <input
+                     ref="uploadAvatarInputRef"
+                     type="file"
+                     accept="image/*"
+                     class="upload-avatar-input"
+                     @change="handleUploadAvatar"
+                  />
+                  <button
+                     type="button"
+                     class="upload-avatar-btn"
+                     @click="handleUploadAvatarClick"
+                  >
+                     <i class="ni ni-camera-compact"></i>
+                  </button>
+               </div>
             </div>
          </div>
       </div>
@@ -85,6 +99,11 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+import * as SessionStorage from "@/helpers/session_storage.js";
+
 import NoImage from "@/assets/img/no-image.jpg";
 
 export default {
@@ -95,6 +114,69 @@ export default {
          type: Object,
       },
    },
+   emits: ["onReloadAvatarUrl"],
+   methods: {
+      handleUploadAvatarClick() {
+         const uploadAvatarInputRef = this.$refs["uploadAvatarInputRef"];
+         uploadAvatarInputRef?.click();
+      },
+      handleUploadAvatar(e) {
+         const image = e.target.files[0];
+         if (image) {
+            return API.uploadImage(
+               apiPath + "/image/upload.php",
+               image,
+               (data) => {
+                  if (data.code === 1) {
+                     this.handleChangeAvatar(data.data.id);
+                  }
+               },
+               (error) => {
+                  ElMessage({
+                     message: "Có lỗi, thử lại sau",
+                     type: "error",
+                  });
+                  console.error(error);
+               }
+            );
+         }
+      },
+      handleChangeAvatar($avatarId) {
+         return API.put(
+            apiPath + "/system_admin/change_avatar.php",
+            {
+               id: this.profile.id,
+               avatarId: $avatarId,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  ElMessage({
+                     message: "Thay đổi ảnh đại diện thành công",
+                     type: "success",
+                  });
+
+                  this.$store.state.accountLogin.avatarId = $avatarId;
+                  SessionStorage.setAccountLogin(
+                     this.$store.state.accountLogin
+                  );
+                  this.$emit("onReloadAvatarUrl");
+               } else if (data.code === 2) {
+                  ElMessage({
+                     message: "Thay đổi ảnh đại diện thất bại",
+                     type: "error",
+                  });
+               }
+            },
+            (error) => {
+               ElMessage({
+                  message: "Có lỗi, thử lại sau",
+                  type: "error",
+               });
+               console.error(error);
+            }
+         );
+      },
+   },
 };
 </script>
 
@@ -102,5 +184,32 @@ export default {
 .avatar-circle {
    margin-bottom: 12px;
    box-shadow: 0 0.3125rem 0.625rem 0 rgb(0 0 0 / 12%) !important;
+}
+
+.avatar-wrapper {
+   position: relative;
+
+   &:hover {
+      .upload-avatar-btn {
+         opacity: 1;
+         bottom: 25%;
+      }
+   }
+}
+
+.upload-avatar-input {
+   display: none;
+}
+
+.upload-avatar-btn {
+   opacity: 0;
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: white;
+   box-shadow: 0 0.3125rem 0.625rem 0 rgb(0 0 0 / 12%);
+   border: 1px solid #ccc;
+   transition: all 0.1s;
 }
 </style>

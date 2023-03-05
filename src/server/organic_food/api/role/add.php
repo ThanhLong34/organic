@@ -11,7 +11,7 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
-// Thêm item
+// ✅ Thêm item 
 addItem($data["name"]);
 
 function addItem($name)

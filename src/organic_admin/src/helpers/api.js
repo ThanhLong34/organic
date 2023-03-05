@@ -112,3 +112,37 @@ export function uploadFile(
 		})
 		.catch((error) => rejectCallback(error));
 }
+
+export function uploadImage(url, file, resolveCallback, rejectCallback) {
+	const imageExts = ["jpeg", "jpg", "jfif", "png", "gif", "webp"];
+	// Lấy ext file và kiểm tra định dạng file có hợp lệ với định dạng file server không
+	if (!imageExts.includes(file.type.split("/")[1])) {
+		ElMessage({
+			message:
+				"Chỉ chấp nhận các định dạng file sau: " + imageExts.join(" | "),
+			type: "error",
+		});
+		return false;
+	}
+
+	let api = url;
+
+	const formData = new FormData();
+	formData.append("image", file);
+
+	return fetch(api, {
+		method: "POST",
+		body: formData,
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			resolveCallback(data);
+			if (data.code === 9) {
+				ElMessage({
+					message: data.message,
+					type: "error",
+				});
+			}
+		})
+		.catch((error) => rejectCallback(error));
+}

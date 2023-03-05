@@ -9,29 +9,25 @@ header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json");
 
-$id = "";
-if (isset($_GET["id"])) {
-   $id = $_GET["id"];
-}
+$productId = $_GET["productId"];
 
-// 
-getListByProductId($id);
+// Lấy danh sách ảnh của sản phẩm theo id sản phẩm
+getListByProductId($productId);
 
-function getListByProductId($id)
+function getListByProductId($productId)
 {
    global $connect;
 
-   if (empty($id)) {
-      $response = new ResponseAPI(10, "Sản phẩm này không có hình ảnh");
+   if (!$productId || $productId < 0) {
+      $response = new ResponseAPI(9, "Không đủ dữ liệu payload để thực hiện");
       $response->send();
       return;
    }
 
-   //!
-   //! TRUY VẤN VÀO BẢNG product_image
-   //!
-
-   $query = "SELECT * FROM `image` WHERE `ID` IN ($id)";
+   $query = "SELECT `image`.`id`, `image`.`createdAt`, `image`.`link`, `image`.`filename`, `image`.`size` 
+            FROM `image`, `product_image` 
+            WHERE  `image`.`id` = `product_image`.`imageId` 
+            AND `product_image`.`productId` = $productId";
    $result = mysqli_query($connect, $query);
 
    if ($result) {

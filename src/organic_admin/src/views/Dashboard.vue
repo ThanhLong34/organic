@@ -246,8 +246,8 @@ export default {
                   this.statistics.order.value = `${data.data.length}`;
                   this.paypal.price = data.data.reduce((total, order) => {
                      // Đã thanh toán
-                     if (parseInt(order.Status) === 1) {
-                        return parseInt(order.Total);
+                     if (+order.Status === 1) {
+                        return +order.Total;
                      }
                      return 0;
                   }, 0);

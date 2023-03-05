@@ -287,7 +287,7 @@ export default {
                      message: "Upload ảnh thành công",
                      type: "success",
                   });
-                  uploadFile.id = parseInt(data.data.id);
+                  uploadFile.id = +data.data.id;
                   uploadFile.url = data.data.link;
                   this.project.imageIDList.push(uploadFile.id);
                } else if (data.code === 2) {
@@ -324,7 +324,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.categories = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.ID,
                      name: item.Name,
                   }));
                } else if (data.code === 2) {
@@ -346,7 +346,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.tags = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.ID,
                      name: item.Name,
                   }));
                } else if (data.code === 2) {
@@ -367,7 +367,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.imageFiles = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.ID,
                      url: item.Link,
                   }));
                } else if (data.code === 2) {
@@ -392,7 +392,7 @@ export default {
          return API.get(
             apiPath + "/project/get_item.php",
             {
-               id: parseInt(this.project.id),
+               id: +this.project.id,
             },
             (data) => {
                if (data.code === 1) {
@@ -408,7 +408,7 @@ export default {
                   this.project.isFree = data.data.IsFree == 1;
                   this.project.isFeatured = data.data.IsFeatured == 1;
 
-                  this.project.categoryID = parseInt(data.data.CategoryID);
+                  this.project.categoryID = +data.data.CategoryID;
                   if (
                      !this.categories.find(
                         (i) => i.id === this.project.categoryID
@@ -473,8 +473,8 @@ export default {
             apiPath + "/project/update.php",
             {
                ...this.project,
-               categoryID: parseInt(this.project.categoryID),
-               tagIDList: this.project.tagIDList.map((i) => parseInt(i)),
+               categoryID: +this.project.categoryID,
+               tagIDList: this.project.tagIDList.map((i) => +i),
             },
             (data) => {
                if (data.code === 1) {
@@ -510,7 +510,7 @@ export default {
       },
    },
    async created() {
-      this.project.id = parseInt(this.$route.params.id);
+      this.project.id = +this.$route.params.id;
 
       await this.getCategories();
       await this.getTags();

@@ -260,16 +260,16 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.ID,
                      name: item.Name,
                      avatar: item.Avatar,
-                     price: parseInt(item.Price),
+                     price: +item.Price,
                      createdAt: item.CreatedAt,
                      updatedAt: item.UpdatedAt,
                      isFree: item.IsFree == 1,
                      isFeatured: item.IsFeatured == 1,
-                     numberOfPurchased: parseInt(item.NumberOfPurchased),
-                     categoryID: parseInt(item.CategoryID),
+                     numberOfPurchased: +item.NumberOfPurchased,
+                     categoryID: +item.CategoryID,
                      categoryName:
                         item.CategoryName != "" ? item.CategoryName : "Trống",
                   }));

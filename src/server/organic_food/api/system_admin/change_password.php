@@ -11,7 +11,7 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
-// Thay đổi mật khẩu
+// ✅ Thay đổi mật khẩu
 changePassword($data["id"], $data["password"]);
 
 function changePassword($id, $password)
@@ -27,7 +27,7 @@ function changePassword($id, $password)
    $password = md5($password);
    $updatedAt = getCurrentDatetime();
 
-   $query = "UPDATE `systemadmin` SET `updatedAt` = '$updatedAt', `password` = '$password' WHERE `id` = $id LIMIT 1";
+   $query = "UPDATE `systemadmin` SET `updatedAt` = '$updatedAt', `password` = '$password' WHERE `id` = $id AND `deletedAt` IS NULL LIMIT 1";
    $result = mysqli_query($connect, $query);
 
    if ($result) {

@@ -25,20 +25,20 @@ function deleteItem($id)
    }
 
    if (checkItemInTrash($id)) {
-      $query = "DELETE FROM `systemrole` WHERE `id` = $id AND `deletedAt` IS NOT NULL";
+      $query = "DELETE FROM `systemadmin` WHERE `id` = $id AND `deletedAt` IS NOT NULL";
       $result = mysqli_query($connect, $query);
 
       if ($result) {
-         $response = new ResponseAPI(1, "Xóa vai trò thành công");
+         $response = new ResponseAPI(1, "Xóa tài khoản admin thành công");
          $response->send();
       } else {
-         $response = new ResponseAPI(2, "Xóa vai trò thất bại");
+         $response = new ResponseAPI(2, "Xóa tài khoản admin thất bại");
          $response->send();
       }
 
       $connect->close();
    } else {
-      $response = new ResponseAPI(3, "Xóa vai trò thất bại, vai trò chưa được chuyển vào thùng rác");
+      $response = new ResponseAPI(3, "Xóa tài khoản admin thất bại, tài khoản admin chưa được chuyển vào thùng rác");
       $response->send();
    }
 }
@@ -47,7 +47,7 @@ function checkItemInTrash($id)
 {
    global $connect;
 
-   $query = "SELECT * FROM `systemrole` WHERE `id` = $id AND `deletedAt` IS NOT NULL LIMIT 1";
+   $query = "SELECT * FROM `systemadmin` WHERE `id` = $id AND `deletedAt` IS NOT NULL LIMIT 1";
    $result = mysqli_query($connect, $query);
 
    if ($result && mysqli_num_rows($result) > 0) {

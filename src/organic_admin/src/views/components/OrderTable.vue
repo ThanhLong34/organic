@@ -216,12 +216,12 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.ID,
                      username: item.Username,
                      email: item.Email,
                      phone: item.Phone,
                      code: item.Code,
-                     total: parseInt(item.Total),
+                     total: +item.Total,
                      createdAt: item.CreatedAt,
                      status: item.Status,
                   }));

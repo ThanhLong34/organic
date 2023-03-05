@@ -14,7 +14,7 @@ if (isset($_FILES['image'])) {
    $file = $_FILES['image'];
 }
 
-// Tải ảnh lên server
+// ✅ Tải ảnh lên server
 uploadItem($file);
 
 function uploadItem($file)

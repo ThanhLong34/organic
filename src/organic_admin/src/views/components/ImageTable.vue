@@ -185,10 +185,8 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: parseInt(item.ID),
-                     status: !this.imageIDListDontUsing.includes(
-                        parseInt(item.ID)
-                     ),
+                     id: +item.ID,
+                     status: !this.imageIDListDontUsing.includes(+item.ID),
                      link: item.Link,
                      size: (item.Size / (1024 * 1024)).toFixed(2),
                   }));
@@ -306,9 +304,7 @@ export default {
             },
             (data) => {
                if (data.code === 1) {
-                  this.imageIDListDontUsing = data.data.map((item) =>
-                     parseInt(item.ID)
-                  );
+                  this.imageIDListDontUsing = data.data.map((item) => +item.ID);
 
                   if (this.imageIDListDontUsing.length <= 0) {
                      this.disableRemoveAllImageFileDontUsing = true;

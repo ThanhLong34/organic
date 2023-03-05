@@ -27,7 +27,9 @@
                   </div>
                   <div class="col-auto my-auto">
                      <div class="h-100">
-                        <h5 class="mb-1">{{ profile.nickname }}</h5>
+                        <h5 class="mb-1">
+                           {{ profile.nickname }}
+                        </h5>
                         <p class="mb-0 font-weight-bold text-sm">
                            {{ profile.systemRoleName }}
                         </p>
@@ -246,16 +248,6 @@
                                  type="text"
                                  :value="profile.username"
                               />
-                              <a
-                                 class="form-edit"
-                                 href="javascript:;"
-                                 @click.prevent=""
-                              >
-                                 <i
-                                    class="fas fa-pencil-alt me-2"
-                                    aria-hidden="true"
-                                 ></i>
-                              </a>
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -268,17 +260,19 @@
                               <input
                                  class="form-control"
                                  type="text"
-                                 :value="profile.email"
+                                 v-model="profile.email"
                               />
                               <a
                                  class="form-edit"
                                  href="javascript:;"
-                                 @click.prevent=""
+                                 @click.prevent="handleChangeEmail"
                               >
-                                 <i
-                                    class="fas fa-pencil-alt me-2"
-                                    aria-hidden="true"
-                                 ></i>
+                                 <tippy content="Lưu" theme="light">
+                                    <i
+                                       class="fas fa-pencil-alt me-2"
+                                       aria-hidden="true"
+                                    ></i>
+                                 </tippy>
                               </a>
                            </div>
                         </div>
@@ -292,17 +286,19 @@
                               <input
                                  class="form-control"
                                  type="text"
-                                 :value="profile.nickname"
+                                 v-model="profile.nickname"
                               />
                               <a
                                  class="form-edit"
                                  href="javascript:;"
-                                 @click.prevent=""
+                                 @click.prevent="handleChangeNickname"
                               >
-                                 <i
-                                    class="fas fa-pencil-alt me-2"
-                                    aria-hidden="true"
-                                 ></i>
+                                 <tippy content="Lưu" theme="light">
+                                    <i
+                                       class="fas fa-pencil-alt me-2"
+                                       aria-hidden="true"
+                                    ></i>
+                                 </tippy>
                               </a>
                            </div>
                         </div>
@@ -316,17 +312,19 @@
                               <input
                                  class="form-control"
                                  type="text"
-                                 :value="profile.phone"
+                                 v-model="profile.phone"
                               />
                               <a
                                  class="form-edit"
                                  href="javascript:;"
-                                 @click.prevent=""
+                                 @click.prevent="handleChangePhone"
                               >
-                                 <i
-                                    class="fas fa-pencil-alt me-2"
-                                    aria-hidden="true"
-                                 ></i>
+                                 <tippy content="Lưu" theme="light">
+                                    <i
+                                       class="fas fa-pencil-alt me-2"
+                                       aria-hidden="true"
+                                    ></i>
+                                 </tippy>
                               </a>
                            </div>
                         </div>
@@ -358,7 +356,7 @@
                            <input
                               class="form-control"
                               type="text"
-                              v-model="changeValues.password"
+                              v-model="newPassword"
                            />
                         </div>
                         <div class="col-md-12">
@@ -367,7 +365,7 @@
                               variant="gradient"
                               size="sm"
                               class="ms-auto"
-                              @click="changePassword"
+                              @click="handleChangePassword"
                               >Xác nhận</argon-button
                            >
                         </div>
@@ -376,7 +374,11 @@
                </div>
             </div>
             <div class="col-md-4">
-               <profile-card class="profile-card" :profile="profile" />
+               <profile-card
+                  class="profile-card"
+                  :profile="profile"
+                  @onReloadAvatarUrl="handleReloadAvatarUrl"
+               />
             </div>
          </div>
       </div>
@@ -384,14 +386,15 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
+
 import * as API from "@/helpers/api.js";
+import * as SessionStorage from "@/helpers/session_storage.js";
 
 import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
 import ProfileCard from "./components/ProfileCard.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
-
-import { ElMessage } from "element-plus";
 import NoImage from "@/assets/img/no-image.jpg";
 
 const body = document.getElementsByTagName("body")[0];
@@ -412,9 +415,7 @@ export default {
             avatarUrl: null,
             systemRoleName: "",
          },
-         changeValues: {
-            password: "",
-         },
+         newPassword: "",
       };
    },
    components: { ProfileCard, ArgonButton },
@@ -423,7 +424,7 @@ export default {
          return API.get(
             apiPath + "/image/get_item_by_id.php",
             {
-               id: this.profile.avatarId,
+               id: this.$store.state.accountLogin.avatarId,
             },
             (data) => {
                if (data.code === 1) {
@@ -444,8 +445,8 @@ export default {
       showChangePassword(isShow) {
          this.isShowChangePassword = isShow;
       },
-      changePassword() {
-         if (this.changeValues.password === "") {
+      handleChangePassword() {
+         if (this.newPassword === "") {
             ElMessage({
                message: "Bạn phải nhập mật khẩu mới",
                type: "warning",
@@ -457,7 +458,7 @@ export default {
             apiPath + "/system_admin/change_password.php",
             {
                id: this.$store.state.accountLogin.id,
-               password: this.changeValues.password,
+               password: this.newPassword,
             },
             (data) => {
                if (data.code === 1) {
@@ -466,7 +467,7 @@ export default {
                      type: "success",
                   });
 
-                  this.changeValues.password = "";
+                  this.newPassword = "";
                } else if (data.code === 2) {
                   ElMessage({
                      message: "Thay đổi mật khẩu thất bại",
@@ -483,12 +484,146 @@ export default {
             }
          );
       },
+      handleChangeEmail() {
+         if (this.profile.email === "") {
+            ElMessage({
+               message: "Bạn không được để trống email",
+               type: "warning",
+            });
+            return;
+         }
+
+         return API.put(
+            apiPath + "/system_admin/change_email.php",
+            {
+               id: this.profile.id,
+               email: this.profile.email,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  ElMessage({
+                     message: "Thay đổi email thành công",
+                     type: "success",
+                  });
+
+                  this.$store.state.accountLogin.email = this.profile.email;
+                  SessionStorage.setAccountLogin(this.profile);
+               } else if (data.code === 2) {
+                  ElMessage({
+                     message: "Thay đổi email thất bại",
+                     type: "error",
+                  });
+               } else if (data.code === 3) {
+                  ElMessage({
+                     message: "Không đúng định dạng email",
+                     type: "error",
+                  });
+               }
+            },
+            (error) => {
+               ElMessage({
+                  message: "Có lỗi, thử lại sau",
+                  type: "error",
+               });
+               console.error(error);
+            }
+         );
+      },
+      handleChangeNickname() {
+         if (this.profile.nickname === "") {
+            ElMessage({
+               message: "Bạn không được để trống biệt danh",
+               type: "warning",
+            });
+            return;
+         }
+
+         return API.put(
+            apiPath + "/system_admin/change_nickname.php",
+            {
+               id: this.profile.id,
+               nickname: this.profile.nickname,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  ElMessage({
+                     message: "Thay đổi biệt danh thành công",
+                     type: "success",
+                  });
+
+                  this.$store.state.accountLogin.nickname =
+                     this.profile.nickname;
+                  SessionStorage.setAccountLogin(this.profile);
+               } else if (data.code === 2) {
+                  ElMessage({
+                     message: "Thay đổi biệt danh thất bại",
+                     type: "error",
+                  });
+               }
+            },
+            (error) => {
+               ElMessage({
+                  message: "Có lỗi, thử lại sau",
+                  type: "error",
+               });
+               console.error(error);
+            }
+         );
+      },
+      handleChangePhone() {
+         if (this.profile.phone === "") {
+            ElMessage({
+               message: "Bạn không được để trống số điện thoại",
+               type: "warning",
+            });
+            return;
+         }
+
+         return API.put(
+            apiPath + "/system_admin/change_phone.php",
+            {
+               id: this.profile.id,
+               phone: this.profile.phone,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  ElMessage({
+                     message: "Thay đổi số điện thoại thành công",
+                     type: "success",
+                  });
+
+                  this.$store.state.accountLogin.phone = this.profile.phone;
+                  SessionStorage.setAccountLogin(this.profile);
+               } else if (data.code === 2) {
+                  ElMessage({
+                     message: "Thay đổi số điện thoại thất bại",
+                     type: "error",
+                  });
+               } else if (data.code === 3) {
+                  ElMessage({
+                     message: "Không đúng định dạng số điện thoại (từ 10 số)",
+                     type: "error",
+                  });
+               }
+            },
+            (error) => {
+               ElMessage({
+                  message: "Có lỗi, thử lại sau",
+                  type: "error",
+               });
+               console.error(error);
+            }
+         );
+      },
+      handleReloadAvatarUrl() {
+         this.getAvatar();
+      },
    },
    created() {
       const accountLogin = this.$store.state.accountLogin;
       this.profile = { ...accountLogin };
 
-      // get data here
+      // Lấy dữ liệu từ API ở đây
       this.getAvatar();
    },
    mounted() {

@@ -170,7 +170,7 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.ID,
                      name: item.Name,
                      numberOfProject: (() => {
                         if (this.projects != null && this.projects.length > 0) {

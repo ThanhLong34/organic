@@ -63,12 +63,18 @@
             <span class="mb-4 text-xs">
                Tổng tiền (VND):
                <span class="text-dark font-weight-bold ms-sm-2">{{
-                  order.total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+                  order.total.toLocaleString("it-IT", {
+                     style: "currency",
+                     currency: "VND",
+                  })
                }}</span>
             </span>
          </div>
          <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">
-            THÔNG TIN DỰ ÁN <span class="text-warning">{{ order.projectDeletedAt ? '(ĐÃ XÓA)' : '' }}</span>
+            THÔNG TIN DỰ ÁN
+            <span class="text-warning">{{
+               order.projectDeletedAt ? "(ĐÃ XÓA)" : ""
+            }}</span>
          </h6>
          <div class="d-flex flex-column">
             <span class="mb-3 text-xs">
@@ -136,7 +142,7 @@ export default {
    props: {
       orderID: Number,
    },
-   emits: ['onCloseDialog'],
+   emits: ["onCloseDialog"],
    data() {
       return {
          order: {
@@ -160,14 +166,14 @@ export default {
                      });
                   }
                   this.order = {
-                     id: parseInt(data.data.ID),
+                     id: +data.data.ID,
                      createdAt: data.data.CreatedAt,
                      username: data.data.Username,
                      email: data.data.Email,
                      phone: data.data.Phone,
                      code: data.data.Code,
-                     total: parseInt(data.data.Total),
-                     status: parseInt(data.data.Status),
+                     total: +data.data.Total,
+                     status: +data.data.Status,
                      projectDeletedAt: data.data.ProjectDeletedAt,
                      projectAvatar: data.data.ProjectAvatar,
                      projectName: data.data.ProjectName,
@@ -194,7 +200,7 @@ export default {
             apiPath + "/order/update_status.php",
             {
                id: this.$props.orderID,
-               status: 1
+               status: 1,
             },
             (data) => {
                if (data.code === 1) {
@@ -202,7 +208,7 @@ export default {
                      message: "Duyệt đơn hàng thành công",
                      type: "success",
                   });
-                  this.$emit('onCloseDialog');
+                  this.$emit("onCloseDialog");
                } else if (data.code === 2) {
                   ElMessage({
                      message: "Duyệt đơn hàng thất bại",
@@ -224,7 +230,7 @@ export default {
             apiPath + "/order/update_status.php",
             {
                id: this.$props.orderID,
-               status: 2
+               status: 2,
             },
             (data) => {
                if (data.code === 1) {
@@ -232,7 +238,7 @@ export default {
                      message: "Từ chối đơn hàng thành công",
                      type: "success",
                   });
-                  this.$emit('onCloseDialog');
+                  this.$emit("onCloseDialog");
                } else if (data.code === 2) {
                   ElMessage({
                      message: "Từ chối đơn hàng thất bại",

@@ -6,15 +6,13 @@ require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
 
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
-header("Access-Control-Allow-Methods: PUT");
+header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json");
 
-$data = getJSONPayloadRequest();
+// ✅ Lấy ảnh theo id
+getItemById($_GET["id"]);
 
-// ✅ Chuyển item vào thùng rác
-trashItem($data["id"]);
-
-function trashItem($id)
+function getItemById($id)
 {
    global $connect;
 
@@ -24,16 +22,13 @@ function trashItem($id)
       return;
    }
 
-   $deletedAt = getCurrentDatetime();
-
-   $query = "UPDATE `systemrole` SET `deletedAt` = '$deletedAt' WHERE `id` = $id AND `deletedAt` IS NULL";
+   $query = "SELECT * FROM `image` WHERE `id` = $id LIMIT 1";
    $result = mysqli_query($connect, $query);
-
-   if ($result) {
-      $response = new ResponseAPI(1, "Chuyển vai trò vào thùng rác thành công");
+   if ($obj = $result->fetch_object()) {
+      $response = new ResponseAPI(1, "Lấy file ảnh thành công", $obj);
       $response->send();
    } else {
-      $response = new ResponseAPI(2, "Chuyển vai trò vào thùng rác thất bại");
+      $response = new ResponseAPI(2, "Không tìm thấy file ảnh");
       $response->send();
    }
 

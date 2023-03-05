@@ -159,7 +159,7 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.ID,
                      name: item.Name,
                   }));
                } else if (data.code === 2) {
