@@ -128,7 +128,7 @@ export default {
                image,
                (data) => {
                   if (data.code === 1) {
-                     this.handleChangeAvatar(data.data.id);
+                     this.handleUpdateAvatar(data.data.id);
                   }
                },
                (error) => {
@@ -141,9 +141,9 @@ export default {
             );
          }
       },
-      handleChangeAvatar($avatarId) {
+      handleUpdateAvatar($avatarId) {
          return API.put(
-            apiPath + "/system_admin/change_avatar.php",
+            apiPath + "/system_admin/update_avatar.php",
             {
                id: this.profile.id,
                avatarId: $avatarId,

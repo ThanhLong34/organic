@@ -120,7 +120,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.categories = data.data.map((item) => ({
-                     id: +item.ID,
+                     id: +item.id,
                      name: item.Name,
                   }));
                } else if (data.code === 2) {

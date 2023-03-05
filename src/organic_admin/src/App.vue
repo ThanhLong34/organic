@@ -26,13 +26,7 @@ Coded by www.creative-tim.com
       v-if="this.$store.state.showSidenav"
    />
    <main
-      class="
-         main-content
-         position-relative
-         max-height-vh-100
-         h-100
-         border-radius-lg
-      "
+      class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
    >
       <!-- nav -->
       <navbar
@@ -92,8 +86,11 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/main.scss";
+
 body,
-div, aside {
+div,
+aside {
    &::-webkit-scrollbar {
       width: 5px;
       height: 5px;
@@ -133,25 +130,5 @@ div, aside {
          border-color: #5e72e4;
       }
    }
-}
-
-span.star-input-required {
-   color: orangered;
-}
-
-.text-pink {
-   color: rgb(255, 35, 152) !important;
-}
-
-.el-dialog {
-   border-radius: 1rem !important;
-}
-
-.avatar.avatar-sm.rounded-circle {
-   margin-left: 8px;
-}
-
-.el-overlay {
-   z-index: 99999 !important;
 }
 </style>

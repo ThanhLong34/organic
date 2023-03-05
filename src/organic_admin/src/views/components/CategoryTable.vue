@@ -170,7 +170,7 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: +item.ID,
+                     id: +item.id,
                      name: item.Name,
                      numberOfProject: (() => {
                         if (this.projects != null && this.projects.length > 0) {

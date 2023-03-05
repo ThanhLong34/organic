@@ -216,7 +216,7 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: +item.ID,
+                     id: +item.id,
                      username: item.Username,
                      email: item.Email,
                      phone: item.Phone,

@@ -1,9 +1,6 @@
 <template>
    <div class="form-group">
-      <div :class="hasIcon(icon)">
-         <span v-if="iconDir === 'left'" class="input-group-text">
-            <i :class="getIcon(icon)"></i>
-         </span>
+      <div class="form-input-wrapper">
          <input
             :type="type"
             class="form-control"
@@ -15,17 +12,23 @@
             v-model="inputVal"
             @input="$emit('update:modelValue', $event.target.value)"
          />
-         <span v-if="iconDir === 'right'" class="input-group-text">
-            <i :class="getIcon(icon)"></i>
-         </span>
+         <a
+            class="form-save-btn"
+            href="javascript:;"
+            @click.prevent="handleSave"
+         >
+            <tippy content="Lưu" theme="light">
+               <i class="fa fa-floppy-o me-2" aria-hidden="true"></i>
+            </tippy>
+         </a>
       </div>
    </div>
 </template>
 
 <script>
 export default {
-   name: "argon-input",
-   emits: ["update:modelValue"],
+   name: "primary-input",
+   emits: ["onSave", "update:modelValue"],
    props: {
       size: {
          type: String,
@@ -35,8 +38,6 @@ export default {
          type: Boolean,
          default: false,
       },
-      icon: String,
-      iconDir: String,
       name: String,
       id: String,
       placeholder: String,
@@ -58,14 +59,32 @@ export default {
 
          return `${sizeValue} ${isValidValue}`;
       },
-      getIcon: (icon) => (icon ? icon : null),
-      hasIcon: (icon) => (icon ? "input-group" : null),
       resetValue() {
          this.inputVal = "";
       },
       setValue(value) {
          this.inputVal = value;
       },
+      handleSave() {
+         this.$emit("onSave");
+      },
    },
 };
 </script>
+
+<style lang="scss" scoped>
+.form-input-wrapper {
+   position: relative;
+
+   .form-control {
+      padding-right: 2.2rem;
+   }
+
+   .form-save-btn {
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%);
+   }
+}
+</style>

@@ -263,13 +263,13 @@
                                  v-model="profile.email"
                               />
                               <a
-                                 class="form-edit"
+                                 class="form-save-btn"
                                  href="javascript:;"
-                                 @click.prevent="handleChangeEmail"
+                                 @click.prevent="handleUpdateEmail"
                               >
                                  <tippy content="Lưu" theme="light">
                                     <i
-                                       class="fas fa-pencil-alt me-2"
+                                       class="fa fa-floppy-o me-2"
                                        aria-hidden="true"
                                     ></i>
                                  </tippy>
@@ -289,13 +289,13 @@
                                  v-model="profile.nickname"
                               />
                               <a
-                                 class="form-edit"
+                                 class="form-save-btn"
                                  href="javascript:;"
-                                 @click.prevent="handleChangeNickname"
+                                 @click.prevent="handleUpdateNickname"
                               >
                                  <tippy content="Lưu" theme="light">
                                     <i
-                                       class="fas fa-pencil-alt me-2"
+                                       class="fa fa-floppy-o me-2"
                                        aria-hidden="true"
                                     ></i>
                                  </tippy>
@@ -315,13 +315,13 @@
                                  v-model="profile.phone"
                               />
                               <a
-                                 class="form-edit"
+                                 class="form-save-btn"
                                  href="javascript:;"
-                                 @click.prevent="handleChangePhone"
+                                 @click.prevent="handleUpdatePhone"
                               >
                                  <tippy content="Lưu" theme="light">
                                     <i
-                                       class="fas fa-pencil-alt me-2"
+                                       class="fa fa-floppy-o me-2"
                                        aria-hidden="true"
                                     ></i>
                                  </tippy>
@@ -365,7 +365,7 @@
                               variant="gradient"
                               size="sm"
                               class="ms-auto"
-                              @click="handleChangePassword"
+                              @click="handleUpdatePassword"
                               >Xác nhận</argon-button
                            >
                         </div>
@@ -445,7 +445,7 @@ export default {
       showChangePassword(isShow) {
          this.isShowChangePassword = isShow;
       },
-      handleChangePassword() {
+      handleUpdatePassword() {
          if (this.newPassword === "") {
             ElMessage({
                message: "Bạn phải nhập mật khẩu mới",
@@ -455,7 +455,7 @@ export default {
          }
 
          return API.put(
-            apiPath + "/system_admin/change_password.php",
+            apiPath + "/system_admin/update_password.php",
             {
                id: this.$store.state.accountLogin.id,
                password: this.newPassword,
@@ -484,7 +484,7 @@ export default {
             }
          );
       },
-      handleChangeEmail() {
+      handleUpdateEmail() {
          if (this.profile.email === "") {
             ElMessage({
                message: "Bạn không được để trống email",
@@ -494,7 +494,7 @@ export default {
          }
 
          return API.put(
-            apiPath + "/system_admin/change_email.php",
+            apiPath + "/system_admin/update_email.php",
             {
                id: this.profile.id,
                email: this.profile.email,
@@ -529,7 +529,7 @@ export default {
             }
          );
       },
-      handleChangeNickname() {
+      handleUpdateNickname() {
          if (this.profile.nickname === "") {
             ElMessage({
                message: "Bạn không được để trống biệt danh",
@@ -539,7 +539,7 @@ export default {
          }
 
          return API.put(
-            apiPath + "/system_admin/change_nickname.php",
+            apiPath + "/system_admin/update_nickname.php",
             {
                id: this.profile.id,
                nickname: this.profile.nickname,
@@ -570,7 +570,7 @@ export default {
             }
          );
       },
-      handleChangePhone() {
+      handleUpdatePhone() {
          if (this.profile.phone === "") {
             ElMessage({
                message: "Bạn không được để trống số điện thoại",
@@ -580,7 +580,7 @@ export default {
          }
 
          return API.put(
-            apiPath + "/system_admin/change_phone.php",
+            apiPath + "/system_admin/update_phone.php",
             {
                id: this.profile.id,
                phone: this.profile.phone,
@@ -675,7 +675,7 @@ input.form-control {
       padding-right: 2.2rem;
    }
 
-   .form-edit {
+   .form-save-btn {
       position: absolute;
       top: 50%;
       right: 5px;

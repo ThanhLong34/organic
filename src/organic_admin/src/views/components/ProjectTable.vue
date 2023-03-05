@@ -260,7 +260,7 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: +item.ID,
+                     id: +item.id,
                      name: item.Name,
                      avatar: item.Avatar,
                      price: +item.Price,

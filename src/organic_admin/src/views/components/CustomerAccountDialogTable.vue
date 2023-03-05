@@ -117,7 +117,7 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: +item.ID,
+                     id: +item.id,
                      deletedAt: item.DeletedAt,
                      name: item.Name,
                      avatar: item.Avatar,

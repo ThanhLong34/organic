@@ -324,7 +324,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.categories = data.data.map((item) => ({
-                     id: +item.ID,
+                     id: +item.id,
                      name: item.Name,
                   }));
                } else if (data.code === 2) {
@@ -346,7 +346,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.tags = data.data.map((item) => ({
-                     id: +item.ID,
+                     id: +item.id,
                      name: item.Name,
                   }));
                } else if (data.code === 2) {
@@ -367,7 +367,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.imageFiles = data.data.map((item) => ({
-                     id: +item.ID,
+                     id: +item.id,
                      url: item.Link,
                   }));
                } else if (data.code === 2) {

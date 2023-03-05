@@ -3,16 +3,32 @@ import store from "@/store/index.js";
 
 import * as SessionStorage from "@/helpers/session_storage.js";
 
-import Dashboard from "../views/Dashboard.vue";
 import Category from "../views/Category.vue";
-import Tag from "../views/Tag.vue";
 import Project from "../views/Project.vue";
 import AddProject from "../views/AddProject.vue";
 import EditProject from "../views/EditProject.vue";
-import Image from "../views/Image.vue";
 import CustomerAccount from "../views/CustomerAccount.vue";
-import Order from "../views/Order.vue";
 import EmailContact from "../views/EmailContact.vue";
+
+// Add
+import Dashboard from "../views/Dashboard.vue";
+import Role from "../views/Role.vue";
+import MenuView from "../views/Menu.vue";
+import FunctionView from "../views/Function.vue";
+import SystemAdmin from "../views/SystemAdmin.vue";
+import Image from "../views/Image.vue";
+import ProductCategory from "../views/ProductCategory.vue";
+import Product from "../views/Product.vue";
+import AddProduct from "../views/AddProduct.vue";
+import EditProduct from "../views/EditProduct.vue";
+import Blog from "../views/Blog.vue";
+import AddBlog from "../views/AddBlog.vue";
+import EditBlog from "../views/EditBlog.vue";
+import Subscribe from "../views/Subscribe.vue";
+import Contact from "../views/Contact.vue";
+import CounponCode from "../views/CounponCode.vue";
+import OrderStatus from "../views/OrderStatus.vue";
+import Order from "../views/Order.vue";
 import Profile from "../views/Profile.vue";
 import Signin from "../views/Signin.vue";
 
@@ -34,43 +50,35 @@ const routes = [
 		},
 	},
 	{
-		path: "/category",
-		name: "Category",
-		component: Category,
+		path: "/role",
+		name: "Role",
+		component: Role,
 		meta: {
-			breadcrumbName: "Danh mục",
+			breadcrumbName: "Vai trò",
 		},
 	},
 	{
-		path: "/tag",
-		name: "Tag",
-		component: Tag,
+		path: "/menu",
+		name: "Menu",
+		component: MenuView,
 		meta: {
-			breadcrumbName: "Thẻ",
+			breadcrumbName: "Menu",
 		},
 	},
 	{
-		path: "/project",
-		name: "Project",
-		component: Project,
+		path: "/function",
+		name: "Function",
+		component: FunctionView,
 		meta: {
-			breadcrumbName: "Dự án",
+			breadcrumbName: "Chức năng",
 		},
 	},
 	{
-		path: "/add-project",
-		name: "AddProject",
-		component: AddProject,
+		path: "/system-admin",
+		name: "SystemAdmin",
+		component: SystemAdmin,
 		meta: {
-			breadcrumbName: "Thêm dự án",
-		},
-	},
-	{
-		path: "/edit-project/:id",
-		name: "EditProject",
-		component: EditProject,
-		meta: {
-			breadcrumbName: "Chỉnh sửa thông tin dự án",
+			breadcrumbName: "Tài khoản Admin",
 		},
 	},
 	{
@@ -78,15 +86,95 @@ const routes = [
 		name: "Image",
 		component: Image,
 		meta: {
-			breadcrumbName: "Hình ảnh tải lên",
+			breadcrumbName: "Tệp hình ảnh",
 		},
 	},
 	{
-		path: "/customer-account",
-		name: "CustomerAccount",
-		component: CustomerAccount,
+		path: "/product-category",
+		name: "ProductCategory",
+		component: ProductCategory,
 		meta: {
-			breadcrumbName: "Tài khoản khách hàng",
+			breadcrumbName: "Danh mục sản phẩm",
+		},
+	},
+	{
+		path: "/product",
+		name: "Product",
+		component: Product,
+		meta: {
+			breadcrumbName: "Sản phẩm",
+		},
+	},
+	{
+		path: "/add-product",
+		name: "AddProduct",
+		component: AddProduct,
+		meta: {
+			breadcrumbName: "Thêm sản phẩm",
+		},
+	},
+	{
+		path: "/edit-product/:id",
+		name: "EditProduct",
+		component: EditProduct,
+		meta: {
+			breadcrumbName: "Chỉnh sửa thông tin sản phẩm",
+		},
+	},
+	{
+		path: "/blog",
+		name: "Blog",
+		component: Blog,
+		meta: {
+			breadcrumbName: "Bài viết",
+		},
+	},
+	{
+		path: "/add-blog",
+		name: "AddBlog",
+		component: AddBlog,
+		meta: {
+			breadcrumbName: "Thêm bài viết",
+		},
+	},
+	{
+		path: "/edit-blog/:id",
+		name: "EditBlog",
+		component: EditBlog,
+		meta: {
+			breadcrumbName: "Chỉnh sửa thông tin bài viết",
+		},
+	},
+	{
+		path: "/subscribe",
+		name: "Subscribe",
+		component: Subscribe,
+		meta: {
+			breadcrumbName: "KH Đăng ký",
+		},
+	},
+	{
+		path: "/contact",
+		name: "Contact",
+		component: Contact,
+		meta: {
+			breadcrumbName: "KH Liên hệ",
+		},
+	},
+	{
+		path: "/counpon-code",
+		name: "CounponCode",
+		component: CounponCode,
+		meta: {
+			breadcrumbName: "Mã giảm giá",
+		},
+	},
+	{
+		path: "/order-status",
+		name: "OrderStatus",
+		component: OrderStatus,
+		meta: {
+			breadcrumbName: "Trạng thái đơn hàng",
 		},
 	},
 	{
@@ -98,19 +186,11 @@ const routes = [
 		},
 	},
 	{
-		path: "/email-contact",
-		name: "EmailContact",
-		component: EmailContact,
-		meta: {
-			breadcrumbName: "Email liên hệ",
-		},
-	},
-	{
 		path: "/profile",
 		name: "Profile",
 		component: Profile,
 		meta: {
-			breadcrumbName: "Hồ sơ",
+			breadcrumbName: "Hồ sơ cá nhân",
 		},
 	},
 	{
