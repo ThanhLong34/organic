@@ -231,13 +231,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -259,13 +252,6 @@ export default {
                   });
                   console.error(data.message);
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -294,31 +280,20 @@ export default {
          this.getTableData();
       },
       deleteItem(id) {
-         return API.deleteById(
-            apiPath + "/order/trash.php",
-            id,
-            (data) => {
-               if (data.code === 1) {
-                  ElMessage({
-                     message: "Xóa thành công",
-                     type: "success",
-                  });
-                  this.reload();
-               } else if (data.code === 2) {
-                  ElMessage({
-                     message: "Xóa thất bại",
-                     type: "error",
-                  });
-               }
-            },
-            (error) => {
+         return API.deleteById(apiPath + "/order/trash.php", id, (data) => {
+            if (data.code === 1) {
                ElMessage({
-                  message: "Có lỗi, thử lại sau",
+                  message: "Xóa thành công",
+                  type: "success",
+               });
+               this.reload();
+            } else if (data.code === 2) {
+               ElMessage({
+                  message: "Xóa thất bại",
                   type: "error",
                });
-               console.error(error);
             }
-         );
+         });
       },
       openOrderDetailsDialog(orderID) {
          this.dialogDetails.visible = true;

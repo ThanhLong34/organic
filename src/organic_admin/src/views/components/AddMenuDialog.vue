@@ -17,6 +17,7 @@
                   v-model="data.routeName"
                />
 
+               <!-- isBase -->
                <label for="example-text-input" class="form-control-label">
                   Trạng thái Base
                </label>
@@ -105,13 +106,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },

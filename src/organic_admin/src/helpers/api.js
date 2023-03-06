@@ -1,6 +1,11 @@
 import { ElMessage } from "element-plus";
 
-export function get(url, params = {}, resolveCallback, rejectCallback) {
+export function get(
+	url,
+	params = {},
+	resolveCallback = () => {},
+	rejectCallback = () => {}
+) {
 	let api = url;
 
 	if (typeof params === "object" && params !== null) {
@@ -23,10 +28,22 @@ export function get(url, params = {}, resolveCallback, rejectCallback) {
 				});
 			}
 		})
-		.catch((error) => rejectCallback(error));
+		.catch((error) => {
+			ElMessage({
+				message: "Lỗi",
+				type: "error",
+			});
+			console.error(error);
+			rejectCallback(error);
+		});
 }
 
-export function post(url, payload = {}, resolveCallback, rejectCallback) {
+export function post(
+	url,
+	payload = {},
+	resolveCallback = () => {},
+	rejectCallback = () => {}
+) {
 	let api = url;
 
 	return fetch(api, {
@@ -43,10 +60,22 @@ export function post(url, payload = {}, resolveCallback, rejectCallback) {
 				});
 			}
 		})
-		.catch((error) => rejectCallback(error));
+		.catch((error) => {
+			ElMessage({
+				message: "Lỗi",
+				type: "error",
+			});
+			console.error(error);
+			rejectCallback(error);
+		});
 }
 
-export function put(url, payload = {}, resolveCallback, rejectCallback) {
+export function put(
+	url,
+	payload = {},
+	resolveCallback = () => {},
+	rejectCallback = () => {}
+) {
 	let api = url;
 
 	return fetch(api, {
@@ -63,10 +92,22 @@ export function put(url, payload = {}, resolveCallback, rejectCallback) {
 				});
 			}
 		})
-		.catch((error) => rejectCallback(error));
+		.catch((error) => {
+			ElMessage({
+				message: "Lỗi",
+				type: "error",
+			});
+			console.error(error);
+			rejectCallback(error);
+		});
 }
 
-export function deleteById(url, id, resolveCallback, rejectCallback) {
+export function deleteById(
+	url,
+	id,
+	resolveCallback = () => {},
+	rejectCallback = () => {}
+) {
 	let api = url;
 
 	return fetch(api, {
@@ -85,7 +126,14 @@ export function deleteById(url, id, resolveCallback, rejectCallback) {
 				});
 			}
 		})
-		.catch((error) => rejectCallback(error));
+		.catch((error) => {
+			ElMessage({
+				message: "Lỗi",
+				type: "error",
+			});
+			console.error(error);
+			rejectCallback(error);
+		});
 }
 
 export function uploadFile(
@@ -110,10 +158,22 @@ export function uploadFile(
 				});
 			}
 		})
-		.catch((error) => rejectCallback(error));
+		.catch((error) => {
+			ElMessage({
+				message: "Lỗi",
+				type: "error",
+			});
+			console.error(error);
+			rejectCallback(error);
+		});
 }
 
-export function uploadImage(url, file, resolveCallback, rejectCallback) {
+export function uploadImage(
+	url,
+	file,
+	resolveCallback = () => {},
+	rejectCallback = () => {}
+) {
 	const imageExts = ["jpeg", "jpg", "jfif", "png", "gif", "webp"];
 	// Lấy ext file và kiểm tra định dạng file có hợp lệ với định dạng file server không
 	if (!imageExts.includes(file.type.split("/")[1])) {
@@ -144,5 +204,12 @@ export function uploadImage(url, file, resolveCallback, rejectCallback) {
 				});
 			}
 		})
-		.catch((error) => rejectCallback(error));
+		.catch((error) => {
+			ElMessage({
+				message: "Lỗi",
+				type: "error",
+			});
+			console.error(error);
+			rejectCallback(error);
+		});
 }

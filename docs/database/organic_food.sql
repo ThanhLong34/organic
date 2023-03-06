@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2023 at 05:38 AM
+-- Generation Time: Mar 06, 2023 at 05:30 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -105,7 +105,10 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (10, '11:31:00 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041b0423f18.jpg', 'project_image64041b0423f18.jpg', 7176),
 (11, '11:32:14 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041b4e26560.gif', 'project_image64041b4e26560.gif', 754376),
 (12, '11:33:01 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041b7d7095b.jpg', 'project_image64041b7d7095b.jpg', 7662),
-(13, '11:33:49 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041bad5d063.jpg', 'project_image64041bad5d063.jpg', 7662);
+(13, '11:33:49 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041bad5d063.jpg', 'project_image64041bad5d063.jpg', 7662),
+(14, '13:36:26 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6404386af0f74.gif', 'project_image6404386af0f74.gif', 754376),
+(15, '16:01:51 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64045a7f89053.jpg', 'project_image64045a7f89053.jpg', 8166),
+(16, '16:02:12 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64045a948dfdc.jpg', 'project_image64045a948dfdc.jpg', 7176);
 
 -- --------------------------------------------------------
 
@@ -212,6 +215,7 @@ CREATE TABLE `productreview` (
   `email` varchar(255) NOT NULL,
   `comment` varchar(1000) NOT NULL,
   `rating` tinyint(4) NOT NULL,
+  `isShow` tinyint(1) NOT NULL DEFAULT 1,
   `productId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -276,8 +280,8 @@ CREATE TABLE `systemadmin` (
 --
 
 INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `nickname`, `email`, `phone`, `avatarId`, `systemRoleId`) VALUES
-(4, '18:08:50 04/03/2023', '11:33:49 05/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 13, 1),
-(5, '18:46:33 04/03/2023', '20:22:15 04/03/2023', NULL, 'client', '62608e08adc29a8d6dbc9754e659f125', 'Client', 'dragondevshop@gmail.com', '0353292241', 4, 2),
+(4, '18:08:50 04/03/2023', '16:02:20 05/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 16, 1),
+(5, '18:46:33 04/03/2023', '13:36:27 05/03/2023', NULL, 'client', '62608e08adc29a8d6dbc9754e659f125', 'Client', 'dragondevshop@gmail.com', '0353292241', 14, 2),
 (7, '19:27:05 04/03/2023', '09:55:01 05/03/2023', NULL, 'test1', '5a105e8b9d40e1329780d62ea2265d8a', 'test1', 'ahihi@gmail.com', '0930100001', NULL, 2),
 (8, '19:27:12 04/03/2023', NULL, NULL, 'test2', 'ad0234829205b9033196ba818f7a872b', 'test2', 'test2@gmail.com', '0930100002', NULL, 3),
 (9, '19:27:19 04/03/2023', NULL, NULL, 'test3', '8ad8757baa8564dc136c1e07507f4a98', 'test3', 'test3@gmail.com', '0930100003', NULL, 3),
@@ -315,6 +319,32 @@ CREATE TABLE `systemmenu` (
   `routeName` varchar(255) NOT NULL,
   `isBase` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `systemmenu`
+--
+
+INSERT INTO `systemmenu` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `routeName`, `isBase`) VALUES
+(1, '15:17:32 05/03/2023', NULL, NULL, 'Dashboard', 1),
+(2, '15:18:38 05/03/2023', NULL, NULL, 'Role', 0),
+(3, '15:19:39 05/03/2023', NULL, NULL, 'Menu', 0),
+(4, '15:19:43 05/03/2023', NULL, NULL, 'Function', 0),
+(5, '15:19:46 05/03/2023', NULL, NULL, 'SystemAdmin', 0),
+(6, '15:19:51 05/03/2023', NULL, NULL, 'Image', 0),
+(7, '15:19:55 05/03/2023', NULL, NULL, 'ProductCategory', 0),
+(8, '15:19:59 05/03/2023', NULL, NULL, 'Product', 0),
+(9, '15:27:14 05/03/2023', NULL, NULL, 'AddProduct', 0),
+(10, '15:27:17 05/03/2023', NULL, NULL, 'EditProduct', 0),
+(11, '15:27:21 05/03/2023', NULL, NULL, 'Blog', 0),
+(12, '15:27:25 05/03/2023', NULL, NULL, 'AddBlog', 0),
+(13, '15:27:29 05/03/2023', NULL, NULL, 'EditBlog', 0),
+(14, '15:27:34 05/03/2023', NULL, NULL, 'Subscribe', 0),
+(15, '15:27:38 05/03/2023', NULL, NULL, 'Contact', 0),
+(16, '15:27:41 05/03/2023', NULL, NULL, 'CounponCode', 0),
+(17, '15:27:45 05/03/2023', NULL, NULL, 'OrderStatus', 0),
+(18, '15:27:48 05/03/2023', NULL, NULL, 'Order', 0),
+(19, '15:27:52 05/03/2023', NULL, NULL, 'Profile', 0),
+(20, '15:28:12 05/03/2023', NULL, NULL, 'Signin', 1);
 
 -- --------------------------------------------------------
 
@@ -371,7 +401,6 @@ CREATE TABLE `systemrole_menu` (
 --
 ALTER TABLE `blog`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `title` (`title`),
   ADD KEY `adminId` (`systemAdminId`);
 
 --
@@ -414,7 +443,6 @@ ALTER TABLE `orderstatus`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`),
   ADD KEY `productCategoryId` (`productCategoryId`);
 
 --
@@ -520,7 +548,7 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -574,13 +602,13 @@ ALTER TABLE `systemfunction`
 -- AUTO_INCREMENT for table `systemmenu`
 --
 ALTER TABLE `systemmenu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `systemrole`
 --
 ALTER TABLE `systemrole`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

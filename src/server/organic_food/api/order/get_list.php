@@ -33,7 +33,7 @@ function getList($limit, $offset, $searchByCode, $searchByStatus)
       $response->send();
       return;
    }
-   
+
    $baseQuery = "SELECT `order`.`ID`, `order`.`CreatedAt`, `order`.`CustomerAccountID`, `order`.`ProjectID`, `order`.`Code`, `order`.`Total`, `order`.`Status`, `customeraccount`.`Username`
        FROM `order`, `customeraccount`
        WHERE `order`.`DeletedAt` IS NULL AND `order`.`CustomerAccountID` = `customeraccount`.`ID`";
@@ -42,7 +42,7 @@ function getList($limit, $offset, $searchByCode, $searchByStatus)
       $query = $baseQuery;
    } else {
       if ($searchByCode !== "" && $searchByStatus !== "") {
-         $query = $baseQuery . " AND `order`.`Code` LIKE '%$searchByCode%' `order`.`Status` = $searchByStatus LIMIT $limit OFFSET $offset";
+         $query = $baseQuery . " AND `order`.`Code` LIKE '%$searchByCode%' AND `order`.`Status` = $searchByStatus LIMIT $limit OFFSET $offset";
       } else if ($searchByCode !== "") {
          $query = $baseQuery . " AND `order`.`Code` LIKE '%$searchByCode%' LIMIT $limit OFFSET $offset";
       } else if ($searchByStatus !== "") {
@@ -51,12 +51,12 @@ function getList($limit, $offset, $searchByCode, $searchByStatus)
          $query = $baseQuery . " LIMIT $limit OFFSET $offset";
       }
    }
-   
+
    $result = mysqli_query($connect, $query);
 
    if ($result) {
       $orders = [];
-      
+
       while ($obj = $result->fetch_object()) {
          array_push($orders, $obj);
       }

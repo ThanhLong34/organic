@@ -280,7 +280,7 @@ export default {
                      message: "Upload ảnh thành công",
                      type: "success",
                   });
-                  uploadFile.id = +(data.data.id);
+                  uploadFile.id = +data.data.id;
                   uploadFile.url = data.data.link;
                   this.project.imageIDList.push(uploadFile.id);
                } else if (data.code === 2) {
@@ -294,13 +294,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -317,7 +310,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.categories = data.data.map((item) => ({
-                     id: +(item.ID),
+                     id: +item.ID,
                      name: item.Name,
                   }));
                } else if (data.code === 2) {
@@ -339,7 +332,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.tags = data.data.map((item) => ({
-                     id: +(item.ID),
+                     id: +item.ID,
                      name: item.Name,
                   }));
                } else if (data.code === 2) {
@@ -382,8 +375,8 @@ export default {
             apiPath + "/project/add.php",
             {
                ...this.project,
-               categoryID: +(this.project.categoryID),
-               tagIDList: this.project.tagIDList.map((i) => +(i)),
+               categoryID: +this.project.categoryID,
+               tagIDList: this.project.tagIDList.map((i) => +i),
             },
             (data) => {
                if (data.code === 1) {
@@ -403,13 +396,6 @@ export default {
                      type: "warning",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },

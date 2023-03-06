@@ -213,13 +213,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -241,13 +234,6 @@ export default {
                   });
                   console.error(data.message);
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -292,13 +278,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },

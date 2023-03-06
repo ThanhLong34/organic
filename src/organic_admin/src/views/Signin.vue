@@ -147,13 +147,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },

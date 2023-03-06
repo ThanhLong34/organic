@@ -204,7 +204,6 @@
                            <EditMenuDialog
                               :itemIdSelect="itemIdSelect"
                               @onCloseDialog="handleCloseDialog"
-                              @onReloadDataCurrentPage="reloadDataCurrentPage"
                            />
                         </el-dialog>
                      </div>
@@ -290,13 +289,6 @@ export default {
             },
             (data) => {
                if (data.code === 1) {
-                  if (data.data.length === 0) {
-                     ElMessage({
-                        message: "Không có dữ liệu",
-                        type: "warning",
-                     });
-                  }
-
                   // TABLE STATES
                   this.tableData = data.data.map((item) => ({
                      ...item,
@@ -305,19 +297,24 @@ export default {
                   }));
                   this.totalItem = +data.totalItem;
                   this.numberOfPage = Math.ceil(this.totalItem / this.limit);
+
+                  // Not found data
+                  if (data.data.length === 0) {
+                     if (+data.totalItem <= 0) {
+                        ElMessage({
+                           message: "Không có dữ liệu",
+                           type: "warning",
+                        });
+                     } else {
+                        this.handlePrevPage();
+                     }
+                  }
                } else {
                   ElMessage({
                      message: data.message,
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -362,13 +359,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -392,6 +382,7 @@ export default {
          }
 
          // Reset limit & offset
+         this.currentPage = 1;
          this.limit = 10;
          this.offset = 0;
 
@@ -401,6 +392,7 @@ export default {
          if (this.fillValue === "") return;
 
          // Reset limit & offset
+         this.currentPage = 1;
          this.limit = 10;
          this.offset = 0;
 

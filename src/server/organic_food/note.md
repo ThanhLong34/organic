@@ -17,9 +17,7 @@ blog
 subscribe
 contact
 
-Account: dragondev0304 - admin123
+Account: dragondev0304 - 123
 client - client
 
 # Note:
-
-Chức năng upload thay đổi avatar

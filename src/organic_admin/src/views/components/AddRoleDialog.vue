@@ -3,28 +3,19 @@
       <div class="card-header pb-0">
          <div class="row">
             <div class="col-md-12">
-               <h6 class="mb-0 text-uppercase">Chỉnh sửa menu</h6>
+               <h6 class="mb-0 text-uppercase">Thêm vai trò</h6>
             </div>
             <div class="col-md-12 pt-3">
-               <!-- routeName -->
+               <!-- name -->
                <label for="example-text-input" class="form-control-label">
-                  Tên Route
+                  Tên vai trò
                   <span class="star-input-required">*</span>
                </label>
                <argon-input
-                  ref="routeNameRef"
                   type="text"
-                  placeholder="Nhập tên Route"
-                  v-model="dataChange.routeName"
+                  placeholder="Nhập tên vai trò"
+                  v-model="data.name"
                />
-
-               <!-- isBase -->
-               <label for="example-text-input" class="form-control-label">
-                  Trạng thái Base
-               </label>
-               <argon-switch v-model="dataChange.isBase" :checked="data.isBase">
-                  {{ data.isBase ? "Có" : "Không" }}
-               </argon-switch>
             </div>
          </div>
       </div>
@@ -55,66 +46,28 @@
 
 <script>
 import { ElMessage } from "element-plus";
-import ArgonButton from "@/components/ArgonButton.vue";
-import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
+import ArgonButton from "@/components/ArgonButton.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
-   name: "edit-menu-dialog",
-   components: { ArgonButton, ArgonSwitch, ArgonInput },
+   name: "add-role-dialog",
+   components: { ArgonButton, ArgonInput },
    emits: ["onCloseDialog"],
-   props: {
-      itemIdSelect: {
-         type: Number,
-         required: true,
-      },
-   },
    data() {
       return {
          data: {
-            id: 0,
-            routeName: "",
-            isBase: false,
-         },
-         dataChange: {
-            routeName: null,
-            isBase: null,
+            name: "",
          },
       };
    },
    methods: {
-      getData() {
-         return API.get(
-            apiPath + "/system_menu/get_item.php",
-            {
-               id: this.data.id,
-            },
-            (data) => {
-               if (data.code === 1) {
-                  this.data.routeName = data.data.routeName;
-                  this.data.isBase = +data.data.isBase == 1;
-
-                  // Binding data
-                  this.bindingData();
-               } else {
-                  ElMessage({
-                     message: data.message,
-                     type: "error",
-                  });
-               }
-            }
-         );
-      },
-      bindingData() {
-         this.$refs.routeNameRef?.setValue(this.data.routeName);
-      },
       validateBeforeSubmit() {
-         if (this.dataChange.routeName === "") {
+         if (this.data.name === "") {
             ElMessage({
-               message: "Nhập tên Route mới hoặc không được để trống",
+               message: "Không được để trống tên vai trò",
                type: "warning",
             });
 
@@ -127,11 +80,8 @@ export default {
          if (!this.validateBeforeSubmit()) return;
 
          return API.post(
-            apiPath + "/system_menu/update.php",
-            {
-               id: this.data.id,
-               ...this.dataChange,
-            },
+            apiPath + "/system_role/add.php",
+            this.data,
             (data) => {
                if (data.code === 1) {
                   ElMessage({
@@ -150,12 +100,8 @@ export default {
          );
       },
       handleCloseDialog() {
-         this.$emit("onCloseDialog", "edit");
+         this.$emit("onCloseDialog", "add");
       },
-   },
-   created() {
-      this.data.id = this.$props.itemIdSelect;
-      this.getData();
    },
 };
 </script>
