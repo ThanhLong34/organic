@@ -13,31 +13,17 @@
                <thead>
                   <tr>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                      >
                         Avatar &amp; Tên dự án
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Giá (VND)
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Danh mục
                      </th>
@@ -61,14 +47,22 @@
                            </div>
                            <div class="my-auto">
                               <h6 class="mb-0 text-sm">
-                                 {{ item.name }} <span class="text-warning">{{ item.deletedAt ? '(đã xóa)' : '' }}</span>
+                                 {{ item.name }}
+                                 <span class="text-warning">{{
+                                    item.deletedAt ? "(đã xóa)" : ""
+                                 }}</span>
                               </h6>
                            </div>
                         </div>
                      </td>
                      <td>
                         <p class="text-sm font-weight-bold mb-0">
-                           {{ item.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}
+                           {{
+                              item.price.toLocaleString("it-IT", {
+                                 style: "currency",
+                                 currency: "VND",
+                              })
+                           }}
                         </p>
                      </td>
                      <td>
@@ -123,12 +117,13 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.id,
                      deletedAt: item.DeletedAt,
                      name: item.Name,
                      avatar: item.Avatar,
-                     price: parseInt(item.Price),
-                     categoryName: item.CategoryName != "" ? item.CategoryName : "Trống",
+                     price: +item.Price,
+                     categoryName:
+                        item.CategoryName != "" ? item.CategoryName : "Trống",
                   }));
                } else if (data.code === 2) {
                   ElMessage({
@@ -136,13 +131,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },

@@ -18,30 +18,25 @@
                   <div class="col-auto">
                      <div class="avatar avatar-xl position-relative">
                         <img
-                           src="../assets/img/dino_cute.jpg"
+                           :src="profile.avatarUrl ?? NoImage"
                            alt="profile_image"
-                           class="shadow-sm w-100 border-radius-lg"
+                           class="shadow-sm w-100 border-radius-lg avatar-border"
                            style="object-fit: cover; aspect-ratio: 1/1"
                         />
                      </div>
                   </div>
                   <div class="col-auto my-auto">
                      <div class="h-100">
-                        <h5 class="mb-1">Nguyễn Thành Long</h5>
+                        <h5 class="mb-1">
+                           {{ profile.nickname }}
+                        </h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                           Game &amp; Web Developer
+                           {{ profile.systemRoleName }}
                         </p>
                      </div>
                   </div>
                   <div
-                     class="
-                        mx-auto
-                        mt-3
-                        col-lg-4 col-md-6
-                        my-sm-auto
-                        ms-sm-auto
-                        me-sm-0
-                     "
+                     class="mx-auto mt-3 col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0"
                   >
                      <div class="nav-wrapper position-relative end-0">
                         <ul
@@ -50,14 +45,7 @@
                         >
                            <li class="nav-item">
                               <a
-                                 class="
-                                    px-0
-                                    py-1
-                                    mb-0
-                                    nav-link
-                                    active
-                                    my-tab-profile
-                                 "
+                                 class="px-0 py-1 mb-0 nav-link active my-tab-profile"
                                  data-bs-toggle="tab"
                                  href="javascript:;"
                                  role="tab"
@@ -254,11 +242,13 @@
                               class="form-control-label"
                               >Tên đăng nhập</label
                            >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.username"
-                           />
+                           <div class="form-input-wrapper">
+                              <input
+                                 class="form-control"
+                                 type="text"
+                                 :value="profile.username"
+                              />
+                           </div>
                         </div>
                         <div class="col-md-6">
                            <label
@@ -266,103 +256,77 @@
                               class="form-control-label"
                               >Email</label
                            >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.email"
-                           />
+                           <div class="form-input-wrapper">
+                              <input
+                                 class="form-control"
+                                 type="text"
+                                 v-model="profile.email"
+                              />
+                              <a
+                                 class="form-save-btn"
+                                 href="javascript:;"
+                                 @click.prevent="handleUpdateEmail"
+                              >
+                                 <tippy content="Lưu" theme="light">
+                                    <i
+                                       class="fa fa-floppy-o me-2"
+                                       aria-hidden="true"
+                                    ></i>
+                                 </tippy>
+                              </a>
+                           </div>
                         </div>
                         <div class="col-md-6">
                            <label
                               for="example-text-input"
                               class="form-control-label"
-                              >Tên</label
+                              >Biệt danh</label
                            >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.firstname"
-                           />
+                           <div class="form-input-wrapper">
+                              <input
+                                 class="form-control"
+                                 type="text"
+                                 v-model="profile.nickname"
+                              />
+                              <a
+                                 class="form-save-btn"
+                                 href="javascript:;"
+                                 @click.prevent="handleUpdateNickname"
+                              >
+                                 <tippy content="Lưu" theme="light">
+                                    <i
+                                       class="fa fa-floppy-o me-2"
+                                       aria-hidden="true"
+                                    ></i>
+                                 </tippy>
+                              </a>
+                           </div>
                         </div>
                         <div class="col-md-6">
                            <label
                               for="example-text-input"
                               class="form-control-label"
-                              >Họ</label
+                              >Số điện thoại</label
                            >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.lastname"
-                           />
-                        </div>
-                     </div>
-                     <hr class="horizontal dark" />
-                     <p class="text-uppercase text-sm">Thông tin liên hệ</p>
-                     <div class="row">
-                        <div class="col-md-12">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Địa chỉ</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.address"
-                           />
-                        </div>
-                        <div class="col-md-4">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Tỉnh</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.province"
-                           />
-                        </div>
-                        <div class="col-md-4">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Quốc gia</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.country"
-                           />
-                        </div>
-                        <div class="col-md-4">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Mã zip</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.zipCode"
-                           />
-                        </div>
-                     </div>
-                     <hr class="horizontal dark" />
-                     <p class="text-uppercase text-sm">Thông tin khác</p>
-                     <div class="row">
-                        <div class="col-md-12">
-                           <label
-                              for="example-text-input"
-                              class="form-control-label"
-                              >Sở thích</label
-                           >
-                           <input
-                              class="form-control"
-                              type="text"
-                              :value="profile.interest"
-                           />
+                           <div class="form-input-wrapper">
+                              <input
+                                 class="form-control"
+                                 type="text"
+                                 v-model="profile.phone"
+                              />
+                              <a
+                                 class="form-save-btn"
+                                 href="javascript:;"
+                                 @click.prevent="handleUpdatePhone"
+                              >
+                                 <tippy content="Lưu" theme="light">
+                                    <i
+                                       class="fa fa-floppy-o me-2"
+                                       aria-hidden="true"
+                                    ></i>
+                                 </tippy>
+                              </a>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -401,7 +365,7 @@
                               variant="gradient"
                               size="sm"
                               class="ms-auto"
-                              @click="changePassword"
+                              @click="handleUpdatePassword"
                               >Xác nhận</argon-button
                            >
                         </div>
@@ -410,7 +374,11 @@
                </div>
             </div>
             <div class="col-md-4">
-               <profile-card class="profile-card" />
+               <profile-card
+                  class="profile-card"
+                  :profile="profile"
+                  @onReloadAvatarUrl="handleReloadAvatarUrl"
+               />
             </div>
          </div>
       </div>
@@ -418,14 +386,16 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
+
 import * as API from "@/helpers/api.js";
+import * as SessionStorage from "@/helpers/session_storage.js";
 
 import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
 import ProfileCard from "./components/ProfileCard.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
-
-import { ElMessage } from "element-plus";
+import NoImage from "@/assets/img/no-image.jpg";
 
 const body = document.getElementsByTagName("body")[0];
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
@@ -434,28 +404,48 @@ export default {
    name: "profile",
    data() {
       return {
+         NoImage,
          showMenu: false,
          isShowChangePassword: false,
          profile: {
             username: "",
+            nickname: "",
             email: "",
-            firstname: "Thành Long",
-            lastname: "Nguyễn",
-            address: "TT Lạc Dương - TP Đà Lạt",
-            province: "Lâm Đồng",
-            country: "Việt Nam",
-            zipCode: "66000",
-            interest: "Yêu ❤️bé lì❤️",
+            phone: "",
+            avatarUrl: null,
+            systemRoleName: "",
          },
          newPassword: "",
       };
    },
    components: { ProfileCard, ArgonButton },
    methods: {
+      getAvatar() {
+         return API.get(
+            apiPath + "/image/get_item_by_id.php",
+            {
+               id: this.$store.state.accountLogin.avatarId,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.profile.avatarUrl = data.data.link;
+               } else if (data.code === 2) {
+                  this.profile.avatarUrl = null;
+               }
+            },
+            (error) => {
+               ElMessage({
+                  message: "Có lỗi khi lấy ảnh đại diện",
+                  type: "error",
+               });
+               console.error(error);
+            }
+         );
+      },
       showChangePassword(isShow) {
          this.isShowChangePassword = isShow;
       },
-      changePassword() {
+      handleUpdatePassword() {
          if (this.newPassword === "") {
             ElMessage({
                message: "Bạn phải nhập mật khẩu mới",
@@ -465,10 +455,10 @@ export default {
          }
 
          return API.put(
-            apiPath + "/manager_account/change_password.php",
+            apiPath + "/system_admin/update_password.php",
             {
                id: this.$store.state.accountLogin.id,
-               password: this.newPassword
+               password: this.newPassword,
             },
             (data) => {
                if (data.code === 1) {
@@ -484,24 +474,132 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
-   },
+      handleUpdateEmail() {
+         if (this.profile.email === "") {
+            ElMessage({
+               message: "Bạn không được để trống email",
+               type: "warning",
+            });
+            return;
+         }
 
+         return API.put(
+            apiPath + "/system_admin/update_email.php",
+            {
+               id: this.profile.id,
+               email: this.profile.email,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  ElMessage({
+                     message: "Thay đổi email thành công",
+                     type: "success",
+                  });
+
+                  this.$store.state.accountLogin.email = this.profile.email;
+                  SessionStorage.setAccountLogin(this.profile);
+               } else if (data.code === 2) {
+                  ElMessage({
+                     message: "Thay đổi email thất bại",
+                     type: "error",
+                  });
+               } else if (data.code === 3) {
+                  ElMessage({
+                     message: "Không đúng định dạng email",
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
+      handleUpdateNickname() {
+         if (this.profile.nickname === "") {
+            ElMessage({
+               message: "Bạn không được để trống biệt danh",
+               type: "warning",
+            });
+            return;
+         }
+
+         return API.put(
+            apiPath + "/system_admin/update_nickname.php",
+            {
+               id: this.profile.id,
+               nickname: this.profile.nickname,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  ElMessage({
+                     message: "Thay đổi biệt danh thành công",
+                     type: "success",
+                  });
+
+                  this.$store.state.accountLogin.nickname =
+                     this.profile.nickname;
+                  SessionStorage.setAccountLogin(this.profile);
+               } else if (data.code === 2) {
+                  ElMessage({
+                     message: "Thay đổi biệt danh thất bại",
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
+      handleUpdatePhone() {
+         if (this.profile.phone === "") {
+            ElMessage({
+               message: "Bạn không được để trống số điện thoại",
+               type: "warning",
+            });
+            return;
+         }
+
+         return API.put(
+            apiPath + "/system_admin/update_phone.php",
+            {
+               id: this.profile.id,
+               phone: this.profile.phone,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  ElMessage({
+                     message: "Thay đổi số điện thoại thành công",
+                     type: "success",
+                  });
+
+                  this.$store.state.accountLogin.phone = this.profile.phone;
+                  SessionStorage.setAccountLogin(this.profile);
+               } else if (data.code === 2) {
+                  ElMessage({
+                     message: "Thay đổi số điện thoại thất bại",
+                     type: "error",
+                  });
+               } else if (data.code === 3) {
+                  ElMessage({
+                     message: "Không đúng định dạng số điện thoại (từ 10 số)",
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
+      handleReloadAvatarUrl() {
+         this.getAvatar();
+      },
+   },
+   created() {
+      const accountLogin = this.$store.state.accountLogin;
+      this.profile = { ...accountLogin };
+
+      // Lấy dữ liệu từ API ở đây
+      this.getAvatar();
+   },
    mounted() {
       this.$store.state.isAbsolute = true;
-
-      const accountLogin = this.$store.state.accountLogin;
-      this.profile.username = accountLogin.username;
-      this.profile.email = accountLogin.email;
 
       setNavPills();
       setTooltip();
@@ -534,6 +632,27 @@ export default {
 
 input.form-control {
    margin-bottom: 1rem;
+}
+
+.avatar-border {
+   object-fit: cover;
+   object-position: center;
+   aspect-ratio: 1;
+}
+
+.form-input-wrapper {
+   position: relative;
+
+   .form-control {
+      padding-right: 2.2rem;
+   }
+
+   .form-save-btn {
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%);
+   }
 }
 
 @media (max-width: 767px) {

@@ -51,7 +51,7 @@ function checkItemExist($name)
    $query = "SELECT * FROM `category` WHERE `DeletedAt` IS NULL AND `Name` = '$name' LIMIT 1";
    $result = mysqli_query($connect, $query);
 
-   if (mysqli_num_rows($result) > 0) {
+   if ($result && mysqli_num_rows($result) > 0) {
       return true;
    }
 

@@ -21,9 +21,7 @@
                      <div class="card card-plain">
                         <div class="pb-0 card-header text-start">
                            <h4 class="font-weight-bolder">Đăng nhập</h4>
-                           <p class="mb-0">
-                              Nhập tên đăng nhập và mật khẩu để đăng nhập
-                           </p>
+                           <p class="mb-0">Nhập tên đăng nhập và mật khẩu.</p>
                         </div>
                         <div class="card-body">
                            <form action="" @submit.prevent="login">
@@ -50,7 +48,7 @@
                               > -->
                               <div class="text-center">
                                  <argon-button
-                                    class="mt-4"
+                                    class="mt-3"
                                     variant="gradient"
                                     color="success"
                                     fullWidth
@@ -132,14 +130,16 @@ export default {
                   });
 
                   const accountLogin = {
-                     id: parseInt(data.data.ID),
-                     username: data.data.Username,
-                     email: data.data.Email,
+                     ...data.data,
+                     id: +data.data.id,
+                     avatarId: +data.data.avatarId,
+                     systemRoleId: +data.data.systemRoleId,
                   };
 
                   this.$store.dispatch("setAccountLogin", accountLogin);
                   SessionStorage.setAccountLogin(accountLogin);
 
+                  // Chuyển về trang Dashboard
                   this.$router.push({ name: "/" });
                } else if (data.code === 2) {
                   ElMessage({
@@ -147,13 +147,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -178,12 +171,3 @@ export default {
    },
 };
 </script>
-
-<style lang="scss" scoped>
-.error-message-login {
-   color: orangered;
-   font-size: 14px;
-   margin-top: 15px;
-   margin-bottom: 0;
-}
-</style>

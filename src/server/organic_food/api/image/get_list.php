@@ -17,6 +17,7 @@ if (isset($_GET["target"])) {
    $target = $_GET["target"];
 }
 
+// ✅ Lấy danh sách hình ảnh
 getList($limit, $offset, $target);
 
 function getList($limit, $offset, $target)
@@ -29,6 +30,10 @@ function getList($limit, $offset, $target)
       return;
    }
 
+   //!
+   //! TRUY VẤN QUA CÁC BẢNG: product_image, productcategory, blog, systemadmin
+   //! Tìm item nào không có id trong các bảng trên tức là đang không được sử dụng
+
    // IDs lấy từ DB
    $ids = implode(",", getIDsIsUsing());
 
@@ -39,18 +44,18 @@ function getList($limit, $offset, $target)
          if ($target == "all") {
             $query = "SELECT * FROM `image`";
          } else if ($target == "is_using") {
-            $query = "SELECT * FROM `image` WHERE `ID` IN ($ids)";
+            $query = "SELECT * FROM `image` WHERE `id` IN ($ids)";
          } else if ($target == "dont_using") {
-            $query = "SELECT * FROM `image` WHERE `ID` NOT IN ($ids)";
+            $query = "SELECT * FROM `image` WHERE `id` NOT IN ($ids)";
          }
       }
    } else {
       if ($target == "all") {
          $query = "SELECT * FROM `image` LIMIT $limit OFFSET $offset";
       } else if ($target == "is_using") {
-         $query = "SELECT * FROM `image` WHERE `ID` IN ($ids) LIMIT $limit OFFSET $offset";
+         $query = "SELECT * FROM `image` WHERE `id` IN ($ids) LIMIT $limit OFFSET $offset";
       } else if ($target == "dont_using") {
-         $query = "SELECT * FROM `image` WHERE `ID` NOT IN ($ids) LIMIT $limit OFFSET $offset";
+         $query = "SELECT * FROM `image` WHERE `id` NOT IN ($ids) LIMIT $limit OFFSET $offset";
       }
    }
 
@@ -78,7 +83,7 @@ function getList($limit, $offset, $target)
 function getIDsIsUsing()
 {
    global $connect;
-   
+
    $ids = [];
 
    $query = "SELECT `ImageIDList` FROM `project` WHERE `ImageIDList` != ''";

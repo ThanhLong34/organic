@@ -14,6 +14,7 @@ if (isset($_FILES['image'])) {
    $file = $_FILES['image'];
 }
 
+// ✅ Tải ảnh lên server
 uploadItem($file);
 
 function uploadItem($file)
@@ -26,6 +27,7 @@ function uploadItem($file)
       return;
    }
 
+   $createdAt = getCurrentDatetime();
    $filename = $file['name'];
    $fileTmpName = $file['tmp_name'];
    $size = $file['size'];
@@ -46,15 +48,18 @@ function uploadItem($file)
       /* Upload file */
       if (move_uploaded_file($fileTmpName, LOCATION_UPLOAD_IMAGE . $filename)) {
          /* Lưu thông tin image trong DB */
-         
-         $query = "INSERT INTO `image`(`Link`, `Filename`, `Size`) VALUES('$link', '$filename', $size)";
+
+         $query = "INSERT INTO `image`(`createdAt`, `link`, `filename`, `size`) VALUES('$createdAt', '$link', '$filename', $size)";
          $result = mysqli_query($connect, $query);
 
          if ($result) {
             $imageObj = new stdClass;
+
             $imageObj->id = mysqli_insert_id($connect);
+            $imageObj->createdAt = $createdAt;
             $imageObj->link = $link;
             $imageObj->filename = $filename;
+            $imageObj->size = $size;
 
             $response = new ResponseAPI(1, "Tạo file ảnh thành công", $imageObj);
             $response->send();

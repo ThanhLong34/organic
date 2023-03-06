@@ -96,9 +96,9 @@ export default {
                      });
                   }
                   this.emailContact = {
-                     id: parseInt(data.data.ID),
+                     id: +data.data.ID,
                      message: data.data.Message,
-                     status: parseInt(data.data.Status),
+                     status: +data.data.Status,
                      createdAt: data.data.CreatedAt,
                   };
                } else if (data.code === 2) {
@@ -107,13 +107,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -137,13 +130,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -167,13 +153,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },

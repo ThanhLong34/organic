@@ -24,31 +24,17 @@
                <thead>
                   <tr>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                      >
                         Hình ảnh
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Kích thước tệp (MB)
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Trạng thái
                      </th>
@@ -90,12 +76,7 @@
                      <td class="align-middle">
                         <div class="ms-auto text-end action-btns">
                            <a
-                              class="
-                                 btn btn-link
-                                 text-info text-gradient
-                                 px-2
-                                 mb-0
-                              "
+                              class="btn btn-link text-info text-gradient px-2 mb-0"
                               href="javascript:;"
                               @click="viewImage(item.link)"
                            >
@@ -127,7 +108,12 @@
                <argon-pagination-item next @click="nextPage" />
             </argon-pagination>
             <div class="table-statistics">
-               <span class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ limit }} kết quả trên 1 trang (Tổng <span class="text-dark">{{ totalItem }}</span>)</span>
+               <span
+                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >{{ limit }} kết quả trên 1 trang (Tổng
+                  <span class="text-dark">{{ totalItem }}</span
+                  >)</span
+               >
             </div>
          </div>
          <el-dialog v-model="dialogVisible">
@@ -199,10 +185,8 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: parseInt(item.ID),
-                     status: !this.imageIDListDontUsing.includes(
-                        parseInt(item.ID)
-                     ),
+                     id: +item.id,
+                     status: !this.imageIDListDontUsing.includes(+item.id),
                      link: item.Link,
                      size: (item.Size / (1024 * 1024)).toFixed(2),
                   }));
@@ -212,13 +196,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -240,13 +217,6 @@ export default {
                   });
                   console.error(data.message);
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -275,31 +245,20 @@ export default {
          this.getTableData();
       },
       deleteItem(id) {
-         return API.deleteByID(
-            apiPath + "/image/delete.php",
-            id,
-            (data) => {
-               if (data.code === 1) {
-                  ElMessage({
-                     message: "Xóa thành công",
-                     type: "success",
-                  });
-                  // this.reload();
-               } else if (data.code === 2) {
-                  ElMessage({
-                     message: "Xóa thất bại",
-                     type: "error",
-                  });
-               }
-            },
-            (error) => {
+         return API.deleteById(apiPath + "/image/delete.php", id, (data) => {
+            if (data.code === 1) {
                ElMessage({
-                  message: "Có lỗi, thử lại sau",
+                  message: "Xóa thành công",
+                  type: "success",
+               });
+               // this.reload();
+            } else if (data.code === 2) {
+               ElMessage({
+                  message: "Xóa thất bại",
                   type: "error",
                });
-               console.error(error);
             }
-         );
+         });
       },
       removeAllImageFileDontUsing() {
          this.imageIDListDontUsing.forEach(async (id, index, array) => {
@@ -320,9 +279,7 @@ export default {
             },
             (data) => {
                if (data.code === 1) {
-                  this.imageIDListDontUsing = data.data.map((item) =>
-                     parseInt(item.ID)
-                  );
+                  this.imageIDListDontUsing = data.data.map((item) => +item.id);
 
                   if (this.imageIDListDontUsing.length <= 0) {
                      this.disableRemoveAllImageFileDontUsing = true;
@@ -333,13 +290,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },

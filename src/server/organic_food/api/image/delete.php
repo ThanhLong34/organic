@@ -11,6 +11,7 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
+// ✅ Xóa file ảnh trên server và dữ liệu trong CSDL
 deleteItem($data["id"]);
 
 function deleteItem($id)
@@ -23,14 +24,14 @@ function deleteItem($id)
       return;
    }
 
-   $query = "SELECT * FROM `image` WHERE `ID` = $id LIMIT 1";
+   $query = "SELECT * FROM `image` WHERE `id` = $id LIMIT 1";
    $result = mysqli_query($connect, $query);
    if ($obj = $result->fetch_object()) {
-      $fileLocation = LOCATION_UPLOAD_IMAGE . $obj->Filename;
+      $fileLocation = LOCATION_UPLOAD_IMAGE . $obj->filename;
 
       if (unlink($fileLocation)) {
          /* Xóa thông tin image trong DB */
-         $query = "DELETE FROM `image` WHERE `ID` = $id";
+         $query = "DELETE FROM `image` WHERE `id` = $id";
          $result = mysqli_query($connect, $query);
 
          if ($result) {

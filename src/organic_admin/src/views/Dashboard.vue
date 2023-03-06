@@ -170,13 +170,6 @@ export default {
                   });
                   console.error(data.message);
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -197,13 +190,6 @@ export default {
                   });
                   console.error(data.message);
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -224,13 +210,6 @@ export default {
                   });
                   console.error(data.message);
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -246,12 +225,15 @@ export default {
                   this.statistics.order.value = `${data.data.length}`;
                   this.paypal.price = data.data.reduce((total, order) => {
                      // Đã thanh toán
-                     if (parseInt(order.Status) === 1) {
-                        return parseInt(order.Total);
+                     if (+order.Status === 1) {
+                        return +order.Total;
                      }
                      return 0;
                   }, 0);
-                  this.paypal.price = this.paypal.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                  this.paypal.price = this.paypal.price.toLocaleString(
+                     "it-IT",
+                     { style: "currency", currency: "VND" }
+                  );
                } else if (data.code === 2) {
                   ElMessage({
                      message: "Không lấy được dữ liệu đơn hàng",
@@ -259,22 +241,15 @@ export default {
                   });
                   console.error(data.message);
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
    },
    created() {
-      this.getCategories();
-      this.getProjects();
-      this.getCustomerAccounts();
-      this.getOrders();
+      // this.getCategories();
+      // this.getProjects();
+      // this.getCustomerAccounts();
+      // this.getOrders();
    },
 };
 </script>

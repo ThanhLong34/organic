@@ -23,21 +23,12 @@
                <thead>
                   <tr>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                      >
                         Tên danh mục
                      </th>
                      <th
-                        class="
-                           text-uppercase text-secondary text-xxs
-                           font-weight-bolder
-                           opacity-7
-                           ps-2
-                        "
+                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                      >
                         Số lượng dự án
                      </th>
@@ -60,12 +51,7 @@
                      <td class="align-middle">
                         <div class="ms-auto text-end action-btns">
                            <a
-                              class="
-                                 btn btn-link
-                                 text-dark text-gradient
-                                 px-2
-                                 mb-0
-                              "
+                              class="btn btn-link text-dark text-gradient px-2 mb-0"
                               href="javascript:;"
                               @click.prevent="showAddOrEditCard('edit', item)"
                            >
@@ -83,12 +69,7 @@
                            >
                               <template #reference>
                                  <a
-                                    class="
-                                       btn btn-link
-                                       text-danger text-gradient
-                                       px-2
-                                       mb-0
-                                    "
+                                    class="btn btn-link text-danger text-gradient px-2 mb-0"
                                     href="javascript:;"
                                  >
                                     <i
@@ -125,11 +106,7 @@
             </argon-pagination>
             <div class="table-statistics">
                <span
-                  class="
-                     text-uppercase text-secondary text-xxs
-                     font-weight-bolder
-                     opacity-7
-                  "
+                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                   >{{ limit }} kết quả trên 1 trang (Tổng
                   <span class="text-dark">{{ totalItem }}</span
                   >)</span
@@ -193,7 +170,7 @@ export default {
                      });
                   }
                   this.tableData = data.data.map((item) => ({
-                     id: parseInt(item.ID),
+                     id: +item.id,
                      name: item.Name,
                      numberOfProject: (() => {
                         if (this.projects != null && this.projects.length > 0) {
@@ -210,13 +187,6 @@ export default {
                      type: "error",
                   });
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -238,13 +208,6 @@ export default {
                   });
                   console.error(data.message);
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },
@@ -273,31 +236,20 @@ export default {
          this.getTableData();
       },
       deleteItem(id) {
-         return API.deleteByID(
-            apiPath + "/category/trash.php",
-            id,
-            (data) => {
-               if (data.code === 1) {
-                  ElMessage({
-                     message: "Xóa thành công",
-                     type: "success",
-                  });
-                  this.reload();
-               } else if (data.code === 2) {
-                  ElMessage({
-                     message: "Xóa thất bại",
-                     type: "error",
-                  });
-               }
-            },
-            (error) => {
+         return API.deleteById(apiPath + "/category/trash.php", id, (data) => {
+            if (data.code === 1) {
                ElMessage({
-                  message: "Có lỗi, thử lại sau",
+                  message: "Xóa thành công",
+                  type: "success",
+               });
+               this.reload();
+            } else if (data.code === 2) {
+               ElMessage({
+                  message: "Xóa thất bại",
                   type: "error",
                });
-               console.error(error);
             }
-         );
+         });
       },
       getProjects() {
          return API.get(
@@ -316,13 +268,6 @@ export default {
                   });
                   console.error(data.message);
                }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi, thử lại sau",
-                  type: "error",
-               });
-               console.error(error);
             }
          );
       },

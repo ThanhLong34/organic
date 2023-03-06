@@ -11,40 +11,50 @@ header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
 
-register($data["username"], $data["password"], $data["email"], $data["nickname"]);
+// ✅ Đăng ký tài khoản truy cập vào hệ thống
+register($data["username"], $data["password"], $data["nickname"], $data["email"], $data["phone"], $data["systemRoleId"]);
 
-function register($username, $password, $email, $nickname)
+function register($username, $password, $nickname, $email, $phone, $systemRoleId)
 {
    global $connect;
 
-   if (empty($username) || empty($password) || empty($email) || empty($nickname)) {
+   if (empty($username) || empty($password) || empty($nickname) || empty($email) || empty($phone) || !$systemRoleId || $systemRoleId < 0) {
       $response = new ResponseAPI(9, "Không đủ dữ liệu payload để thực hiện");
       $response->send();
       return;
    }
 
+   // Kiểm tra tên đăng nhập đã tồn tại chưa
    if (checkItemExist($username)) {
       $response = new ResponseAPI(3, "Tên đăng nhập đã tồn tại");
       $response->send();
    } else {
       $password = md5($password);
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-         $response = new ResponseAPI(4, "Không đúng định dạng Email");
-         $response->send();
-      } else {
-         $createdAt = getCurrentDatetime();
 
-         $query = "INSERT INTO `systemadmin`(`createdAt`, `username`, `password`, `email`, `nickname`) 
-               VALUES('$createdAt', '$username', '$password', '$email', '$nickname')";
-         $result = mysqli_query($connect, $query);
+      // Kiểm tra định dạng email
+      if (validateEmail($email)) {
+         // Kiểm tra định dạng số điện thoại
+         if (validatePhoneNumber($phone)) {
+            $createdAt = getCurrentDatetime();
 
-         if ($result) {
-            $response = new ResponseAPI(1, "Tạo tài khoản admin thành công");
-            $response->send();
+            $query = "INSERT INTO `systemadmin`(`createdAt`, `username`, `password`, `nickname`, `email`, `phone`, `systemRoleId`) 
+               VALUES('$createdAt', '$username', '$password', '$nickname', '$email', '$phone', '$systemRoleId')";
+            $result = mysqli_query($connect, $query);
+
+            if ($result) {
+               $response = new ResponseAPI(1, "Tạo tài khoản admin thành công");
+               $response->send();
+            } else {
+               $response = new ResponseAPI(2, "Tạo tài khoản admin thất bại");
+               $response->send();
+            }
          } else {
-            $response = new ResponseAPI(2, "Tạo tài khoản admin thất bại");
+            $response = new ResponseAPI(5, "Không đúng định dạng số điện thoại");
             $response->send();
          }
+      } else {
+         $response = new ResponseAPI(4, "Không đúng định dạng Email");
+         $response->send();
       }
    }
 
@@ -58,7 +68,7 @@ function checkItemExist($username)
    $query = "SELECT * FROM `systemadmin` WHERE `username` = '$username' LIMIT 1";
    $result = mysqli_query($connect, $query);
 
-   if (mysqli_num_rows($result) > 0) {
+   if ($result && mysqli_num_rows($result) > 0) {
       return true;
    }
 

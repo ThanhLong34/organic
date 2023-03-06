@@ -67,7 +67,7 @@ function checkItemExist($username, $email)
    $query = "SELECT * FROM `customeraccount` WHERE `DeletedAt` IS NULL AND `Username` = '$username' OR `Email` = '$email' LIMIT 1";
    $result = mysqli_query($connect, $query);
 
-   if (mysqli_num_rows($result) > 0) {
+   if ($result && mysqli_num_rows($result) > 0) {
       return true;
    }
 

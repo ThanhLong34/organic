@@ -1,0 +1,35 @@
+.text-uppercase {
+	text-transform: uppercase !important;
+}
+
+span.star-input-required {
+	color: orangered;
+}
+
+.text-pink {
+	color: rgb(255, 35, 152) !important;
+}
+
+.el-dialog {
+	border-radius: 1rem !important;
+}
+
+.avatar.avatar-sm.rounded-circle {
+	margin-left: 8px;
+}
+
+.el-overlay {
+	z-index: 9999 !important;
+}
+
+.el-popper {
+	z-index: 9000 !important;
+}
+
+.el-message {
+	z-index: 10000 !important;
+}
+
+.form-control-label {
+	margin-left: 0;
+}
