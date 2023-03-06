@@ -103,7 +103,7 @@ const body = document.getElementsByTagName("body")[0];
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
-   name: "signin",
+   name: "SigninView",
    components: {
       Navbar,
       ArgonInput,
@@ -134,6 +134,8 @@ export default {
                      id: +data.data.id,
                      avatarId: +data.data.avatarId,
                      systemRoleId: +data.data.systemRoleId,
+                     menus: [],
+                     functions: [],
                   };
 
                   this.$store.dispatch("setAccountLogin", accountLogin);

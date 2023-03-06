@@ -3,28 +3,20 @@
       <div class="card-header pb-0">
          <div class="row">
             <div class="col-md-12">
-               <h6 class="mb-0 text-uppercase">Chỉnh sửa menu</h6>
+               <h6 class="mb-0 text-uppercase">Chỉnh sửa vai trò</h6>
             </div>
             <div class="col-md-12 pt-3">
-               <!-- routeName -->
+               <!-- name -->
                <label for="example-text-input" class="form-control-label">
-                  Tên Route
+                  Tên vai trò
                   <span class="star-input-required">*</span>
                </label>
                <argon-input
-                  ref="routeNameRef"
+                  ref="nameRef"
                   type="text"
                   placeholder="Nhập tên Route"
-                  v-model="dataChange.routeName"
+                  v-model="dataChange.name"
                />
-
-               <!-- isBase -->
-               <label for="example-text-input" class="form-control-label">
-                  Trạng thái Base
-               </label>
-               <argon-switch v-model="dataChange.isBase" :checked="data.isBase">
-                  {{ data.isBase ? "Có" : "Không" }}
-               </argon-switch>
             </div>
          </div>
       </div>
@@ -56,15 +48,15 @@
 <script>
 import { ElMessage } from "element-plus";
 import ArgonButton from "@/components/ArgonButton.vue";
-import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+const apiGroup = "system_role";
 
 export default {
-   name: "edit-menu-dialog",
-   components: { ArgonButton, ArgonSwitch, ArgonInput },
+   name: "EditSystemRoleDialog",
+   components: { ArgonButton, ArgonInput },
    emits: ["onCloseDialog"],
    props: {
       itemIdSelect: {
@@ -76,26 +68,23 @@ export default {
       return {
          data: {
             id: 0,
-            routeName: "",
-            isBase: false,
+            name: "",
          },
          dataChange: {
-            routeName: null,
-            isBase: null,
+            name: null,
          },
       };
    },
    methods: {
       getData() {
          return API.get(
-            apiPath + "/system_menu/get_item.php",
+            apiPath + `/${apiGroup}/get_item.php`,
             {
                id: this.data.id,
             },
             (data) => {
                if (data.code === 1) {
-                  this.data.routeName = data.data.routeName;
-                  this.data.isBase = +data.data.isBase == 1;
+                  this.data.name = data.data.name;
 
                   // Binding data
                   this.bindingData();
@@ -109,12 +98,12 @@ export default {
          );
       },
       bindingData() {
-         this.$refs.routeNameRef?.setValue(this.data.routeName);
+         this.$refs.nameRef?.setValue(this.data.name);
       },
       validateBeforeSubmit() {
-         if (this.dataChange.routeName === "") {
+         if (this.dataChange.name === null) {
             ElMessage({
-               message: "Nhập tên Route mới hoặc không được để trống",
+               message: "Nhập tên vai trò mới hoặc không được để trống",
                type: "warning",
             });
 
@@ -127,7 +116,7 @@ export default {
          if (!this.validateBeforeSubmit()) return;
 
          return API.post(
-            apiPath + "/system_menu/update.php",
+            apiPath + `/${apiGroup}/update.php`,
             {
                id: this.data.id,
                ...this.dataChange,

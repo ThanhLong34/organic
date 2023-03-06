@@ -87,7 +87,7 @@
 <script>
 import * as API from "@/helpers/api.js";
 
-import CategoryTable from "./components/CategoryTable.vue";
+import CategoryTable from "./components/Tables/CategoryTable.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 
@@ -96,7 +96,7 @@ import { ElMessage } from "element-plus";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
-   name: "category",
+   name: "CategoryView",
    components: {
       CategoryTable,
       ArgonInput,

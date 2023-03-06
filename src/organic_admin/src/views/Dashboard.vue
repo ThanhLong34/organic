@@ -95,14 +95,14 @@ import MasterCard from "@/examples/Cards/MasterCard.vue";
 import DefaultInfoCard from "@/examples/Cards/DefaultInfoCard.vue";
 import Card from "@/examples/Cards/Card.vue";
 import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
-import Carousel from "./components/Carousel.vue";
+import Carousel from "../examples/Carousel.vue";
 
 import { ElMessage } from "element-plus";
 
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
-   name: "dashboard-default",
+   name: "DashboardView",
    components: {
       Card,
       GradientLineChart,

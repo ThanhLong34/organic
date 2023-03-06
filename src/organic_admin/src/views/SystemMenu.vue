@@ -4,49 +4,101 @@
          <div class="col-12">
             <!-- Controllers -->
             <div class="card mb-4">
-               <div class="card-header pb-2">
-                  <h6>Tìm kiếm &amp; Lọc</h6>
-               </div>
-               <div class="card-body px-4 pt-0 pb-4">
+               <div class="card-body px-4 pt-4 pb-4">
                   <div class="row">
-                     <div class="col-12">
-                        <div class="search-wrap">
-                           <argon-input
-                              ref="searchRef"
-                              type="search"
-                              icon="fas fa-search"
-                              iconDir="left"
-                              :placeholder="searchPlaceholder"
-                              v-model="searchValue"
-                           />
-                           <argon-button
-                              color="primary"
-                              size="sm"
-                              variant="gradient"
-                              @click="handleSearch"
-                           >
-                              Tìm kiếm
-                           </argon-button>
-                           <argon-button
-                              color="dark"
-                              size="sm"
-                              class="reload-button"
-                              @click="handleReload"
-                           >
-                              Tải lại
-                           </argon-button>
+                     <div class="col-5">
+                        <div>
+                           <div class="pb-1">
+                              <h6>🟠 Ô tìm kiếm</h6>
+                           </div>
+                           <div class="search-wrap">
+                              <argon-input
+                                 ref="searchRef"
+                                 type="search"
+                                 icon="fas fa-search"
+                                 iconDir="left"
+                                 :placeholder="
+                                    searchType === 'routeName'
+                                       ? 'Nhập tên Route'
+                                       : searchType === 'title'
+                                       ? 'Tiêu đề'
+                                       : ''
+                                 "
+                                 v-model="searchValue"
+                              />
+                              <argon-button
+                                 color="primary"
+                                 size="sm"
+                                 variant="gradient"
+                                 @click="handleSearch"
+                              >
+                                 Tìm kiếm
+                              </argon-button>
+                              <argon-button
+                                 color="dark"
+                                 size="sm"
+                                 class="reload-button"
+                                 @click="handleReload"
+                              >
+                                 Tải lại
+                              </argon-button>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-3">
+                        <div>
+                           <div class="pb-1">
+                              <h6>🟡 Tiêu chí tìm kiếm</h6>
+                           </div>
+                           <div class="selection-wrap">
+                              <el-select
+                                 v-model="searchType"
+                                 filterable
+                                 placeholder="Chọn kiểu tìm kiếm"
+                              >
+                                 <el-option
+                                    v-for="item in searchOptions"
+                                    :key="item.value"
+                                    :label="item.title"
+                                    :value="item.value"
+                                 />
+                              </el-select>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-4">
+                        <div>
+                           <div class="pb-1">
+                              <h6>🟢 Lọc dữ liệu</h6>
+                           </div>
+                           <div class="selection-wrap">
+                              <el-select
+                                 v-model="fillValue"
+                                 filterable
+                                 :placeholder="fillPlaceholder"
+                                 @change="handleFill"
+                              >
+                                 <el-option
+                                    v-for="item in fillOptions"
+                                    :key="item.value"
+                                    :label="item.title"
+                                    :value="item.value"
+                                 />
+                              </el-select>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
+            <!-- Content -->
             <div class="col-12">
                <div class="card mb-4">
                   <!-- Title -->
                   <div class="card-header pb-0">
                      <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                           <h6>Danh sách vai trò ({{ tableData.length }})</h6>
+                           <h6>Danh sách menu ({{ tableData.length }})</h6>
                         </div>
                         <div class="col-6 text-end">
                            <argon-button
@@ -55,7 +107,7 @@
                               @click="handleOpenAddDialog"
                            >
                               <i class="fas fa-plus me-2"></i>
-                              Thêm vai trò
+                              Thêm menu
                            </argon-button>
                         </div>
                      </div>
@@ -71,7 +123,17 @@
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                  >
-                                    Tên vai trò
+                                    Tên route
+                                 </th>
+                                 <th
+                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                 >
+                                    Tiêu đề
+                                 </th>
+                                 <th
+                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                 >
+                                    Base
                                  </th>
                                  <th></th>
                               </tr>
@@ -85,9 +147,19 @@
                                        style="margin-left: 16px"
                                     >
                                        <h6 class="mb-0 text-sm">
-                                          {{ item.name }}
+                                          {{ item.routeName }}
                                        </h6>
                                     </div>
+                                 </td>
+                                 <td>
+                                    <p class="text-sm font-weight-bold mb-0">
+                                       {{ item.title }}
+                                    </p>
+                                 </td>
+                                 <td>
+                                    <p class="text-sm font-weight-bold mb-0">
+                                       {{ item.isBase ? "Có" : "Không" }}
+                                    </p>
                                  </td>
                                  <td class="align-middle">
                                     <div class="ms-auto text-end action-btns">
@@ -165,23 +237,23 @@
                            >
                         </div>
                      </div>
-                     <!-- Add dialog -->
-                     <div v-if="addDialog.visible">
-                        <el-dialog v-model="addDialog.visible">
-                           <AddRoleDialog @onCloseDialog="handleCloseDialog" />
-                        </el-dialog>
-                     </div>
-                     <!-- Edit dialog -->
-                     <div v-if="editDialog.visible">
-                        <el-dialog v-model="editDialog.visible">
-                           <EditRoleDialog
-                              :itemIdSelect="itemIdSelect"
-                              @onCloseDialog="handleCloseDialog"
-                           />
-                        </el-dialog>
-                     </div>
                   </div>
                </div>
+            </div>
+            <!-- Add dialog -->
+            <div v-if="addDialog.visible">
+               <el-dialog v-model="addDialog.visible">
+                  <AddMenuDialog @onCloseDialog="handleCloseDialog" />
+               </el-dialog>
+            </div>
+            <!-- Edit dialog -->
+            <div v-if="editDialog.visible">
+               <el-dialog v-model="editDialog.visible">
+                  <EditMenuDialog
+                     :itemIdSelect="itemIdSelect"
+                     @onCloseDialog="handleCloseDialog"
+                  />
+               </el-dialog>
             </div>
          </div>
       </div>
@@ -196,28 +268,42 @@ import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
 
-import AddRoleDialog from "./components/AddRoleDialog.vue";
-import EditRoleDialog from "./components/EditRoleDialog.vue";
+import AddMenuDialog from "./components/dialogs/AddSystemMenuDialog.vue";
+import EditMenuDialog from "./components/dialogs/EditSystemMenuDialog.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+const apiGroup = "system_menu";
 
 export default {
-   name: "role-view",
+   name: "SystemMenuView",
    components: {
       ArgonInput,
       ArgonButton,
       ArgonPagination,
       ArgonPaginationItem,
-      AddRoleDialog,
-      EditRoleDialog,
+      AddMenuDialog,
+      EditMenuDialog,
    },
    data() {
       return {
          // Search
-         searchPlaceholder: "Nhập tên vai trò...",
-         searchType: "name",
+         searchPlaceholder: "Nhập tên Route...",
+         searchType: "routeName",
          searchValue: "",
+         searchOptions: [
+            { value: "routeName", title: "Tên Route" },
+            { value: "title", title: "Tiêu đề" },
+         ],
+
+         // Fill
+         fillPlaceholder: "Chọn trạng thái Base",
+         fillType: "isBase",
+         fillValue: "",
+         fillOptions: [
+            { value: 0, title: "Không" },
+            { value: 1, title: "Có" },
+         ],
 
          // Table states
          tableData: [],
@@ -234,6 +320,7 @@ export default {
          addDialog: {
             visible: false,
          },
+         // Edit dialog
          editDialog: {
             visible: false,
          },
@@ -242,12 +329,14 @@ export default {
    methods: {
       getTableData() {
          return API.get(
-            apiPath + "/system_role/get_list.php",
+            apiPath + `/${apiGroup}/get_list.php`,
             {
                limit: this.limit,
                offset: this.offset,
                searchType: this.searchType,
                searchValue: this.searchValue,
+               fillType: this.fillType,
+               fillValue: this.fillValue,
             },
             (data) => {
                if (data.code === 1) {
@@ -255,6 +344,7 @@ export default {
                   this.tableData = data.data.map((item) => ({
                      ...item,
                      id: +item.id,
+                     isBase: +item.isBase == 1,
                   }));
                   this.totalItem = +data.totalItem;
                   this.numberOfPage = Math.ceil(this.totalItem / this.limit);
@@ -305,7 +395,7 @@ export default {
       },
       handleDeleteItem(id) {
          return API.deleteById(
-            apiPath + "/system_role/trash.php",
+            apiPath + `/${apiGroup}/trash.php`,
             id,
             (data) => {
                if (data.code === 1) {
@@ -327,6 +417,8 @@ export default {
          // Reset search value
          this.$refs.searchRef.resetValue();
          this.searchValue = "";
+         // Reset fill value
+         this.fillValue = "";
 
          // Reset page
          this.handleChoosePage(1);
@@ -339,6 +431,16 @@ export default {
             });
             return;
          }
+
+         // Reset limit & offset
+         this.currentPage = 1;
+         this.limit = 10;
+         this.offset = 0;
+
+         this.getTableData();
+      },
+      handleFill() {
+         if (this.fillValue === "") return;
 
          // Reset limit & offset
          this.currentPage = 1;

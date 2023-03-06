@@ -6,7 +6,7 @@
       <ul class="navbar-nav">
          <li class="nav-item">
             <sidenav-item
-               url="/dashboard-default"
+               routeName="Dashboard"
                :class="getRoute() === 'dashboard-default' ? 'active' : ''"
                navText="Dashboard"
             >
@@ -17,7 +17,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/role"
+               routeName="SystemRole"
                :class="getRoute() === 'role' ? 'active' : ''"
                navText="Vai trò"
             >
@@ -30,7 +30,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/menu"
+               routeName="SystemMenu"
                :class="getRoute() === 'menu' ? 'active' : ''"
                navText="Menu"
             >
@@ -43,7 +43,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/function"
+               routeName="SystemFunction"
                :class="getRoute() === 'function' ? 'active' : ''"
                navText="Chức năng"
             >
@@ -54,7 +54,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/system-admin"
+               routeName="SystemAdmin"
                :class="getRoute() === 'system-admin' ? 'active' : ''"
                navText="Tài khoản Admin"
             >
@@ -67,7 +67,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/image"
+               routeName="Image"
                :class="getRoute() === 'image' ? 'active' : ''"
                navText="Tệp hình ảnh"
             >
@@ -78,7 +78,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/product-category"
+               routeName="ProductCategory"
                :class="getRoute() === 'product-category' ? 'active' : ''"
                navText="Danh mục sản phẩm"
             >
@@ -91,7 +91,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/product"
+               routeName="Product"
                :class="getRoute() === 'product' ? 'active' : ''"
                navText="Sản phẩm"
             >
@@ -102,7 +102,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/blog"
+               routeName="Blog"
                :class="getRoute() === 'blog' ? 'active' : ''"
                navText="Bài viết"
             >
@@ -115,7 +115,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/subscribe"
+               routeName="Subscribe"
                :class="getRoute() === 'subscribe' ? 'active' : ''"
                navText="KH Đăng ký"
             >
@@ -126,7 +126,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/contact"
+               routeName="Contact"
                :class="getRoute() === 'contact' ? 'active' : ''"
                navText="KH Liên hệ"
             >
@@ -139,7 +139,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/counpon-code"
+               routeName="CounponCode"
                :class="getRoute() === 'counpon-code' ? 'active' : ''"
                navText="Mã giảm giá"
             >
@@ -150,7 +150,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/order-status"
+               routeName="OrderStatus"
                :class="getRoute() === 'order-status' ? 'active' : ''"
                navText="Trạng thái đơn hàng"
             >
@@ -161,7 +161,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/order"
+               routeName="Order"
                :class="getRoute() === 'order' ? 'active' : ''"
                navText="Đơn hàng"
             >
@@ -181,7 +181,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/profile"
+               routeName="Profile"
                :class="getRoute() === 'profile' ? 'active' : ''"
                navText="Hồ sơ cá nhân"
             >
@@ -192,7 +192,7 @@
          </li>
          <li class="nav-item">
             <sidenav-item
-               url="/signin"
+               routeName="Signin"
                :class="getRoute() === 'signin' ? 'active' : ''"
                navText="Đăng xuất"
             >

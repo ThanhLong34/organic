@@ -4,66 +4,52 @@
          <div class="col-12">
             <!-- Controllers -->
             <div class="card mb-4">
-               <div class="card-header pb-2">
-                  <h6>Tìm kiếm &amp; Lọc</h6>
-               </div>
-               <div class="card-body px-4 pt-0 pb-4">
+               <div class="card-body px-4 pt-4 pb-4">
                   <div class="row">
-                     <div class="col-8">
-                        <div class="search-wrap">
-                           <argon-input
-                              ref="searchRef"
-                              type="search"
-                              icon="fas fa-search"
-                              iconDir="left"
-                              :placeholder="searchPlaceholder"
-                              v-model="searchValue"
-                           />
-                           <argon-button
-                              color="primary"
-                              size="sm"
-                              variant="gradient"
-                              @click="handleSearch"
-                           >
-                              Tìm kiếm
-                           </argon-button>
-                           <argon-button
-                              color="dark"
-                              size="sm"
-                              class="reload-button"
-                              @click="handleReload"
-                           >
-                              Tải lại
-                           </argon-button>
-                        </div>
-                     </div>
-                     <div class="col-4">
-                        <div class="selection-wrap">
-                           <el-select
-                              v-model="fillValue"
-                              filterable
-                              :placeholder="fillPlaceholder"
-                              @change="handleFill"
-                           >
-                              <el-option
-                                 v-for="item in fillOptions"
-                                 :key="item.value"
-                                 :label="item.title"
-                                 :value="item.value"
+                     <div class="col-12">
+                        <div>
+                           <div class="pb-1">
+                              <h6>🟠 Ô tìm kiếm</h6>
+                           </div>
+                           <div class="search-wrap">
+                              <argon-input
+                                 ref="searchRef"
+                                 type="search"
+                                 icon="fas fa-search"
+                                 iconDir="left"
+                                 :placeholder="searchPlaceholder"
+                                 v-model="searchValue"
                               />
-                           </el-select>
+                              <argon-button
+                                 color="primary"
+                                 size="sm"
+                                 variant="gradient"
+                                 @click="handleSearch"
+                              >
+                                 Tìm kiếm
+                              </argon-button>
+                              <argon-button
+                                 color="dark"
+                                 size="sm"
+                                 class="reload-button"
+                                 @click="handleReload"
+                              >
+                                 Tải lại
+                              </argon-button>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
+            <!-- Content -->
             <div class="col-12">
                <div class="card mb-4">
                   <!-- Title -->
                   <div class="card-header pb-0">
                      <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                           <h6>Danh sách menu ({{ tableData.length }})</h6>
+                           <h6>Danh sách vai trò ({{ tableData.length }})</h6>
                         </div>
                         <div class="col-6 text-end">
                            <argon-button
@@ -72,7 +58,7 @@
                               @click="handleOpenAddDialog"
                            >
                               <i class="fas fa-plus me-2"></i>
-                              Thêm menu
+                              Thêm vai trò
                            </argon-button>
                         </div>
                      </div>
@@ -88,12 +74,7 @@
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                  >
-                                    Tên route
-                                 </th>
-                                 <th
-                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-                                 >
-                                    Base
+                                    Tên vai trò
                                  </th>
                                  <th></th>
                               </tr>
@@ -107,17 +88,25 @@
                                        style="margin-left: 16px"
                                     >
                                        <h6 class="mb-0 text-sm">
-                                          {{ item.routeName }}
+                                          {{ item.name }}
                                        </h6>
                                     </div>
                                  </td>
-                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">
-                                       {{ item.isBase ? "Có" : "Không" }}
-                                    </p>
-                                 </td>
                                  <td class="align-middle">
                                     <div class="ms-auto text-end action-btns">
+                                       <a
+                                          class="btn btn-link text-info text-gradient px-2 mb-0"
+                                          href="javascript:;"
+                                          @click.prevent="
+                                             handleShowPermissionSidebar
+                                          "
+                                       >
+                                          <i
+                                             class="fas fa-cog me-2"
+                                             aria-hidden="true"
+                                          ></i
+                                          >Cài đặt quyền
+                                       </a>
                                        <a
                                           class="btn btn-link text-dark text-gradient px-2 mb-0"
                                           href="javascript:;"
@@ -192,68 +181,106 @@
                            >
                         </div>
                      </div>
-                     <!-- Add dialog -->
-                     <div v-if="addDialog.visible">
-                        <el-dialog v-model="addDialog.visible">
-                           <AddMenuDialog @onCloseDialog="handleCloseDialog" />
-                        </el-dialog>
-                     </div>
-                     <!-- Edit dialog -->
-                     <div v-if="editDialog.visible">
-                        <el-dialog v-model="editDialog.visible">
-                           <EditMenuDialog
-                              :itemIdSelect="itemIdSelect"
-                              @onCloseDialog="handleCloseDialog"
-                           />
-                        </el-dialog>
-                     </div>
                   </div>
                </div>
             </div>
+            <!-- Add dialog -->
+            <div v-if="addDialog.visible">
+               <el-dialog v-model="addDialog.visible">
+                  <AddRoleDialog @onCloseDialog="handleCloseDialog" />
+               </el-dialog>
+            </div>
+            <!-- Edit dialog -->
+            <div v-if="editDialog.visible">
+               <el-dialog v-model="editDialog.visible">
+                  <EditRoleDialog
+                     :itemIdSelect="itemIdSelect"
+                     @onCloseDialog="handleCloseDialog"
+                  />
+               </el-dialog>
+            </div>
+            <!-- Permission Sidebar -->
+            <el-drawer
+               v-model="permissionSidebar.visible"
+               title="I am the title"
+               :direction="permissionSidebar.direction"
+               :before-close="handleBeforeClosePermissionSidebar"
+            >
+               <template #header>
+                  <h5 class="mt-1 mb-1">Cài đặt quyền</h5>
+               </template>
+               <template #default>
+                  <div class="permission-sidebar-content">
+                     <div class="permission-sidebar-menu">
+                        <h6 class="mb-0 mb-2">Menu:</h6>
+                        <el-checkbox-group v-model="permission.menus">
+                           <div>
+                              <el-checkbox label="Dashboard" />
+                              <span
+                                 class="permission-sidebar-label"
+                                 style="font-size: 14px"
+                                 >&lpar;Dashboard&rpar;</span
+                              >
+                           </div>
+                           <div>
+                              <el-checkbox label="SystemRole" />
+                           </div>
+                        </el-checkbox-group>
+                     </div>
+                     <el-divider />
+                     <div class="permission-sidebar-function">
+                        <h6 class="mb-0 mb-2">Chức năng:</h6>
+                     </div>
+                  </div>
+               </template>
+               <template #footer>
+                  <div style="flex: auto">
+                     <el-button @click="handleClosePermissionSidebar"
+                        >Hủy</el-button
+                     >
+                     <el-button type="primary" @click="handleSavePermission"
+                        >Lưu</el-button
+                     >
+                  </div>
+               </template>
+            </el-drawer>
          </div>
       </div>
    </div>
 </template>
 
 <script>
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
+import ArgonCheckbox from "@/components/ArgonCheckbox.vue";
 
-import AddMenuDialog from "./components/AddMenuDialog.vue";
-import EditMenuDialog from "./components/EditMenuDialog.vue";
+import AddRoleDialog from "./components/dialogs/AddSystemRoleDialog.vue";
+import EditRoleDialog from "./components/dialogs/EditSystemRoleDialog.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+const apiGroup = "system_role";
 
 export default {
-   name: "menu-view",
+   name: "SystemRoleView",
    components: {
       ArgonInput,
       ArgonButton,
       ArgonPagination,
       ArgonPaginationItem,
-      AddMenuDialog,
-      EditMenuDialog,
+      AddRoleDialog,
+      EditRoleDialog,
    },
    data() {
       return {
          // Search
-         searchPlaceholder: "Nhập tên Route...",
-         searchType: "routeName",
+         searchPlaceholder: "Nhập tên vai trò...",
+         searchType: "name",
          searchValue: "",
-
-         // Fill
-         fillPlaceholder: "Chọn trạng thái Base",
-         fillType: "isBase",
-         fillValue: "",
-         fillOptions: [
-            { value: 1, title: "Có" },
-            { value: 0, title: "Không" },
-         ],
 
          // Table states
          tableData: [],
@@ -270,22 +297,33 @@ export default {
          addDialog: {
             visible: false,
          },
+         // Edit dialog
          editDialog: {
             visible: false,
+         },
+
+         // Permission sidebar
+         permissionSidebar: {
+            visible: false,
+            direction: "rtl",
+         },
+
+         // Permission
+         permission: {
+            menus: [],
+            functions: [],
          },
       };
    },
    methods: {
       getTableData() {
          return API.get(
-            apiPath + "/system_menu/get_list.php",
+            apiPath + `/${apiGroup}/get_list.php`,
             {
                limit: this.limit,
                offset: this.offset,
                searchType: this.searchType,
                searchValue: this.searchValue,
-               fillType: this.fillType,
-               fillValue: this.fillValue,
             },
             (data) => {
                if (data.code === 1) {
@@ -293,7 +331,6 @@ export default {
                   this.tableData = data.data.map((item) => ({
                      ...item,
                      id: +item.id,
-                     isBase: +item.isBase == 1,
                   }));
                   this.totalItem = +data.totalItem;
                   this.numberOfPage = Math.ceil(this.totalItem / this.limit);
@@ -344,7 +381,7 @@ export default {
       },
       handleDeleteItem(id) {
          return API.deleteById(
-            apiPath + "/system_menu/trash.php",
+            apiPath + `/${apiGroup}/trash.php`,
             id,
             (data) => {
                if (data.code === 1) {
@@ -366,8 +403,6 @@ export default {
          // Reset search value
          this.$refs.searchRef.resetValue();
          this.searchValue = "";
-         // Reset fill value
-         this.fillValue = "";
 
          // Reset page
          this.handleChoosePage(1);
@@ -380,16 +415,6 @@ export default {
             });
             return;
          }
-
-         // Reset limit & offset
-         this.currentPage = 1;
-         this.limit = 10;
-         this.offset = 0;
-
-         this.getTableData();
-      },
-      handleFill() {
-         if (this.fillValue === "") return;
 
          // Reset limit & offset
          this.currentPage = 1;
@@ -413,6 +438,24 @@ export default {
          }
 
          this.reloadDataCurrentPage();
+      },
+      handleShowPermissionSidebar() {
+         this.permissionSidebar.visible = true;
+      },
+      handleClosePermissionSidebar() {
+         this.permissionSidebar.visible = false;
+      },
+      handleBeforeClosePermissionSidebar(acceptCallback) {
+         ElMessageBox.confirm("Đóng cài đặt quyền và không lưu?")
+            .then(() => {
+               acceptCallback();
+            })
+            .catch(() => {
+               // catch error
+            });
+      },
+      handleSavePermission() {
+         console.log(this.permission);
       },
    },
    created() {

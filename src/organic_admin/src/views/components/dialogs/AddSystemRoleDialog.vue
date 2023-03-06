@@ -3,7 +3,7 @@
       <div class="card-header pb-0">
          <div class="row">
             <div class="col-md-12">
-               <h6 class="mb-0 text-uppercase">Chỉnh sửa vai trò</h6>
+               <h6 class="mb-0 text-uppercase">Thêm vai trò</h6>
             </div>
             <div class="col-md-12 pt-3">
                <!-- name -->
@@ -12,10 +12,9 @@
                   <span class="star-input-required">*</span>
                </label>
                <argon-input
-                  ref="nameRef"
                   type="text"
-                  placeholder="Nhập tên Route"
-                  v-model="dataChange.name"
+                  placeholder="Nhập tên vai trò"
+                  v-model="data.name"
                />
             </div>
          </div>
@@ -47,62 +46,29 @@
 
 <script>
 import { ElMessage } from "element-plus";
-import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
+import ArgonButton from "@/components/ArgonButton.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+const apiGroup = "system_role";
 
 export default {
-   name: "edit-role-dialog",
+   name: "AddSystemRoleDialog",
    components: { ArgonButton, ArgonInput },
    emits: ["onCloseDialog"],
-   props: {
-      itemIdSelect: {
-         type: Number,
-         required: true,
-      },
-   },
    data() {
       return {
          data: {
-            id: 0,
             name: "",
-         },
-         dataChange: {
-            name: null,
          },
       };
    },
    methods: {
-      getData() {
-         return API.get(
-            apiPath + "/system_role/get_item.php",
-            {
-               id: this.data.id,
-            },
-            (data) => {
-               if (data.code === 1) {
-                  this.data.name = data.data.name;
-
-                  // Binding data
-                  this.bindingData();
-               } else {
-                  ElMessage({
-                     message: data.message,
-                     type: "error",
-                  });
-               }
-            }
-         );
-      },
-      bindingData() {
-         this.$refs.nameRef?.setValue(this.data.name);
-      },
       validateBeforeSubmit() {
-         if (this.dataChange.name === "") {
+         if (this.data.name === "") {
             ElMessage({
-               message: "Nhập tên vai trò mới hoặc không được để trống",
+               message: "Không được để trống tên vai trò",
                type: "warning",
             });
 
@@ -115,11 +81,8 @@ export default {
          if (!this.validateBeforeSubmit()) return;
 
          return API.post(
-            apiPath + "/system_role/update.php",
-            {
-               id: this.data.id,
-               ...this.dataChange,
-            },
+            apiPath + `/${apiGroup}/add.php`,
+            this.data,
             (data) => {
                if (data.code === 1) {
                   ElMessage({
@@ -138,12 +101,8 @@ export default {
          );
       },
       handleCloseDialog() {
-         this.$emit("onCloseDialog", "edit");
+         this.$emit("onCloseDialog", "add");
       },
-   },
-   created() {
-      this.data.id = this.$props.itemIdSelect;
-      this.getData();
    },
 };
 </script>
