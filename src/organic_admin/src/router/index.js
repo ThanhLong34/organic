@@ -224,6 +224,16 @@ router.beforeEach((to) => {
 	) {
 		return { name: "Signin" };
 	}
+
+	// Kiểm tra quyền truy cập các Menu
+	if (store.state.accountLogin?.menus) {
+		const accessibleMenus = store.state.accountLogin.menus.map(
+			(i) => i.routeName
+		);
+		if (!accessibleMenus.includes(to.name)) {
+			return { name: "Dashboard" };
+		}
+	}
 });
 
 export default router;

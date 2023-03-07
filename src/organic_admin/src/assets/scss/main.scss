@@ -36,10 +36,41 @@ span.star-input-required {
 }
 
 .el-checkbox {
-	margin-left: 0;
 	margin-bottom: 0;
+	margin-left: 0;
+
+	&:hover {
+		color: #409eff;
+	}
 }
 
 .el-drawer__header {
-	margin-bottom: 0;
+	margin-bottom: 8px !important;
+}
+
+// controller
+
+.controller-title {
+	display: flex;
+	align-items: center;
+}
+
+i.controller-icon {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	margin-right: 6px;
+
+	&.red {
+		background-color: rgb(255, 0, 51);
+	}
+
+	&.yellow {
+		background-color: rgb(255, 179, 0);
+	}
+
+	&.green {
+		background-color: rgb(4, 200, 4);
+	}
 }

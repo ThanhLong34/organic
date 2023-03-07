@@ -9,7 +9,10 @@
                      <div class="col-5">
                         <div>
                            <div class="pb-1">
-                              <h6>🟠 Ô tìm kiếm</h6>
+                              <h6 class="controller-title">
+                                 <i class="controller-icon red"></i>
+                                 Ô tìm kiếm
+                              </h6>
                            </div>
                            <div class="search-wrap">
                               <argon-input
@@ -48,7 +51,10 @@
                      <div class="col-3">
                         <div>
                            <div class="pb-1">
-                              <h6>🟡 Tiêu chí tìm kiếm</h6>
+                              <h6 class="controller-title">
+                                 <i class="controller-icon yellow"></i>
+                                 Tiêu chí tìm kiếm
+                              </h6>
                            </div>
                            <div class="selection-wrap">
                               <el-select
@@ -69,7 +75,10 @@
                      <div class="col-4">
                         <div>
                            <div class="pb-1">
-                              <h6>🟢 Lọc dữ liệu</h6>
+                              <h6 class="controller-title">
+                                 <i class="controller-icon green"></i>
+                                 Lọc dữ liệu
+                              </h6>
                            </div>
                            <div class="selection-wrap">
                               <el-select

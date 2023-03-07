@@ -4,7 +4,7 @@
       id="sidenav-collapse-main"
    >
       <ul class="navbar-nav">
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Dashboard')">
             <sidenav-item
                routeName="Dashboard"
                :class="getRoute() === 'dashboard-default' ? 'active' : ''"
@@ -15,7 +15,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('SystemRole')">
             <sidenav-item
                routeName="SystemRole"
                :class="getRoute() === 'role' ? 'active' : ''"
@@ -28,7 +28,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('SystemMenu')">
             <sidenav-item
                routeName="SystemMenu"
                :class="getRoute() === 'menu' ? 'active' : ''"
@@ -41,7 +41,10 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li
+            class="nav-item"
+            v-if="accessibleMenus?.includes('SystemFunction')"
+         >
             <sidenav-item
                routeName="SystemFunction"
                :class="getRoute() === 'function' ? 'active' : ''"
@@ -52,7 +55,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('SystemAdmin')">
             <sidenav-item
                routeName="SystemAdmin"
                :class="getRoute() === 'system-admin' ? 'active' : ''"
@@ -65,7 +68,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Image')">
             <sidenav-item
                routeName="Image"
                :class="getRoute() === 'image' ? 'active' : ''"
@@ -76,7 +79,10 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li
+            class="nav-item"
+            v-if="accessibleMenus?.includes('ProductCategory')"
+         >
             <sidenav-item
                routeName="ProductCategory"
                :class="getRoute() === 'product-category' ? 'active' : ''"
@@ -89,7 +95,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Product')">
             <sidenav-item
                routeName="Product"
                :class="getRoute() === 'product' ? 'active' : ''"
@@ -100,7 +106,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Blog')">
             <sidenav-item
                routeName="Blog"
                :class="getRoute() === 'blog' ? 'active' : ''"
@@ -113,7 +119,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Subscribe')">
             <sidenav-item
                routeName="Subscribe"
                :class="getRoute() === 'subscribe' ? 'active' : ''"
@@ -124,7 +130,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Contact')">
             <sidenav-item
                routeName="Contact"
                :class="getRoute() === 'contact' ? 'active' : ''"
@@ -137,7 +143,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('CounponCode')">
             <sidenav-item
                routeName="CounponCode"
                :class="getRoute() === 'counpon-code' ? 'active' : ''"
@@ -148,7 +154,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('OrderStatus')">
             <sidenav-item
                routeName="OrderStatus"
                :class="getRoute() === 'order-status' ? 'active' : ''"
@@ -159,7 +165,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Order')">
             <sidenav-item
                routeName="Order"
                :class="getRoute() === 'order' ? 'active' : ''"
@@ -179,7 +185,7 @@
                TÀI KHOẢN
             </h6>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Profile')">
             <sidenav-item
                routeName="Profile"
                :class="getRoute() === 'profile' ? 'active' : ''"
@@ -190,7 +196,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Signin')">
             <sidenav-item
                routeName="Signin"
                :class="getRoute() === 'signin' ? 'active' : ''"
@@ -235,6 +241,11 @@ export default {
       getRoute() {
          const routeArr = this.$route.path.split("/");
          return routeArr[1];
+      },
+   },
+   computed: {
+      accessibleMenus() {
+         return this.$store.state.accountLogin?.menus?.map((i) => i.routeName);
       },
    },
 };

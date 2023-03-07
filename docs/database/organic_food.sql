@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2023 at 05:30 AM
+-- Generation Time: Mar 07, 2023 at 08:31 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -108,7 +108,9 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (13, '11:33:49 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041bad5d063.jpg', 'project_image64041bad5d063.jpg', 7662),
 (14, '13:36:26 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6404386af0f74.gif', 'project_image6404386af0f74.gif', 754376),
 (15, '16:01:51 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64045a7f89053.jpg', 'project_image64045a7f89053.jpg', 8166),
-(16, '16:02:12 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64045a948dfdc.jpg', 'project_image64045a948dfdc.jpg', 7176);
+(16, '16:02:12 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64045a948dfdc.jpg', 'project_image64045a948dfdc.jpg', 7176),
+(17, '21:12:16 06/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6405f4c0dc783.jpg', 'project_image6405f4c0dc783.jpg', 8595),
+(18, '21:13:02 06/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6405f4ee67a37.jpg', 'project_image6405f4ee67a37.jpg', 7662);
 
 -- --------------------------------------------------------
 
@@ -280,14 +282,9 @@ CREATE TABLE `systemadmin` (
 --
 
 INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `nickname`, `email`, `phone`, `avatarId`, `systemRoleId`) VALUES
-(4, '18:08:50 04/03/2023', '16:02:20 05/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 16, 1),
+(4, '18:08:50 04/03/2023', '10:08:36 07/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
 (5, '18:46:33 04/03/2023', '13:36:27 05/03/2023', NULL, 'client', '62608e08adc29a8d6dbc9754e659f125', 'Client', 'dragondevshop@gmail.com', '0353292241', 14, 2),
-(7, '19:27:05 04/03/2023', '09:55:01 05/03/2023', NULL, 'test1', '5a105e8b9d40e1329780d62ea2265d8a', 'test1', 'ahihi@gmail.com', '0930100001', NULL, 2),
-(8, '19:27:12 04/03/2023', NULL, NULL, 'test2', 'ad0234829205b9033196ba818f7a872b', 'test2', 'test2@gmail.com', '0930100002', NULL, 3),
-(9, '19:27:19 04/03/2023', NULL, NULL, 'test3', '8ad8757baa8564dc136c1e07507f4a98', 'test3', 'test3@gmail.com', '0930100003', NULL, 3),
-(10, '19:27:34 04/03/2023', NULL, '19:29:16 04/03/2023', 'test4', '86985e105f79b95d6bc918fb45ec7727', 'test4', 'test4@gmail.com', '0930100004', NULL, 4),
-(11, '19:28:02 04/03/2023', NULL, NULL, 'test5', 'e3d704f3542b44a621ebed70dc0efe13', 'test5', 'test5@gmail.com', '0930100005', NULL, 4),
-(12, '09:53:52 05/03/2023', NULL, NULL, 'test6', '4cfad7076129962ee70c36839a1e3e15', 'test6', 'test6@gmail.com', '0930100006', NULL, 4);
+(16, '14:26:09 07/03/2023', NULL, NULL, 'websitemanager1', 'afc5dee300af4fcbaa23deb0dfa64374', 'Quản lý website 1', 'websitemanager1@gmail.com', '0123456789', NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -317,6 +314,7 @@ CREATE TABLE `systemmenu` (
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `routeName` varchar(255) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
   `isBase` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -324,27 +322,27 @@ CREATE TABLE `systemmenu` (
 -- Dumping data for table `systemmenu`
 --
 
-INSERT INTO `systemmenu` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `routeName`, `isBase`) VALUES
-(1, '15:17:32 05/03/2023', NULL, NULL, 'Dashboard', 1),
-(2, '15:18:38 05/03/2023', NULL, NULL, 'Role', 0),
-(3, '15:19:39 05/03/2023', NULL, NULL, 'Menu', 0),
-(4, '15:19:43 05/03/2023', NULL, NULL, 'Function', 0),
-(5, '15:19:46 05/03/2023', NULL, NULL, 'SystemAdmin', 0),
-(6, '15:19:51 05/03/2023', NULL, NULL, 'Image', 0),
-(7, '15:19:55 05/03/2023', NULL, NULL, 'ProductCategory', 0),
-(8, '15:19:59 05/03/2023', NULL, NULL, 'Product', 0),
-(9, '15:27:14 05/03/2023', NULL, NULL, 'AddProduct', 0),
-(10, '15:27:17 05/03/2023', NULL, NULL, 'EditProduct', 0),
-(11, '15:27:21 05/03/2023', NULL, NULL, 'Blog', 0),
-(12, '15:27:25 05/03/2023', NULL, NULL, 'AddBlog', 0),
-(13, '15:27:29 05/03/2023', NULL, NULL, 'EditBlog', 0),
-(14, '15:27:34 05/03/2023', NULL, NULL, 'Subscribe', 0),
-(15, '15:27:38 05/03/2023', NULL, NULL, 'Contact', 0),
-(16, '15:27:41 05/03/2023', NULL, NULL, 'CounponCode', 0),
-(17, '15:27:45 05/03/2023', NULL, NULL, 'OrderStatus', 0),
-(18, '15:27:48 05/03/2023', NULL, NULL, 'Order', 0),
-(19, '15:27:52 05/03/2023', NULL, NULL, 'Profile', 0),
-(20, '15:28:12 05/03/2023', NULL, NULL, 'Signin', 1);
+INSERT INTO `systemmenu` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `routeName`, `title`, `isBase`) VALUES
+(1, '15:17:32 05/03/2023', NULL, NULL, 'Dashboard', 'Dashboard', 1),
+(2, '15:18:38 05/03/2023', '18:26:55 06/03/2023', NULL, 'SystemRole', 'Vai trò', 0),
+(3, '15:19:39 05/03/2023', '18:27:01 06/03/2023', NULL, 'SystemMenu', 'Menu', 0),
+(4, '15:19:43 05/03/2023', '18:27:26 06/03/2023', NULL, 'SystemFunction', 'Chức năng', 0),
+(5, '15:19:46 05/03/2023', NULL, NULL, 'SystemAdmin', 'Tài khoản Admin', 0),
+(6, '15:19:51 05/03/2023', NULL, NULL, 'Image', 'Tệp hình ảnh', 0),
+(7, '15:19:55 05/03/2023', NULL, NULL, 'ProductCategory', 'Danh mục sản phẩm', 0),
+(8, '15:19:59 05/03/2023', NULL, NULL, 'Product', 'Sản phẩm', 0),
+(9, '15:27:14 05/03/2023', NULL, NULL, 'AddProduct', 'Thêm sản phẩm', 0),
+(10, '15:27:17 05/03/2023', NULL, NULL, 'EditProduct', 'Chỉnh sửa sản phẩm', 0),
+(11, '15:27:21 05/03/2023', NULL, NULL, 'Blog', 'Bài viết', 0),
+(12, '15:27:25 05/03/2023', NULL, NULL, 'AddBlog', 'Thêm bài viết', 0),
+(13, '15:27:29 05/03/2023', NULL, NULL, 'EditBlog', 'Chỉnh sửa bài viết', 0),
+(14, '15:27:34 05/03/2023', NULL, NULL, 'Subscribe', 'Khách hàng đăng ký', 0),
+(15, '15:27:38 05/03/2023', NULL, NULL, 'Contact', 'Khách hàng liên hệ', 0),
+(16, '15:27:41 05/03/2023', NULL, NULL, 'CounponCode', 'Mã giảm giá', 0),
+(17, '15:27:45 05/03/2023', NULL, NULL, 'OrderStatus', 'Trạng thái đơn hàng', 0),
+(18, '15:27:48 05/03/2023', NULL, NULL, 'Order', 'Đơn hàng', 0),
+(19, '15:27:52 05/03/2023', '10:06:35 07/03/2023', NULL, 'Profile', 'Hồ sơ cá nhân', 1),
+(20, '15:28:12 05/03/2023', NULL, NULL, 'Signin', 'Đăng nhập', 1);
 
 -- --------------------------------------------------------
 
@@ -365,9 +363,9 @@ CREATE TABLE `systemrole` (
 --
 
 INSERT INTO `systemrole` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`) VALUES
-(1, '09:43:18 04/03/2023', '09:48:16 04/03/2023', NULL, 'Quản lý dự án'),
+(1, '09:43:18 04/03/2023', '13:17:33 07/03/2023', NULL, 'Quản lý hệ thống'),
 (2, '09:44:00 04/03/2023', '09:52:19 04/03/2023', NULL, 'Ứng dụng'),
-(3, '09:49:56 04/03/2023', NULL, NULL, 'Quản lý tài chính'),
+(3, '09:49:56 04/03/2023', '13:17:24 07/03/2023', NULL, 'Quản lý website'),
 (4, '09:50:15 04/03/2023', NULL, NULL, 'Hỗ trợ khách hàng');
 
 -- --------------------------------------------------------
@@ -391,6 +389,30 @@ CREATE TABLE `systemrole_menu` (
   `systemRoleId` int(11) NOT NULL,
   `systemMenuId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `systemrole_menu`
+--
+
+INSERT INTO `systemrole_menu` (`systemRoleId`, `systemMenuId`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(3, 7),
+(3, 8),
+(3, 9),
+(3, 10),
+(3, 11),
+(3, 12),
+(3, 13),
+(3, 14),
+(3, 15),
+(3, 16),
+(3, 17),
+(3, 18);
 
 --
 -- Indexes for dumped tables
@@ -548,7 +570,7 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -590,7 +612,7 @@ ALTER TABLE `subscribe`
 -- AUTO_INCREMENT for table `systemadmin`
 --
 ALTER TABLE `systemadmin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `systemfunction`
@@ -602,7 +624,7 @@ ALTER TABLE `systemfunction`
 -- AUTO_INCREMENT for table `systemmenu`
 --
 ALTER TABLE `systemmenu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `systemrole`

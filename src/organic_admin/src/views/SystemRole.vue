@@ -9,7 +9,10 @@
                      <div class="col-12">
                         <div>
                            <div class="pb-1">
-                              <h6>🟠 Ô tìm kiếm</h6>
+                              <h6 class="controller-title">
+                                 <i class="controller-icon red"></i>
+                                 Ô tìm kiếm
+                              </h6>
                            </div>
                            <div class="search-wrap">
                               <argon-input
@@ -98,7 +101,10 @@
                                           class="btn btn-link text-info text-gradient px-2 mb-0"
                                           href="javascript:;"
                                           @click.prevent="
-                                             handleShowPermissionSidebar
+                                             () =>
+                                                handleShowPermissionSidebar(
+                                                   item.id
+                                                )
                                           "
                                        >
                                           <i
@@ -202,46 +208,16 @@
             <!-- Permission Sidebar -->
             <el-drawer
                v-model="permissionSidebar.visible"
-               title="I am the title"
                :direction="permissionSidebar.direction"
-               :before-close="handleBeforeClosePermissionSidebar"
             >
                <template #header>
                   <h5 class="mt-1 mb-1">Cài đặt quyền</h5>
                </template>
                <template #default>
-                  <div class="permission-sidebar-content">
-                     <div class="permission-sidebar-menu">
-                        <h6 class="mb-0 mb-2">Menu:</h6>
-                        <el-checkbox-group v-model="permission.menus">
-                           <div>
-                              <el-checkbox label="Dashboard" />
-                              <span
-                                 class="permission-sidebar-label"
-                                 style="font-size: 14px"
-                                 >&lpar;Dashboard&rpar;</span
-                              >
-                           </div>
-                           <div>
-                              <el-checkbox label="SystemRole" />
-                           </div>
-                        </el-checkbox-group>
-                     </div>
-                     <el-divider />
-                     <div class="permission-sidebar-function">
-                        <h6 class="mb-0 mb-2">Chức năng:</h6>
-                     </div>
-                  </div>
-               </template>
-               <template #footer>
-                  <div style="flex: auto">
-                     <el-button @click="handleClosePermissionSidebar"
-                        >Hủy</el-button
-                     >
-                     <el-button type="primary" @click="handleSavePermission"
-                        >Lưu</el-button
-                     >
-                  </div>
+                  <PermissionSidebarContent
+                     v-if="permissionSidebar.visible"
+                     :systemRoleId="systemRoleIdSelect"
+                  />
                </template>
             </el-drawer>
          </div>
@@ -250,16 +226,16 @@
 </template>
 
 <script>
-import { ElMessage, ElMessageBox } from "element-plus";
+import { ElMessage } from "element-plus";
 
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
-import ArgonCheckbox from "@/components/ArgonCheckbox.vue";
 
 import AddRoleDialog from "./components/dialogs/AddSystemRoleDialog.vue";
 import EditRoleDialog from "./components/dialogs/EditSystemRoleDialog.vue";
+import PermissionSidebarContent from "./components/PermissionSidebarContent.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
@@ -274,6 +250,7 @@ export default {
       ArgonPaginationItem,
       AddRoleDialog,
       EditRoleDialog,
+      PermissionSidebarContent,
    },
    data() {
       return {
@@ -302,16 +279,13 @@ export default {
             visible: false,
          },
 
+         // systemRoleId select
+         systemRoleIdSelect: 0,
+
          // Permission sidebar
          permissionSidebar: {
             visible: false,
             direction: "rtl",
-         },
-
-         // Permission
-         permission: {
-            menus: [],
-            functions: [],
          },
       };
    },
@@ -439,23 +413,12 @@ export default {
 
          this.reloadDataCurrentPage();
       },
-      handleShowPermissionSidebar() {
+      handleShowPermissionSidebar(systemRoleIdSelect) {
          this.permissionSidebar.visible = true;
+         this.systemRoleIdSelect = systemRoleIdSelect;
       },
       handleClosePermissionSidebar() {
          this.permissionSidebar.visible = false;
-      },
-      handleBeforeClosePermissionSidebar(acceptCallback) {
-         ElMessageBox.confirm("Đóng cài đặt quyền và không lưu?")
-            .then(() => {
-               acceptCallback();
-            })
-            .catch(() => {
-               // catch error
-            });
-      },
-      handleSavePermission() {
-         console.log(this.permission);
       },
    },
    created() {
