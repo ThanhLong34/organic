@@ -3,18 +3,11 @@ import store from "@/store/index.js";
 
 import * as SessionStorage from "@/helpers/session_storage.js";
 
-import Category from "../views/Category.vue";
-import Project from "../views/Project.vue";
-import AddProject from "../views/AddProject.vue";
-import EditProject from "../views/EditProject.vue";
-import CustomerAccount from "../views/CustomerAccount.vue";
-import EmailContact from "../views/EmailContact.vue";
-
 // Add
 import Dashboard from "../views/Dashboard.vue";
-import Role from "../views/Role.vue";
-import MenuView from "../views/Menu.vue";
-import FunctionView from "../views/Function.vue";
+import SystemRole from "../views/SystemRole.vue";
+import SystemMenu from "../views/SystemMenu.vue";
+import SystemFunction from "../views/SystemFunction.vue";
 import SystemAdmin from "../views/SystemAdmin.vue";
 import Image from "../views/Image.vue";
 import ProductCategory from "../views/ProductCategory.vue";
@@ -34,15 +27,23 @@ import Signin from "../views/Signin.vue";
 
 const routes = [
 	{
-		path: "/",
-		name: "/",
-		redirect: "/dashboard-default",
+		//? Error path
+		path: "/:pathMatch(.*)*",
+		redirect: "/dashboard",
 		meta: {
 			breadcrumbName: "",
 		},
 	},
 	{
-		path: "/dashboard-default",
+		path: "/",
+		name: "/",
+		redirect: "/dashboard",
+		meta: {
+			breadcrumbName: "",
+		},
+	},
+	{
+		path: "/dashboard",
 		name: "Dashboard",
 		component: Dashboard,
 		meta: {
@@ -50,25 +51,25 @@ const routes = [
 		},
 	},
 	{
-		path: "/role",
-		name: "Role",
-		component: Role,
+		path: "/system-role",
+		name: "SystemRole",
+		component: SystemRole,
 		meta: {
 			breadcrumbName: "Vai trò",
 		},
 	},
 	{
-		path: "/menu",
-		name: "Menu",
-		component: MenuView,
+		path: "/system-menu",
+		name: "SystemMenu",
+		component: SystemMenu,
 		meta: {
 			breadcrumbName: "Menu",
 		},
 	},
 	{
-		path: "/function",
-		name: "Function",
-		component: FunctionView,
+		path: "/system-function",
+		name: "SystemFunction",
+		component: SystemFunction,
 		meta: {
 			breadcrumbName: "Chức năng",
 		},
@@ -222,6 +223,16 @@ router.beforeEach((to) => {
 		to.name !== "Signin"
 	) {
 		return { name: "Signin" };
+	}
+
+	// Kiểm tra quyền truy cập các Menu
+	if (store.state.accountLogin?.menus) {
+		const accessibleMenus = store.state.accountLogin.menus.map(
+			(i) => i.routeName
+		);
+		if (!accessibleMenus.includes(to.name)) {
+			return { name: "Dashboard" };
+		}
 	}
 });
 

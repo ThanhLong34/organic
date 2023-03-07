@@ -4,7 +4,7 @@
          <div class="col-12">
             <div class="card mb-4">
                <div class="card-header pb-2">
-                  <h6>Tìm kiếm &amp; Lọc</h6>
+                  <h6>✅ Chọn tiêu chí tìm kiếm ✅ Tìm kiếm ✅ Lọc dữ liệu</h6>
                </div>
                <div class="card-body px-4 pt-0 pb-4">
                   <div class="row">
@@ -56,23 +56,19 @@
                   </div>
                </div>
             </div>
-            <div class="col-12">
-               <OrderTable ref="tableRef" />
-            </div>
+            <div class="col-12"></div>
          </div>
       </div>
    </div>
 </template>
 
 <script>
-import OrderTable from "@/views/components/OrderTable.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 
 export default {
-   name: "order",
+   name: "OrderView",
    components: {
-      OrderTable,
       ArgonInput,
       ArgonButton,
    },

@@ -4,59 +4,103 @@
          <div class="col-12">
             <!-- Controllers -->
             <div class="card mb-4">
-               <div class="card-header pb-2">
-                  <h6>Tìm kiếm &amp; Lọc</h6>
-               </div>
-               <div class="card-body px-4 pt-0 pb-4">
+               <div class="card-body px-4 pt-4 pb-4">
                   <div class="row">
-                     <div class="col-8">
-                        <div class="search-wrap">
-                           <argon-input
-                              ref="searchRef"
-                              type="search"
-                              icon="fas fa-search"
-                              iconDir="left"
-                              :placeholder="searchPlaceholder"
-                              v-model="searchValue"
-                           />
-                           <argon-button
-                              color="primary"
-                              size="sm"
-                              variant="gradient"
-                              @click="handleSearch"
-                           >
-                              Tìm kiếm
-                           </argon-button>
-                           <argon-button
-                              color="dark"
-                              size="sm"
-                              class="reload-button"
-                              @click="handleReload"
-                           >
-                              Tải lại
-                           </argon-button>
+                     <div class="col-5">
+                        <div>
+                           <div class="pb-1">
+                              <h6 class="controller-title">
+                                 <i class="controller-icon red"></i>
+                                 Ô tìm kiếm
+                              </h6>
+                           </div>
+                           <div class="search-wrap">
+                              <argon-input
+                                 ref="searchRef"
+                                 type="search"
+                                 icon="fas fa-search"
+                                 iconDir="left"
+                                 :placeholder="
+                                    searchType === 'routeName'
+                                       ? 'Nhập tên Route'
+                                       : searchType === 'title'
+                                       ? 'Tiêu đề'
+                                       : ''
+                                 "
+                                 v-model="searchValue"
+                              />
+                              <argon-button
+                                 color="primary"
+                                 size="sm"
+                                 variant="gradient"
+                                 @click="handleSearch"
+                              >
+                                 Tìm kiếm
+                              </argon-button>
+                              <argon-button
+                                 color="dark"
+                                 size="sm"
+                                 class="reload-button"
+                                 @click="handleReload"
+                              >
+                                 Tải lại
+                              </argon-button>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-3">
+                        <div>
+                           <div class="pb-1">
+                              <h6 class="controller-title">
+                                 <i class="controller-icon yellow"></i>
+                                 Tiêu chí tìm kiếm
+                              </h6>
+                           </div>
+                           <div class="selection-wrap">
+                              <el-select
+                                 v-model="searchType"
+                                 filterable
+                                 placeholder="Chọn kiểu tìm kiếm"
+                              >
+                                 <el-option
+                                    v-for="item in searchOptions"
+                                    :key="item.value"
+                                    :label="item.title"
+                                    :value="item.value"
+                                 />
+                              </el-select>
+                           </div>
                         </div>
                      </div>
                      <div class="col-4">
-                        <div class="selection-wrap">
-                           <el-select
-                              v-model="fillValue"
-                              filterable
-                              :placeholder="fillPlaceholder"
-                              @change="handleFill"
-                           >
-                              <el-option
-                                 v-for="item in fillOptions"
-                                 :key="item.value"
-                                 :label="item.title"
-                                 :value="item.value"
-                              />
-                           </el-select>
+                        <div>
+                           <div class="pb-1">
+                              <h6 class="controller-title">
+                                 <i class="controller-icon green"></i>
+                                 Lọc dữ liệu
+                              </h6>
+                           </div>
+                           <div class="selection-wrap">
+                              <el-select
+                                 v-model="fillValue"
+                                 filterable
+                                 :placeholder="fillPlaceholder"
+                                 @change="handleFill"
+                              >
+                                 <el-option
+                                    v-for="item in fillOptions"
+                                    :key="item.value"
+                                    :label="item.title"
+                                    :value="item.value"
+                                 />
+                              </el-select>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
+            <!-- Content -->
             <div class="col-12">
                <div class="card mb-4">
                   <!-- Title -->
@@ -93,6 +137,11 @@
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                                  >
+                                    Tiêu đề
+                                 </th>
+                                 <th
+                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                 >
                                     Base
                                  </th>
                                  <th></th>
@@ -110,6 +159,11 @@
                                           {{ item.routeName }}
                                        </h6>
                                     </div>
+                                 </td>
+                                 <td>
+                                    <p class="text-sm font-weight-bold mb-0">
+                                       {{ item.title }}
+                                    </p>
                                  </td>
                                  <td>
                                     <p class="text-sm font-weight-bold mb-0">
@@ -192,23 +246,23 @@
                            >
                         </div>
                      </div>
-                     <!-- Add dialog -->
-                     <div v-if="addDialog.visible">
-                        <el-dialog v-model="addDialog.visible">
-                           <AddMenuDialog @onCloseDialog="handleCloseDialog" />
-                        </el-dialog>
-                     </div>
-                     <!-- Edit dialog -->
-                     <div v-if="editDialog.visible">
-                        <el-dialog v-model="editDialog.visible">
-                           <EditMenuDialog
-                              :itemIdSelect="itemIdSelect"
-                              @onCloseDialog="handleCloseDialog"
-                           />
-                        </el-dialog>
-                     </div>
                   </div>
                </div>
+            </div>
+            <!-- Add dialog -->
+            <div v-if="addDialog.visible">
+               <el-dialog v-model="addDialog.visible">
+                  <AddMenuDialog @onCloseDialog="handleCloseDialog" />
+               </el-dialog>
+            </div>
+            <!-- Edit dialog -->
+            <div v-if="editDialog.visible">
+               <el-dialog v-model="editDialog.visible">
+                  <EditMenuDialog
+                     :itemIdSelect="itemIdSelect"
+                     @onCloseDialog="handleCloseDialog"
+                  />
+               </el-dialog>
             </div>
          </div>
       </div>
@@ -223,14 +277,15 @@ import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
 
-import AddMenuDialog from "./components/AddMenuDialog.vue";
-import EditMenuDialog from "./components/EditMenuDialog.vue";
+import AddMenuDialog from "./components/dialogs/AddSystemMenuDialog.vue";
+import EditMenuDialog from "./components/dialogs/EditSystemMenuDialog.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+const apiGroup = "system_menu";
 
 export default {
-   name: "menu-view",
+   name: "SystemMenuView",
    components: {
       ArgonInput,
       ArgonButton,
@@ -245,14 +300,18 @@ export default {
          searchPlaceholder: "Nhập tên Route...",
          searchType: "routeName",
          searchValue: "",
+         searchOptions: [
+            { value: "routeName", title: "Tên Route" },
+            { value: "title", title: "Tiêu đề" },
+         ],
 
          // Fill
          fillPlaceholder: "Chọn trạng thái Base",
          fillType: "isBase",
          fillValue: "",
          fillOptions: [
-            { value: 1, title: "Có" },
             { value: 0, title: "Không" },
+            { value: 1, title: "Có" },
          ],
 
          // Table states
@@ -270,6 +329,7 @@ export default {
          addDialog: {
             visible: false,
          },
+         // Edit dialog
          editDialog: {
             visible: false,
          },
@@ -278,7 +338,7 @@ export default {
    methods: {
       getTableData() {
          return API.get(
-            apiPath + "/system_menu/get_list.php",
+            apiPath + `/${apiGroup}/get_list.php`,
             {
                limit: this.limit,
                offset: this.offset,
@@ -344,7 +404,7 @@ export default {
       },
       handleDeleteItem(id) {
          return API.deleteById(
-            apiPath + "/system_menu/trash.php",
+            apiPath + `/${apiGroup}/trash.php`,
             id,
             (data) => {
                if (data.code === 1) {

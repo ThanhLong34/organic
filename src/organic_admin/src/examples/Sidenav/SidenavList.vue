@@ -4,9 +4,9 @@
       id="sidenav-collapse-main"
    >
       <ul class="navbar-nav">
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Dashboard')">
             <sidenav-item
-               url="/dashboard-default"
+               routeName="Dashboard"
                :class="getRoute() === 'dashboard-default' ? 'active' : ''"
                navText="Dashboard"
             >
@@ -15,9 +15,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('SystemRole')">
             <sidenav-item
-               url="/role"
+               routeName="SystemRole"
                :class="getRoute() === 'role' ? 'active' : ''"
                navText="Vai trò"
             >
@@ -28,9 +28,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('SystemMenu')">
             <sidenav-item
-               url="/menu"
+               routeName="SystemMenu"
                :class="getRoute() === 'menu' ? 'active' : ''"
                navText="Menu"
             >
@@ -41,9 +41,12 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li
+            class="nav-item"
+            v-if="accessibleMenus?.includes('SystemFunction')"
+         >
             <sidenav-item
-               url="/function"
+               routeName="SystemFunction"
                :class="getRoute() === 'function' ? 'active' : ''"
                navText="Chức năng"
             >
@@ -52,9 +55,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('SystemAdmin')">
             <sidenav-item
-               url="/system-admin"
+               routeName="SystemAdmin"
                :class="getRoute() === 'system-admin' ? 'active' : ''"
                navText="Tài khoản Admin"
             >
@@ -65,9 +68,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Image')">
             <sidenav-item
-               url="/image"
+               routeName="Image"
                :class="getRoute() === 'image' ? 'active' : ''"
                navText="Tệp hình ảnh"
             >
@@ -76,9 +79,12 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li
+            class="nav-item"
+            v-if="accessibleMenus?.includes('ProductCategory')"
+         >
             <sidenav-item
-               url="/product-category"
+               routeName="ProductCategory"
                :class="getRoute() === 'product-category' ? 'active' : ''"
                navText="Danh mục sản phẩm"
             >
@@ -89,9 +95,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Product')">
             <sidenav-item
-               url="/product"
+               routeName="Product"
                :class="getRoute() === 'product' ? 'active' : ''"
                navText="Sản phẩm"
             >
@@ -100,9 +106,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Blog')">
             <sidenav-item
-               url="/blog"
+               routeName="Blog"
                :class="getRoute() === 'blog' ? 'active' : ''"
                navText="Bài viết"
             >
@@ -113,9 +119,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Subscribe')">
             <sidenav-item
-               url="/subscribe"
+               routeName="Subscribe"
                :class="getRoute() === 'subscribe' ? 'active' : ''"
                navText="KH Đăng ký"
             >
@@ -124,9 +130,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Contact')">
             <sidenav-item
-               url="/contact"
+               routeName="Contact"
                :class="getRoute() === 'contact' ? 'active' : ''"
                navText="KH Liên hệ"
             >
@@ -137,9 +143,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('CounponCode')">
             <sidenav-item
-               url="/counpon-code"
+               routeName="CounponCode"
                :class="getRoute() === 'counpon-code' ? 'active' : ''"
                navText="Mã giảm giá"
             >
@@ -148,9 +154,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('OrderStatus')">
             <sidenav-item
-               url="/order-status"
+               routeName="OrderStatus"
                :class="getRoute() === 'order-status' ? 'active' : ''"
                navText="Trạng thái đơn hàng"
             >
@@ -159,9 +165,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Order')">
             <sidenav-item
-               url="/order"
+               routeName="Order"
                :class="getRoute() === 'order' ? 'active' : ''"
                navText="Đơn hàng"
             >
@@ -179,9 +185,9 @@
                TÀI KHOẢN
             </h6>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Profile')">
             <sidenav-item
-               url="/profile"
+               routeName="Profile"
                :class="getRoute() === 'profile' ? 'active' : ''"
                navText="Hồ sơ cá nhân"
             >
@@ -190,9 +196,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item">
+         <li class="nav-item" v-if="accessibleMenus?.includes('Signin')">
             <sidenav-item
-               url="/signin"
+               routeName="Signin"
                :class="getRoute() === 'signin' ? 'active' : ''"
                navText="Đăng xuất"
             >
@@ -235,6 +241,11 @@ export default {
       getRoute() {
          const routeArr = this.$route.path.split("/");
          return routeArr[1];
+      },
+   },
+   computed: {
+      accessibleMenus() {
+         return this.$store.state.accountLogin?.menus?.map((i) => i.routeName);
       },
    },
 };

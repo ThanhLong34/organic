@@ -3,7 +3,7 @@
       <div class="card-header pb-0">
          <div class="row">
             <div class="col-md-12">
-               <h6 class="mb-0 text-uppercase">Thêm menu</h6>
+               <h6 class="mb-0 text-uppercase">Chỉnh sửa menu</h6>
             </div>
             <div class="col-md-12 pt-3">
                <!-- routeName -->
@@ -12,16 +12,27 @@
                   <span class="star-input-required">*</span>
                </label>
                <argon-input
+                  ref="routeNameRef"
                   type="text"
                   placeholder="Nhập tên Route"
-                  v-model="data.routeName"
+                  v-model="dataChange.routeName"
                />
-
+               <!-- title -->
+               <label for="example-text-input" class="form-control-label">
+                  Tiêu đề
+                  <span class="star-input-required">*</span>
+               </label>
+               <argon-input
+                  ref="titleRef"
+                  type="text"
+                  placeholder="Nhập tiêu đề"
+                  v-model="dataChange.title"
+               />
                <!-- isBase -->
                <label for="example-text-input" class="form-control-label">
                   Trạng thái Base
                </label>
-               <argon-switch v-model="data.isBase">
+               <argon-switch v-model="dataChange.isBase" :checked="data.isBase">
                   {{ data.isBase ? "Có" : "Không" }}
                </argon-switch>
             </div>
@@ -54,30 +65,71 @@
 
 <script>
 import { ElMessage } from "element-plus";
-import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonSwitch from "@/components/ArgonSwitch.vue";
+import ArgonInput from "@/components/ArgonInput.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+const apiGroup = "system_menu";
 
 export default {
-   name: "add-menu-dialog",
-   components: { ArgonButton, ArgonInput, ArgonSwitch },
+   name: "EditSystemMenuDialog",
+   components: { ArgonButton, ArgonSwitch, ArgonInput },
    emits: ["onCloseDialog"],
+   props: {
+      itemIdSelect: {
+         type: Number,
+         required: true,
+      },
+   },
    data() {
       return {
-         data: {
-            routeName: "",
-            isBase: false,
+         data: {},
+         dataChange: {
+            routeName: null,
+            title: null,
+            isBase: null,
          },
       };
    },
    methods: {
+      getData() {
+         return API.get(
+            apiPath + `/${apiGroup}/get_item.php`,
+            {
+               id: this.data.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.data = {
+                     ...data.data,
+                     isBase: +data.data.isBase == 1,
+                  };
+
+                  // Binding data
+                  this.bindingData();
+               } else {
+                  ElMessage({
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
+      bindingData() {
+         this.$refs.routeNameRef?.setValue(this.data.routeName);
+         this.$refs.titleRef?.setValue(this.data.title);
+      },
       validateBeforeSubmit() {
-         if (this.data.routeName === "") {
+         if (
+            this.dataChange.routeName === null &&
+            this.dataChange.title === null &&
+            this.dataChange.isBase === null
+         ) {
             ElMessage({
-               message: "Không được để trống tên Route",
+               message: "Nhập tên Route mới hoặc không được để trống",
                type: "warning",
             });
 
@@ -90,8 +142,11 @@ export default {
          if (!this.validateBeforeSubmit()) return;
 
          return API.post(
-            apiPath + "/system_menu/add.php",
-            this.data,
+            apiPath + `/${apiGroup}/update.php`,
+            {
+               id: this.data.id,
+               ...this.dataChange,
+            },
             (data) => {
                if (data.code === 1) {
                   ElMessage({
@@ -110,8 +165,12 @@ export default {
          );
       },
       handleCloseDialog() {
-         this.$emit("onCloseDialog", "add");
+         this.$emit("onCloseDialog", "edit");
       },
+   },
+   created() {
+      this.data.id = this.$props.itemIdSelect;
+      this.getData();
    },
 };
 </script>

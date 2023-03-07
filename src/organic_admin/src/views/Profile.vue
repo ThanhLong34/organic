@@ -393,7 +393,7 @@ import * as SessionStorage from "@/helpers/session_storage.js";
 
 import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
-import ProfileCard from "./components/ProfileCard.vue";
+import ProfileCard from "@/examples/ProfileCard.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import NoImage from "@/assets/img/no-image.jpg";
 
@@ -401,7 +401,7 @@ const body = document.getElementsByTagName("body")[0];
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
-   name: "profile",
+   name: "ProfileView",
    data() {
       return {
          NoImage,
@@ -580,7 +580,7 @@ export default {
                   });
                } else if (data.code === 3) {
                   ElMessage({
-                     message: "Không đúng định dạng số điện thoại (từ 10 số)",
+                     message: data.message,
                      type: "error",
                   });
                }

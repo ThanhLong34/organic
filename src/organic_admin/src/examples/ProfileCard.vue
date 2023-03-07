@@ -1,7 +1,7 @@
 <template>
    <div class="card card-profile">
       <img
-         src="../../assets/img/dlu.jpg"
+         src="@/assets/img/dlu.jpg"
          alt="Image placeholder"
          class="card-img-top"
       />

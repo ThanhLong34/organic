@@ -4,12 +4,13 @@
 
 <script>
 import { ElMessage } from "element-plus";
-import * as API from "@/helpers/api.js";
 
+import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+const apiGroup = "";
 
 export default {
-   name: "blog",
+   name: "BlogView",
 };
 </script>
 

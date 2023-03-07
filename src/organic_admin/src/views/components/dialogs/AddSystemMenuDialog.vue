@@ -3,19 +3,36 @@
       <div class="card-header pb-0">
          <div class="row">
             <div class="col-md-12">
-               <h6 class="mb-0 text-uppercase">Thêm vai trò</h6>
+               <h6 class="mb-0 text-uppercase">Thêm menu</h6>
             </div>
             <div class="col-md-12 pt-3">
-               <!-- name -->
+               <!-- routeName -->
                <label for="example-text-input" class="form-control-label">
-                  Tên vai trò
+                  Tên Route
                   <span class="star-input-required">*</span>
                </label>
                <argon-input
                   type="text"
-                  placeholder="Nhập tên vai trò"
-                  v-model="data.name"
+                  placeholder="Nhập tên Route"
+                  v-model="data.routeName"
                />
+               <!-- title -->
+               <label for="example-text-input" class="form-control-label">
+                  Tiêu đề
+                  <span class="star-input-required">*</span>
+               </label>
+               <argon-input
+                  type="text"
+                  placeholder="Nhập tiêu đề"
+                  v-model="data.title"
+               />
+               <!-- isBase -->
+               <label for="example-text-input" class="form-control-label">
+                  Trạng thái Base
+               </label>
+               <argon-switch v-model="data.isBase">
+                  {{ data.isBase ? "Có" : "Không" }}
+               </argon-switch>
             </div>
          </div>
       </div>
@@ -48,26 +65,39 @@
 import { ElMessage } from "element-plus";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
+import ArgonSwitch from "@/components/ArgonSwitch.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+const apiGroup = "system_menu";
 
 export default {
-   name: "add-role-dialog",
-   components: { ArgonButton, ArgonInput },
+   name: "AddSystemMenuDialog",
+   components: { ArgonButton, ArgonInput, ArgonSwitch },
    emits: ["onCloseDialog"],
    data() {
       return {
          data: {
-            name: "",
+            routeName: "",
+            title: "",
+            isBase: false,
          },
       };
    },
    methods: {
       validateBeforeSubmit() {
-         if (this.data.name === "") {
+         if (this.data.routeName === "") {
             ElMessage({
-               message: "Không được để trống tên vai trò",
+               message: "Không được để trống tên Route",
+               type: "warning",
+            });
+
+            return false;
+         }
+
+         if (this.data.title === "") {
+            ElMessage({
+               message: "Không nên để trống tiêu đề",
                type: "warning",
             });
 
@@ -80,7 +110,7 @@ export default {
          if (!this.validateBeforeSubmit()) return;
 
          return API.post(
-            apiPath + "/system_role/add.php",
+            apiPath + `/${apiGroup}/add.php`,
             this.data,
             (data) => {
                if (data.code === 1) {

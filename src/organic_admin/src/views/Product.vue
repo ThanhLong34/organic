@@ -9,7 +9,7 @@ import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
-   name: "product",
+   name: "ProductView",
 };
 </script>
 

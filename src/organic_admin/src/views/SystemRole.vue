@@ -4,42 +4,48 @@
          <div class="col-12">
             <!-- Controllers -->
             <div class="card mb-4">
-               <div class="card-header pb-2">
-                  <h6>Tìm kiếm &amp; Lọc</h6>
-               </div>
-               <div class="card-body px-4 pt-0 pb-4">
+               <div class="card-body px-4 pt-4 pb-4">
                   <div class="row">
                      <div class="col-12">
-                        <div class="search-wrap">
-                           <argon-input
-                              ref="searchRef"
-                              type="search"
-                              icon="fas fa-search"
-                              iconDir="left"
-                              :placeholder="searchPlaceholder"
-                              v-model="searchValue"
-                           />
-                           <argon-button
-                              color="primary"
-                              size="sm"
-                              variant="gradient"
-                              @click="handleSearch"
-                           >
-                              Tìm kiếm
-                           </argon-button>
-                           <argon-button
-                              color="dark"
-                              size="sm"
-                              class="reload-button"
-                              @click="handleReload"
-                           >
-                              Tải lại
-                           </argon-button>
+                        <div>
+                           <div class="pb-1">
+                              <h6 class="controller-title">
+                                 <i class="controller-icon red"></i>
+                                 Ô tìm kiếm
+                              </h6>
+                           </div>
+                           <div class="search-wrap">
+                              <argon-input
+                                 ref="searchRef"
+                                 type="search"
+                                 icon="fas fa-search"
+                                 iconDir="left"
+                                 :placeholder="searchPlaceholder"
+                                 v-model="searchValue"
+                              />
+                              <argon-button
+                                 color="primary"
+                                 size="sm"
+                                 variant="gradient"
+                                 @click="handleSearch"
+                              >
+                                 Tìm kiếm
+                              </argon-button>
+                              <argon-button
+                                 color="dark"
+                                 size="sm"
+                                 class="reload-button"
+                                 @click="handleReload"
+                              >
+                                 Tải lại
+                              </argon-button>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
+            <!-- Content -->
             <div class="col-12">
                <div class="card mb-4">
                   <!-- Title -->
@@ -91,6 +97,22 @@
                                  </td>
                                  <td class="align-middle">
                                     <div class="ms-auto text-end action-btns">
+                                       <a
+                                          class="btn btn-link text-info text-gradient px-2 mb-0"
+                                          href="javascript:;"
+                                          @click.prevent="
+                                             () =>
+                                                handleShowPermissionSidebar(
+                                                   item.id
+                                                )
+                                          "
+                                       >
+                                          <i
+                                             class="fas fa-cog me-2"
+                                             aria-hidden="true"
+                                          ></i
+                                          >Cài đặt quyền
+                                       </a>
                                        <a
                                           class="btn btn-link text-dark text-gradient px-2 mb-0"
                                           href="javascript:;"
@@ -165,24 +187,39 @@
                            >
                         </div>
                      </div>
-                     <!-- Add dialog -->
-                     <div v-if="addDialog.visible">
-                        <el-dialog v-model="addDialog.visible">
-                           <AddRoleDialog @onCloseDialog="handleCloseDialog" />
-                        </el-dialog>
-                     </div>
-                     <!-- Edit dialog -->
-                     <div v-if="editDialog.visible">
-                        <el-dialog v-model="editDialog.visible">
-                           <EditRoleDialog
-                              :itemIdSelect="itemIdSelect"
-                              @onCloseDialog="handleCloseDialog"
-                           />
-                        </el-dialog>
-                     </div>
                   </div>
                </div>
             </div>
+            <!-- Add dialog -->
+            <div v-if="addDialog.visible">
+               <el-dialog v-model="addDialog.visible">
+                  <AddRoleDialog @onCloseDialog="handleCloseDialog" />
+               </el-dialog>
+            </div>
+            <!-- Edit dialog -->
+            <div v-if="editDialog.visible">
+               <el-dialog v-model="editDialog.visible">
+                  <EditRoleDialog
+                     :itemIdSelect="itemIdSelect"
+                     @onCloseDialog="handleCloseDialog"
+                  />
+               </el-dialog>
+            </div>
+            <!-- Permission Sidebar -->
+            <el-drawer
+               v-model="permissionSidebar.visible"
+               :direction="permissionSidebar.direction"
+            >
+               <template #header>
+                  <h5 class="mt-1 mb-1">Cài đặt quyền</h5>
+               </template>
+               <template #default>
+                  <PermissionSidebarContent
+                     v-if="permissionSidebar.visible"
+                     :systemRoleId="systemRoleIdSelect"
+                  />
+               </template>
+            </el-drawer>
          </div>
       </div>
    </div>
@@ -196,14 +233,16 @@ import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
 
-import AddRoleDialog from "./components/AddRoleDialog.vue";
-import EditRoleDialog from "./components/EditRoleDialog.vue";
+import AddRoleDialog from "./components/dialogs/AddSystemRoleDialog.vue";
+import EditRoleDialog from "./components/dialogs/EditSystemRoleDialog.vue";
+import PermissionSidebarContent from "./components/PermissionSidebarContent.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+const apiGroup = "system_role";
 
 export default {
-   name: "role-view",
+   name: "SystemRoleView",
    components: {
       ArgonInput,
       ArgonButton,
@@ -211,6 +250,7 @@ export default {
       ArgonPaginationItem,
       AddRoleDialog,
       EditRoleDialog,
+      PermissionSidebarContent,
    },
    data() {
       return {
@@ -234,15 +274,25 @@ export default {
          addDialog: {
             visible: false,
          },
+         // Edit dialog
          editDialog: {
             visible: false,
+         },
+
+         // systemRoleId select
+         systemRoleIdSelect: 0,
+
+         // Permission sidebar
+         permissionSidebar: {
+            visible: false,
+            direction: "rtl",
          },
       };
    },
    methods: {
       getTableData() {
          return API.get(
-            apiPath + "/system_role/get_list.php",
+            apiPath + `/${apiGroup}/get_list.php`,
             {
                limit: this.limit,
                offset: this.offset,
@@ -305,7 +355,7 @@ export default {
       },
       handleDeleteItem(id) {
          return API.deleteById(
-            apiPath + "/system_role/trash.php",
+            apiPath + `/${apiGroup}/trash.php`,
             id,
             (data) => {
                if (data.code === 1) {
@@ -362,6 +412,13 @@ export default {
          }
 
          this.reloadDataCurrentPage();
+      },
+      handleShowPermissionSidebar(systemRoleIdSelect) {
+         this.permissionSidebar.visible = true;
+         this.systemRoleIdSelect = systemRoleIdSelect;
+      },
+      handleClosePermissionSidebar() {
+         this.permissionSidebar.visible = false;
       },
    },
    created() {

@@ -40,7 +40,7 @@
             </div>
          </div>
          <div class="col-12">
-            <ImageTable ref="tableRef" />
+            <!-- Table -->
          </div>
       </div>
    </div>
@@ -49,15 +49,13 @@
 <script>
 // import * as API from "@/helpers/api.js";
 
-import ImageTable from "./components/ImageTable.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 
 // const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
-   name: "Image",
+   name: "ImageView",
    components: {
-      ImageTable,
       ArgonButton,
    },
    data() {
