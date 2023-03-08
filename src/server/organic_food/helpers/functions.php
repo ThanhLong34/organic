@@ -24,10 +24,40 @@ function getCurrentDatetime()
 
 function validatePhoneNumber($phone)
 {
-   return preg_match("/^[0-9]{10}$/", $phone);
+   return preg_match("/^[0-9]{10,11}$/", $phone);
 }
 
 function validateEmail($email)
 {
    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+function checkPermissionFunction($functionName)
+{
+   global $connect;
+
+   $headers = apache_request_headers();
+
+   if ($headers != null && isset($headers["systemRoleId"])) {
+      $systemRoleId = $headers["systemRoleId"];
+
+      $systemFunctionTableName = "systemfunction";
+      $systemRoleFunctionTableName = "systemrole_function";
+
+      $query = "SELECT * FROM `$systemFunctionTableName`, `$systemRoleFunctionTableName`
+         WHERE `$systemRoleFunctionTableName`.`systemRoleId` = $systemRoleId
+         AND `$systemRoleFunctionTableName`.`systemFunctionId` = `$systemFunctionTableName`.`id`
+         AND `$systemFunctionTableName`.`name` = '$functionName'";
+
+      $result = mysqli_query($connect, $query);
+
+      if ($result && mysqli_num_rows($result) > 0) {
+         return true;
+      }
+   }
+
+   $response = new ResponseAPI(10, "Không được quyền sử dụng chức năng $functionName");
+   $response->send();
+
+   return false;
 }

@@ -1,76 +1,114 @@
 <?php
+//? ====================
+//? IMPORTS
+//? ====================
 require("../../core/config.php");
 require("../../core/connect_db.php");
-
 require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
 
+
+//? ====================
+//? HEADERS
+//? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json");
 
-$limit = $_GET["limit"];
-$offset = $_GET["offset"];
 
-$searchType = "";
-$searchValue = "";
-$searchBySystemRoleId = 0;
+//? ====================
+//? CHECK PERMISSTION
+//? ====================
+$functionName = "GetSystemAdminList";
+if (!checkPermissionFunction($functionName)) exit;
 
-if (isset($_GET["searchType"])) {
-   $searchType = strtolower($_GET["searchType"]);
-   if ($searchType !== "username" && $searchType !== "nickname" && $searchType !== "email" && $searchType !== "phone") {
-      $searchType = "";
+
+//? ====================
+//? PARAMETERS & PAYLOAD
+//? ====================
+$tableName = "systemadmin";
+$limit = $_GET["limit"] ?? 0; // limit = 0, hoặc không có payload để lấy tất cả
+$offset = $_GET["offset"] ?? 0;
+$searchType = $_GET["searchType"] ?? ""; // Hợp lệ: routeName
+$searchValue = $_GET["searchValue"] ?? "";
+$fillType = $_GET["fillType"] ?? ""; // Hợp lệ: isBase
+$fillValue = $_GET["fillValue"] ?? "";
+$orderby = $_GET["orderby"] ?? "id";
+$reverse = $_GET["reverse"] ?? "false"; // Hợp lệ: true, 1
+
+
+//? ====================
+//? START
+//? ====================
+// ✅ Lấy danh sách item 
+getList($limit, $offset, $searchType, $searchValue, $fillType, $fillValue, $orderby, $reverse);
+
+
+//? ====================
+//? FUNCTIONS
+//? ====================
+function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillValue, $orderby, $reverse)
+{
+   global $connect, $tableName;
+
+   // Không cần kiểm tra dữ liệu payload
+
+   //! Thêm tùy chỉnh Code ở đây
+   $baseQuery = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL";
+   $optionQuery = "";
+
+
+   //! Cẩn thận khi sửa Code ở đây
+   //! Tùy chỉnh truy vấn theo các tiêu chí
+   $querySelectAllRecord = $baseQuery;
+   $orderbyQuery = "ORDER BY `$orderby` ASC";
+   if ($reverse == "true" || $reverse == 1) {
+      $orderbyQuery = "ORDER BY `$orderby` DESC";
    }
+   $limitQuery = "LIMIT $limit OFFSET $offset";
+
+   if ($limit == 0) {
+      $query = $querySelectAllRecord . " " . $optionQuery;
+   } else {
+      if ($searchType !== "" && $searchValue !== "" && $fillType !== "" && $fillValue !== "") {
+         $querySelectAllRecord = $baseQuery . " AND `$searchType` LIKE '%$searchValue%' AND `$fillType` = '$fillValue'";
+      } else if ($searchType !== "" && $searchValue !== "") {
+         $querySelectAllRecord = $baseQuery . " AND `$searchType` LIKE '%$searchValue%'";
+      } else if ($fillType !== "" && $fillValue !== "") {
+         $querySelectAllRecord = $baseQuery . " AND `$fillType` = '$fillValue'";
+      } else {
+         $querySelectAllRecord = $baseQuery;
+      }
+
+      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $optionQuery . " " . $limitQuery;
+   }
+
+   // Thực thi truy vấn
+   performsQueryAndResponseToClient($query, $querySelectAllRecord);
+
+   // Đóng kết nối
+   $connect->close();
 }
 
-if (isset($_GET["searchValue"])) {
-   $searchValue = $_GET["searchValue"];
-}
-
-if (isset($_GET["systemRoleId"])) {
-   $searchBySystemRoleId = $_GET["systemRoleId"];
-}
-
-// ✅ Lấy danh sách tài khoản admin
-getList($limit, $offset, $searchType, $searchValue, $searchBySystemRoleId);
-
-function getList($limit, $offset, $searchType, $searchValue, $searchBySystemRoleId)
+// Thực thi truy vấn và trả về kết quả cho Client
+function performsQueryAndResponseToClient($query, $querySelectAllRecord)
 {
    global $connect;
 
-   if ($limit < 0 || $offset < 0) {
-      $response = new ResponseAPI(9, "Không đủ dữ liệu payload để thực hiện");
-      $response->send();
-      return;
-   }
-
-   $baseQuery = "SELECT * FROM `systemadmin` WHERE `deletedAt` IS NULL";
-
-   if ($limit == 0 && $offset == 0) {
-      $query = $baseQuery;
-   } else if ($searchType != '' && $searchValue != '' && $searchBySystemRoleId != 0) {
-      $query = $baseQuery . " AND `$searchType` LIKE '%$searchValue%' AND `systemRoleId` = $searchBySystemRoleId LIMIT $limit OFFSET $offset";
-   } else if ($searchType != '' && $searchValue != '') {
-      $query = $baseQuery . " AND `$searchType` LIKE '%$searchValue%' LIMIT $limit OFFSET $offset";
-   } else {
-      $query = $baseQuery . " LIMIT $limit OFFSET $offset";
-   }
-
    $result = mysqli_query($connect, $query);
+   $resultSelectAllRecord = mysqli_query($connect, $querySelectAllRecord);
 
-   if ($result) {
-      $systemAdmins = [];
+   if ($result && $resultSelectAllRecord) {
+      $list = [];
 
       while ($obj = $result->fetch_object()) {
-         array_push($systemAdmins, $obj);
+         array_push($list, $obj);
       }
 
-      $response = new ResponseAPI(1, "Lấy danh sách tài khoản admin thành công", $systemAdmins);
+      $response = new ResponseAPI(1, "Thành công", $list, mysqli_num_rows($resultSelectAllRecord));
       $response->send();
    } else {
-      $response = new ResponseAPI(2, "Lấy danh sách tài khoản admin thất bại");
+      $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
-
-   $connect->close();
 }

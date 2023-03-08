@@ -6,7 +6,7 @@ require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
 
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
-header("Access-Control-Allow-Methods: PUT, DELETE");
+header("Access-Control-Allow-Methods: POST, PUT, DELETE");
 header("Content-Type: application/json");
 
 $data = getJSONPayloadRequest();
