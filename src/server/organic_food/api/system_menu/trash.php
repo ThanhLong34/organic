@@ -17,6 +17,13 @@ header("Content-Type: application/json");
 
 
 //? ====================
+//? CHECK PERMISSTION
+//? ====================
+$functionName = "TrashSystemMenu";
+if (!checkPermissionFunction($functionName)) exit;
+
+
+//? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "systemmenu";

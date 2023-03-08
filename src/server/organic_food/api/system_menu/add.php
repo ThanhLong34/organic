@@ -17,11 +17,19 @@ header("Content-Type: application/json");
 
 
 //? ====================
+//? CHECK PERMISSTION
+//? ====================
+$functionName = "AddSystemMenu";
+if (!checkPermissionFunction($functionName)) exit;
+
+
+//? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "systemmenu";
 $data = getJSONPayloadRequest();
 $routeName = $data["routeName"] ?? "";
+$title = $data["title"] ?? "";
 $isBase = $data["isBase"] ?? false;
 
 
@@ -29,13 +37,13 @@ $isBase = $data["isBase"] ?? false;
 //? START
 //? ====================
 // ✅ Thêm item 
-addItem($routeName, $isBase);
+addItem($routeName, $isBase, $title);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function addItem($routeName, $isBase)
+function addItem($routeName, $isBase, $title)
 {
    global $connect, $tableName;
 
@@ -57,7 +65,7 @@ function addItem($routeName, $isBase)
    $createdAt = getCurrentDatetime();
 
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `routeName`, `isBase`) VALUES('$createdAt', '$routeName', '$isBase')";
+   $query = "INSERT INTO `$tableName`(`createdAt`, `routeName`, `title`, `isBase`) VALUES('$createdAt', '$routeName', '$title', '$isBase')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

@@ -17,16 +17,23 @@ header("Content-Type: application/json");
 
 
 //? ====================
+//? CHECK PERMISSTION
+//? ====================
+$functionName = "GetSystemMenuList";
+if (!checkPermissionFunction($functionName)) exit;
+
+
+//? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "systemmenu";
-$limit = $_GET["limit"] ?? 0; // limit = 0 để lấy tất cả
+$limit = $_GET["limit"] ?? 0; // limit = 0, hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? 0;
 $searchType = $_GET["searchType"] ?? ""; // Hợp lệ: routeName
 $searchValue = $_GET["searchValue"] ?? "";
 $fillType = $_GET["fillType"] ?? ""; // Hợp lệ: isBase
 $fillValue = $_GET["fillValue"] ?? "";
-$orderby = $_GET["orderby"] ?? "id"; // Hợp lệ: routeName
+$orderby = $_GET["orderby"] ?? "id";
 $reverse = $_GET["reverse"] ?? "false"; // Hợp lệ: true, 1
 
 

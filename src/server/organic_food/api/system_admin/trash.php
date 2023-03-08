@@ -1,41 +1,85 @@
 <?php
+//? ====================
+//? IMPORTS
+//? ====================
 require("../../core/config.php");
 require("../../core/connect_db.php");
-
 require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
 
+
+//? ====================
+//? HEADERS
+//? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
-$data = getJSONPayloadRequest();
 
+//? ====================
+//? CHECK PERMISSTION
+//? ====================
+$functionName = "TrashSystemAdmin";
+if (!checkPermissionFunction($functionName)) exit;
+
+
+//? ====================
+//? PARAMETERS & PAYLOAD
+//? ====================
+$tableName = "systemadmin";
+$data = getJSONPayloadRequest();
+$id = $data["id"] ?? 0;
+
+
+//? ====================
+//? START
+//? ====================
 // ✅ Chuyển item vào thùng rác
 trashItem($data["id"]);
 
+
+//? ====================
+//? FUNCTIONS
+//? ====================
 function trashItem($id)
 {
-   global $connect;
+   global $connect, $tableName;
 
-   if (!$id || $id < 0) {
-      $response = new ResponseAPI(9, "Không đủ dữ liệu payload để thực hiện");
+   // Kiểm tra dữ liệu payload
+   if ($id === 0) {
+      $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
+   // createdAt, updateAt, deletedAt
    $deletedAt = getCurrentDatetime();
 
-   $query = "UPDATE `systemadmin` SET `deletedAt` = '$deletedAt' WHERE `id` = $id AND `deletedAt` IS NULL";
+   // Các chuỗi truy vấn
+   $baseQuery = "UPDATE `$tableName` SET `deletedAt` = '$deletedAt'";
+   $mainQuery = "";
+   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+
+   // Thực thi query
+   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
+   performsQueryAndResponseToClient($query);
+
+   // Đóng kết nối
+   $connect->close();
+}
+
+// Thực thi truy vấn và trả về kết quả cho Client
+function performsQueryAndResponseToClient($query)
+{
+   global $connect;
+
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Chuyển tài khoản admin vào thùng rác thành công");
+      $response = new ResponseAPI(1, "Thành công");
       $response->send();
    } else {
-      $response = new ResponseAPI(2, "Chuyển tài khoản admin vào thùng rác thất bại");
+      $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
-
-   $connect->close();
 }

@@ -17,30 +17,38 @@ header("Content-Type: application/json");
 
 
 //? ====================
+//? CHECK PERMISSTION
+//? ====================
+$functionName = "UpdateSystemMenu";
+if (!checkPermissionFunction($functionName)) exit;
+
+
+//? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "systemmenu";
 $data = getJSONPayloadRequest();
 $id = $data["id"] ?? 0;
 $routeName = $data["routeName"] ?? "";
+$title = $data["title"] ?? "";
 $isBase = $data["isBase"] ?? "";
 
 //? ====================
 //? START
 //? ====================
 // ✅ Cập nhật item
-updateItem($id, $routeName, $isBase);
+updateItem($id, $routeName, $title, $isBase);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $routeName, $isBase)
+function updateItem($id, $routeName, $title, $isBase)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($routeName === "" && $isBase === "")) {
+   if ($id === 0 || ($routeName === "" && $title === "" && $isBase === "")) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -63,6 +71,11 @@ function updateItem($id, $routeName, $isBase)
       } else {
          $mainQuery .= "," . "`routeName` = '$routeName'";
       }
+   }
+
+   // Cập nhật isBase
+   if ($title !== "") {
+      $mainQuery .= "," . "`title` = '$title'";
    }
 
    // Cập nhật isBase

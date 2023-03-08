@@ -1,50 +1,113 @@
 <?php
+//? ====================
+//? IMPORTS
+//? ====================
 require("../../core/config.php");
 require("../../core/connect_db.php");
-
 require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
 
+
+//? ====================
+//? HEADERS
+//? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
+
+//? ====================
+//? CHECK PERMISSTION
+//? ====================
+$functionName = "LoginSystemAdmin";
+if (!checkPermissionFunction($functionName)) exit;
+
+
+//? ====================
+//? PARAMETERS & PAYLOAD
+//? ====================
+$tableName = "systemadmin";
 $data = getJSONPayloadRequest();
+$username = $data["username"] ?? "";
+$password = $data["password"] ?? "";
 
-// ✅ Đăng nhập hệ thống
-login($data["username"], $data["password"]);
+//? ====================
+//? START
+//? ====================
+// ✅ Cập nhật item
+login($username, $password);
 
+
+//? ====================
+//? FUNCTIONS
+//? ====================
 function login($username, $password)
 {
-   global $connect;
+   global $connect, $tableName;
 
-   if (empty($username) || empty($password)) {
-      $response = new ResponseAPI(9, "Không đủ dữ liệu payload để thực hiện");
+   // Kiểm tra dữ liệu payload
+   if ($username === "" || $password === "") {
+      $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
+   // MD5 mật khẩu
    $password = md5($password);
 
-   $query = "SELECT `systemadmin`.`id`, `systemadmin`.`createdAt`, `systemadmin`.`updatedAt`, `systemadmin`.`username`, `systemadmin`.`nickname`, `systemadmin`.`email`, `systemadmin`.`phone`, `systemadmin`.`avatarId`, `systemadmin`.`systemRoleId`, `systemrole`.`name` as 'systemRoleName'
-      FROM `systemadmin`, `image`, `systemrole`
-      WHERE `systemadmin`.`username` = '$username'
-      AND `systemadmin`.`password` = '$password'
-      AND `systemrole`.`id` = `systemadmin`.`systemRoleId`
-      AND `systemadmin`.`deletedAt` IS NULL
+   // Thực thi query
+   $query = "SELECT `$tableName`.`id`, `$tableName`.`createdAt`, `$tableName`.`updatedAt`, `$tableName`.`username`, `$tableName`.`nickname`, `$tableName`.`email`, `$tableName`.`phone`, `$tableName`.`avatarId`, `$tableName`.`systemRoleId`, `systemrole`.`name` as 'systemRoleName'
+      FROM `$tableName`, `image`, `systemrole`
+      WHERE `$tableName`.`username` = '$username'
+      AND `$tableName`.`password` = '$password'
+      AND `systemrole`.`id` = `$tableName`.`systemRoleId`
+      AND `$tableName`.`deletedAt` IS NULL
       LIMIT 1";
+   performsQueryAndResponseToClient($query);
+
+   // Đóng kết nối
+   $connect->close();
+}
+
+// Thực thi truy vấn và trả về kết quả cho Client
+function performsQueryAndResponseToClient($query)
+{
+   global $connect;
 
    $result = mysqli_query($connect, $query);
 
-   $systemAdmin = $result->fetch_object();
+   if ($result && ($obj = $result->fetch_object()) != null) {
 
-   if ($systemAdmin != null) {
-      $response = new ResponseAPI(1, "Đăng nhập vào hệ thống thành công", $systemAdmin);
+      $obj->menus = getMenus($obj->systemRoleId);
+
+      $response = new ResponseAPI(1, "Thành công", $obj);
       $response->send();
    } else {
-      $response = new ResponseAPI(2, "Sai tên đăng nhập hoặc mật khẩu");
+      $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
+}
 
-   $connect->close();
+function getMenus($systemRoleId)
+{
+   global $connect;
+
+   $tableName = "systemmenu";
+   $list = [];
+
+   $query = "SELECT DISTINCT `$tableName`.`id`, `$tableName`.`routeName`, `$tableName`.`title`, `$tableName`.`isBase` 
+      FROM `$tableName`, `systemrole_menu` 
+      WHERE `systemrole_menu`.`systemRoleId` = '$systemRoleId' 
+      AND `systemrole_menu`.`systemMenuId` = `$tableName`.`id`
+      OR `$tableName`.`isBase` = 1
+      AND `$tableName`.`deletedAt` IS NULL";
+   $result = mysqli_query($connect, $query);
+
+   if ($result) {
+      while ($obj = $result->fetch_object()) {
+         array_push($list, $obj);
+      }
+   }
+
+   return $list;
 }

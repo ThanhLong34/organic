@@ -17,6 +17,13 @@ header("Content-Type: application/json");
 
 
 //? ====================
+//? CHECK PERMISSTION
+//? ====================
+$functionName = "GetSystemRoleItem";
+if (!checkPermissionFunction($functionName)) exit;
+
+
+//? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "systemrole";
