@@ -30,7 +30,7 @@ if (!checkPermissionFunction($functionName)) exit;
 $tableName = "systemrole";
 $data = getJSONPayloadRequest();
 $id = $data["id"] ?? 0;
-$name = $data["name"] ?? "";
+$name = trim($data["name"] ?? "");
 
 //? ====================
 //? START

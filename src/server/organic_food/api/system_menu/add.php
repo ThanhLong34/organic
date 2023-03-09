@@ -29,8 +29,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemmenu";
 $data = getJSONPayloadRequest();
-$routeName = $data["routeName"] ?? "";
-$title = $data["title"] ?? "";
+$routeName = trim($data["routeName"] ?? "");
+$title = trim($data["title"] ?? "");
 $isBase = $data["isBase"] ?? false;
 
 

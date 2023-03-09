@@ -27,7 +27,7 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "systemrole_menu";
+$tableName = "systemrole_function";
 $data = getJSONPayloadRequest();
 $systemRoleId = $data["systemRoleId"] ?? 0;
 $systemFunctionId = $data["systemFunctionId"] ?? 0;

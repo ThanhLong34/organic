@@ -30,11 +30,11 @@ if (!checkPermissionFunction($functionName)) exit;
 $tableName = "systemmenu";
 $limit = $_GET["limit"] ?? 0; // limit = 0, hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? 0;
-$searchType = $_GET["searchType"] ?? ""; // Hợp lệ: routeName
-$searchValue = $_GET["searchValue"] ?? "";
-$fillType = $_GET["fillType"] ?? ""; // Hợp lệ: isBase
-$fillValue = $_GET["fillValue"] ?? "";
-$orderby = $_GET["orderby"] ?? "id";
+$searchType = trim($_GET["searchType"] ?? ""); // Hợp lệ: routeName, title
+$searchValue = trim($_GET["searchValue"] ?? "");
+$fillType = trim($_GET["fillType"] ?? ""); // Hợp lệ: isBase
+$fillValue = trim($_GET["fillValue"] ?? "");
+$orderby = trim($_GET["orderby"] ?? "id");
 $reverse = $_GET["reverse"] ?? "false"; // Hợp lệ: true, 1
 
 

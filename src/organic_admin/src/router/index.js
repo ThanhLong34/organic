@@ -3,7 +3,6 @@ import store from "@/store/index.js";
 
 import * as SessionStorage from "@/helpers/session_storage.js";
 import { menus } from "@/helpers/constants.js";
-console.log(menus);
 
 // Add
 import Dashboard from "../views/Dashboard.vue";

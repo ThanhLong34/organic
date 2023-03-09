@@ -30,9 +30,9 @@ if (!checkPermissionFunction($functionName)) exit;
 $tableName = "systemrole";
 $limit = $_GET["limit"] ?? 0; // limit = 0, hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? 0;
-$searchType = $_GET["searchType"] ?? ""; // Hợp lệ: name
-$searchValue = $_GET["searchValue"] ?? "";
-$orderby = $_GET["orderby"] ?? "id";
+$searchType = trim($_GET["searchType"] ?? ""); // Hợp lệ: name
+$searchValue = trim($_GET["searchValue"] ?? "");
+$orderby = trim($_GET["orderby"] ?? "id");
 $reverse = $_GET["reverse"] ?? "false"; // Hợp lệ: true, 1
 
 

@@ -100,12 +100,7 @@
                                        <a
                                           class="btn btn-link text-info text-gradient px-2 mb-0"
                                           href="javascript:;"
-                                          @click.prevent="
-                                             () =>
-                                                handleShowPermissionSidebar(
-                                                   item.id
-                                                )
-                                          "
+                                          @click.prevent="() => handleShowPermissionSidebar(item.id)"
                                        >
                                           <i
                                              class="fas fa-cog me-2"
@@ -116,9 +111,7 @@
                                        <a
                                           class="btn btn-link text-dark text-gradient px-2 mb-0"
                                           href="javascript:;"
-                                          @click.prevent="
-                                             () => handleOpenEditDialog(item.id)
-                                          "
+                                          @click.prevent="() => handleOpenEditDialog(item.id)"
                                        >
                                           <i
                                              class="fas fa-pencil-alt me-2"
@@ -241,6 +234,8 @@ import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 const apiGroup = "system_role";
 
+import { functions } from "@/helpers/constants.js";
+
 export default {
    name: "SystemRoleView",
    components: {
@@ -254,6 +249,9 @@ export default {
    },
    data() {
       return {
+			// Import constants
+			functions,
+
          // Search
          searchPlaceholder: "Nhập tên vai trò...",
          searchType: "name",

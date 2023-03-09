@@ -30,9 +30,9 @@ if (!checkPermissionFunction($functionName)) exit;
 $tableName = "systemmenu";
 $data = getJSONPayloadRequest();
 $id = $data["id"] ?? 0;
-$routeName = $data["routeName"] ?? "";
-$title = $data["title"] ?? "";
-$isBase = $data["isBase"] ?? "";
+$routeName = trim($data["routeName"] ?? "");
+$title = trim($data["title"] ?? "");
+$isBase = trim($data["isBase"] ?? "");
 
 
 //? ====================

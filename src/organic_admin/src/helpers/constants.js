@@ -21,4 +21,43 @@ const menus = {
 	Signin: "Signin"
 };
 
-export { menus };
+const functions = {
+	AddSystemMenu: "AddSystemMenu",
+	DeleteSystemMenu: "DeleteSystemMenu",
+	GetSystemMenuItem: "GetSystemMenuItem",
+	GetSystemMenuListBySystemRoleId: "GetSystemMenuListBySystemRoleId",
+	GetSystemMenuList: "GetSystemMenuList",
+	TrashSystemMenu: "TrashSystemMenu",
+	UpdateSystemMenu: "UpdateSystemMenu",
+	AddSystemRole: "AddSystemRole",
+	DeleteSystemRole: "DeleteSystemRole",
+	GetSystemRoleItem: "GetSystemRoleItem",
+	GetSystemRoleList: "GetSystemRoleList",
+	TrashSystemRole: "TrashSystemRole",
+	UpdateSystemRole: "UpdateSystemRole",
+	AddSystemFunction: "AddSystemFunction",
+	DeleteSystemFunction: "DeleteSystemFunction",
+	GetSystemFunctionItem: "GetSystemFunctionItem",
+	GetSystemFunctionListBySystemRoleId: "GetSystemFunctionListBySystemRoleId",
+	GetSystemFunctionList: "GetSystemFunctionList",
+	TrashSystemFunction: "TrashSystemFunction",
+	UpdateSystemFunction: "UpdateSystemFunction",
+	AddSystemRoleMenu: "AddSystemRoleMenu",
+	DeleteSystemRoleMenu: "DeleteSystemRoleMenu",
+	AddSystemRoleFunction: "AddSystemRoleFunction",
+	DeleteSystemRoleFunction: "DeleteSystemRoleFunction",
+	LoginSystemAdmin: "LoginSystemAdmin",
+	RegisterSystemAdmin: "RegisterSystemAdmin",
+	DeleteSystemAdmin: "DeleteSystemAdmin",
+	GetSystemAdminItem: "GetSystemAdminItem",
+	GetSystemAdminList: "GetSystemAdminList",
+	ResetPasswordSystemAdmin: "ResetPasswordSystemAdmin",
+	TrashSystemAdmin: "TrashSystemAdmin",
+	UpdateAvatarSystemAdmin: "UpdateAvatarSystemAdmin",
+	UpdateEmailSystemAdmin: "UpdateEmailSystemAdmin",
+	UpdateNicknameSystemAdmin: "UpdateNicknameSystemAdmin",
+	UpdatePasswordSystemAdmin: "UpdatePasswordSystemAdmin",
+	UpdatePhoneSystemAdmin: "UpdatePhoneSystemAdmin"
+};
+
+export { menus, functions };

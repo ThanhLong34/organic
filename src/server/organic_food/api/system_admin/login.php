@@ -30,8 +30,8 @@ header("Content-Type: application/json");
 //? ====================
 $tableName = "systemadmin";
 $data = getJSONPayloadRequest();
-$username = $data["username"] ?? "";
-$password = $data["password"] ?? "";
+$username = trim($data["username"] ?? "");
+$password = trim($data["password"] ?? "");
 
 //? ====================
 //? START
@@ -81,6 +81,7 @@ function performsQueryAndResponseToClient($query)
    if ($result && ($obj = $result->fetch_object()) != null) {
 
       $obj->menus = getMenus($obj->systemRoleId);
+      $obj->functions = getFunctions($obj->systemRoleId);
 
       $response = new ResponseAPI(1, "Thành công", $obj);
       $response->send();
@@ -101,6 +102,30 @@ function getMenus($systemRoleId)
       FROM `$tableName`, `systemrole_menu` 
       WHERE `systemrole_menu`.`systemRoleId` = '$systemRoleId' 
       AND `systemrole_menu`.`systemMenuId` = `$tableName`.`id`
+      OR `$tableName`.`isBase` = 1
+      AND `$tableName`.`deletedAt` IS NULL";
+   $result = mysqli_query($connect, $query);
+
+   if ($result) {
+      while ($obj = $result->fetch_object()) {
+         array_push($list, $obj);
+      }
+   }
+
+   return $list;
+}
+
+function getFunctions($systemRoleId)
+{
+   global $connect;
+
+   $tableName = "systemfunction";
+   $list = [];
+
+   $query = "SELECT DISTINCT `$tableName`.`id`, `$tableName`.`apiPath`, `$tableName`.`name`, `$tableName`.`description`, `$tableName`.`method`, `$tableName`.`isBase` 
+      FROM `$tableName`, `systemrole_function` 
+      WHERE `systemrole_function`.`systemRoleId` = '$systemRoleId' 
+      AND `systemrole_function`.`systemFunctionId` = `$tableName`.`id`
       OR `$tableName`.`isBase` = 1
       AND `$tableName`.`deletedAt` IS NULL";
    $result = mysqli_query($connect, $query);

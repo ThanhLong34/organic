@@ -30,11 +30,11 @@ if (!checkPermissionFunction($functionName)) exit;
 $tableName = "systemfunction";
 $data = getJSONPayloadRequest();
 $id = $data["id"] ?? 0;
-$apiPath = $data["apiPath"] ?? "";
-$name = $data["name"] ?? "";
-$description = $data["description"] ?? "";
-$method = $data["method"] ?? "";
-$isBase = $data["isBase"] ?? "";
+$apiPath = trim($data["apiPath"] ?? "");
+$name = trim($data["name"] ?? "");
+$description = trim($data["description"] ?? "");
+$method = trim($data["method"] ?? "");
+$isBase = trim($data["isBase"] ?? "");
 
 
 //? ====================

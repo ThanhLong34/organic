@@ -30,7 +30,7 @@ if (!checkPermissionFunction($functionName)) exit;
 $tableName = "systemadmin";
 $data = getJSONPayloadRequest();
 $id = $data["id"] ?? 0;
-$email = $data["email"] ?? "";
+$email = trim($data["email"] ?? "");
 
 
 //? ====================

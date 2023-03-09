@@ -29,7 +29,8 @@ import { ElMessage } from "element-plus";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
-const apiGroup = "system_menu";
+const apiGroupSystemMenu = "system_menu";
+const apiGroupSystemFunction = "system_function";
 
 export default {
    name: "PermissionSidebarContent",
@@ -55,24 +56,33 @@ export default {
       };
    },
    methods: {
-      getAccessibleMenusForSystemRole(systemRoleId) {
+      getAccessibleMenusForSystemRole() {
          return API.get(
-            apiPath + `/${apiGroup}/get_list_by_system_role_id.php`,
+            apiPath + `/${apiGroupSystemMenu}/get_list_by_system_role_id.php`,
             {
-               systemRoleId,
+               systemRoleId: this.$props.systemRoleId,
             },
             (data) => {
                if (data.code === 1) {
                   this.accessible.menus = data.data.map((i) => i.routeName);
-
-                  // Not found data
-                  if (data.data.length === 0) {
-                     ElMessage({
-                        message:
-                           "Không lấy được danh sách menu cho vai trò này",
-                        type: "warning",
-                     });
-                  }
+               } else {
+                  ElMessage({
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
+		getAccessibleFunctionsForSystemRole() {
+         return API.get(
+            apiPath + `/${apiGroupSystemFunction}/get_list_by_system_role_id.php`,
+            {
+               systemRoleId: this.$props.systemRoleId,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.accessible.functions = data.data.map((i) => i.name);
                } else {
                   ElMessage({
                      message: data.message,
@@ -83,15 +93,34 @@ export default {
          );
       },
       getPermissionMenus() {
-         return API.get(apiPath + `/${apiGroup}/get_list.php`, {}, (data) => {
+         return API.get(apiPath + `/${apiGroupSystemMenu}/get_list.php`, {}, (data) => {
             if (data.code === 1) {
                this.permission.menus = data.data;
-					console.log(this.permission.menus.map(i => i.routeName));
 
                // Not found data
                if (data.data.length === 0) {
                   ElMessage({
                      message: "Không lấy được danh sách menu",
+                     type: "warning",
+                  });
+               }
+            } else {
+               ElMessage({
+                  message: data.message,
+                  type: "error",
+               });
+            }
+         });
+      },
+		getPermissionFunctions() {
+         return API.get(apiPath + `/${apiGroupSystemFunction}/get_list.php`, {}, (data) => {
+            if (data.code === 1) {
+               this.permission.functions = data.data;
+
+               // Not found data
+               if (data.data.length === 0) {
+                  ElMessage({
+                     message: "Không lấy được danh sách chức năng",
                      type: "warning",
                   });
                }
@@ -149,12 +178,57 @@ export default {
          }
       },
 		handleChangePermissionFunctionCheckbox(checked, systemFunctionId) {
-			console.log(checked, systemFunctionId);
-		}
+         if (checked) {
+            return API.post(
+               apiPath + `/system_role_function/add.php`,
+               {
+                  systemRoleId: this.$props.systemRoleId,
+                  systemFunctionId,
+               },
+               (data) => {
+                  if (data.code === 1) {
+                     ElMessage({
+                        message: "Đặt quyền thành công",
+                        type: "success",
+                     });
+                  } else {
+                     ElMessage({
+                        message: data.message,
+                        type: "error",
+                     });
+                  }
+               }
+            );
+         } else {
+            return API.post(
+               apiPath + `/system_role_function/delete.php`,
+               {
+                  systemRoleId: this.$props.systemRoleId,
+                  systemFunctionId,
+               },
+               (data) => {
+                  if (data.code === 1) {
+                     ElMessage({
+                        message: "Gỡ quyền thành công",
+                        type: "success",
+                     });
+                  } else {
+                     ElMessage({
+                        message: data.message,
+                        type: "error",
+                     });
+                  }
+               }
+            );
+         }
+      },
    },
    async created() {
-      await this.getAccessibleMenusForSystemRole(this.$props.systemRoleId);
-      await this.getPermissionMenus();
+      await this.getAccessibleMenusForSystemRole();
+		await this.getAccessibleFunctionsForSystemRole();
+
+		await this.getPermissionMenus();
+      await this.getPermissionFunctions();
    },
 };
 </script>

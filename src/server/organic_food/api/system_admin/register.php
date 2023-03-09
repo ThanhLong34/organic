@@ -29,11 +29,11 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemadmin";
 $data = getJSONPayloadRequest();
-$username = $data["username"] ?? "";
-$password = $data["password"] ?? "";
-$nickname = $data["nickname"] ?? "";
-$email = $data["email"] ?? "";
-$phone = $data["phone"] ?? "";
+$username = trim($data["username"] ?? "");
+$password = trim($data["password"] ?? "");
+$nickname = trim($data["nickname"] ?? "");
+$email = trim($data["email"] ?? "");
+$phone = trim($data["phone"] ?? "");
 $systemRoleId = $data["systemRoleId"] ?? 0;
 
 
