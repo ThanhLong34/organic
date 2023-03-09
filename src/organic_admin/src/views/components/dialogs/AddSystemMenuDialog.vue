@@ -85,7 +85,20 @@ export default {
       };
    },
    methods: {
+      handleDataProcessing() {
+         // Chế biến lại dữ liệu
+
+         if (typeof this.data.routeName === "string") {
+            this.data.routeName = this.data.routeName.trim();
+         }
+
+         if (typeof this.data.title === "string") {
+            this.data.title = this.data.title.trim();
+         }
+      },
       validateBeforeSubmit() {
+         this.handleDataProcessing();
+
          if (this.data.routeName === "") {
             ElMessage({
                message: "Không được để trống tên Route",

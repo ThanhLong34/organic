@@ -5,14 +5,21 @@
          <div v-for="item in permission.menus" :key="item.id">
             <el-checkbox
                :label="`${item.routeName} (${item.title})`"
-               :checked="accessibleMenus.includes(item.routeName)"
-               @change="(checked) => handleChangeCheckbox(checked, item.id)"
+               :checked="accessible.menus.includes(item.routeName)"
+               @change="(checked) => handleChangePermissionMenuCheckbox(checked, item.id)"
             />
          </div>
       </div>
       <el-divider />
       <div class="permission-sidebar-function">
          <h6 class="mb-0 mb-2">Chức năng:</h6>
+			<div v-for="item in permission.functions" :key="item.id">
+            <el-checkbox
+               :label="`${item.name} (${item.method})`"
+               :checked="accessible.functions.includes(item.name)"
+               @change="(checked) => handleChangePermissionFunctionCheckbox(checked, item.id)"
+            />
+         </div>
       </div>
    </div>
 </template>
@@ -41,7 +48,10 @@ export default {
          },
 
          // Các menu có thể truy cập
-         accessibleMenus: [],
+         accessible: {
+				menus: [],
+            functions: [],
+			},
       };
    },
    methods: {
@@ -53,7 +63,7 @@ export default {
             },
             (data) => {
                if (data.code === 1) {
-                  this.accessibleMenus = data.data.map((i) => i.routeName);
+                  this.accessible.menus = data.data.map((i) => i.routeName);
 
                   // Not found data
                   if (data.data.length === 0) {
@@ -76,6 +86,7 @@ export default {
          return API.get(apiPath + `/${apiGroup}/get_list.php`, {}, (data) => {
             if (data.code === 1) {
                this.permission.menus = data.data;
+					console.log(this.permission.menus.map(i => i.routeName));
 
                // Not found data
                if (data.data.length === 0) {
@@ -92,7 +103,7 @@ export default {
             }
          });
       },
-      handleChangeCheckbox(checked, systemMenuId) {
+      handleChangePermissionMenuCheckbox(checked, systemMenuId) {
          if (checked) {
             return API.post(
                apiPath + `/system_role_menu/add.php`,
@@ -137,6 +148,9 @@ export default {
             );
          }
       },
+		handleChangePermissionFunctionCheckbox(checked, systemFunctionId) {
+			console.log(checked, systemFunctionId);
+		}
    },
    async created() {
       await this.getAccessibleMenusForSystemRole(this.$props.systemRoleId);

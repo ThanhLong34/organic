@@ -12,6 +12,7 @@ require("../../helpers/functions.php");
 //? HEADERS
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
@@ -33,23 +34,25 @@ $apiPath = $data["apiPath"] ?? "";
 $name = $data["name"] ?? "";
 $description = $data["description"] ?? "";
 $method = $data["method"] ?? "";
+$isBase = $data["isBase"] ?? "";
+
 
 //? ====================
 //? START
 //? ====================
 // ✅ Cập nhật item
-updateItem($id, $apiPath, $name, $description, $method);
+updateItem($id, $apiPath, $name, $description, $method, $isBase);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $apiPath, $name, $description, $method)
+function updateItem($id, $apiPath, $name, $description, $method, $isBase)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($apiPath === "" && $name === "" && $description === "" && $method === "")) {
+   if ($id === 0 || ($apiPath === "" && $name === "" && $description === "" && $method === "" && $isBase === "")) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -75,18 +78,23 @@ function updateItem($id, $apiPath, $name, $description, $method)
    }
 
    // Cập nhật apiPath
-   if ($name !== "") {
+   if ($apiPath !== "") {
       $mainQuery .= "," . "`apiPath` = '$apiPath'";
    }
 
    // Cập nhật description
-   if ($name !== "") {
+   if ($description !== "") {
       $mainQuery .= "," . "`description` = '$description'";
    }
 
    // Cập nhật method
-   if ($name !== "") {
+   if ($method !== "") {
       $mainQuery .= "," . "`method` = '$method'";
+   }
+
+   // Cập nhật isBase
+   if ($isBase !== "") {
+      $mainQuery .= "," . "`isBase` = '$isBase'";
    }
 
    // Thực thi query

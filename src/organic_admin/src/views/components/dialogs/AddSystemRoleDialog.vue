@@ -65,7 +65,16 @@ export default {
       };
    },
    methods: {
+      handleDataProcessing() {
+         // Chế biến lại dữ liệu
+
+         if (typeof this.data.name === "string") {
+            this.data.name = this.data.name.trim();
+         }
+      },
       validateBeforeSubmit() {
+         this.handleDataProcessing();
+
          if (this.data.name === "") {
             ElMessage({
                message: "Không được để trống tên vai trò",

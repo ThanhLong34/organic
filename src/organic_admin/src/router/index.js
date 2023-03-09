@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import store from "@/store/index.js";
 
 import * as SessionStorage from "@/helpers/session_storage.js";
+import { menus } from "@/helpers/constants.js";
+console.log(menus);
 
 // Add
 import Dashboard from "../views/Dashboard.vue";
@@ -44,7 +46,7 @@ const routes = [
 	},
 	{
 		path: "/dashboard",
-		name: "Dashboard",
+		name: menus.Dashboard,
 		component: Dashboard,
 		meta: {
 			breadcrumbName: "Dashboard",
@@ -52,7 +54,7 @@ const routes = [
 	},
 	{
 		path: "/system-role",
-		name: "SystemRole",
+		name: menus.SystemRole,
 		component: SystemRole,
 		meta: {
 			breadcrumbName: "Vai trò",
@@ -60,7 +62,7 @@ const routes = [
 	},
 	{
 		path: "/system-menu",
-		name: "SystemMenu",
+		name: menus.SystemMenu,
 		component: SystemMenu,
 		meta: {
 			breadcrumbName: "Menu",
@@ -68,7 +70,7 @@ const routes = [
 	},
 	{
 		path: "/system-function",
-		name: "SystemFunction",
+		name: menus.SystemFunction,
 		component: SystemFunction,
 		meta: {
 			breadcrumbName: "Chức năng",
@@ -76,7 +78,7 @@ const routes = [
 	},
 	{
 		path: "/system-admin",
-		name: "SystemAdmin",
+		name: menus.SystemAdmin,
 		component: SystemAdmin,
 		meta: {
 			breadcrumbName: "Tài khoản Admin",
@@ -84,7 +86,7 @@ const routes = [
 	},
 	{
 		path: "/image",
-		name: "Image",
+		name: menus.Image,
 		component: Image,
 		meta: {
 			breadcrumbName: "Tệp hình ảnh",
@@ -92,7 +94,7 @@ const routes = [
 	},
 	{
 		path: "/product-category",
-		name: "ProductCategory",
+		name: menus.ProductCategory,
 		component: ProductCategory,
 		meta: {
 			breadcrumbName: "Danh mục sản phẩm",
@@ -100,7 +102,7 @@ const routes = [
 	},
 	{
 		path: "/product",
-		name: "Product",
+		name: menus.Product,
 		component: Product,
 		meta: {
 			breadcrumbName: "Sản phẩm",
@@ -108,7 +110,7 @@ const routes = [
 	},
 	{
 		path: "/add-product",
-		name: "AddProduct",
+		name: menus.AddProduct,
 		component: AddProduct,
 		meta: {
 			breadcrumbName: "Thêm sản phẩm",
@@ -116,7 +118,7 @@ const routes = [
 	},
 	{
 		path: "/edit-product/:id",
-		name: "EditProduct",
+		name: menus.EditProduct,
 		component: EditProduct,
 		meta: {
 			breadcrumbName: "Chỉnh sửa thông tin sản phẩm",
@@ -124,7 +126,7 @@ const routes = [
 	},
 	{
 		path: "/blog",
-		name: "Blog",
+		name: menus.Blog,
 		component: Blog,
 		meta: {
 			breadcrumbName: "Bài viết",
@@ -132,7 +134,7 @@ const routes = [
 	},
 	{
 		path: "/add-blog",
-		name: "AddBlog",
+		name: menus.AddBlog,
 		component: AddBlog,
 		meta: {
 			breadcrumbName: "Thêm bài viết",
@@ -140,7 +142,7 @@ const routes = [
 	},
 	{
 		path: "/edit-blog/:id",
-		name: "EditBlog",
+		name: menus.EditBlog,
 		component: EditBlog,
 		meta: {
 			breadcrumbName: "Chỉnh sửa thông tin bài viết",
@@ -148,7 +150,7 @@ const routes = [
 	},
 	{
 		path: "/subscribe",
-		name: "Subscribe",
+		name: menus.Subscribe,
 		component: Subscribe,
 		meta: {
 			breadcrumbName: "KH Đăng ký",
@@ -156,7 +158,7 @@ const routes = [
 	},
 	{
 		path: "/contact",
-		name: "Contact",
+		name: menus.Contact,
 		component: Contact,
 		meta: {
 			breadcrumbName: "KH Liên hệ",
@@ -164,7 +166,7 @@ const routes = [
 	},
 	{
 		path: "/counpon-code",
-		name: "CounponCode",
+		name: menus.CounponCode,
 		component: CounponCode,
 		meta: {
 			breadcrumbName: "Mã giảm giá",
@@ -172,7 +174,7 @@ const routes = [
 	},
 	{
 		path: "/order-status",
-		name: "OrderStatus",
+		name: menus.OrderStatus,
 		component: OrderStatus,
 		meta: {
 			breadcrumbName: "Trạng thái đơn hàng",
@@ -180,7 +182,7 @@ const routes = [
 	},
 	{
 		path: "/order",
-		name: "Order",
+		name: menus.Order,
 		component: Order,
 		meta: {
 			breadcrumbName: "Đơn hàng",
@@ -188,7 +190,7 @@ const routes = [
 	},
 	{
 		path: "/profile",
-		name: "Profile",
+		name: menus.Profile,
 		component: Profile,
 		meta: {
 			breadcrumbName: "Hồ sơ cá nhân",
@@ -196,7 +198,7 @@ const routes = [
 	},
 	{
 		path: "/signin",
-		name: "Signin",
+		name: menus.Signin,
 		component: Signin,
 		meta: {
 			breadcrumbName: "Đăng nhập",

@@ -6,12 +6,13 @@ require("../../core/config.php");
 require("../../core/connect_db.php");
 require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
-require("../../lib/mail/index.php");
+require("../../lib/mail/sendmail.php");
 
 //? ====================
 //? HEADERS
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 

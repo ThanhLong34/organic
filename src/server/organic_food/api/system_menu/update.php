@@ -12,6 +12,7 @@ require("../../helpers/functions.php");
 //? HEADERS
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
@@ -32,6 +33,7 @@ $id = $data["id"] ?? 0;
 $routeName = $data["routeName"] ?? "";
 $title = $data["title"] ?? "";
 $isBase = $data["isBase"] ?? "";
+
 
 //? ====================
 //? START
@@ -73,7 +75,7 @@ function updateItem($id, $routeName, $title, $isBase)
       }
    }
 
-   // Cập nhật isBase
+   // Cập nhật title
    if ($title !== "") {
       $mainQuery .= "," . "`title` = '$title'";
    }

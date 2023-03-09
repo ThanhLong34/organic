@@ -67,7 +67,7 @@
                      </div>
                   </div>
                   <!-- Table -->
-                  <div class="card-body px-0 pt-0 pb-2">
+                  <div class="card-body px-0 pt-2 pb-2">
                      <div class="table-responsive p-0">
                         <table
                            class="table align-items-center justify-content-center mb-0"
@@ -193,13 +193,13 @@
             <!-- Add dialog -->
             <div v-if="addDialog.visible">
                <el-dialog v-model="addDialog.visible">
-                  <AddRoleDialog @onCloseDialog="handleCloseDialog" />
+                  <AddSystemRoleDialog @onCloseDialog="handleCloseDialog" />
                </el-dialog>
             </div>
             <!-- Edit dialog -->
             <div v-if="editDialog.visible">
                <el-dialog v-model="editDialog.visible">
-                  <EditRoleDialog
+                  <EditSystemRoleDialog
                      :itemIdSelect="itemIdSelect"
                      @onCloseDialog="handleCloseDialog"
                   />
@@ -233,8 +233,8 @@ import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
 
-import AddRoleDialog from "./components/dialogs/AddSystemRoleDialog.vue";
-import EditRoleDialog from "./components/dialogs/EditSystemRoleDialog.vue";
+import AddSystemRoleDialog from "./components/dialogs/AddSystemRoleDialog.vue";
+import EditSystemRoleDialog from "./components/dialogs/EditSystemRoleDialog.vue";
 import PermissionSidebarContent from "./components/PermissionSidebarContent.vue";
 
 import * as API from "@/helpers/api.js";
@@ -248,8 +248,8 @@ export default {
       ArgonButton,
       ArgonPagination,
       ArgonPaginationItem,
-      AddRoleDialog,
-      EditRoleDialog,
+      AddSystemRoleDialog,
+      EditSystemRoleDialog,
       PermissionSidebarContent,
    },
    data() {
