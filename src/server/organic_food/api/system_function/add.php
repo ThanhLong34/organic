@@ -12,6 +12,7 @@ require("../../helpers/functions.php");
 //? HEADERS
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
@@ -28,28 +29,29 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemfunction";
 $data = getJSONPayloadRequest();
-$apiPath = $data["apiPath"] ?? "";
-$name = $data["name"] ?? "";
-$description = $data["description"] ?? "";
-$method = $data["method"] ?? "";
+$apiPath = trim($data["apiPath"] ?? "");
+$name = trim($data["name"] ?? "");
+$description = trim($data["description"] ?? "");
+$method = trim($data["method"] ?? "");
+$isBase = $data["isBase"] ?? false;
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Thêm item 
-addItem($apiPath, $name, $description, $method);
+addItem($apiPath, $name, $description, $method, $isBase);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function addItem($apiPath, $name, $description, $method)
+function addItem($apiPath, $name, $description, $method, $isBase)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($name === "") {
+   if ($name === "" || !is_bool($isBase)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -66,8 +68,8 @@ function addItem($apiPath, $name, $description, $method)
    $createdAt = getCurrentDatetime();
 
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `apiPath`, `name`, `description`, `method`) 
-      VALUES('$createdAt', '$apiPath', '$name', '$description', '$method')";
+   $query = "INSERT INTO `$tableName`(`createdAt`, `apiPath`, `name`, `description`, `method`, `isBase`) 
+      VALUES('$createdAt', '$apiPath', '$name', '$description', '$method', '$isBase')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

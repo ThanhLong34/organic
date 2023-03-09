@@ -4,7 +4,7 @@
       id="sidenav-collapse-main"
    >
       <ul class="navbar-nav">
-         <li class="nav-item" v-if="accessibleMenus?.includes('Dashboard')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.Dashboard)">
             <sidenav-item
                routeName="Dashboard"
                :class="getRoute() === 'dashboard-default' ? 'active' : ''"
@@ -15,7 +15,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('SystemRole')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.SystemRole)">
             <sidenav-item
                routeName="SystemRole"
                :class="getRoute() === 'role' ? 'active' : ''"
@@ -28,7 +28,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('SystemMenu')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.SystemMenu)">
             <sidenav-item
                routeName="SystemMenu"
                :class="getRoute() === 'menu' ? 'active' : ''"
@@ -43,7 +43,7 @@
          </li>
          <li
             class="nav-item"
-            v-if="accessibleMenus?.includes('SystemFunction')"
+            v-if="accessibleMenus?.includes(menus.SystemFunction)"
          >
             <sidenav-item
                routeName="SystemFunction"
@@ -55,7 +55,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('SystemAdmin')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.SystemAdmin)">
             <sidenav-item
                routeName="SystemAdmin"
                :class="getRoute() === 'system-admin' ? 'active' : ''"
@@ -68,7 +68,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('Image')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.Image)">
             <sidenav-item
                routeName="Image"
                :class="getRoute() === 'image' ? 'active' : ''"
@@ -81,7 +81,7 @@
          </li>
          <li
             class="nav-item"
-            v-if="accessibleMenus?.includes('ProductCategory')"
+            v-if="accessibleMenus?.includes(menus.ProductCategory)"
          >
             <sidenav-item
                routeName="ProductCategory"
@@ -95,7 +95,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('Product')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.Product)">
             <sidenav-item
                routeName="Product"
                :class="getRoute() === 'product' ? 'active' : ''"
@@ -106,7 +106,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('Blog')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.Blog)">
             <sidenav-item
                routeName="Blog"
                :class="getRoute() === 'blog' ? 'active' : ''"
@@ -119,7 +119,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('Subscribe')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.Subscribe)">
             <sidenav-item
                routeName="Subscribe"
                :class="getRoute() === 'subscribe' ? 'active' : ''"
@@ -130,7 +130,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('Contact')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.Contact)">
             <sidenav-item
                routeName="Contact"
                :class="getRoute() === 'contact' ? 'active' : ''"
@@ -143,7 +143,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('CounponCode')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.CounponCode)">
             <sidenav-item
                routeName="CounponCode"
                :class="getRoute() === 'counpon-code' ? 'active' : ''"
@@ -154,7 +154,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('OrderStatus')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.OrderStatus)">
             <sidenav-item
                routeName="OrderStatus"
                :class="getRoute() === 'order-status' ? 'active' : ''"
@@ -165,7 +165,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('Order')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.Order)">
             <sidenav-item
                routeName="Order"
                :class="getRoute() === 'order' ? 'active' : ''"
@@ -185,7 +185,7 @@
                TÀI KHOẢN
             </h6>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('Profile')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.Profile)">
             <sidenav-item
                routeName="Profile"
                :class="getRoute() === 'profile' ? 'active' : ''"
@@ -196,7 +196,7 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes('Signin')">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.Signin)">
             <sidenav-item
                routeName="Signin"
                :class="getRoute() === 'signin' ? 'active' : ''"
@@ -221,6 +221,8 @@
 import SidenavItem from "./SidenavItem.vue";
 import SidenavCard from "./SidenavCard.vue";
 
+import { menus } from "@/helpers/constants.js";
+
 export default {
    name: "SidenavList",
    props: {
@@ -228,6 +230,8 @@ export default {
    },
    data() {
       return {
+			menus,
+
          title: "Argon Dashboard 2",
          controls: "dashboardsExamples",
          isActive: "active",

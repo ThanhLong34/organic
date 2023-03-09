@@ -122,14 +122,37 @@ export default {
          this.$refs.routeNameRef?.setValue(this.data.routeName);
          this.$refs.titleRef?.setValue(this.data.title);
       },
+      handleDataProcessing() {
+         // Chế biến lại dữ liệu
+
+         if (typeof this.dataChange.routeName === "string") {
+            this.dataChange.routeName = this.dataChange.routeName.trim();
+         }
+
+         if (typeof this.dataChange.title === "string") {
+            this.dataChange.title = this.dataChange.title.trim();
+         }
+      },
       validateBeforeSubmit() {
+         this.handleDataProcessing();
+
          if (
-            this.dataChange.routeName === null &&
-            this.dataChange.title === null &&
-            this.dataChange.isBase === null
+            this.dataChange.routeName === "" ||
+            (this.dataChange.routeName === null &&
+               this.dataChange.title === null &&
+               this.dataChange.isBase === null)
          ) {
             ElMessage({
                message: "Nhập tên Route mới hoặc không được để trống",
+               type: "warning",
+            });
+
+            return false;
+         }
+
+         if (this.dataChange.title === "") {
+            ElMessage({
+               message: "Tên tiêu đề không nên để trống",
                type: "warning",
             });
 

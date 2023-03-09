@@ -12,6 +12,7 @@ require("../../helpers/functions.php");
 //? HEADERS
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
@@ -19,8 +20,9 @@ header("Content-Type: application/json");
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "LoginSystemAdmin";
-if (!checkPermissionFunction($functionName)) exit;
+// Không cần check
+// $functionName = "LoginSystemAdmin";
+// if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
@@ -28,8 +30,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemadmin";
 $data = getJSONPayloadRequest();
-$username = $data["username"] ?? "";
-$password = $data["password"] ?? "";
+$username = trim($data["username"] ?? "");
+$password = trim($data["password"] ?? "");
 
 //? ====================
 //? START
@@ -79,6 +81,7 @@ function performsQueryAndResponseToClient($query)
    if ($result && ($obj = $result->fetch_object()) != null) {
 
       $obj->menus = getMenus($obj->systemRoleId);
+      $obj->functions = getFunctions($obj->systemRoleId);
 
       $response = new ResponseAPI(1, "Thành công", $obj);
       $response->send();
@@ -99,6 +102,30 @@ function getMenus($systemRoleId)
       FROM `$tableName`, `systemrole_menu` 
       WHERE `systemrole_menu`.`systemRoleId` = '$systemRoleId' 
       AND `systemrole_menu`.`systemMenuId` = `$tableName`.`id`
+      OR `$tableName`.`isBase` = 1
+      AND `$tableName`.`deletedAt` IS NULL";
+   $result = mysqli_query($connect, $query);
+
+   if ($result) {
+      while ($obj = $result->fetch_object()) {
+         array_push($list, $obj);
+      }
+   }
+
+   return $list;
+}
+
+function getFunctions($systemRoleId)
+{
+   global $connect;
+
+   $tableName = "systemfunction";
+   $list = [];
+
+   $query = "SELECT DISTINCT `$tableName`.`id`, `$tableName`.`apiPath`, `$tableName`.`name`, `$tableName`.`description`, `$tableName`.`method`, `$tableName`.`isBase` 
+      FROM `$tableName`, `systemrole_function` 
+      WHERE `systemrole_function`.`systemRoleId` = '$systemRoleId' 
+      AND `systemrole_function`.`systemFunctionId` = `$tableName`.`id`
       OR `$tableName`.`isBase` = 1
       AND `$tableName`.`deletedAt` IS NULL";
    $result = mysqli_query($connect, $query);

@@ -12,6 +12,7 @@ require("../../helpers/functions.php");
 //? HEADERS
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: POST, DELETE");
 header("Content-Type: application/json");
 
@@ -26,7 +27,7 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "systemrole_menu";
+$tableName = "systemrole_function";
 $data = getJSONPayloadRequest();
 $systemRoleId = $data["systemRoleId"] ?? 0;
 $systemFunctionId = $data["systemFunctionId"] ?? 0;

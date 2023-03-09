@@ -12,6 +12,7 @@ require("../../helpers/functions.php");
 //? HEADERS
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
@@ -28,7 +29,7 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemrole";
 $data = getJSONPayloadRequest();
-$name = $data["name"] ?? "";
+$name = trim($data["name"] ?? "");
 
 
 //? ====================

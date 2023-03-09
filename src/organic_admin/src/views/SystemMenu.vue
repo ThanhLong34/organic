@@ -24,7 +24,7 @@
                                     searchType === 'routeName'
                                        ? 'Nhập tên Route'
                                        : searchType === 'title'
-                                       ? 'Tiêu đề'
+                                       ? 'Nhập tiêu đề'
                                        : ''
                                  "
                                  v-model="searchValue"
@@ -122,7 +122,7 @@
                      </div>
                   </div>
                   <!-- Table -->
-                  <div class="card-body px-0 pt-0 pb-2">
+                  <div class="card-body px-0 pt-2 pb-2">
                      <div class="table-responsive p-0">
                         <table
                            class="table align-items-center justify-content-center mb-0"
@@ -252,13 +252,13 @@
             <!-- Add dialog -->
             <div v-if="addDialog.visible">
                <el-dialog v-model="addDialog.visible">
-                  <AddMenuDialog @onCloseDialog="handleCloseDialog" />
+                  <AddSystemMenuDialog @onCloseDialog="handleCloseDialog" />
                </el-dialog>
             </div>
             <!-- Edit dialog -->
             <div v-if="editDialog.visible">
                <el-dialog v-model="editDialog.visible">
-                  <EditMenuDialog
+                  <EditSystemMenuDialog
                      :itemIdSelect="itemIdSelect"
                      @onCloseDialog="handleCloseDialog"
                   />
@@ -277,8 +277,8 @@ import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
 
-import AddMenuDialog from "./components/dialogs/AddSystemMenuDialog.vue";
-import EditMenuDialog from "./components/dialogs/EditSystemMenuDialog.vue";
+import AddSystemMenuDialog from "./components/dialogs/AddSystemMenuDialog.vue";
+import EditSystemMenuDialog from "./components/dialogs/EditSystemMenuDialog.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
@@ -291,8 +291,8 @@ export default {
       ArgonButton,
       ArgonPagination,
       ArgonPaginationItem,
-      AddMenuDialog,
-      EditMenuDialog,
+      AddSystemMenuDialog,
+      EditSystemMenuDialog,
    },
    data() {
       return {

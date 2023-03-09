@@ -38,8 +38,8 @@ function checkPermissionFunction($functionName)
 
    $headers = apache_request_headers();
 
-   if ($headers != null && isset($headers["systemRoleId"])) {
-      $systemRoleId = $headers["systemRoleId"];
+   if ($headers != null && isset($headers["system-role-id"])) {
+      $systemRoleId = $headers["system-role-id"];
 
       $systemFunctionTableName = "systemfunction";
       $systemRoleFunctionTableName = "systemrole_function";
@@ -47,7 +47,8 @@ function checkPermissionFunction($functionName)
       $query = "SELECT * FROM `$systemFunctionTableName`, `$systemRoleFunctionTableName`
          WHERE `$systemRoleFunctionTableName`.`systemRoleId` = $systemRoleId
          AND `$systemRoleFunctionTableName`.`systemFunctionId` = `$systemFunctionTableName`.`id`
-         AND `$systemFunctionTableName`.`name` = '$functionName'";
+         AND `$systemFunctionTableName`.`name` = '$functionName'
+         AND `$systemFunctionTableName`.`isBase` = 0 LIMIT 1";
 
       $result = mysqli_query($connect, $query);
 

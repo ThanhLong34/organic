@@ -12,6 +12,7 @@ require("../../helpers/functions.php");
 //? HEADERS
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
@@ -28,8 +29,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemmenu";
 $data = getJSONPayloadRequest();
-$routeName = $data["routeName"] ?? "";
-$title = $data["title"] ?? "";
+$routeName = trim($data["routeName"] ?? "");
+$title = trim($data["title"] ?? "");
 $isBase = $data["isBase"] ?? false;
 
 

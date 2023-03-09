@@ -92,18 +92,21 @@ body,
 div,
 aside {
    &::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
    }
 
    &::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
       background-color: white;
    }
 
    &::-webkit-scrollbar-thumb {
       border-radius: 20px;
       background-image: linear-gradient(45deg, #2dce89 0%, #2dcecc 100%);
+      &:hover {
+         background-image: linear-gradient(45deg, #ff008c 0%, #c300ff 100%);
+      }
    }
 }
 

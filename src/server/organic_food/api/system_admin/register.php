@@ -12,6 +12,7 @@ require("../../helpers/functions.php");
 //? HEADERS
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
@@ -28,11 +29,11 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemadmin";
 $data = getJSONPayloadRequest();
-$username = $data["username"] ?? "";
-$password = $data["password"] ?? "";
-$nickname = $data["nickname"] ?? "";
-$email = $data["email"] ?? "";
-$phone = $data["phone"] ?? "";
+$username = trim($data["username"] ?? "");
+$password = trim($data["password"] ?? "");
+$nickname = trim($data["nickname"] ?? "");
+$email = trim($data["email"] ?? "");
+$phone = trim($data["phone"] ?? "");
 $systemRoleId = $data["systemRoleId"] ?? 0;
 
 

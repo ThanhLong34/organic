@@ -1,3 +1,4 @@
+import store from "@/store/index.js";
 import { ElMessage } from "element-plus";
 
 export function get(
@@ -17,6 +18,9 @@ export function get(
 
 	return fetch(api, {
 		method: "GET",
+		headers: {
+			"system-role-id": store.state.accountLogin?.systemRoleId ?? 0,
+		},
 	})
 		.then((response) => response.json())
 		.then((data) => {
@@ -48,6 +52,9 @@ export function post(
 
 	return fetch(api, {
 		method: "POST",
+		headers: {
+			"system-role-id": store.state.accountLogin?.systemRoleId ?? 0,
+		},
 		body: JSON.stringify(payload),
 	})
 		.then((response) => response.json())
@@ -80,6 +87,9 @@ export function put(
 
 	return fetch(api, {
 		method: "PUT",
+		headers: {
+			"system-role-id": store.state.accountLogin?.systemRoleId ?? 0,
+		},
 		body: JSON.stringify(payload),
 	})
 		.then((response) => response.json())
@@ -112,6 +122,9 @@ export function deleteById(
 
 	return fetch(api, {
 		method: "PUT",
+		headers: {
+			"system-role-id": store.state.accountLogin?.systemRoleId ?? 0,
+		},
 		body: JSON.stringify({
 			id,
 		}),
@@ -146,6 +159,9 @@ export function uploadFile(
 
 	return fetch(api, {
 		method: "POST",
+		headers: {
+			"system-role-id": store.state.accountLogin?.systemRoleId ?? 0,
+		},
 		body: formData,
 	})
 		.then((response) => response.json())
@@ -192,6 +208,9 @@ export function uploadImage(
 
 	return fetch(api, {
 		method: "POST",
+		headers: {
+			"system-role-id": store.state.accountLogin?.systemRoleId ?? 0,
+		},
 		body: formData,
 	})
 		.then((response) => response.json())

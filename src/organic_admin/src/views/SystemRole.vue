@@ -67,7 +67,7 @@
                      </div>
                   </div>
                   <!-- Table -->
-                  <div class="card-body px-0 pt-0 pb-2">
+                  <div class="card-body px-0 pt-2 pb-2">
                      <div class="table-responsive p-0">
                         <table
                            class="table align-items-center justify-content-center mb-0"
@@ -100,12 +100,7 @@
                                        <a
                                           class="btn btn-link text-info text-gradient px-2 mb-0"
                                           href="javascript:;"
-                                          @click.prevent="
-                                             () =>
-                                                handleShowPermissionSidebar(
-                                                   item.id
-                                                )
-                                          "
+                                          @click.prevent="() => handleShowPermissionSidebar(item.id)"
                                        >
                                           <i
                                              class="fas fa-cog me-2"
@@ -116,9 +111,7 @@
                                        <a
                                           class="btn btn-link text-dark text-gradient px-2 mb-0"
                                           href="javascript:;"
-                                          @click.prevent="
-                                             () => handleOpenEditDialog(item.id)
-                                          "
+                                          @click.prevent="() => handleOpenEditDialog(item.id)"
                                        >
                                           <i
                                              class="fas fa-pencil-alt me-2"
@@ -193,13 +186,13 @@
             <!-- Add dialog -->
             <div v-if="addDialog.visible">
                <el-dialog v-model="addDialog.visible">
-                  <AddRoleDialog @onCloseDialog="handleCloseDialog" />
+                  <AddSystemRoleDialog @onCloseDialog="handleCloseDialog" />
                </el-dialog>
             </div>
             <!-- Edit dialog -->
             <div v-if="editDialog.visible">
                <el-dialog v-model="editDialog.visible">
-                  <EditRoleDialog
+                  <EditSystemRoleDialog
                      :itemIdSelect="itemIdSelect"
                      @onCloseDialog="handleCloseDialog"
                   />
@@ -233,13 +226,15 @@ import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
 
-import AddRoleDialog from "./components/dialogs/AddSystemRoleDialog.vue";
-import EditRoleDialog from "./components/dialogs/EditSystemRoleDialog.vue";
+import AddSystemRoleDialog from "./components/dialogs/AddSystemRoleDialog.vue";
+import EditSystemRoleDialog from "./components/dialogs/EditSystemRoleDialog.vue";
 import PermissionSidebarContent from "./components/PermissionSidebarContent.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 const apiGroup = "system_role";
+
+import { functions } from "@/helpers/constants.js";
 
 export default {
    name: "SystemRoleView",
@@ -248,12 +243,15 @@ export default {
       ArgonButton,
       ArgonPagination,
       ArgonPaginationItem,
-      AddRoleDialog,
-      EditRoleDialog,
+      AddSystemRoleDialog,
+      EditSystemRoleDialog,
       PermissionSidebarContent,
    },
    data() {
       return {
+			// Import constants
+			functions,
+
          // Search
          searchPlaceholder: "Nhập tên vai trò...",
          searchType: "name",

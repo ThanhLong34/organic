@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2023 at 12:07 PM
+-- Generation Time: Mar 09, 2023 at 09:32 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -284,7 +284,7 @@ CREATE TABLE `systemadmin` (
 INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `nickname`, `email`, `phone`, `avatarId`, `systemRoleId`) VALUES
 (4, '18:08:50 04/03/2023', '10:08:36 07/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
 (5, '18:46:33 04/03/2023', '13:36:27 05/03/2023', NULL, 'client', '62608e08adc29a8d6dbc9754e659f125', 'Client', 'dragondevshop@gmail.com', '0353292241', 14, 2),
-(16, '14:26:09 07/03/2023', '18:06:13 08/03/2023', NULL, 'websitemanager1', '31ab87da1483902d91ead5c5e21bf462', 'Quản lý website 1', '2014468@dlu.edu.vn', '0123456789', NULL, 3);
+(16, '14:26:09 07/03/2023', '10:06:54 09/03/2023', NULL, 'websitemanager1', 'e4bafb494fed55a8b1f281628ac134fa', 'Quản lý website 1', '2014468@dlu.edu.vn', '0123456789', NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -300,50 +300,51 @@ CREATE TABLE `systemfunction` (
   `apiPath` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(1000) DEFAULT NULL,
-  `method` varchar(255) DEFAULT NULL
+  `method` varchar(255) DEFAULT NULL,
+  `isBase` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `systemfunction`
 --
 
-INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiPath`, `name`, `description`, `method`) VALUES
-(2, '22:14:51 07/03/2023', NULL, NULL, 'system_menu/add.php', 'AddSystemMenu', 'Add system menu', 'POST'),
-(3, '22:15:19 07/03/2023', NULL, NULL, 'system_menu/delete.php', 'DeleteSystemMenu', 'Delete system menu by id', 'DELETE'),
-(4, '22:15:43 07/03/2023', NULL, NULL, 'system_menu/get_item.php', 'GetSystemMenuItem', 'Get system menu item by id', 'GET'),
-(5, '22:18:16 07/03/2023', NULL, NULL, 'system_menu/get_list_by_system_role_id.php', 'GetSystemMenuListBySystemRoleId', 'Get system menu list by system role id ', 'GET'),
-(6, '22:25:58 07/03/2023', NULL, NULL, 'system_menu/get_list.php', 'GetSystemMenuList', 'Get system menu list', 'GET'),
-(7, '22:26:26 07/03/2023', NULL, NULL, 'system_menu/trash.php', 'TrashSystemMenu', 'Trash system menu by id', 'PUT'),
-(8, '22:26:48 07/03/2023', NULL, NULL, 'system_menu/update.php', 'UpdateSystemMenu', 'Update system menu', 'PUT'),
-(9, '22:36:47 07/03/2023', NULL, NULL, 'system_role/add.php', 'AddSystemRole', 'Add system role', 'POST'),
-(10, '22:37:58 07/03/2023', NULL, NULL, 'system_role/delete.php', 'DeleteSystemRole', 'Delete system role by id', 'DELETE'),
-(11, '22:38:31 07/03/2023', NULL, NULL, 'system_role/get_item.php', 'GetSystemRoleItem', 'Get system role item by id', 'GET'),
-(12, '22:38:48 07/03/2023', NULL, NULL, 'system_role/get_list.php', 'GetSystemRoleList', 'Get system role list', 'GET'),
-(13, '22:39:13 07/03/2023', NULL, NULL, 'system_role/trash.php', 'TrashSystemRole', 'Trash system role by id', 'PUT'),
-(14, '22:39:38 07/03/2023', NULL, NULL, 'system_role/update.php', 'UpdateSystemRole', 'Update system role', 'PUT'),
-(15, '14:57:26 08/03/2023', NULL, NULL, 'system_function/add.php', 'AddSystemFunction', 'Add system function', 'POST'),
-(16, '14:59:45 08/03/2023', NULL, NULL, 'system_function/delete.php', 'DeleteSystemFunction', 'Delete system function by id', 'DELETE'),
-(17, '15:00:08 08/03/2023', NULL, NULL, 'system_function/get_item.php', 'GetSystemFunctionItem', 'Get system function item by id', 'GET'),
-(18, '15:00:30 08/03/2023', NULL, NULL, 'system_function/get_list_by_system_role_id.php', 'GetSystemFunctionListBySystemRoleId', 'Get system function list by system role id', 'GET'),
-(19, '15:00:45 08/03/2023', NULL, NULL, 'system_function/get_list.php', 'GetSystemFunctionList', 'Get system function list', 'GET'),
-(20, '15:01:06 08/03/2023', NULL, NULL, 'system_function/trash.php', 'TrashSystemFunction', 'Trash system function', 'PUT'),
-(21, '15:01:20 08/03/2023', NULL, NULL, 'system_function/update.php', 'UpdateSystemFunction', 'Update system function', 'PUT'),
-(22, '15:02:27 08/03/2023', NULL, NULL, 'system_role_menu/add.php', 'AddSystemRoleMenu', 'Add system role menu', 'POST'),
-(23, '15:02:56 08/03/2023', NULL, NULL, 'system_role_menu/delete.php', 'DeleteSystemRoleMenu', 'Delete system role menu', 'POST, DELETE'),
-(24, '15:03:24 08/03/2023', NULL, NULL, 'system_role_function/add.php', 'AddSystemRoleFunction', 'Add system role function', 'POST'),
-(25, '15:03:44 08/03/2023', NULL, NULL, 'system_role_function/delete.php', 'DeleteSystemRoleFunction', 'Delete system role function', 'POST, DELETE'),
-(26, '15:04:17 08/03/2023', NULL, NULL, 'system_admin/login.php', 'LoginSystemAdmin', 'Login system admin', 'POST'),
-(27, '15:04:58 08/03/2023', NULL, NULL, 'system_admin/register.php', 'RegisterSystemAdmin', 'Register system admin', 'POST'),
-(28, '15:05:33 08/03/2023', NULL, NULL, 'system_admin/delete.php', 'DeleteSystemAdmin', 'Delete system admin by id', 'DELETE'),
-(29, '15:05:58 08/03/2023', NULL, NULL, 'system_admin/get_item.php', 'GetSystemAdminItem', 'Get system admin item by id', 'GET'),
-(30, '15:06:19 08/03/2023', NULL, NULL, 'system_admin/get_list.php', 'GetSystemAdminList', 'Get system admin list', 'GET'),
-(31, '15:06:56 08/03/2023', NULL, NULL, 'system_admin/reset_password.php', 'ResetPasswordSystemAdmin', 'Reset password system admin, send new password in email', 'PUT'),
-(32, '15:07:16 08/03/2023', NULL, NULL, 'system_admin/trash.php', 'TrashSystemAdmin', 'Trash system admin', 'PUT'),
-(33, '15:08:08 08/03/2023', NULL, NULL, 'system_admin/update_avatar.php', 'UpdateAvatarSystemAdmin', 'Update avatar system admin', 'PUT'),
-(34, '15:08:29 08/03/2023', NULL, NULL, 'system_admin/update_email.php', 'UpdateEmailSystemAdmin', 'Update email system admin', 'PUT'),
-(35, '15:08:43 08/03/2023', NULL, NULL, 'system_admin/update_nickname.php', 'UpdateNicknameSystemAdmin', 'Update nickname system admin', 'PUT'),
-(36, '15:09:06 08/03/2023', NULL, NULL, 'system_admin/update_password.php', 'UpdatePasswordSystemAdmin', 'Update password system admin', 'PUT'),
-(37, '15:09:15 08/03/2023', NULL, NULL, 'system_admin/update_phone.php', 'UpdatePhoneSystemAdmin', 'Update phone system admin', 'PUT');
+INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiPath`, `name`, `description`, `method`, `isBase`) VALUES
+(2, '22:14:51 07/03/2023', NULL, NULL, 'system_menu/add.php', 'AddSystemMenu', 'Add system menu', 'POST', 0),
+(3, '22:15:19 07/03/2023', NULL, NULL, 'system_menu/delete.php', 'DeleteSystemMenu', 'Delete system menu by id', 'DELETE', 0),
+(4, '22:15:43 07/03/2023', NULL, NULL, 'system_menu/get_item.php', 'GetSystemMenuItem', 'Get system menu item by id', 'GET', 0),
+(5, '22:18:16 07/03/2023', NULL, NULL, 'system_menu/get_list_by_system_role_id.php', 'GetSystemMenuListBySystemRoleId', 'Get system menu list by system role id ', 'GET', 0),
+(6, '22:25:58 07/03/2023', NULL, NULL, 'system_menu/get_list.php', 'GetSystemMenuList', 'Get system menu list', 'GET', 0),
+(7, '22:26:26 07/03/2023', NULL, NULL, 'system_menu/trash.php', 'TrashSystemMenu', 'Trash system menu by id', 'PUT', 0),
+(8, '22:26:48 07/03/2023', NULL, NULL, 'system_menu/update.php', 'UpdateSystemMenu', 'Update system menu', 'PUT', 0),
+(9, '22:36:47 07/03/2023', NULL, NULL, 'system_role/add.php', 'AddSystemRole', 'Add system role', 'POST', 0),
+(10, '22:37:58 07/03/2023', NULL, NULL, 'system_role/delete.php', 'DeleteSystemRole', 'Delete system role by id', 'DELETE', 0),
+(11, '22:38:31 07/03/2023', '11:18:53 09/03/2023', NULL, 'system_role/get_item.php', 'GetSystemRoleItem', 'Get system role item by id', 'GET', 0),
+(12, '22:38:48 07/03/2023', NULL, NULL, 'system_role/get_list.php', 'GetSystemRoleList', 'Get system role list', 'GET', 0),
+(13, '22:39:13 07/03/2023', NULL, NULL, 'system_role/trash.php', 'TrashSystemRole', 'Trash system role by id', 'PUT', 0),
+(14, '22:39:38 07/03/2023', NULL, NULL, 'system_role/update.php', 'UpdateSystemRole', 'Update system role', 'PUT', 0),
+(15, '14:57:26 08/03/2023', NULL, NULL, 'system_function/add.php', 'AddSystemFunction', 'Add system function', 'POST', 0),
+(16, '14:59:45 08/03/2023', NULL, NULL, 'system_function/delete.php', 'DeleteSystemFunction', 'Delete system function by id', 'DELETE', 0),
+(17, '15:00:08 08/03/2023', NULL, NULL, 'system_function/get_item.php', 'GetSystemFunctionItem', 'Get system function item by id', 'GET', 0),
+(18, '15:00:30 08/03/2023', NULL, NULL, 'system_function/get_list_by_system_role_id.php', 'GetSystemFunctionListBySystemRoleId', 'Get system function list by system role id', 'GET', 0),
+(19, '15:00:45 08/03/2023', NULL, NULL, 'system_function/get_list.php', 'GetSystemFunctionList', 'Get system function list', 'GET', 0),
+(20, '15:01:06 08/03/2023', NULL, NULL, 'system_function/trash.php', 'TrashSystemFunction', 'Trash system function', 'PUT', 0),
+(21, '15:01:20 08/03/2023', NULL, NULL, 'system_function/update.php', 'UpdateSystemFunction', 'Update system function', 'PUT', 0),
+(22, '15:02:27 08/03/2023', NULL, NULL, 'system_role_menu/add.php', 'AddSystemRoleMenu', 'Add system role menu', 'POST', 0),
+(23, '15:02:56 08/03/2023', NULL, NULL, 'system_role_menu/delete.php', 'DeleteSystemRoleMenu', 'Delete system role menu', 'POST, DELETE', 0),
+(24, '15:03:24 08/03/2023', NULL, NULL, 'system_role_function/add.php', 'AddSystemRoleFunction', 'Add system role function', 'POST', 0),
+(25, '15:03:44 08/03/2023', NULL, NULL, 'system_role_function/delete.php', 'DeleteSystemRoleFunction', 'Delete system role function', 'POST, DELETE', 0),
+(26, '15:04:17 08/03/2023', NULL, NULL, 'system_admin/login.php', 'LoginSystemAdmin', 'Login system admin', 'POST', 1),
+(27, '15:04:58 08/03/2023', NULL, NULL, 'system_admin/register.php', 'RegisterSystemAdmin', 'Register system admin', 'POST', 0),
+(28, '15:05:33 08/03/2023', NULL, NULL, 'system_admin/delete.php', 'DeleteSystemAdmin', 'Delete system admin by id', 'DELETE', 0),
+(29, '15:05:58 08/03/2023', NULL, NULL, 'system_admin/get_item.php', 'GetSystemAdminItem', 'Get system admin item by id', 'GET', 0),
+(30, '15:06:19 08/03/2023', NULL, NULL, 'system_admin/get_list.php', 'GetSystemAdminList', 'Get system admin list', 'GET', 0),
+(31, '15:06:56 08/03/2023', NULL, NULL, 'system_admin/reset_password.php', 'ResetPasswordSystemAdmin', 'Reset password system admin, send new password in email', 'PUT', 0),
+(32, '15:07:16 08/03/2023', NULL, NULL, 'system_admin/trash.php', 'TrashSystemAdmin', 'Trash system admin', 'PUT', 0),
+(33, '15:08:08 08/03/2023', NULL, NULL, 'system_admin/update_avatar.php', 'UpdateAvatarSystemAdmin', 'Update avatar system admin', 'PUT', 0),
+(34, '15:08:29 08/03/2023', NULL, NULL, 'system_admin/update_email.php', 'UpdateEmailSystemAdmin', 'Update email system admin', 'PUT', 0),
+(35, '15:08:43 08/03/2023', NULL, NULL, 'system_admin/update_nickname.php', 'UpdateNicknameSystemAdmin', 'Update nickname system admin', 'PUT', 0),
+(36, '15:09:06 08/03/2023', NULL, NULL, 'system_admin/update_password.php', 'UpdatePasswordSystemAdmin', 'Update password system admin', 'PUT', 0),
+(37, '15:09:15 08/03/2023', NULL, NULL, 'system_admin/update_phone.php', 'UpdatePhoneSystemAdmin', 'Update phone system admin', 'PUT', 0);
 
 -- --------------------------------------------------------
 
@@ -485,7 +486,6 @@ INSERT INTO `systemrole_menu` (`systemRoleId`, `systemMenuId`) VALUES
 (1, 3),
 (1, 4),
 (1, 5),
-(1, 6),
 (3, 7),
 (3, 8),
 (3, 9),
@@ -497,7 +497,8 @@ INSERT INTO `systemrole_menu` (`systemRoleId`, `systemMenuId`) VALUES
 (3, 15),
 (3, 16),
 (3, 17),
-(3, 18);
+(3, 18),
+(1, 6);
 
 --
 -- Indexes for dumped tables
@@ -704,19 +705,19 @@ ALTER TABLE `systemadmin`
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`
 --
 ALTER TABLE `systemmenu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `systemrole`
 --
 ALTER TABLE `systemrole`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

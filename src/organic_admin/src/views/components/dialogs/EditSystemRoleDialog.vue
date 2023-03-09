@@ -100,8 +100,17 @@ export default {
       bindingData() {
          this.$refs.nameRef?.setValue(this.data.name);
       },
+      handleDataProcessing() {
+         // Chế biến lại dữ liệu
+
+         if (typeof this.dataChange.name === "string") {
+            this.dataChange.name = this.dataChange.name.trim();
+         }
+      },
       validateBeforeSubmit() {
-         if (this.dataChange.name === null) {
+         this.handleDataProcessing();
+
+         if (this.dataChange.name === "" || this.dataChange.name === null) {
             ElMessage({
                message: "Nhập tên vai trò mới hoặc không được để trống",
                type: "warning",
