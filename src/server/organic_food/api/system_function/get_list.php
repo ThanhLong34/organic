@@ -61,27 +61,25 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
 
    //! Cẩn thận khi sửa Code ở đây
    //! Tùy chỉnh truy vấn theo các tiêu chí
-   $querySelectAllRecord = $baseQuery;
-   $orderbyQuery = "ORDER BY `$orderby` ASC";
+   $querySelectAllRecord = $baseQuery . " " . $optionQuery;
+   $orderbyQuery = "ORDER BY `$tableName`.`$orderby` ASC";
    if ($reverse == "true" || $reverse == 1) {
-      $orderbyQuery = "ORDER BY `$orderby` DESC";
+      $orderbyQuery = "ORDER BY `$tableName`.`$orderby` DESC";
    }
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
    if ($limit == 0) {
-      $query = $querySelectAllRecord . " " . $optionQuery;
+      $query = $querySelectAllRecord;
    } else {
       if ($searchType !== "" && $searchValue !== "" && $fillType !== "" && $fillValue !== "") {
-         $querySelectAllRecord = $baseQuery . " AND `$searchType` LIKE '%$searchValue%' AND `$fillType` = '$fillValue'";
+         $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%' AND `$tableName`.`$fillType` = '$fillValue'";
       } else if ($searchType !== "" && $searchValue !== "") {
-         $querySelectAllRecord = $baseQuery . " AND `$searchType` LIKE '%$searchValue%'";
+         $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%'";
       } else if ($fillType !== "" && $fillValue !== "") {
-         $querySelectAllRecord = $baseQuery . " AND `$fillType` = '$fillValue'";
-      } else {
-         $querySelectAllRecord = $baseQuery;
+         $querySelectAllRecord .= " AND `$tableName`.`$fillType` = '$fillValue'";
       }
 
-      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $optionQuery . " " . $limitQuery;
+      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
    }
 
    // Thực thi truy vấn

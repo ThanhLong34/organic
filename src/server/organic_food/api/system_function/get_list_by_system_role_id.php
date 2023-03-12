@@ -45,10 +45,11 @@ function getList($systemRoleId)
 {
    global $connect, $tableName;
 
-   $query = "SELECT DISTINCT `$tableName`.`id`, `$tableName`.`apiPath`, `$tableName`.`name`, `$tableName`.`description`, `$tableName`.`method` 
+   $query = "SELECT DISTINCT `$tableName`.*
       FROM `$tableName`, `systemrole_function` 
       WHERE `systemrole_function`.`systemRoleId` = '$systemRoleId' 
       AND `systemrole_function`.`systemFunctionId` = `$tableName`.`id`
+      OR `$tableName`.`isBase` = 1
       AND `$tableName`.`deletedAt` IS NULL";
 
    // Thực thi truy vấn

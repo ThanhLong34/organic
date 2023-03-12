@@ -43,7 +43,7 @@ function sendMail($mailTo, $subject, $body)
             color: white;
             font-size: 22px'
          >
-            DragonDev Shop
+            Organic-Food
          </div>
          <div style='padding: 24px 18px; font-size: 16px'>$body</div>
          <div style='color: #62a403 !important; text-align: center;'>

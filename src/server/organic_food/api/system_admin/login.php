@@ -20,9 +20,8 @@ header("Content-Type: application/json");
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-// Không cần check
-// $functionName = "LoginSystemAdmin";
-// if (!checkPermissionFunction($functionName)) exit;
+$functionName = "LoginSystemAdmin";
+if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
@@ -58,12 +57,13 @@ function login($username, $password)
    $password = md5($password);
 
    // Thực thi query
-   $query = "SELECT `$tableName`.`id`, `$tableName`.`createdAt`, `$tableName`.`updatedAt`, `$tableName`.`username`, `$tableName`.`nickname`, `$tableName`.`email`, `$tableName`.`phone`, `$tableName`.`avatarId`, `$tableName`.`systemRoleId`, `systemrole`.`name` as 'systemRoleName'
-      FROM `$tableName`, `image`, `systemrole`
-      WHERE `$tableName`.`username` = '$username'
+   $query = "SELECT `$tableName`.*, `image`.`link` AS 'avatarUrl', `systemrole`.`name` AS 'systemRoleName'
+      FROM `$tableName`
+      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`avatarId`
+      LEFT JOIN `systemrole` ON `systemrole`.`id` = `$tableName`.`systemRoleId`
+      WHERE `$tableName`.`deletedAt` IS NULL
+      AND `$tableName`.`username` = '$username'
       AND `$tableName`.`password` = '$password'
-      AND `systemrole`.`id` = `$tableName`.`systemRoleId`
-      AND `$tableName`.`deletedAt` IS NULL
       LIMIT 1";
    performsQueryAndResponseToClient($query);
 
@@ -83,7 +83,7 @@ function performsQueryAndResponseToClient($query)
       $obj->menus = getMenus($obj->systemRoleId);
       $obj->functions = getFunctions($obj->systemRoleId);
 
-      $response = new ResponseAPI(1, "Thành công", $obj);
+      $response = new ResponseAPI(1, "Thành công", $obj, 1);
       $response->send();
    } else {
       $response = new ResponseAPI(2, "Thất bại");
@@ -98,7 +98,7 @@ function getMenus($systemRoleId)
    $tableName = "systemmenu";
    $list = [];
 
-   $query = "SELECT DISTINCT `$tableName`.`id`, `$tableName`.`routeName`, `$tableName`.`title`, `$tableName`.`isBase` 
+   $query = "SELECT DISTINCT `$tableName`.* 
       FROM `$tableName`, `systemrole_menu` 
       WHERE `systemrole_menu`.`systemRoleId` = '$systemRoleId' 
       AND `systemrole_menu`.`systemMenuId` = `$tableName`.`id`
@@ -122,7 +122,7 @@ function getFunctions($systemRoleId)
    $tableName = "systemfunction";
    $list = [];
 
-   $query = "SELECT DISTINCT `$tableName`.`id`, `$tableName`.`apiPath`, `$tableName`.`name`, `$tableName`.`description`, `$tableName`.`method`, `$tableName`.`isBase` 
+   $query = "SELECT DISTINCT `$tableName`.*
       FROM `$tableName`, `systemrole_function` 
       WHERE `systemrole_function`.`systemRoleId` = '$systemRoleId' 
       AND `systemrole_function`.`systemFunctionId` = `$tableName`.`id`

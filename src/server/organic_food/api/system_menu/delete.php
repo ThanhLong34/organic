@@ -29,7 +29,7 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemmenu";
 $data = getJSONPayloadRequest();
-$id = $_GET["id"] ?? 0;
+$id = $data["id"] ?? 0;
 
 
 //? ====================
