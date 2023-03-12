@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2023 at 09:32 AM
+-- Generation Time: Mar 12, 2023 at 09:07 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -94,23 +94,9 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filename`, `size`) VALUES
-(2, '11:17:07 04/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6402c643a64cc.jpg', 'project_image6402c643a64cc.jpg', 18581),
-(3, '20:20:52 04/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640345b4d71c9.jpg', 'project_image640345b4d71c9.jpg', 7662),
-(4, '20:21:00 04/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640345bc33a5e.jpg', 'project_image640345bc33a5e.jpg', 3659),
-(5, '11:17:42 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640417e6659d3.jpg', 'project_image640417e6659d3.jpg', 7176),
-(6, '11:25:40 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640419c421456.jpg', 'project_image640419c421456.jpg', 6700),
-(7, '11:26:36 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640419fcd2585.jpg', 'project_image640419fcd2585.jpg', 18912),
-(8, '11:27:19 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041a27747fa.jpg', 'project_image64041a27747fa.jpg', 39745),
-(9, '11:28:03 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041a5358b14.jpg', 'project_image64041a5358b14.jpg', 18912),
-(10, '11:31:00 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041b0423f18.jpg', 'project_image64041b0423f18.jpg', 7176),
-(11, '11:32:14 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041b4e26560.gif', 'project_image64041b4e26560.gif', 754376),
-(12, '11:33:01 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041b7d7095b.jpg', 'project_image64041b7d7095b.jpg', 7662),
-(13, '11:33:49 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64041bad5d063.jpg', 'project_image64041bad5d063.jpg', 7662),
-(14, '13:36:26 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6404386af0f74.gif', 'project_image6404386af0f74.gif', 754376),
-(15, '16:01:51 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64045a7f89053.jpg', 'project_image64045a7f89053.jpg', 8166),
-(16, '16:02:12 05/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64045a948dfdc.jpg', 'project_image64045a948dfdc.jpg', 7176),
-(17, '21:12:16 06/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6405f4c0dc783.jpg', 'project_image6405f4c0dc783.jpg', 8595),
-(18, '21:13:02 06/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6405f4ee67a37.jpg', 'project_image6405f4ee67a37.jpg', 7662);
+(18, '21:13:02 06/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6405f4ee67a37.jpg', 'project_image6405f4ee67a37.jpg', 7662),
+(26, '10:10:06 11/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640bf10e41356.jpg', 'project_image640bf10e41356.jpg', 26476),
+(28, '15:01:59 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640d86f7b8e5b.jpg', 'project_image640d86f7b8e5b.jpg', 7662);
 
 -- --------------------------------------------------------
 
@@ -283,8 +269,9 @@ CREATE TABLE `systemadmin` (
 
 INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `nickname`, `email`, `phone`, `avatarId`, `systemRoleId`) VALUES
 (4, '18:08:50 04/03/2023', '10:08:36 07/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
-(5, '18:46:33 04/03/2023', '13:36:27 05/03/2023', NULL, 'client', '62608e08adc29a8d6dbc9754e659f125', 'Client', 'dragondevshop@gmail.com', '0353292241', 14, 2),
-(16, '14:26:09 07/03/2023', '10:06:54 09/03/2023', NULL, 'websitemanager1', 'e4bafb494fed55a8b1f281628ac134fa', 'Quản lý website 1', '2014468@dlu.edu.vn', '0123456789', NULL, 3);
+(5, '18:46:33 04/03/2023', '10:35:10 11/03/2023', NULL, 'client', '1f9dba959b73019bcd2688ae7b70db1f', 'Client', 'dragondevshop@gmail.com', '0353292241', 26, 2),
+(16, '14:26:09 07/03/2023', '10:47:42 11/03/2023', NULL, 'websitemanager1', '6c6f8143b6241ee993cedd1ad5f402cc', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
+(17, '11:36:09 11/03/2023', '15:01:59 12/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Admin 123', '2014468@dlu.edu.vn', '1234567891', 28, 3);
 
 -- --------------------------------------------------------
 
@@ -301,7 +288,7 @@ CREATE TABLE `systemfunction` (
   `name` varchar(255) NOT NULL,
   `description` varchar(1000) DEFAULT NULL,
   `method` varchar(255) DEFAULT NULL,
-  `isBase` tinyint(1) NOT NULL DEFAULT 0
+  `isBase` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -344,7 +331,14 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (34, '15:08:29 08/03/2023', NULL, NULL, 'system_admin/update_email.php', 'UpdateEmailSystemAdmin', 'Update email system admin', 'PUT', 0),
 (35, '15:08:43 08/03/2023', NULL, NULL, 'system_admin/update_nickname.php', 'UpdateNicknameSystemAdmin', 'Update nickname system admin', 'PUT', 0),
 (36, '15:09:06 08/03/2023', NULL, NULL, 'system_admin/update_password.php', 'UpdatePasswordSystemAdmin', 'Update password system admin', 'PUT', 0),
-(37, '15:09:15 08/03/2023', NULL, NULL, 'system_admin/update_phone.php', 'UpdatePhoneSystemAdmin', 'Update phone system admin', 'PUT', 0);
+(37, '15:09:15 08/03/2023', NULL, NULL, 'system_admin/update_phone.php', 'UpdatePhoneSystemAdmin', 'Update phone system admin', 'PUT', 0),
+(44, '11:52:12 11/03/2023', NULL, NULL, 'system_admin/update_system_role.php', 'UpdateSystemRoleForSystemAdmin', 'Update system role for system admin', 'PUT', 0),
+(45, '18:10:15 11/03/2023', '14:35:30 12/03/2023', NULL, 'image/delete.php', 'DeleteImage', 'Delete image', 'POST, PUT, DELETE', 0),
+(46, '18:10:44 11/03/2023', NULL, NULL, 'image/get_item.php', 'GetImageItem', 'Get image item', 'GET', 0),
+(47, '18:11:21 11/03/2023', NULL, NULL, 'image/get_list.php', 'GetImageList', 'Get image list', 'GET', 0),
+(48, '18:11:54 11/03/2023', NULL, NULL, 'image/upload.php', 'UploadImage', 'Upload image', 'POST', 0),
+(49, '18:15:08 11/03/2023', NULL, NULL, '', 'RemoveImageDontUse', 'Remove image dont use', '', 0),
+(50, '18:15:46 11/03/2023', NULL, NULL, '', 'ViewImage', 'View image', '', 0);
 
 -- --------------------------------------------------------
 
@@ -432,20 +426,15 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (1, 15),
 (1, 24),
 (1, 25),
-(1, 2),
 (1, 3),
 (1, 26),
 (1, 16),
 (1, 17),
 (1, 18),
 (1, 19),
-(1, 20),
-(1, 21),
 (1, 4),
 (1, 5),
 (1, 6),
-(1, 7),
-(1, 8),
 (1, 9),
 (1, 10),
 (1, 11),
@@ -463,7 +452,30 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (1, 34),
 (1, 35),
 (1, 36),
-(1, 37);
+(1, 37),
+(1, 2),
+(1, 8),
+(1, 7),
+(1, 20),
+(1, 21),
+(3, 33),
+(3, 34),
+(3, 35),
+(3, 36),
+(3, 37),
+(3, 26),
+(2, 33),
+(2, 34),
+(2, 35),
+(2, 36),
+(2, 37),
+(1, 44),
+(1, 45),
+(1, 46),
+(1, 47),
+(1, 48),
+(1, 49),
+(1, 50);
 
 -- --------------------------------------------------------
 
@@ -657,7 +669,7 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -699,13 +711,13 @@ ALTER TABLE `subscribe`
 -- AUTO_INCREMENT for table `systemadmin`
 --
 ALTER TABLE `systemadmin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`

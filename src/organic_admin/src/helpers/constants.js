@@ -57,7 +57,14 @@ const functions = {
 	UpdateEmailSystemAdmin: "UpdateEmailSystemAdmin",
 	UpdateNicknameSystemAdmin: "UpdateNicknameSystemAdmin",
 	UpdatePasswordSystemAdmin: "UpdatePasswordSystemAdmin",
-	UpdatePhoneSystemAdmin: "UpdatePhoneSystemAdmin"
+	UpdatePhoneSystemAdmin: "UpdatePhoneSystemAdmin",
+	UpdateSystemRoleForSystemAdmin: "UpdateSystemRoleForSystemAdmin",
+	DeleteImage: "DeleteImage",
+	GetImageItem: "GetImageItem",
+	GetImageList: "GetImageList",
+	UploadImage: "UploadImage",
+	RemoveImageDontUse: "RemoveImageDontUse",
+	ViewImage: "ViewImage",
 };
 
 export { menus, functions };

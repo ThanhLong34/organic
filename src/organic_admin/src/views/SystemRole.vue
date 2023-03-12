@@ -54,7 +54,7 @@
                         <div class="col-6 d-flex align-items-center">
                            <h6>Danh sách vai trò ({{ tableData.length }})</h6>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-6 text-end" v-if="checkPermissionFunction(functions.AddSystemRole)">
                            <argon-button
                               color="info"
                               variant="gradient"
@@ -109,6 +109,7 @@
                                           >Cài đặt quyền
                                        </a>
                                        <a
+														v-if="checkPermissionFunction(functions.UpdateSystemRole)"
                                           class="btn btn-link text-dark text-gradient px-2 mb-0"
                                           href="javascript:;"
                                           @click.prevent="() => handleOpenEditDialog(item.id)"
@@ -120,6 +121,7 @@
                                           >Thay đổi
                                        </a>
                                        <el-popconfirm
+														v-if="checkPermissionFunction(functions.TrashSystemRole)"
                                           confirm-button-text="OK"
                                           cancel-button-text="Hủy"
                                           title="Xác nhận xóa"
@@ -235,6 +237,7 @@ const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 const apiGroup = "system_role";
 
 import { functions } from "@/helpers/constants.js";
+import Funcs from "@/helpers/funcs.js";
 
 export default {
    name: "SystemRoleView",
@@ -288,6 +291,9 @@ export default {
       };
    },
    methods: {
+		checkPermissionFunction(functionName) {
+			return Funcs.checkPermissionFunction(functionName);
+		},
       getTableData() {
          return API.get(
             apiPath + `/${apiGroup}/get_list.php`,

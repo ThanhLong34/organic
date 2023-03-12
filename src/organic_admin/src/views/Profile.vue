@@ -18,7 +18,7 @@
                   <div class="col-auto">
                      <div class="avatar avatar-xl position-relative">
                         <img
-                           :src="profile.avatarUrl ?? NoImage"
+                           :src="profile.avatarUrl ?? `${require('@/assets/img/no-image.jpg')}`"
                            alt="profile_image"
                            class="shadow-sm w-100 border-radius-lg avatar-border"
                            style="object-fit: cover; aspect-ratio: 1/1"
@@ -395,7 +395,6 @@ import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
 import ProfileCard from "@/examples/ProfileCard.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
-import NoImage from "@/assets/img/no-image.jpg";
 
 const body = document.getElementsByTagName("body")[0];
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
@@ -404,7 +403,6 @@ export default {
    name: "ProfileView",
    data() {
       return {
-         NoImage,
          showMenu: false,
          isShowChangePassword: false,
          profile: {
@@ -420,35 +418,13 @@ export default {
    },
    components: { ProfileCard, ArgonButton },
    methods: {
-      getAvatar() {
-         return API.get(
-            apiPath + "/image/get_item_by_id.php",
-            {
-               id: this.$store.state.accountLogin.avatarId,
-            },
-            (data) => {
-               if (data.code === 1) {
-                  this.profile.avatarUrl = data.data.link;
-               } else if (data.code === 2) {
-                  this.profile.avatarUrl = null;
-               }
-            },
-            (error) => {
-               ElMessage({
-                  message: "Có lỗi khi lấy ảnh đại diện",
-                  type: "error",
-               });
-               console.error(error);
-            }
-         );
-      },
       showChangePassword(isShow) {
          this.isShowChangePassword = isShow;
       },
       handleUpdatePassword() {
          if (this.newPassword === "") {
             ElMessage({
-               message: "Bạn phải nhập mật khẩu mới",
+               message: "Không được để trống mật khẩu mới",
                type: "warning",
             });
             return;
@@ -587,16 +563,10 @@ export default {
             }
          );
       },
-      handleReloadAvatarUrl() {
-         this.getAvatar();
-      },
    },
    created() {
       const accountLogin = this.$store.state.accountLogin;
       this.profile = { ...accountLogin };
-
-      // Lấy dữ liệu từ API ở đây
-      this.getAvatar();
    },
    mounted() {
       this.$store.state.isAbsolute = true;

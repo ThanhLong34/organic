@@ -228,9 +228,7 @@ router.beforeEach((to) => {
 
 	// Kiểm tra quyền truy cập các Menu
 	if (store.state.accountLogin?.menus) {
-		const accessibleMenus = store.state.accountLogin.menus.map(
-			(i) => i.routeName
-		);
+		const accessibleMenus = store.state.accountLogin.menus;
 		if (!accessibleMenus.includes(to.name)) {
 			return { name: "Dashboard" };
 		}

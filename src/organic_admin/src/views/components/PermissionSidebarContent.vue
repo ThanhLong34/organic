@@ -4,6 +4,7 @@
          <h6 class="mb-0 mb-2">Menu:</h6>
          <div v-for="item in permission.menus" :key="item.id">
             <el-checkbox
+					:disabled="item.isBase"
                :label="`${item.routeName} (${item.title})`"
                :checked="accessible.menus.includes(item.routeName)"
                @change="(checked) => handleChangePermissionMenuCheckbox(checked, item.id)"
@@ -15,6 +16,7 @@
          <h6 class="mb-0 mb-2">Chức năng:</h6>
 			<div v-for="item in permission.functions" :key="item.id">
             <el-checkbox
+					:disabled="item.isBase"
                :label="`${item.name} (${item.method})`"
                :checked="accessible.functions.includes(item.name)"
                @change="(checked) => handleChangePermissionFunctionCheckbox(checked, item.id)"
@@ -83,6 +85,7 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.accessible.functions = data.data.map((i) => i.name);
+						console.log(this.accessible.functions);
                } else {
                   ElMessage({
                      message: data.message,
@@ -95,7 +98,11 @@ export default {
       getPermissionMenus() {
          return API.get(apiPath + `/${apiGroupSystemMenu}/get_list.php`, {}, (data) => {
             if (data.code === 1) {
-               this.permission.menus = data.data;
+               this.permission.menus = data.data.map(i => ({
+						...i,
+						id: +i.id,
+						isBase: +i.isBase == 1
+					}));
 
                // Not found data
                if (data.data.length === 0) {
@@ -113,9 +120,15 @@ export default {
          });
       },
 		getPermissionFunctions() {
-         return API.get(apiPath + `/${apiGroupSystemFunction}/get_list.php`, {}, (data) => {
+         return API.get(apiPath + `/${apiGroupSystemFunction}/get_list.php`, {
+				orderby: "apiPath"
+			}, (data) => {
             if (data.code === 1) {
-               this.permission.functions = data.data;
+               this.permission.functions = data.data.map(i => ({
+						...i,
+						id: +i.id,
+						isBase: +i.isBase == 1
+					}));
 
                // Not found data
                if (data.data.length === 0) {

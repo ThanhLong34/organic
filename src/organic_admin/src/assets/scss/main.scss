@@ -18,6 +18,10 @@ span.star-input-required {
 	margin-left: 8px;
 }
 
+a.notAllowCursor {
+	cursor: not-allowed !important;
+}
+
 //? ELEMENT UI PLUSE
 .el-dialog {
 	border-radius: 1rem !important;
@@ -42,6 +46,10 @@ span.star-input-required {
 	&:hover {
 		color: #409eff;
 	}
+}
+
+.el-select__popper {
+	z-index: 10001 !important;
 }
 
 .el-drawer__header {
