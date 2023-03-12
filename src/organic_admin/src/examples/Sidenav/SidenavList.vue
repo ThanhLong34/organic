@@ -63,7 +63,7 @@
             >
                <template v-slot:icon>
                   <i
-                     class="ni ni-single-02 text-secondary text-sm opacity-10"
+                     class="ni ni-single-02 text-primary text-sm opacity-10"
                   ></i>
                </template>
             </sidenav-item>
@@ -249,7 +249,7 @@ export default {
    },
    computed: {
       accessibleMenus() {
-         return this.$store.state.accountLogin?.menus?.map((i) => i.routeName);
+         return this.$store.state.accountLogin?.menus;
       },
    },
 };

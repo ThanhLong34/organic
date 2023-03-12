@@ -10,7 +10,7 @@
             <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
                <div class="avatar-wrapper">
                   <img
-                     :src="profile.avatarUrl ?? NoImage"
+                     :src="profile.avatarUrl ?? `${require('@/assets/img/no-image.jpg')}`"
                      class="rounded-circle img-fluid border border-2 border-white avatar-circle"
                      style="
                         object-fit: cover;
@@ -104,17 +104,19 @@ import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 import * as SessionStorage from "@/helpers/session_storage.js";
 
-import NoImage from "@/assets/img/no-image.jpg";
-
 export default {
    name: "profile-card",
    props: {
-      NoImage,
       profile: {
          type: Object,
       },
    },
    emits: ["onReloadAvatarUrl"],
+	data() {
+		return {
+			avatarUrl: null
+		};
+	},
    methods: {
       handleUploadAvatarClick() {
          const uploadAvatarInputRef = this.$refs["uploadAvatarInputRef"];
@@ -128,6 +130,7 @@ export default {
                image,
                (data) => {
                   if (data.code === 1) {
+							this.avatarUrl = data.data.link;
                      this.handleUpdateAvatar(data.data.id);
                   }
                },
@@ -156,6 +159,9 @@ export default {
                   });
 
                   this.$store.state.accountLogin.avatarId = $avatarId;
+                  this.$store.state.accountLogin.avatarUrl = this.avatarUrl;
+                  this.$props.profile.avatarUrl = this.avatarUrl;
+
                   SessionStorage.setAccountLogin(
                      this.$store.state.accountLogin
                   );
@@ -169,7 +175,7 @@ export default {
             }
          );
       },
-   },
+   }
 };
 </script>
 

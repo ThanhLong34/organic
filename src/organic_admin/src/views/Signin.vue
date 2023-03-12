@@ -134,8 +134,8 @@ export default {
                      id: +data.data.id,
                      avatarId: +data.data.avatarId,
                      systemRoleId: +data.data.systemRoleId,
-                     menus: data.data.menus,
-                     functions: data.data.functions,
+                     menus: data.data.menus?.map(i => i.routeName),
+                     functions: data.data.functions?.map(i => i.name),
                   };
 
                   this.$store.dispatch("setAccountLogin", accountLogin);

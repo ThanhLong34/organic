@@ -109,7 +109,7 @@
                         <div class="col-6 d-flex align-items-center">
                            <h6>Danh sách menu ({{ tableData.length }})</h6>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-6 text-end" v-if="checkPermissionFunction(functions.AddSystemMenu)">
                            <argon-button
                               color="info"
                               variant="gradient"
@@ -173,11 +173,10 @@
                                  <td class="align-middle">
                                     <div class="ms-auto text-end action-btns">
                                        <a
+														v-if="checkPermissionFunction(functions.UpdateSystemMenu)"
                                           class="btn btn-link text-dark text-gradient px-2 mb-0"
                                           href="javascript:;"
-                                          @click.prevent="
-                                             () => handleOpenEditDialog(item.id)
-                                          "
+                                          @click.prevent="() => handleOpenEditDialog(item.id)"
                                        >
                                           <i
                                              class="fas fa-pencil-alt me-2"
@@ -186,6 +185,7 @@
                                           >Thay đổi
                                        </a>
                                        <el-popconfirm
+														v-if="checkPermissionFunction(functions.TrashSystemMenu)"
                                           confirm-button-text="OK"
                                           cancel-button-text="Hủy"
                                           title="Xác nhận xóa"
@@ -284,6 +284,9 @@ import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 const apiGroup = "system_menu";
 
+import { functions } from "@/helpers/constants.js";
+import Funcs from "@/helpers/funcs.js";
+
 export default {
    name: "SystemMenuView",
    components: {
@@ -296,6 +299,9 @@ export default {
    },
    data() {
       return {
+			// Import constants
+			functions,
+
          // Search
          searchPlaceholder: "Nhập tên Route...",
          searchType: "routeName",
@@ -336,6 +342,9 @@ export default {
       };
    },
    methods: {
+		checkPermissionFunction(functionName) {
+			return Funcs.checkPermissionFunction(functionName);
+		},
       getTableData() {
          return API.get(
             apiPath + `/${apiGroup}/get_list.php`,

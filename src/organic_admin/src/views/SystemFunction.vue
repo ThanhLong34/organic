@@ -113,7 +113,7 @@
                         <div class="col-6 d-flex align-items-center">
                            <h6>Danh sách menu ({{ tableData.length }})</h6>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-6 text-end" v-if="checkPermissionFunction(functions.AddSystemFunction)">
                            <argon-button
                               color="info"
                               variant="gradient"
@@ -197,6 +197,7 @@
                                  <td class="align-middle">
                                     <div class="ms-auto text-end action-btns">
                                        <a
+														v-if="checkPermissionFunction(functions.UpdateSystemFunction)"
                                           class="btn btn-link text-dark text-gradient px-2 mb-0"
                                           href="javascript:;"
                                           @click.prevent="
@@ -210,6 +211,7 @@
                                           >Thay đổi
                                        </a>
                                        <el-popconfirm
+														v-if="checkPermissionFunction(functions.TrashSystemFunction)"
                                           confirm-button-text="OK"
                                           cancel-button-text="Hủy"
                                           title="Xác nhận xóa"
@@ -308,6 +310,9 @@ import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 const apiGroup = "system_function";
 
+import { functions } from "@/helpers/constants.js";
+import Funcs from "@/helpers/funcs.js";
+
 export default {
    name: "SystemFunctionView",
    components: {
@@ -320,6 +325,9 @@ export default {
    },
    data() {
       return {
+			// Import constants
+			functions,
+
          // Search
          searchPlaceholder: "Nhập tên chức năng...",
          searchType: "name",
@@ -362,6 +370,9 @@ export default {
       };
    },
    methods: {
+		checkPermissionFunction(functionName) {
+			return Funcs.checkPermissionFunction(functionName);
+		},
       getTableData() {
          return API.get(
             apiPath + `/${apiGroup}/get_list.php`,
@@ -372,6 +383,7 @@ export default {
                searchValue: this.searchValue,
                fillType: this.fillType,
                fillValue: this.fillValue,
+					orderby: "apiPath"
             },
             (data) => {
                if (data.code === 1) {
