@@ -59,23 +59,21 @@ function getList($limit, $offset, $searchType, $searchValue, $orderby, $reverse)
 
    //! Cẩn thận khi sửa Code ở đây
    //! Tùy chỉnh truy vấn theo các tiêu chí
-   $querySelectAllRecord = $baseQuery;
-   $orderbyQuery = "ORDER BY `$orderby` ASC";
+   $querySelectAllRecord = $baseQuery . " " . $optionQuery;
+   $orderbyQuery = "ORDER BY `$tableName`.`$orderby` ASC";
    if ($reverse == "true" || $reverse == 1) {
-      $orderbyQuery = "ORDER BY `$orderby` DESC";
+      $orderbyQuery = "ORDER BY `$tableName`.`$orderby` DESC";
    }
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
    if ($limit == 0) {
-      $query = $querySelectAllRecord . " " . $optionQuery;
+      $query = $querySelectAllRecord;
    } else {
       if ($searchType !== "" && $searchValue !== "") {
-         $querySelectAllRecord = $baseQuery . " AND `$searchType` LIKE '%$searchValue%'";
-      } else {
-         $querySelectAllRecord = $baseQuery;
+         $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%'";
       }
 
-      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $optionQuery . " " . $limitQuery;
+      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
    }
 
    // Thực thi truy vấn

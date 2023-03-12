@@ -45,7 +45,7 @@ function getList($systemRoleId)
 {
    global $connect, $tableName;
 
-   $query = "SELECT DISTINCT `$tableName`.`id`, `$tableName`.`routeName`, `$tableName`.`title`, `$tableName`.`isBase` 
+   $query = "SELECT DISTINCT `$tableName`.* 
       FROM `$tableName`, `systemrole_menu` 
       WHERE `systemrole_menu`.`systemRoleId` = '$systemRoleId' 
       AND `systemrole_menu`.`systemMenuId` = `$tableName`.`id`

@@ -13,14 +13,14 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: POST, PUT, DELETE");
+header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json");
 
 
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "DeleteImage";
+$functionName = "GetImageItem";
 if (!checkPermissionFunction($functionName)) exit;
 
 
@@ -28,21 +28,20 @@ if (!checkPermissionFunction($functionName)) exit;
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "image";
-$data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
+$id = $_GET["id"] ?? 0;
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Xóa item theo id
-deleteItem($id);
+// ✅ Lấy item theo id
+getItem($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function deleteItem($id)
+function getItem($id)
 {
    global $connect, $tableName;
 
@@ -53,29 +52,9 @@ function deleteItem($id)
       return;
    }
 
-   // Kiểm tra xem image có tồn tại trong DB không
-   $query = "SELECT * FROM `$tableName` WHERE `id` = $id LIMIT 1";
-   $result = mysqli_query($connect, $query);
-   $obj = null;
-
-   if (!$result || ($obj = $result->fetch_object()) === null) {
-      $response = new ResponseAPI(3, "Không tìm thấy file ảnh");
-      $response->send();
-      return;
-   }
-
-   // Lấy path file ảnh trên server
-   $fileLocation = LOCATION_UPLOAD_IMAGE . $obj->filename;
-
-   // Xóa file trên server
-   if (unlink($fileLocation)) {
-      // Thực thi query
-      $query = "DELETE FROM `$tableName` WHERE `id` = $id";
-      performsQueryAndResponseToClient($query);
-   } else {
-      $response = new ResponseAPI(2, "Xóa file ảnh thất bại");
-      $response->send();
-   }
+   // Thực thi query
+   $query = "SELECT * FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NULL LIMIT 1";
+   performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
    $connect->close();
@@ -85,13 +64,20 @@ function deleteItem($id)
 function performsQueryAndResponseToClient($query)
 {
    global $connect;
+
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Thành công");
-      $response->send();
+      $item = $result->fetch_object();
+      if ($item != null) {
+         $response = new ResponseAPI(1, "Thành công", $item, 1);
+         $response->send();
+      } else {
+         $response = new ResponseAPI(2, "Không tìm thấy");
+         $response->send();
+      }
    } else {
-      $response = new ResponseAPI(2, "Thất bại");
+      $response = new ResponseAPI(3, "Thất bại");
       $response->send();
    }
 }

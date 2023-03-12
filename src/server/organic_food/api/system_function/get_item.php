@@ -70,7 +70,7 @@ function performsQueryAndResponseToClient($query)
    if ($result) {
       $item = $result->fetch_object();
       if ($item != null) {
-         $response = new ResponseAPI(1, "Thành công", $item);
+         $response = new ResponseAPI(1, "Thành công", $item, 1);
          $response->send();
       } else {
          $response = new ResponseAPI(2, "Không tìm thấy");

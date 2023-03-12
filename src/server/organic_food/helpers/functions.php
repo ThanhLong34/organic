@@ -24,7 +24,7 @@ function getCurrentDatetime()
 
 function validatePhoneNumber($phone)
 {
-   return preg_match("/^[0-9]{10,11}$/", $phone);
+   return preg_match("/^[\d]{10,11}$/", $phone);
 }
 
 function validateEmail($email)
@@ -48,7 +48,7 @@ function checkPermissionFunction($functionName)
          WHERE `$systemRoleFunctionTableName`.`systemRoleId` = $systemRoleId
          AND `$systemRoleFunctionTableName`.`systemFunctionId` = `$systemFunctionTableName`.`id`
          AND `$systemFunctionTableName`.`name` = '$functionName'
-         AND `$systemFunctionTableName`.`isBase` = 0 LIMIT 1";
+         OR `$systemFunctionTableName`.`isBase` = 1 LIMIT 1";
 
       $result = mysqli_query($connect, $query);
 

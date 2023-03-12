@@ -32,7 +32,7 @@ $limit = $_GET["limit"] ?? 0; // limit = 0, hoặc không có payload để lấ
 $offset = $_GET["offset"] ?? 0;
 $searchType = trim($_GET["searchType"] ?? ""); // Hợp lệ: username, nickname, email, phone
 $searchValue = trim($_GET["searchValue"] ?? "");
-$fillType = trim($_GET["fillType"] ?? ""); // Hợp lệ:
+$fillType = trim($_GET["fillType"] ?? ""); // Hợp lệ: systemRoleId
 $fillValue = trim($_GET["fillValue"] ?? "");
 $orderby = trim($_GET["orderby"] ?? "id");
 $reverse = $_GET["reverse"] ?? "false"; // Hợp lệ: true, 1
@@ -55,33 +55,35 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    // Không cần kiểm tra dữ liệu payload
 
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL";
+   $baseQuery = "SELECT `$tableName`.*, `image`.`link` AS 'avatarUrl', `systemrole`.`name` AS 'systemRoleName' 
+      FROM `$tableName`
+      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`avatarId`
+      LEFT JOIN `systemrole` ON `systemrole`.`id` = `$tableName`.`systemRoleId`
+      WHERE `$tableName`.`deletedAt` IS NULL";
    $optionQuery = "";
 
 
    //! Cẩn thận khi sửa Code ở đây
    //! Tùy chỉnh truy vấn theo các tiêu chí
-   $querySelectAllRecord = $baseQuery;
-   $orderbyQuery = "ORDER BY `$orderby` ASC";
+   $querySelectAllRecord = $baseQuery . " " . $optionQuery;
+   $orderbyQuery = "ORDER BY `$tableName`.`$orderby` ASC";
    if ($reverse == "true" || $reverse == 1) {
-      $orderbyQuery = "ORDER BY `$orderby` DESC";
+      $orderbyQuery = "ORDER BY `$tableName`.`$orderby` DESC";
    }
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
    if ($limit == 0) {
-      $query = $querySelectAllRecord . " " . $optionQuery;
+      $query = $querySelectAllRecord;
    } else {
       if ($searchType !== "" && $searchValue !== "" && $fillType !== "" && $fillValue !== "") {
-         $querySelectAllRecord = $baseQuery . " AND `$searchType` LIKE '%$searchValue%' AND `$fillType` = '$fillValue'";
+         $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%' AND `$tableName`.`$fillType` = '$fillValue'";
       } else if ($searchType !== "" && $searchValue !== "") {
-         $querySelectAllRecord = $baseQuery . " AND `$searchType` LIKE '%$searchValue%'";
+         $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%'";
       } else if ($fillType !== "" && $fillValue !== "") {
-         $querySelectAllRecord = $baseQuery . " AND `$fillType` = '$fillValue'";
-      } else {
-         $querySelectAllRecord = $baseQuery;
+         $querySelectAllRecord .= " AND `$tableName`.`$fillType` = '$fillValue'";
       }
 
-      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $optionQuery . " " . $limitQuery;
+      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
    }
 
    // Thực thi truy vấn

@@ -13,69 +13,58 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: POST, PUT, DELETE");
+header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
 
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "DeleteImage";
+$functionName = "UpdateSystemRoleForSystemAdmin";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "image";
+$tableName = "systemadmin";
 $data = getJSONPayloadRequest();
 $id = $data["id"] ?? 0;
+$systemRoleId = $data["systemRoleId"] ?? 0;
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Xóa item theo id
-deleteItem($id);
+// ✅ Cập nhật item
+updateItem($id, $systemRoleId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function deleteItem($id)
+function updateItem($id, $systemRoleId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0) {
+   if ($id === 0 || $systemRoleId === 0) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
-   // Kiểm tra xem image có tồn tại trong DB không
-   $query = "SELECT * FROM `$tableName` WHERE `id` = $id LIMIT 1";
-   $result = mysqli_query($connect, $query);
-   $obj = null;
+   // createdAt, updateAt, deletedAt
+   $updatedAt = getCurrentDatetime();
 
-   if (!$result || ($obj = $result->fetch_object()) === null) {
-      $response = new ResponseAPI(3, "Không tìm thấy file ảnh");
-      $response->send();
-      return;
-   }
+   // Các chuỗi truy vấn
+   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
+   $mainQuery = "," . "`systemRoleId` = '$systemRoleId'";
+   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
 
-   // Lấy path file ảnh trên server
-   $fileLocation = LOCATION_UPLOAD_IMAGE . $obj->filename;
-
-   // Xóa file trên server
-   if (unlink($fileLocation)) {
-      // Thực thi query
-      $query = "DELETE FROM `$tableName` WHERE `id` = $id";
-      performsQueryAndResponseToClient($query);
-   } else {
-      $response = new ResponseAPI(2, "Xóa file ảnh thất bại");
-      $response->send();
-   }
+   // Thực thi query
+   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
+   performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
    $connect->close();
@@ -85,6 +74,7 @@ function deleteItem($id)
 function performsQueryAndResponseToClient($query)
 {
    global $connect;
+
    $result = mysqli_query($connect, $query);
 
    if ($result) {

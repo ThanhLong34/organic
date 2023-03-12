@@ -1,34 +1,61 @@
 <?php
+//? ====================
+//? IMPORTS
+//? ====================
 require("../../core/config.php");
 require("../../core/connect_db.php");
-
 require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
 
+
+//? ====================
+//? HEADERS
+//? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
-$file = null;
-if (isset($_FILES['image'])) {
-   $file = $_FILES['image'];
-}
 
+//? ====================
+//? CHECK PERMISSTION
+//? ====================
+$functionName = "UploadImage";
+if (!checkPermissionFunction($functionName)) exit;
+
+
+//? ====================
+//? PARAMETERS & PAYLOAD
+//? ====================
+$tableName = "image";
+$file = $_FILES['image'] ?? null;
+
+
+//? ====================
+//? START
+//? ====================
 // ✅ Tải ảnh lên server
-uploadItem($file);
+uploadImage($file);
 
-function uploadItem($file)
+
+//? ====================
+//? FUNCTIONS
+//? ====================
+function uploadImage($file)
 {
-   global $connect;
+   global $connect, $tableName;
 
-   if (!$file) {
-      $response = new ResponseAPI(9, "Không đủ dữ liệu payload để thực hiện");
+   // Kiểm tra dữ liệu payload
+   if ($file === null) {
+      $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
+   // createdAt, updateAt, deletedAt
    $createdAt = getCurrentDatetime();
+
+   // Thông tin file hình ảnh
    $filename = $file['name'];
    $fileTmpName = $file['tmp_name'];
    $size = $file['size'];
@@ -36,38 +63,24 @@ function uploadItem($file)
    // Lấy file extension
    $imageFileType = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
-   /* Check file extension */
+   /* Kiểm tra định dạng file */
    if (in_array($imageFileType, IMAGE_EXTENSIONS_VALIDATE)) {
-      // Generate filename
+      // Tạo filename
       while (true) {
          $filename = uniqid('project_image', false) . ".$imageFileType";
          if (!file_exists(LOCATION_UPLOAD_IMAGE . $filename)) break;
       }
 
+      // Tạo link
       $link = PATH_UPLOAD_IMAGE . $filename;
 
       /* Upload file */
       if (move_uploaded_file($fileTmpName, LOCATION_UPLOAD_IMAGE . $filename)) {
-         /* Lưu thông tin image trong DB */
 
-         $query = "INSERT INTO `image`(`createdAt`, `link`, `filename`, `size`) VALUES('$createdAt', '$link', '$filename', $size)";
-         $result = mysqli_query($connect, $query);
-
-         if ($result) {
-            $imageObj = new stdClass;
-
-            $imageObj->id = mysqli_insert_id($connect);
-            $imageObj->createdAt = $createdAt;
-            $imageObj->link = $link;
-            $imageObj->filename = $filename;
-            $imageObj->size = $size;
-
-            $response = new ResponseAPI(1, "Tạo file ảnh thành công", $imageObj);
-            $response->send();
-         } else {
-            $response = new ResponseAPI(2, "Tạo file ảnh thất bại");
-            $response->send();
-         }
+         // Thực thi query
+         $query = "INSERT INTO `$tableName`(`createdAt`, `link`, `filename`, `size`) VALUES('$createdAt', '$link', '$filename', $size)";
+         performsQueryAndResponseToClient($query, $createdAt, $link, $filename, $size);
+         
       } else {
          $response = new ResponseAPI(2, "Tạo file ảnh thất bại");
          $response->send();
@@ -77,5 +90,30 @@ function uploadItem($file)
       $response->send();
    }
 
+   // Đóng kết nối
    $connect->close();
+}
+
+// Thực thi truy vấn và trả về kết quả cho Client
+function performsQueryAndResponseToClient($query, $createdAt, $link, $filename, $size)
+{
+   global $connect;
+
+   $result = mysqli_query($connect, $query);
+
+   if ($result) {
+      $imageObj = new stdClass;
+
+      $imageObj->id = mysqli_insert_id($connect);
+      $imageObj->createdAt = $createdAt;
+      $imageObj->link = $link;
+      $imageObj->filename = $filename;
+      $imageObj->size = $size;
+
+      $response = new ResponseAPI(1, "Thành công", $imageObj, 1);
+      $response->send();
+   } else {
+      $response = new ResponseAPI(2, "Thất bại");
+      $response->send();
+   }
 }
