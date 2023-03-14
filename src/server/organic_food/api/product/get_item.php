@@ -53,9 +53,10 @@ function getItem($id)
    }
 
    // Thực thi query
-   $query = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl' 
+   $query = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
       FROM `$tableName` 
       LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
+      LEFT JOIN `productcategory` ON `productcategory`.`id` = `$tableName`.`productCategoryId`
       WHERE `$tableName`.`id` = '$id' AND `$tableName`.`deletedAt` IS NULL LIMIT 1";
    performsQueryAndResponseToClient($query);
 

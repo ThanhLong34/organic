@@ -30,26 +30,60 @@ if (!checkPermissionFunction($functionName)) exit;
 $tableName = "product";
 $data = getJSONPayloadRequest();
 $id = $data["id"] ?? 0;
-$name = trim($data["name"] ?? "");
 $featureImageId = $data["featureImageId"] ?? 0;
+$name = trim($data["name"] ?? "");
+$originPrice = trim($data["originPrice"]) === '' ? 0 : trim($data["originPrice"]);
+$promotionPrice = trim($data["promotionPrice"]) === '' ? $originPrice : trim($data["promotionPrice"]);
+$unit = trim($data["unit"] ?? "");
+$shortDescription = trim($data["shortDescription"] ?? ""); // nvarchar(1000)
+$description = trim($data["description"] ?? ""); // text
+$isSpecial = trim($data["isSpecial"] ?? '');
+$isNew = trim($data["isNew"] ?? '');
+$isBestOffer = trim($data["isBestOffer"] ?? '');
+$productCategoryId = $data["productCategoryId"] ?? 0;
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Cập nhật item
-updateItem($id, $name, $featureImageId);
+updateItem(
+   $id,
+   $featureImageId,
+   $name,
+   $originPrice,
+   $promotionPrice,
+   $unit,
+   $shortDescription,
+   $description,
+   $isSpecial,
+   $isNew,
+   $isBestOffer,
+   $productCategoryId
+);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $name, $featureImageId)
-{
+function updateItem(
+   $id,
+   $featureImageId,
+   $name,
+   $originPrice,
+   $promotionPrice,
+   $unit,
+   $shortDescription,
+   $description,
+   $isSpecial,
+   $isNew,
+   $isBestOffer,
+   $productCategoryId
+) {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($name === "" && $featureImageId === 0)) {
+   if ($id === 0 || $name === "" || $unit === "" || $productCategoryId === 0) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -63,21 +97,50 @@ function updateItem($id, $name, $featureImageId)
    $mainQuery = "";
    $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
 
-   // Cập nhật name
-   if ($name !== "") {
-      if (checkItemExist($name)) {
-         $response = new ResponseAPI(3, "Tên danh mục sản phẩm đã tồn tại");
-         $response->send();
-         return;
-      } else {
-         $mainQuery .= "," . "`name` = '$name'";
-      }
-   }
-
-   // Cập nhật featureImageId
    if ($featureImageId !== 0) {
       $mainQuery .= "," . "`featureImageId` = '$featureImageId'";
    }
+
+   if ($name !== '') {
+      $mainQuery .= "," . "`name` = '$name'";
+   }
+
+   if ($originPrice !== '') {
+      $mainQuery .= "," . "`originPrice` = '$originPrice'";
+   }
+
+   if ($promotionPrice !== '') {
+      $mainQuery .= "," . "`promotionPrice` = '$promotionPrice'";
+   }
+
+   if ($unit !== '') {
+      $mainQuery .= "," . "`unit` = '$unit'";
+   }
+
+   if ($shortDescription !== '') {
+      $mainQuery .= "," . "`shortDescription` = '$shortDescription'";
+   }
+
+   if ($description !== '') {
+      $mainQuery .= "," . "`description` = '$description'";
+   }
+
+   if ($isSpecial !== '') {
+      $mainQuery .= "," . "`isSpecial` = '$isSpecial'";
+   }
+
+   if ($isNew !== '') {
+      $mainQuery .= "," . "`isNew` = '$isNew'";
+   }
+
+   if ($isBestOffer !== '') {
+      $mainQuery .= "," . "`isBestOffer` = '$isBestOffer'";
+   }
+
+   if ($productCategoryId !== 0) {
+      $mainQuery .= "," . "`productCategoryId` = '$productCategoryId'";
+   }
+
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
@@ -101,19 +164,4 @@ function performsQueryAndResponseToClient($query)
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
-}
-
-// Kiểm tra item tồn tại trong CSDL theo các tiêu chí
-function checkItemExist($name)
-{
-   global $connect, $tableName;
-
-   $query = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL AND `name` = '$name' LIMIT 1";
-   $result = mysqli_query($connect, $query);
-
-   if ($result && mysqli_num_rows($result) > 0) {
-      return true;
-   }
-
-   return false;
 }

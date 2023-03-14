@@ -22,6 +22,7 @@ const menus = {
 };
 
 const functions = {
+	// SystemMenu
 	AddSystemMenu: "AddSystemMenu",
 	DeleteSystemMenu: "DeleteSystemMenu",
 	GetSystemMenuItem: "GetSystemMenuItem",
@@ -29,12 +30,14 @@ const functions = {
 	GetSystemMenuList: "GetSystemMenuList",
 	TrashSystemMenu: "TrashSystemMenu",
 	UpdateSystemMenu: "UpdateSystemMenu",
+	// SystemRole
 	AddSystemRole: "AddSystemRole",
 	DeleteSystemRole: "DeleteSystemRole",
 	GetSystemRoleItem: "GetSystemRoleItem",
 	GetSystemRoleList: "GetSystemRoleList",
 	TrashSystemRole: "TrashSystemRole",
 	UpdateSystemRole: "UpdateSystemRole",
+	// SystemFunction
 	AddSystemFunction: "AddSystemFunction",
 	DeleteSystemFunction: "DeleteSystemFunction",
 	GetSystemFunctionItem: "GetSystemFunctionItem",
@@ -42,10 +45,13 @@ const functions = {
 	GetSystemFunctionList: "GetSystemFunctionList",
 	TrashSystemFunction: "TrashSystemFunction",
 	UpdateSystemFunction: "UpdateSystemFunction",
+	// SystemRoleMenu
 	AddSystemRoleMenu: "AddSystemRoleMenu",
 	DeleteSystemRoleMenu: "DeleteSystemRoleMenu",
+	// SystemRoleFunction
 	AddSystemRoleFunction: "AddSystemRoleFunction",
 	DeleteSystemRoleFunction: "DeleteSystemRoleFunction",
+	// SystemAdmin
 	LoginSystemAdmin: "LoginSystemAdmin",
 	RegisterSystemAdmin: "RegisterSystemAdmin",
 	DeleteSystemAdmin: "DeleteSystemAdmin",
@@ -59,25 +65,40 @@ const functions = {
 	UpdatePasswordSystemAdmin: "UpdatePasswordSystemAdmin",
 	UpdatePhoneSystemAdmin: "UpdatePhoneSystemAdmin",
 	UpdateSystemRoleForSystemAdmin: "UpdateSystemRoleForSystemAdmin",
+	// Image
 	DeleteImage: "DeleteImage",
 	GetImageItem: "GetImageItem",
 	GetImageList: "GetImageList",
 	UploadImage: "UploadImage",
 	RemoveImageDontUse: "RemoveImageDontUse",
 	ViewImage: "ViewImage",
+	// ProductCategory
 	AddProductCategory: "AddProductCategory",
 	DeleteProductCategory: "DeleteProductCategory",
 	GetProductCategoryItem: "GetProductCategoryItem",
 	GetProductCategoryList: "GetProductCategoryList",
 	UpdateProductCategory: "UpdateProductCategory",
 	TrashProductCategory: "TrashProductCategory",
+	// Product
 	AddProduct: "AddProduct",
 	DeleteProduct: "DeleteProduct",
 	GetProductItem: "GetProductItem",
 	GetProductList: "GetProductList",
 	UpdateProduct: "UpdateProduct",
 	TrashProduct: "TrashProduct",
+	ViewProductDetails: "ViewProductDetails",
+	// ProductImage
 	AddProductImageList: "AddProductImageList",
+	DeleteProductImageList: "DeleteProductImageList",
+	GetProductImageListByProductId: "GetProductImageListByProductId",
+	// Blog
+	AddBlog: "AddBlog",
+	DeleteBlog: "DeleteBlog",
+	GetBlogItem: "GetBlogItem",
+	GetBlogList: "GetBlogList",
+	TrashBlog: "TrashBlog",
+	UpdateBlog: "UpdateBlog",
+	ViewBlogDetails: "ViewBlogDetails",
 };
 
 export { menus, functions };

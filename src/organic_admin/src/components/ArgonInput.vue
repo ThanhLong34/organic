@@ -1,10 +1,17 @@
 <template>
    <div class="form-group">
       <div :class="hasIcon(icon)">
-         <span v-if="iconDir === 'left'" class="input-group-text">
+         <span
+            v-if="iconDir === 'left'"
+            class="input-group-text"
+            :class="{
+               isDisable,
+            }"
+         >
             <i :class="getIcon(icon)"></i>
          </span>
          <input
+            :disabled="isDisable"
             :type="type"
             class="form-control"
             :class="getClasses(size, valid)"
@@ -15,7 +22,13 @@
             v-model="inputVal"
             @input="$emit('update:modelValue', $event.target.value)"
          />
-         <span v-if="iconDir === 'right'" class="input-group-text">
+         <span
+            v-if="iconDir === 'right'"
+            class="input-group-text"
+            :class="{
+               isDisable,
+            }"
+         >
             <i :class="getIcon(icon)"></i>
          </span>
       </div>
@@ -42,6 +55,7 @@ export default {
       placeholder: String,
       type: String,
       isRequired: Boolean,
+      isDisable: Boolean,
    },
    data() {
       return {
@@ -69,3 +83,10 @@ export default {
    },
 };
 </script>
+
+<style lang="scss" scoped>
+.isDisable {
+   background-color: #e9ecef;
+	cursor: not-allowed;
+}
+</style>

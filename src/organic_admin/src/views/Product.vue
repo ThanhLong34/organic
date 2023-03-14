@@ -170,6 +170,11 @@
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                                  >
+                                    Đơn vị tính
+                                 </th>
+                                 <th
+                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                 >
                                     Loại đặc biệt
                                  </th>
                                  <th
@@ -194,7 +199,7 @@
                               <!-- Table List -->
                               <tr v-for="item in tableData" :key="item.id">
                                  <td>
-                                    <div class="d-flex px-2">
+                                    <div class="d-flex px-3">
                                        <div>
                                           <img
                                              :src="
@@ -202,7 +207,7 @@
                                                    ? item.featureImageUrl
                                                    : `${require('@/assets/img/no-image.jpg')}`
                                              "
-                                             class="avatar avatar-sm rounded-circle me-2"
+                                             class="image-contain avatar avatar-sm me-2"
                                              alt="feature image url"
                                           />
                                        </div>
@@ -221,6 +226,11 @@
                                  <td>
                                     <p class="text-sm font-weight-bold mb-0">
                                        {{ toVND(item.promotionPrice, "đ") }}
+                                    </p>
+                                 </td>
+                                 <td>
+                                    <p class="text-sm font-weight-bold mb-0">
+                                       {{ item.unit }}
                                     </p>
                                  </td>
                                  <td>
@@ -248,12 +258,38 @@
                                        <a
                                           v-if="
                                              checkPermissionFunction(
+                                                functions.ViewProductDetails
+                                             )
+                                          "
+                                          class="btn btn-link text-info text-gradient px-2 mb-0"
+                                          href="javascript:;"
+                                          @click.prevent="
+                                             () =>
+                                                handleOpenViewProductDetailsDialog(
+                                                   item.id
+                                                )
+                                          "
+                                       >
+                                          <i
+                                             class="fas fa-eye me-2"
+                                             aria-hidden="true"
+                                          ></i
+                                          >Xem chi tiết
+                                       </a>
+                                       <a
+                                          v-if="
+                                             checkPermissionFunction(
                                                 functions.UpdateProduct
                                              )
                                           "
                                           class="btn btn-link text-dark text-gradient px-2 mb-0"
                                           href="javascript:;"
-                                          @click.prevent="() => handleRedirectToEditProductView(item.id)"
+                                          @click.prevent="
+                                             () =>
+                                                handleRedirectToEditProductView(
+                                                   item.id
+                                                )
+                                          "
                                        >
                                           <i
                                              class="fas fa-pencil-alt me-2"
@@ -330,6 +366,15 @@
                   </div>
                </div>
             </div>
+            <!-- View dialog -->
+            <div v-if="viewDialog.visible">
+               <el-dialog v-model="viewDialog.visible">
+                  <ViewProductDetailsDialog
+                     :itemIdSelect="itemIdSelect"
+                     @onCloseDialog="handleCloseDialog"
+                  />
+               </el-dialog>
+            </div>
          </div>
       </div>
    </div>
@@ -342,6 +387,8 @@ import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
+
+import ViewProductDetailsDialog from "./components/dialogs/ViewProductDetailsDialog.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
@@ -357,10 +404,11 @@ export default {
       ArgonButton,
       ArgonPagination,
       ArgonPaginationItem,
+      ViewProductDetailsDialog,
    },
    data() {
       return {
-         // funcs
+         // Funcs
          toVND: Funcs.toVND,
 
          // Import constants
@@ -409,17 +457,35 @@ export default {
          itemIdSelect: "",
 
          // Add dialog
-         addDialog: {
+         viewDialog: {
             visible: false,
          },
-         // Edit dialog
-         editDialog: {
-            visible: false,
-         },
+
+         imageIdListRemovedWhenDeleteProduct: [],
       };
    },
    methods: {
-      async getProductCategoryList() {
+      getProductImageList(id) {
+         return API.get(
+            apiPath + `/product_image/get_list_by_product_id.php`,
+            {
+               productId: id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.imageIdListRemovedWhenDeleteProduct = data.data.map(
+                     (i) => +i.imageId
+                  );
+               } else {
+                  ElMessage({
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
+      getProductCategoryList() {
          return API.get(
             apiPath + `/product_category/get_list.php`,
             {},
@@ -449,7 +515,7 @@ export default {
       checkPermissionFunction(functionName) {
          return Funcs.checkPermissionFunction(functionName);
       },
-      async getTableData() {
+      getTableData() {
          return API.get(
             apiPath + `/${apiGroup}/get_list.php`,
             {
@@ -463,21 +529,21 @@ export default {
                   }
 
                   if (this.fillValueByProductCategory !== "") {
-							return this.fillTypeByProductCategory;
-						}
+                     return this.fillTypeByProductCategory;
+                  }
 
-						return '';
+                  return "";
                })(),
                fillValue: (() => {
                   if (this.fillTypeByType !== "") {
                      return this.fillValueByType;
                   }
 
-						if (this.fillValueByProductCategory !== "") {
-							return this.fillValueByProductCategory;
-						}
+                  if (this.fillValueByProductCategory !== "") {
+                     return this.fillValueByProductCategory;
+                  }
 
-						return '';
+                  return "";
                })(),
                orderby: (() => {
                   if (this.sortValue) {
@@ -498,6 +564,7 @@ export default {
                   this.tableData = data.data.map((item) => ({
                      ...item,
                      id: +item.id,
+                     featureImageId: +item.featureImageId,
                      originPrice: +item.originPrice,
                      promotionPrice: +item.promotionPrice,
                      isSpecial: +item.isSpecial == 1,
@@ -556,13 +623,21 @@ export default {
          return API.deleteById(
             apiPath + `/${apiGroup}/trash.php`,
             id,
-            (data) => {
+            async (data) => {
                if (data.code === 1) {
                   ElMessage({
                      message: "Xóa thành công",
                      type: "success",
                   });
-                  this.reloadDataCurrentPage();
+
+                  // Lấy ảnh của product bị xóa
+                  await this.getProductImageList(id);
+
+                  // Xóa ảnh của product bị xóa
+                  await this.handleDeleteProductImageWhenDeleteProduct(id);
+
+                  // Reload lại dữ liệu
+                  await this.reloadDataCurrentPage();
                } else {
                   ElMessage({
                      message: data.message,
@@ -636,11 +711,39 @@ export default {
          this.getTableData();
       },
       handleRedirectToAddProductView() {
-			this.$router.push({ name: menus.AddProduct });
+         this.$router.push({ name: menus.AddProduct });
       },
       handleRedirectToEditProductView(id) {
-			this.$router.push({ name: menus.EditProduct, params: { id } });
-      }
+         this.$router.push({ name: menus.EditProduct, params: { id } });
+      },
+      handleDeleteProductImageWhenDeleteProduct(id) {
+         return API.remove(
+            apiPath + `/product_image/delete_list.php`,
+            {
+               productId: id,
+               imageIdList: this.imageIdListRemovedWhenDeleteProduct,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  //
+               } else {
+                  ElMessage({
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
+      handleOpenViewProductDetailsDialog(id) {
+         this.itemIdSelect = id;
+         this.viewDialog.visible = true;
+      },
+      handleCloseDialog(type) {
+         if (type === "view") {
+            this.viewDialog.visible = false;
+         }
+      },
    },
    async created() {
       await this.getProductCategoryList();

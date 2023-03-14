@@ -93,7 +93,7 @@
                               <!-- Table List -->
                               <tr v-for="item in tableData" :key="item.id">
                                  <td>
-                                    <div class="d-flex px-2">
+                                    <div class="d-flex px-3">
                                        <div>
                                           <img
                                              :src="
@@ -101,7 +101,7 @@
                                                    ? item.featureImageUrl
                                                    : `${require('@/assets/img/no-image.jpg')}`
                                              "
-                                             class="avatar avatar-sm rounded-circle me-2"
+                                             class="image-contain avatar avatar-sm me-2"
                                              alt="feature image url"
                                           />
                                        </div>

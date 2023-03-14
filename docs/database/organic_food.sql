@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2023 at 04:45 AM
+-- Generation Time: Mar 14, 2023 at 04:38 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -33,11 +33,20 @@ CREATE TABLE `blog` (
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `featureImageId` int(11) DEFAULT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` varchar(1000) DEFAULT NULL,
+  `title` varchar(1000) NOT NULL,
+  `description` text DEFAULT NULL,
   `content` text DEFAULT NULL,
   `systemAdminId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `blog`
+--
+
+INSERT INTO `blog` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImageId`, `title`, `description`, `content`, `systemAdminId`) VALUES
+(3, '22:20:14 14/03/2023', '22:31:03 14/03/2023', NULL, 197, 'Easy way to Build a Perfect Agency Website', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
+(4, '22:24:22 14/03/2023', NULL, NULL, 198, 'Zechsal Magnesium flakes especially made', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
+(5, '22:24:42 14/03/2023', NULL, NULL, 199, 'Our 6 of the Best Organic Grapes to Buy', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17);
 
 -- --------------------------------------------------------
 
@@ -97,25 +106,62 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (18, '21:13:02 06/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6405f4ee67a37.jpg', 'project_image6405f4ee67a37.jpg', 7662),
 (26, '10:10:06 11/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640bf10e41356.jpg', 'project_image640bf10e41356.jpg', 26476),
 (28, '15:01:59 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640d86f7b8e5b.jpg', 'project_image640d86f7b8e5b.jpg', 7662),
-(30, '15:31:28 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640d8de0d955b.png', 'project_image640d8de0d955b.png', 2494),
-(47, '16:53:11 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640da107d22ef.png', 'project_image640da107d22ef.png', 2696),
-(48, '18:23:20 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640db628c6902.png', 'project_image640db628c6902.png', 2654),
-(54, '18:40:15 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640dba1f29dab.png', 'project_image640dba1f29dab.png', 2781),
-(63, '09:25:14 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640e898a0963b.png', 'project_image640e898a0963b.png', 153141),
-(64, '09:29:25 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640e8a85798f8.png', 'project_image640e8a85798f8.png', 116809),
-(65, '11:04:09 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640ea0b9e565c.png', 'project_image640ea0b9e565c.png', 93226),
-(66, '11:06:14 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640ea1366ae8c.png', 'project_image640ea1366ae8c.png', 108709),
-(67, '11:08:22 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640ea1b6d9b28.png', 'project_image640ea1b6d9b28.png', 120993),
-(68, '11:09:26 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640ea1f6eddd0.png', 'project_image640ea1f6eddd0.png', 129577),
-(86, '10:16:11 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe6fb60723.png', 'project_image640fe6fb60723.png', 120993),
-(87, '10:16:14 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe6fed4568.png', 'project_image640fe6fed4568.png', 120993),
-(88, '10:16:18 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe702cba60.png', 'project_image640fe702cba60.png', 129577),
-(89, '10:16:21 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe705c0c88.png', 'project_image640fe705c0c88.png', 108709),
-(90, '10:18:46 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe7964d8d4.png', 'project_image640fe7964d8d4.png', 108709),
-(91, '10:21:38 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe842a44f1.png', 'project_image640fe842a44f1.png', 2781),
-(92, '10:21:45 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe8492583e.png', 'project_image640fe8492583e.png', 116809),
-(93, '10:23:10 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe89e2124f.png', 'project_image640fe89e2124f.png', 129577),
-(94, '10:24:35 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe8f3c9361.png', 'project_image640fe8f3c9361.png', 153141);
+(126, '14:36:38 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64102406c72a2.png', 'project_image64102406c72a2.png', 47416),
+(127, '14:36:58 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6410241a5b2aa.png', 'project_image6410241a5b2aa.png', 13416),
+(128, '14:37:20 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64102430619d9.png', 'project_image64102430619d9.png', 14888),
+(129, '14:43:57 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641025bda1e04.png', 'project_image641025bda1e04.png', 38067),
+(130, '14:45:00 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641025fcb5903.png', 'project_image641025fcb5903.png', 42383),
+(131, '14:47:33 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64102695a0782.png', 'project_image64102695a0782.png', 72083),
+(132, '14:49:35 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6410270f66330.png', 'project_image6410270f66330.png', 58229),
+(133, '14:55:35 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64102877b161b.png', 'project_image64102877b161b.png', 34717),
+(134, '14:56:20 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641028a41d12a.png', 'project_image641028a41d12a.png', 31169),
+(144, '16:04:09 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6410388936975.png', 'project_image6410388936975.png', 52020),
+(145, '16:04:12 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6410388c35fa8.png', 'project_image6410388c35fa8.png', 52020),
+(146, '16:04:14 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6410388e7831a.jpg', 'project_image6410388e7831a.jpg', 82600),
+(147, '16:04:16 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103890a5ec5.jpg', 'project_image64103890a5ec5.jpg', 218814),
+(148, '16:05:06 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641038c2b9034.png', 'project_image641038c2b9034.png', 97796),
+(149, '16:05:09 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641038c55b79e.png', 'project_image641038c55b79e.png', 97796),
+(150, '16:05:11 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641038c7080c2.jpg', 'project_image641038c7080c2.jpg', 82600),
+(157, '16:19:05 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103c090ef22.png', 'project_image64103c090ef22.png', 95033),
+(158, '16:19:09 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103c0d3669a.png', 'project_image64103c0d3669a.png', 95033),
+(159, '16:19:09 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103c0d39059.jpg', 'project_image64103c0d39059.jpg', 82600),
+(160, '16:19:09 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103c0d3923e.jpg', 'project_image64103c0d3923e.jpg', 218814),
+(165, '16:21:45 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ca92305b.png', 'project_image64103ca92305b.png', 131565),
+(166, '16:21:58 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103cb655c1c.png', 'project_image64103cb655c1c.png', 131565),
+(167, '16:22:02 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103cba8074e.jpg', 'project_image64103cba8074e.jpg', 218814),
+(168, '16:23:18 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103d06e6474.png', 'project_image64103d06e6474.png', 177127),
+(169, '16:23:25 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103d0d83db9.jpg', 'project_image64103d0d83db9.jpg', 82600),
+(170, '16:23:25 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103d0d83db5.png', 'project_image64103d0d83db5.png', 177127),
+(171, '16:24:06 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103d361b4ec.png', 'project_image64103d361b4ec.png', 199249),
+(172, '16:24:11 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103d3bbfac7.png', 'project_image64103d3bbfac7.png', 199249),
+(173, '16:24:15 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103d3f086e3.jpg', 'project_image64103d3f086e3.jpg', 82600),
+(174, '16:25:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103d94c785b.png', 'project_image64103d94c785b.png', 110896),
+(175, '16:25:44 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103d980b86d.png', 'project_image64103d980b86d.png', 110896),
+(176, '16:25:45 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103d99bec9a.jpg', 'project_image64103d99bec9a.jpg', 218814),
+(177, '16:26:25 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103dc1932f4.png', 'project_image64103dc1932f4.png', 111711),
+(178, '16:26:52 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ddc8094b.png', 'project_image64103ddc8094b.png', 111711),
+(179, '16:26:52 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ddc810ad.jpg', 'project_image64103ddc810ad.jpg', 82600),
+(180, '16:28:39 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103e47bb96f.png', 'project_image64103e47bb96f.png', 103649),
+(181, '16:28:43 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103e4bef8fa.png', 'project_image64103e4bef8fa.png', 103649),
+(182, '16:28:43 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103e4beffb9.jpg', 'project_image64103e4beffb9.jpg', 82600),
+(183, '16:29:36 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103e8038cd1.png', 'project_image64103e8038cd1.png', 114609),
+(184, '16:29:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103e84830f6.png', 'project_image64103e84830f6.png', 114609),
+(185, '16:29:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103e8485116.jpg', 'project_image64103e8485116.jpg', 218814),
+(186, '16:30:09 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ea1d4834.png', 'project_image64103ea1d4834.png', 89306),
+(187, '16:30:38 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ebe01624.png', 'project_image64103ebe01624.png', 89306),
+(188, '16:30:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ec037d3f.jpg', 'project_image64103ec037d3f.jpg', 218814),
+(189, '21:11:25 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6410808d76bf0.png', 'project_image6410808d76bf0.png', 110896),
+(190, '21:11:36 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108098bee5f.jpg', 'project_image64108098bee5f.jpg', 38223),
+(191, '21:15:01 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108165dd1e6.jpg', 'project_image64108165dd1e6.jpg', 1187154),
+(192, '21:16:15 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641081af3d6f7.png', 'project_image641081af3d6f7.png', 57821),
+(193, '22:03:52 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108cd81d51d.jpg', 'project_image64108cd81d51d.jpg', 24481),
+(194, '22:07:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108dbc6ff44.jpg', 'project_image64108dbc6ff44.jpg', 38223),
+(195, '22:07:58 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108dcef397f.jpg', 'project_image64108dcef397f.jpg', 24481),
+(196, '22:11:03 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108e87b46ad.png', 'project_image64108e87b46ad.png', 2781),
+(197, '22:19:47 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64109093e2bca.jpg', 'project_image64109093e2bca.jpg', 206436),
+(198, '22:24:16 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091a0433b4.jpg', 'project_image641091a0433b4.jpg', 297970),
+(199, '22:24:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091b80a830.jpg', 'project_image641091b80a830.jpg', 212053),
+(200, '22:38:08 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641094e0b749d.jpg', 'project_image641094e0b749d.jpg', 212053);
 
 -- --------------------------------------------------------
 
@@ -184,6 +230,7 @@ CREATE TABLE `product` (
   `name` varchar(255) NOT NULL,
   `originPrice` int(11) DEFAULT 0,
   `promotionPrice` int(11) DEFAULT 0,
+  `unit` varchar(255) NOT NULL,
   `shortDescription` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `isSpecial` tinyint(1) DEFAULT 0,
@@ -196,18 +243,18 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImageId`, `name`, `originPrice`, `promotionPrice`, `shortDescription`, `description`, `isSpecial`, `isNew`, `isBestOffer`, `productCategoryId`) VALUES
-(1, '09:27:39 13/03/2023', NULL, NULL, 63, 'Bắp cải tươi', 200000, 160000, 'Short desc', 'Desc', 1, 0, 0, 1),
-(2, '09:31:04 13/03/2023', NULL, NULL, 64, 'Mứt dâu', 180000, 180000, 'Short desc 1', 'Desc 1', 0, 1, 0, 3),
-(3, '11:05:02 13/03/2023', NULL, NULL, 65, 'Chuối rừng Amazon', 180000, 180000, 'Short desc 1', 'Desc 1', 1, 1, 0, 2),
-(4, '11:07:17 13/03/2023', NULL, NULL, 66, 'Cà chua boom', 220000, 200000, 'Short desc 2', 'Desc 2', 1, 0, 0, 2),
-(5, '11:08:53 13/03/2023', NULL, NULL, 67, 'Táo đỏ', 300000, 200000, 'Short desc 4', 'Desc 4', 0, 0, 1, 3),
-(6, '11:10:08 13/03/2023', NULL, NULL, 68, 'Hành tươi quỷ quyệt', 500000, 200000, 'Short desc 5', 'Desc 5', 0, 0, 1, 4),
-(7, '10:16:48 14/03/2023', NULL, NULL, 86, 'Trái ác quỷ :))', 300, 300, 'Trái ác quỷ ăn vào sẽ rất là mạnh', '<h1>AHIHI TRÁI ÁC QUỶ NÈ</h1><p>ăn điiii</p>', 1, 0, 0, 2),
-(8, '10:18:58 14/03/2023', NULL, NULL, 90, 'Trái thần tiên', 500, 300, 'ahihi desc', '<p>DESC</p>', 1, 1, 1, 2),
-(9, '10:21:48 14/03/2023', NULL, NULL, 92, 'abc', 1200, 1200, 'Hello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt', '<p><br></p>', 1, 0, 0, 4),
-(10, '10:23:27 14/03/2023', NULL, NULL, 93, 'gtset1', 123, 12, 'Hello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt Name ahiyhihi', '<p><br></p>', 0, 0, 0, 3),
-(11, '10:24:37 14/03/2023', NULL, NULL, 94, 'test2', 12, 12, '', '<p><br></p>', 0, 0, 0, 2);
+INSERT INTO `product` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImageId`, `name`, `originPrice`, `promotionPrice`, `unit`, `shortDescription`, `description`, `isSpecial`, `isNew`, `isBestOffer`, `productCategoryId`) VALUES
+(16, '16:04:36 14/03/2023', '16:05:58 14/03/2023', NULL, 144, 'Ớt cay hủy diệt', 150000, 120000, 'kg', 'Ớt này ăn cay lắm nha :))', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 0, 0, 4),
+(17, '16:05:46 14/03/2023', NULL, NULL, 148, 'Dền tươi', 99000, 99000, 'kg', 'Organic food is usually good for the environment.', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 0, 0, 4),
+(18, '16:19:34 14/03/2023', '16:20:00 14/03/2023', NULL, 157, 'Dưa không biết tên', 250000, 120000, 'kg', 'Dưa này tên gì chính nó cũng không biết nữa', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 0, 1, 2),
+(19, '16:22:49 14/03/2023', NULL, NULL, 165, 'Bắp cãi lại vợ', 80000, 80000, 'kg', 'Bắp cãi này dám cãi lại nóc nhà lun. Thật là đáng bị bỏ vào nồi mà...', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 0, 0, 1),
+(20, '16:23:40 14/03/2023', '16:29:03 14/03/2023', NULL, 168, 'Bắp cải loại 1', 65000, 65000, 'kg', 'Organic food is usually good for the environment', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 0, 0, 1),
+(21, '16:24:31 14/03/2023', NULL, NULL, 171, 'Súp lơ', 100000, 100000, 'kg', 'Organic food is usually good for the environment', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 1, 0, 1),
+(22, '16:25:58 14/03/2023', NULL, NULL, 174, 'Mứt dâu', 230000, 210000, 'hũ', 'Organic food is usually good for the environment', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 1, 0, 3),
+(23, '16:27:14 14/03/2023', '19:53:26 14/03/2023', NULL, 177, 'Hành củ tươi', 72000, 72000, 'kg', 'Organic food is usually good for the environment', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 0, 0, 4),
+(24, '16:28:50 14/03/2023', NULL, NULL, 180, 'Cà chua alpha', 65000, 55000, 'kg', 'Cà chua như cuộc đời của bạn vậy', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 0, 1, 4),
+(25, '16:30:01 14/03/2023', NULL, NULL, 183, 'Táo thần', 320000, 300000, 'kg', 'Táo này ăn ngon lắm nha', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 0, 1, 2),
+(26, '16:31:21 14/03/2023', NULL, NULL, 186, 'Chuối rừng Amazon', 400000, 300000, 'kg', 'Chuối này hái ở tận rừng Amazon, nơi có những con khỉ vô cùng hung hãn', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -229,10 +276,15 @@ CREATE TABLE `productcategory` (
 --
 
 INSERT INTO `productcategory` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`, `featureImageId`) VALUES
-(1, '15:32:45 12/03/2023', '10:42:16 14/03/2023', NULL, 'Rau củ 123', 54),
-(2, '15:57:54 12/03/2023', '11:05:33 13/03/2023', NULL, 'Trái cây', 30),
-(3, '16:53:17 12/03/2023', NULL, NULL, 'Bông', 47),
-(4, '18:23:24 12/03/2023', '11:05:46 13/03/2023', NULL, 'Quả to', 48);
+(1, '15:32:45 12/03/2023', '14:43:58 14/03/2023', NULL, 'Rau xanh', 129),
+(2, '15:57:54 12/03/2023', '14:49:36 14/03/2023', NULL, 'Trái cây', 132),
+(3, '16:53:17 12/03/2023', '14:51:49 14/03/2023', NULL, 'Mứt & Thức uống', 128),
+(4, '18:23:24 12/03/2023', '15:32:03 14/03/2023', NULL, 'Củ & Quả', 131),
+(12, '13:41:29 14/03/2023', '15:03:22 14/03/2023', NULL, 'Thịt & Hải sản', 133),
+(13, '13:43:28 14/03/2023', '14:45:36 14/03/2023', NULL, 'Quả mọng & Hạt', 130),
+(14, '13:43:44 14/03/2023', '14:36:40 14/03/2023', NULL, 'Nấm', 126),
+(15, '14:25:59 14/03/2023', '14:56:20 14/03/2023', NULL, 'Gia vị', 134),
+(16, '14:27:36 14/03/2023', '14:36:59 14/03/2023', NULL, 'Trứng', 127);
 
 -- --------------------------------------------------------
 
@@ -269,9 +321,30 @@ CREATE TABLE `product_image` (
 --
 
 INSERT INTO `product_image` (`productId`, `imageId`) VALUES
-(7, 87),
-(7, 88),
-(7, 89);
+(16, 145),
+(16, 146),
+(16, 147),
+(17, 149),
+(17, 150),
+(18, 158),
+(18, 159),
+(18, 160),
+(19, 166),
+(19, 167),
+(20, 170),
+(20, 169),
+(21, 172),
+(21, 173),
+(22, 175),
+(22, 176),
+(23, 178),
+(23, 179),
+(24, 181),
+(24, 182),
+(25, 184),
+(25, 185),
+(26, 187),
+(26, 188);
 
 -- --------------------------------------------------------
 
@@ -326,7 +399,7 @@ INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `usernam
 (4, '18:08:50 04/03/2023', '10:08:36 07/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
 (5, '18:46:33 04/03/2023', '10:35:10 11/03/2023', NULL, 'client', '1f9dba959b73019bcd2688ae7b70db1f', 'Client', 'dragondevshop@gmail.com', '0353292241', 26, 2),
 (16, '14:26:09 07/03/2023', '10:47:42 11/03/2023', NULL, 'websitemanager1', '6c6f8143b6241ee993cedd1ad5f402cc', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
-(17, '11:36:09 11/03/2023', '15:01:59 12/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Admin 123', '2014468@dlu.edu.vn', '1234567891', 28, 3);
+(17, '11:36:09 11/03/2023', '22:23:17 14/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3);
 
 -- --------------------------------------------------------
 
@@ -407,7 +480,16 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (61, '08:59:43 13/03/2023', NULL, NULL, 'product/trash.php', 'TrashProduct', 'Trash product', 'PUT', 0),
 (62, '09:00:05 13/03/2023', NULL, NULL, 'product/update.php', 'UpdateProduct', 'Update product', 'PUT', 0),
 (63, '09:49:20 14/03/2023', NULL, NULL, 'product_image/add_list.php', 'AddProductImageList', 'Add product image list', 'POST', 0),
-(64, '10:05:12 14/03/2023', NULL, NULL, 'product_image/delete_list.php', 'DeleteProductImageList', 'Delete product image list', 'DELETE', 0);
+(64, '10:05:12 14/03/2023', NULL, NULL, 'product_image/delete_list.php', 'DeleteProductImageList', 'Delete product image list', 'DELETE', 0),
+(65, '12:09:36 14/03/2023', NULL, NULL, 'product_image/get_list_by_product_id.php', 'GetProductImageListByProductId', 'Get product image list by product id', 'GET', 0),
+(66, '16:35:46 14/03/2023', NULL, NULL, '', 'ViewProductDetails', 'View product details', '', 0),
+(67, '20:25:32 14/03/2023', NULL, NULL, 'blog/add.php', 'AddBlog', 'Add blog', 'POST', 0),
+(68, '20:25:59 14/03/2023', NULL, NULL, 'blog/delete.php', 'DeleteBlog', 'Delete blog', 'DELETE', 0),
+(69, '20:26:20 14/03/2023', NULL, NULL, 'blog/get_item.php', 'GetBlogItem', 'Get blog item', 'GET', 0),
+(70, '20:26:56 14/03/2023', NULL, NULL, 'blog/get_list.php', 'GetBlogList', 'Get blog list', 'GET', 0),
+(71, '20:27:18 14/03/2023', NULL, NULL, 'blog/trash.php', 'TrashBlog', 'Trash blog', 'PUT', 0),
+(72, '20:27:39 14/03/2023', NULL, NULL, 'blog/update.php', 'UpdateBlog', 'Update blog', 'PUT', 0),
+(73, '20:29:52 14/03/2023', NULL, NULL, '', 'ViewBlogDetails', 'View blog details', '', 0);
 
 -- --------------------------------------------------------
 
@@ -560,7 +642,15 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (3, 61),
 (3, 62),
 (3, 63),
-(3, 64);
+(3, 64),
+(3, 65),
+(3, 66),
+(3, 69),
+(3, 70),
+(3, 71),
+(3, 72),
+(3, 67),
+(3, 73);
 
 -- --------------------------------------------------------
 
@@ -736,7 +826,7 @@ ALTER TABLE `systemrole_menu`
 -- AUTO_INCREMENT for table `blog`
 --
 ALTER TABLE `blog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -754,7 +844,7 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -772,13 +862,13 @@ ALTER TABLE `orderstatus`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `productcategory`
 --
 ALTER TABLE `productcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `productreview`
@@ -802,7 +892,7 @@ ALTER TABLE `systemadmin`
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`
