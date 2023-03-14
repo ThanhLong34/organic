@@ -33,6 +33,7 @@ $featureImageId = $data["featureImageId"] ?? 0;
 $name = trim($data["name"] ?? "");
 $originPrice = $data["originPrice"] ?? 0;
 $promotionPrice = $data["promotionPrice"] ?? $data["originPrice"] ?? 0;
+$unit = trim($data["unit"] ?? "");
 $shortDescription = trim($data["shortDescription"] ?? ""); // nvarchar(1000)
 $description = trim($data["description"] ?? ""); // text
 $isSpecial = $data["isSpecial"] ?? false;
@@ -45,18 +46,18 @@ $productCategoryId = $data["productCategoryId"] ?? 0;
 //? START
 //? ====================
 // ✅ Thêm item 
-addItem($featureImageId, $name, $originPrice, $promotionPrice, $shortDescription, $description, $isSpecial, $isNew, $isBestOffer, $productCategoryId);
+addItem($featureImageId, $name, $originPrice, $promotionPrice, $unit, $shortDescription, $description, $isSpecial, $isNew, $isBestOffer, $productCategoryId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function addItem($featureImageId, $name, $originPrice, $promotionPrice, $shortDescription, $description, $isSpecial, $isNew, $isBestOffer, $productCategoryId)
+function addItem($featureImageId, $name, $originPrice, $promotionPrice, $unit, $shortDescription, $description, $isSpecial, $isNew, $isBestOffer, $productCategoryId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($name === "" || $productCategoryId === 0) {
+   if ($name === "" || $unit === "" || $productCategoryId === 0) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -66,8 +67,8 @@ function addItem($featureImageId, $name, $originPrice, $promotionPrice, $shortDe
    $createdAt = getCurrentDatetime();
 
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `featureImageId`, `name`, `originPrice`, `promotionPrice`, `shortDescription`, `description`, `isSpecial`, `isNew`, `isBestOffer`, `productCategoryId`) 
-      VALUES('$createdAt', '$featureImageId', '$name', '$originPrice', '$promotionPrice', '$shortDescription', '$description', '$isSpecial', '$isNew', '$isBestOffer', '$productCategoryId')";
+   $query = "INSERT INTO `$tableName`(`createdAt`, `featureImageId`, `name`, `originPrice`, `promotionPrice`, `unit`, `shortDescription`, `description`, `isSpecial`, `isNew`, `isBestOffer`, `productCategoryId`) 
+      VALUES('$createdAt', '$featureImageId', '$name', '$originPrice', '$promotionPrice', '$unit', '$shortDescription', '$description', '$isSpecial', '$isNew', '$isBestOffer', '$productCategoryId')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

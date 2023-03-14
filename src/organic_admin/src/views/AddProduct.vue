@@ -57,6 +57,21 @@
                            placeholder="Nhập giá ưu đãi. VD: 100000"
                            v-model="data.promotionPrice"
                         />
+                        <!-- unit -->
+                        <label
+                           for="example-text-input"
+                           class="form-control-label"
+                        >
+                           Đơn vị tính
+                           <span class="star-input-required">*</span>
+                        </label>
+                        <argon-input
+                           type="text"
+                           icon="ni ni-box-2"
+                           iconDir="left"
+                           placeholder="Nhập đơn vị tính. VD: cái, kg, ..."
+                           v-model="data.unit"
+                        />
                         <!-- types -->
                         <label
                            for="example-text-input"
@@ -128,6 +143,7 @@
                         class="feature-image-upload"
                         v-model:file-list="featureImageFiles"
                         action="#"
+                        drag
                         :limit="1"
                         list-type="picture-card"
                         :auto-upload="false"
@@ -136,6 +152,14 @@
                         :on-change="handleUploadFeatureImage"
                      >
                         <el-icon><Plus /></el-icon>
+                        <div class="el-upload__text">
+                           Kéo thả file hoặc <em>nhấn vào đây</em>
+                        </div>
+                        <template #tip>
+                           <div class="el-upload__tip">
+                              Chỉ chấp nhận định dạng file JPG hoặc PNG
+                           </div>
+                        </template>
                      </el-upload>
                      <el-dialog v-model="viewImageDialog.visible">
                         <img
@@ -154,6 +178,8 @@
                      <el-upload
                         v-model:file-list="imageFiles"
                         action="#"
+                        drag
+								multiple
                         list-type="picture-card"
                         :auto-upload="false"
                         :on-preview="handlePreviewImagesUploaded"
@@ -161,6 +187,11 @@
                         :on-change="handleUploadImage"
                      >
                         <el-icon><Plus /></el-icon>
+                        <template #tip>
+                           <div class="el-upload__tip">
+                              Chỉ chấp nhận định dạng file JPG hoặc PNG
+                           </div>
+                        </template>
                      </el-upload>
                      <el-dialog v-model="viewImageDialog.visible">
                         <img
@@ -252,6 +283,7 @@ export default {
             featureImageId: null,
             originPrice: null,
             promotionPrice: null,
+            unit: "",
             isSpecial: false,
             isNew: false,
             isBestOffer: false,
@@ -311,6 +343,10 @@ export default {
             this.data.name = this.data.name.trim();
          }
 
+         if (typeof this.data.unit === "string") {
+            this.data.unit = this.data.unit.trim();
+         }
+
          if (typeof this.data.shortDescription === "string") {
             this.data.shortDescription = this.data.shortDescription.trim();
          }
@@ -330,6 +366,15 @@ export default {
          if (this.data.originPrice === null) {
             ElMessage({
                message: "Chưa nhập giá gốc cho sản phẩm",
+               type: "warning",
+            });
+
+            return false;
+         }
+
+         if (this.data.unit === "") {
+            ElMessage({
+               message: "Chưa nhập đơn vị tính cho sản phẩm",
                type: "warning",
             });
 
@@ -372,7 +417,7 @@ export default {
                      type: "success",
                   });
 
-						// Lưu các ảnh của sản phẩm trong CSDL
+                  // Lưu các ảnh của sản phẩm trong CSDL
                   this.handleSubmitImageUploads(data.data.productId);
                } else {
                   ElMessage({
@@ -384,11 +429,11 @@ export default {
          );
       },
       handleSubmitImageUploads(productId) {
-			return API.post(
+         return API.post(
             apiPath + `/product_image/add_list.php`,
             {
                productId,
-					imageIdList: this.imageFiles.map(i => i.id)
+               imageIdList: this.imageFiles.map((i) => i.id),
             },
             (data) => {
                if (data.code === 1) {
@@ -401,7 +446,7 @@ export default {
                }
             }
          );
-		},
+      },
       handleRedirectToBack() {
          this.$router.go(-1);
       },

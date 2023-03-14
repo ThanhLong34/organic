@@ -34,6 +34,7 @@ $featureImageId = $data["featureImageId"] ?? 0;
 $name = trim($data["name"] ?? "");
 $originPrice = trim($data["originPrice"]) === '' ? 0 : trim($data["originPrice"]);
 $promotionPrice = trim($data["promotionPrice"]) === '' ? $originPrice : trim($data["promotionPrice"]);
+$unit = trim($data["unit"] ?? "");
 $shortDescription = trim($data["shortDescription"] ?? ""); // nvarchar(1000)
 $description = trim($data["description"] ?? ""); // text
 $isSpecial = trim($data["isSpecial"] ?? '');
@@ -52,6 +53,7 @@ updateItem(
    $name,
    $originPrice,
    $promotionPrice,
+   $unit,
    $shortDescription,
    $description,
    $isSpecial,
@@ -70,6 +72,7 @@ function updateItem(
    $name,
    $originPrice,
    $promotionPrice,
+   $unit,
    $shortDescription,
    $description,
    $isSpecial,
@@ -80,7 +83,7 @@ function updateItem(
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || $name === "" || $productCategoryId === 0) {
+   if ($id === 0 || $name === "" || $unit === "" || $productCategoryId === 0) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -108,6 +111,10 @@ function updateItem(
 
    if ($promotionPrice !== '') {
       $mainQuery .= "," . "`promotionPrice` = '$promotionPrice'";
+   }
+
+   if ($unit !== '') {
+      $mainQuery .= "," . "`unit` = '$unit'";
    }
 
    if ($shortDescription !== '') {

@@ -77,6 +77,7 @@ const functions = {
 	GetProductList: "GetProductList",
 	UpdateProduct: "UpdateProduct",
 	TrashProduct: "TrashProduct",
+	ViewProductDetails: "ViewProductDetails",
 	AddProductImageList: "AddProductImageList",
 	GetProductImageListByProductId: "GetProductImageListByProductId",
 };

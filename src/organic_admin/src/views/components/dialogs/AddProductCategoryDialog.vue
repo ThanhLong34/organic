@@ -19,6 +19,7 @@
                class="feature-image-upload"
                v-model:file-list="imageFiles"
                action="#"
+               drag
                :limit="1"
                list-type="picture-card"
                :auto-upload="false"
@@ -28,6 +29,14 @@
                :on-change="handleUploadImage"
             >
                <el-icon><Plus /></el-icon>
+               <div class="el-upload__text">
+                  Kéo thả file hoặc <em>nhấn vào đây</em>
+               </div>
+               <template #tip>
+                  <div class="el-upload__tip">
+                     Chỉ chấp nhận định dạng file JPG hoặc PNG
+                  </div>
+               </template>
             </el-upload>
             <el-dialog v-model="viewImageDialog.visible">
                <img

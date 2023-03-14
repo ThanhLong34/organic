@@ -98,3 +98,9 @@ i.controller-icon {
 		width: 100% !important;
 	}
 }
+
+.image-contain {
+	object-fit: contain;
+   object-position: center;
+	aspect-ratio: 1/1;
+}
