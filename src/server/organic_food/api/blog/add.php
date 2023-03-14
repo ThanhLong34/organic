@@ -13,51 +13,56 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
 
-//? ====================
-//? CHECK PERMISSTION
-//? ====================
-$functionName = "GetProductItem";
+// //? ====================
+// //? CHECK PERMISSTION
+// //? ====================
+$functionName = "AddBlog";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "product";
-$id = $_GET["id"] ?? 0;
+$tableName = "blog";
+$data = getJSONPayloadRequest();
+$featureImageId = $data["featureImageId"] ?? 0;
+$title = trim($data["title"] ?? "");
+$description = trim($data["description"] ?? ""); // text
+$content = trim($data["content"] ?? ""); // text
+$systemAdminId = $data["systemAdminId"] ?? 0;
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Lấy item theo id
-getItem($id);
+// ✅ Thêm item 
+addItem($featureImageId, $title, $description, $content, $systemAdminId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function getItem($id)
+function addItem($featureImageId, $title, $description, $content, $systemAdminId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0) {
+   if ($title === "" || $systemAdminId === 0) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
+   // createdAt, updateAt, deletedAt
+   $createdAt = getCurrentDatetime();
+
    // Thực thi query
-   $query = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
-      FROM `$tableName` 
-      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
-      LEFT JOIN `productcategory` ON `productcategory`.`id` = `$tableName`.`productCategoryId`
-      WHERE `$tableName`.`id` = '$id' AND `$tableName`.`deletedAt` IS NULL LIMIT 1";
+   $query = "INSERT INTO `$tableName`(`createdAt`, `featureImageId`, `title`, `description`, `content`, `systemAdminId`) 
+      VALUES('$createdAt', '$featureImageId', '$title', '$description', '$content', '$systemAdminId')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -72,16 +77,13 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $item = $result->fetch_object();
-      if ($item != null) {
-         $response = new ResponseAPI(1, "Thành công", $item, 1);
-         $response->send();
-      } else {
-         $response = new ResponseAPI(2, "Không tìm thấy");
-         $response->send();
-      }
+      $obj = new stdClass();
+      $obj->productId = $connect->insert_id;
+
+      $response = new ResponseAPI(1, "Thành công", $obj);
+      $response->send();
    } else {
-      $response = new ResponseAPI(3, "Thất bại");
+      $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
 }

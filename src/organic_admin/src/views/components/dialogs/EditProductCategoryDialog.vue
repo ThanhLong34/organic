@@ -38,14 +38,6 @@
                   </div>
                </template>
             </el-upload>
-            <el-dialog v-model="viewImageDialog.visible">
-               <img
-                  class="image-preview"
-                  w-full
-                  :src="viewImageDialog.url"
-                  alt="Preview Image"
-               />
-            </el-dialog>
             <!-- name -->
             <label for="example-text-input" class="form-control-label mt-3">
                Tên danh mục
@@ -81,6 +73,15 @@
             </div>
          </div>
       </div>
+      <!-- View image dialog -->
+      <el-dialog v-model="viewImageDialog.visible">
+         <img
+            class="image-preview"
+            w-full
+            :src="viewImageDialog.url"
+            alt="Preview Image"
+         />
+      </el-dialog>
    </div>
 </template>
 
@@ -175,7 +176,7 @@ export default {
 
          if (this.imageFiles.length <= 0) {
             ElMessage({
-               message: "Nên chọn ảnh cho danh mục",
+               message: "Chưa chọn ảnh đặc trưng cho danh mục",
                type: "warning",
             });
 

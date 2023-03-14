@@ -4,7 +4,7 @@
          <div class="card-header pb-0">
             <div class="row">
                <div class="col-md-12">
-                  <h6 class="mb-0 text-uppercase">Thêm sản phẩm</h6>
+                  <h6 class="mb-0 text-uppercase">Chỉnh sửa sản phẩm</h6>
                </div>
             </div>
          </div>
@@ -168,14 +168,6 @@
                            </div>
                         </template>
                      </el-upload>
-                     <el-dialog v-model="viewImageDialog.visible">
-                        <img
-                           class="image-preview"
-                           w-full
-                           :src="viewImageDialog.url"
-                           alt="Preview Image"
-                        />
-                     </el-dialog>
                   </div>
                   <!-- product images -->
                   <div class="col-md-12 mt-3">
@@ -200,14 +192,6 @@
                            </div>
                         </template>
                      </el-upload>
-                     <el-dialog v-model="viewImageDialog.visible">
-                        <img
-                           class="image-preview"
-                           w-full
-                           :src="viewImageDialog.url"
-                           alt="Preview Image"
-                        />
-                     </el-dialog>
                   </div>
                   <div class="col-md-12 mt-3">
                      <argon-textarea
@@ -381,29 +365,23 @@ export default {
             },
             (data) => {
                if (data.code === 1) {
-                  this.data.name = data.data.name;
+						this.data = {
+							...data.data,
+							originPrice: +data.data.originPrice,
+							promotionPrice: +data.data.promotionPrice,
+							isSpecial: +data.data.isSpecial == 1,
+							isNew: +data.data.isNew == 1,
+							isBestOffer: +data.data.isBestOffer == 1,
+							productCategoryId: +data.data.productCategoryId,
+							featureImageId: +data.data.featureImageId,
+						};
 
-                  this.data.originPrice = data.data.originPrice;
-                  this.data.promotionPrice = data.data.promotionPrice;
-
-						this.data.unit = data.data.unit;
-
-                  this.data.isSpecial = +data.data.isSpecial == 1;
-                  this.data.isNew = +data.data.isNew == 1;
-                  this.data.isBestOffer = +data.data.isBestOffer == 1;
-
-                  this.data.productCategoryId = +data.data.productCategoryId;
-
-                  this.data.featureImageId = +data.data.featureImageId;
                   this.featureImageFiles[0] = {
                      id: +data.data.featureImageId,
                      url: data.data.featureImageUrl,
                   };
 
                   this.getProductImageList();
-
-                  this.data.shortDescription = data.data.shortDescription;
-                  this.data.description = data.data.description;
 
                   // Binding data
                   this.bindingData();

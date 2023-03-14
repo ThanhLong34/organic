@@ -1,3 +1,90 @@
+/*? RESET STYLE */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+}
+
+html {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 16px;
+	text-rendering: optimizeLegibility;
+	background-color: white;
+	color: black;
+	-webkit-text-size-adjust: 100%;
+	height: 100%;
+	min-height: 100% !important;
+	/* //! Lưu ý: tính năng này chỉ hoạt động khi chức năng Smooth Scrolling trên trình duyệt đã được Enabled */
+	/* //* Truy cập: chrome://flags/#smooth-scrolling */
+	scroll-behavior: smooth; /* cuộn trang mượt hơn */
+	/* //! caution: this property is experimental */
+	/* appearance: none; //* định dạng cho thành phần trông như giao diện chuẩn gần với người dùng */
+}
+
+body {
+	overflow-x: hidden;
+	height: 100%;
+	min-height: 100% !important;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+	-webkit-tap-highlight-color: transparent;
+	text-decoration: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+button,
+input,
+textarea,
+select {
+	outline: none;
+	border: none;
+	-webkit-tap-highlight-color: transparent;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	font-weight: 500;
+	color: inherit;
+}
+
+input,
+textarea,
+select {
+	border: 1px solid #333;
+	caret-color: #333;
+	display: block;
+}
+
+button {
+	cursor: pointer;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+// img {
+// 	display: block;
+// 	width: 100%;
+// 	height: auto;
+// 	object-fit: cover;
+// 	object-position: center;
+// }
+
+address {
+	font-style: normal;
+}
+
+//? CUSTOM
+
 .text-uppercase {
 	text-transform: uppercase !important;
 }
@@ -84,23 +171,40 @@ i.controller-icon {
 }
 
 .image-preview {
-   object-fit: contain;
-   object-position: center;
-   width: 100%;
-   aspect-ratio: 1/1;
-   max-height: 65vh;
+	object-fit: contain;
+	object-position: center;
+	width: 100%;
+	aspect-ratio: 1/1;
+	max-height: 65vh;
 }
 
 .feature-image-upload {
 	width: 100% !important;
 
-	.el-upload-list, .el-upload, .el-upload-list__item {
+	.el-upload-list,
+	.el-upload,
+	.el-upload-list__item {
 		width: 100% !important;
 	}
 }
 
 .image-contain {
 	object-fit: contain;
-   object-position: center;
+	object-position: center;
 	aspect-ratio: 1/1;
+}
+
+.border-dashed {
+	border: 1px dashed #e0e0e0;
+}
+
+//? View content
+.view-content {
+	* {
+		font-size: 0.8rem;
+	}
+
+	img {
+		width: 100%;
+	}
 }

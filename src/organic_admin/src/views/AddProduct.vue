@@ -161,14 +161,6 @@
                            </div>
                         </template>
                      </el-upload>
-                     <el-dialog v-model="viewImageDialog.visible">
-                        <img
-                           class="image-preview"
-                           w-full
-                           :src="viewImageDialog.url"
-                           alt="Preview Image"
-                        />
-                     </el-dialog>
                   </div>
                   <!-- product images -->
                   <div class="col-md-12 mt-3">
@@ -193,14 +185,6 @@
                            </div>
                         </template>
                      </el-upload>
-                     <el-dialog v-model="viewImageDialog.visible">
-                        <img
-                           class="image-preview"
-                           w-full
-                           :src="viewImageDialog.url"
-                           alt="Preview Image"
-                        />
-                     </el-dialog>
                   </div>
                   <div class="col-md-12 mt-3">
                      <argon-textarea
@@ -390,7 +374,7 @@ export default {
             return false;
          }
 
-         if (this.data.featureImageId === null) {
+         if (this.data.featureImageId === null || this.featureImageFiles.length <= 0) {
             ElMessage({
                message: "Chưa chọn ảnh đặc trưng cho sản phẩm",
                type: "warning",

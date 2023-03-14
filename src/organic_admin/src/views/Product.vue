@@ -366,6 +366,15 @@
                   </div>
                </div>
             </div>
+            <!-- View dialog -->
+            <div v-if="viewDialog.visible">
+               <el-dialog v-model="viewDialog.visible">
+                  <ViewProductDetailsDialog
+                     :itemIdSelect="itemIdSelect"
+                     @onCloseDialog="handleCloseDialog"
+                  />
+               </el-dialog>
+            </div>
          </div>
       </div>
    </div>
@@ -378,6 +387,8 @@ import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
+
+import ViewProductDetailsDialog from "./components/dialogs/ViewProductDetailsDialog.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
@@ -393,10 +404,11 @@ export default {
       ArgonButton,
       ArgonPagination,
       ArgonPaginationItem,
+      ViewProductDetailsDialog,
    },
    data() {
       return {
-         // funcs
+         // Funcs
          toVND: Funcs.toVND,
 
          // Import constants
@@ -445,11 +457,7 @@ export default {
          itemIdSelect: "",
 
          // Add dialog
-         addDialog: {
-            visible: false,
-         },
-         // Edit dialog
-         editDialog: {
+         viewDialog: {
             visible: false,
          },
 
@@ -457,7 +465,7 @@ export default {
       };
    },
    methods: {
-		getProductImageList(id) {
+      getProductImageList(id) {
          return API.get(
             apiPath + `/product_image/get_list_by_product_id.php`,
             {
@@ -465,7 +473,9 @@ export default {
             },
             (data) => {
                if (data.code === 1) {
-                  this.imageIdListRemovedWhenDeleteProduct = data.data.map((i) => +i.imageId);
+                  this.imageIdListRemovedWhenDeleteProduct = data.data.map(
+                     (i) => +i.imageId
+                  );
                } else {
                   ElMessage({
                      message: data.message,
@@ -554,6 +564,7 @@ export default {
                   this.tableData = data.data.map((item) => ({
                      ...item,
                      id: +item.id,
+                     featureImageId: +item.featureImageId,
                      originPrice: +item.originPrice,
                      promotionPrice: +item.promotionPrice,
                      isSpecial: +item.isSpecial == 1,
@@ -619,15 +630,14 @@ export default {
                      type: "success",
                   });
 
-						// Lấy ảnh của product bị xóa
-						await this.getProductImageList(id);
+                  // Lấy ảnh của product bị xóa
+                  await this.getProductImageList(id);
 
-						// Xóa ảnh của product bị xóa
-						await this.handleDeleteProductImageWhenDeleteProduct(id);
+                  // Xóa ảnh của product bị xóa
+                  await this.handleDeleteProductImageWhenDeleteProduct(id);
 
-						// Reload lại dữ liệu
+                  // Reload lại dữ liệu
                   await this.reloadDataCurrentPage();
-
                } else {
                   ElMessage({
                      message: data.message,
@@ -706,7 +716,7 @@ export default {
       handleRedirectToEditProductView(id) {
          this.$router.push({ name: menus.EditProduct, params: { id } });
       },
-		handleDeleteProductImageWhenDeleteProduct(id) {
+      handleDeleteProductImageWhenDeleteProduct(id) {
          return API.remove(
             apiPath + `/product_image/delete_list.php`,
             {
@@ -725,9 +735,15 @@ export default {
             }
          );
       },
-		handleOpenViewProductDetailsDialog(id) {
-
-		}
+      handleOpenViewProductDetailsDialog(id) {
+         this.itemIdSelect = id;
+         this.viewDialog.visible = true;
+      },
+      handleCloseDialog(type) {
+         if (type === "view") {
+            this.viewDialog.visible = false;
+         }
+      },
    },
    async created() {
       await this.getProductCategoryList();

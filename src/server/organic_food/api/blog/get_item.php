@@ -20,14 +20,14 @@ header("Content-Type: application/json");
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "GetProductItem";
+$functionName = "GetBlogItem";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "product";
+$tableName = "blog";
 $id = $_GET["id"] ?? 0;
 
 
@@ -53,10 +53,10 @@ function getItem($id)
    }
 
    // Thực thi query
-   $query = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
+   $query = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `systemadmin`.`nickname` AS 'systemAdminNickname'
       FROM `$tableName` 
       LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
-      LEFT JOIN `productcategory` ON `productcategory`.`id` = `$tableName`.`productCategoryId`
+      LEFT JOIN `systemadmin` ON `systemadmin`.`id` = `$tableName`.`systemAdminId`
       WHERE `$tableName`.`id` = '$id' AND `$tableName`.`deletedAt` IS NULL LIMIT 1";
    performsQueryAndResponseToClient($query);
 

@@ -13,35 +13,36 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
 
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "GetProductItem";
+$functionName = "TrashBlog";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "product";
-$id = $_GET["id"] ?? 0;
+$tableName = "blog";
+$data = getJSONPayloadRequest();
+$id = $data["id"] ?? 0;
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Lấy item theo id
-getItem($id);
+// ✅ Chuyển item vào thùng rác
+trashItem($data["id"]);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function getItem($id)
+function trashItem($id)
 {
    global $connect, $tableName;
 
@@ -52,12 +53,16 @@ function getItem($id)
       return;
    }
 
+   // createdAt, updateAt, deletedAt
+   $deletedAt = getCurrentDatetime();
+
+   // Các chuỗi truy vấn
+   $baseQuery = "UPDATE `$tableName` SET `deletedAt` = '$deletedAt'";
+   $mainQuery = "";
+   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+
    // Thực thi query
-   $query = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
-      FROM `$tableName` 
-      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
-      LEFT JOIN `productcategory` ON `productcategory`.`id` = `$tableName`.`productCategoryId`
-      WHERE `$tableName`.`id` = '$id' AND `$tableName`.`deletedAt` IS NULL LIMIT 1";
+   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -72,16 +77,10 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $item = $result->fetch_object();
-      if ($item != null) {
-         $response = new ResponseAPI(1, "Thành công", $item, 1);
-         $response->send();
-      } else {
-         $response = new ResponseAPI(2, "Không tìm thấy");
-         $response->send();
-      }
+      $response = new ResponseAPI(1, "Thành công");
+      $response->send();
    } else {
-      $response = new ResponseAPI(3, "Thất bại");
+      $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
 }
