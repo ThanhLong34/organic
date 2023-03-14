@@ -13,68 +13,55 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: PUT");
+header("Access-Control-Allow-Methods: DELETE");
 header("Content-Type: application/json");
 
 
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "UpdateSystemRole";
+$functionName = "DeleteProduct";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "systemrole";
+$tableName = "product";
 $data = getJSONPayloadRequest();
 $id = $data["id"] ?? 0;
-$name = trim($data["name"] ?? "");
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Cập nhật item
-updateItem($id, $name);
+// ✅ Xóa item theo id
+deleteItem($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $name)
+function deleteItem($id)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($name === "")) {
+   if ($id === 0) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
-   // createdAt, updateAt, deletedAt
-   $updatedAt = getCurrentDatetime();
-
-   // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
-   $mainQuery = "";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
-
-   // Cập nhật name
-   if ($name !== "") {
-      if (checkItemExist($name)) {
-         $response = new ResponseAPI(3, "Tên vai trò đã tồn tại");
-         $response->send();
-         return;
-      } else {
-         $mainQuery .= "," . "`name` = '$name'";
-      }
+   // Kiểm tra item đã đánh dấu trong thùng rác chưa
+   if (!checkItemInTrash($id)) {
+      $response = new ResponseAPI(3, "Xóa thất bại, đối tượng chưa được chuyển vào thùng rác");
+      $response->send();
+      return;
    }
 
    // Thực thi query
-   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
+   $query = "DELETE FROM `$tableName` WHERE `id` = $id AND `deletedAt` IS NOT NULL";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -85,7 +72,6 @@ function updateItem($id, $name)
 function performsQueryAndResponseToClient($query)
 {
    global $connect;
-
    $result = mysqli_query($connect, $query);
 
    if ($result) {
@@ -97,12 +83,12 @@ function performsQueryAndResponseToClient($query)
    }
 }
 
-// Kiểm tra item tồn tại trong CSDL theo các tiêu chí
-function checkItemExist($name)
+// Kiểm tra trường dữ liệu deletedAt có null không
+function checkItemInTrash($id)
 {
    global $connect, $tableName;
 
-   $query = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL AND `name` = '$name' LIMIT 1";
+   $query = "SELECT * FROM `$tableName` WHERE `id` = $id AND `deletedAt` IS NOT NULL LIMIT 1";
    $result = mysqli_query($connect, $query);
 
    if ($result && mysqli_num_rows($result) > 0) {

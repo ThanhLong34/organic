@@ -20,35 +20,36 @@ header("Content-Type: application/json");
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "UpdateSystemRole";
+$functionName = "UpdateProduct";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "systemrole";
+$tableName = "product";
 $data = getJSONPayloadRequest();
 $id = $data["id"] ?? 0;
 $name = trim($data["name"] ?? "");
+$featureImageId = $data["featureImageId"] ?? 0;
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Cập nhật item
-updateItem($id, $name);
+updateItem($id, $name, $featureImageId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $name)
+function updateItem($id, $name, $featureImageId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($name === "")) {
+   if ($id === 0 || ($name === "" && $featureImageId === 0)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -65,12 +66,17 @@ function updateItem($id, $name)
    // Cập nhật name
    if ($name !== "") {
       if (checkItemExist($name)) {
-         $response = new ResponseAPI(3, "Tên vai trò đã tồn tại");
+         $response = new ResponseAPI(3, "Tên danh mục sản phẩm đã tồn tại");
          $response->send();
          return;
       } else {
          $mainQuery .= "," . "`name` = '$name'";
       }
+   }
+
+   // Cập nhật featureImageId
+   if ($featureImageId !== 0) {
+      $mainQuery .= "," . "`featureImageId` = '$featureImageId'";
    }
 
    // Thực thi query

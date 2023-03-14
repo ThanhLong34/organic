@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2023 at 09:07 AM
+-- Generation Time: Mar 14, 2023 at 04:45 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -96,7 +96,26 @@ CREATE TABLE `image` (
 INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filename`, `size`) VALUES
 (18, '21:13:02 06/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6405f4ee67a37.jpg', 'project_image6405f4ee67a37.jpg', 7662),
 (26, '10:10:06 11/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640bf10e41356.jpg', 'project_image640bf10e41356.jpg', 26476),
-(28, '15:01:59 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640d86f7b8e5b.jpg', 'project_image640d86f7b8e5b.jpg', 7662);
+(28, '15:01:59 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640d86f7b8e5b.jpg', 'project_image640d86f7b8e5b.jpg', 7662),
+(30, '15:31:28 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640d8de0d955b.png', 'project_image640d8de0d955b.png', 2494),
+(47, '16:53:11 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640da107d22ef.png', 'project_image640da107d22ef.png', 2696),
+(48, '18:23:20 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640db628c6902.png', 'project_image640db628c6902.png', 2654),
+(54, '18:40:15 12/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640dba1f29dab.png', 'project_image640dba1f29dab.png', 2781),
+(63, '09:25:14 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640e898a0963b.png', 'project_image640e898a0963b.png', 153141),
+(64, '09:29:25 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640e8a85798f8.png', 'project_image640e8a85798f8.png', 116809),
+(65, '11:04:09 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640ea0b9e565c.png', 'project_image640ea0b9e565c.png', 93226),
+(66, '11:06:14 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640ea1366ae8c.png', 'project_image640ea1366ae8c.png', 108709),
+(67, '11:08:22 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640ea1b6d9b28.png', 'project_image640ea1b6d9b28.png', 120993),
+(68, '11:09:26 13/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640ea1f6eddd0.png', 'project_image640ea1f6eddd0.png', 129577),
+(86, '10:16:11 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe6fb60723.png', 'project_image640fe6fb60723.png', 120993),
+(87, '10:16:14 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe6fed4568.png', 'project_image640fe6fed4568.png', 120993),
+(88, '10:16:18 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe702cba60.png', 'project_image640fe702cba60.png', 129577),
+(89, '10:16:21 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe705c0c88.png', 'project_image640fe705c0c88.png', 108709),
+(90, '10:18:46 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe7964d8d4.png', 'project_image640fe7964d8d4.png', 108709),
+(91, '10:21:38 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe842a44f1.png', 'project_image640fe842a44f1.png', 2781),
+(92, '10:21:45 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe8492583e.png', 'project_image640fe8492583e.png', 116809),
+(93, '10:23:10 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe89e2124f.png', 'project_image640fe89e2124f.png', 129577),
+(94, '10:24:35 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image640fe8f3c9361.png', 'project_image640fe8f3c9361.png', 153141);
 
 -- --------------------------------------------------------
 
@@ -165,13 +184,30 @@ CREATE TABLE `product` (
   `name` varchar(255) NOT NULL,
   `originPrice` int(11) DEFAULT 0,
   `promotionPrice` int(11) DEFAULT 0,
-  `shortDescription` varchar(1000) DEFAULT NULL,
+  `shortDescription` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `isSpecial` tinyint(1) DEFAULT 0,
   `isNew` tinyint(1) DEFAULT 0,
   `isBestOffer` tinyint(1) DEFAULT 0,
   `productCategoryId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImageId`, `name`, `originPrice`, `promotionPrice`, `shortDescription`, `description`, `isSpecial`, `isNew`, `isBestOffer`, `productCategoryId`) VALUES
+(1, '09:27:39 13/03/2023', NULL, NULL, 63, 'Bắp cải tươi', 200000, 160000, 'Short desc', 'Desc', 1, 0, 0, 1),
+(2, '09:31:04 13/03/2023', NULL, NULL, 64, 'Mứt dâu', 180000, 180000, 'Short desc 1', 'Desc 1', 0, 1, 0, 3),
+(3, '11:05:02 13/03/2023', NULL, NULL, 65, 'Chuối rừng Amazon', 180000, 180000, 'Short desc 1', 'Desc 1', 1, 1, 0, 2),
+(4, '11:07:17 13/03/2023', NULL, NULL, 66, 'Cà chua boom', 220000, 200000, 'Short desc 2', 'Desc 2', 1, 0, 0, 2),
+(5, '11:08:53 13/03/2023', NULL, NULL, 67, 'Táo đỏ', 300000, 200000, 'Short desc 4', 'Desc 4', 0, 0, 1, 3),
+(6, '11:10:08 13/03/2023', NULL, NULL, 68, 'Hành tươi quỷ quyệt', 500000, 200000, 'Short desc 5', 'Desc 5', 0, 0, 1, 4),
+(7, '10:16:48 14/03/2023', NULL, NULL, 86, 'Trái ác quỷ :))', 300, 300, 'Trái ác quỷ ăn vào sẽ rất là mạnh', '<h1>AHIHI TRÁI ÁC QUỶ NÈ</h1><p>ăn điiii</p>', 1, 0, 0, 2),
+(8, '10:18:58 14/03/2023', NULL, NULL, 90, 'Trái thần tiên', 500, 300, 'ahihi desc', '<p>DESC</p>', 1, 1, 1, 2),
+(9, '10:21:48 14/03/2023', NULL, NULL, 92, 'abc', 1200, 1200, 'Hello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt', '<p><br></p>', 1, 0, 0, 4),
+(10, '10:23:27 14/03/2023', NULL, NULL, 93, 'gtset1', 123, 12, 'Hello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt NameHello Việt Name ahiyhihi', '<p><br></p>', 0, 0, 0, 3),
+(11, '10:24:37 14/03/2023', NULL, NULL, 94, 'test2', 12, 12, '', '<p><br></p>', 0, 0, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -187,6 +223,16 @@ CREATE TABLE `productcategory` (
   `name` varchar(255) NOT NULL,
   `featureImageId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `productcategory`
+--
+
+INSERT INTO `productcategory` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`, `featureImageId`) VALUES
+(1, '15:32:45 12/03/2023', '10:42:16 14/03/2023', NULL, 'Rau củ 123', 54),
+(2, '15:57:54 12/03/2023', '11:05:33 13/03/2023', NULL, 'Trái cây', 30),
+(3, '16:53:17 12/03/2023', NULL, NULL, 'Bông', 47),
+(4, '18:23:24 12/03/2023', '11:05:46 13/03/2023', NULL, 'Quả to', 48);
 
 -- --------------------------------------------------------
 
@@ -217,6 +263,15 @@ CREATE TABLE `product_image` (
   `productId` int(11) NOT NULL,
   `imageId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product_image`
+--
+
+INSERT INTO `product_image` (`productId`, `imageId`) VALUES
+(7, 87),
+(7, 88),
+(7, 89);
 
 -- --------------------------------------------------------
 
@@ -338,7 +393,21 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (47, '18:11:21 11/03/2023', NULL, NULL, 'image/get_list.php', 'GetImageList', 'Get image list', 'GET', 0),
 (48, '18:11:54 11/03/2023', NULL, NULL, 'image/upload.php', 'UploadImage', 'Upload image', 'POST', 0),
 (49, '18:15:08 11/03/2023', NULL, NULL, '', 'RemoveImageDontUse', 'Remove image dont use', '', 0),
-(50, '18:15:46 11/03/2023', NULL, NULL, '', 'ViewImage', 'View image', '', 0);
+(50, '18:15:46 11/03/2023', NULL, NULL, '', 'ViewImage', 'View image', '', 0),
+(51, '15:41:03 12/03/2023', NULL, NULL, 'product_category/add.php', 'AddProductCategory', 'Add product category', 'POST', 0),
+(52, '15:41:27 12/03/2023', NULL, NULL, 'product_category/delete.php', 'DeleteProductCategory', 'Delete product category', 'DELETE', 0),
+(53, '15:41:48 12/03/2023', NULL, NULL, 'product_category/delete.php', 'GetProductCategoryItem', 'Get product category item', 'GET', 0),
+(54, '15:42:20 12/03/2023', NULL, NULL, 'product_category/get_list.php', 'GetProductCategoryList', 'Get product category list', 'GET', 0),
+(55, '15:42:49 12/03/2023', NULL, NULL, 'product_category/trash.php', 'TrashProductCategory', 'Trash product category', 'PUT', 0),
+(56, '15:43:30 12/03/2023', NULL, NULL, 'product_category/update.php', 'UpdateProductCategory', 'Update product category', 'PUT', 0),
+(57, '08:58:15 13/03/2023', NULL, NULL, 'product/add.php', 'AddProduct', 'Add product', 'POST', 0),
+(58, '08:58:39 13/03/2023', NULL, NULL, 'product/delete.php', 'DeleteProduct', 'Delete product', 'DELETE', 0),
+(59, '08:58:58 13/03/2023', NULL, NULL, 'product/get_item.php', 'GetProductItem', 'Get product item', 'GET', 0),
+(60, '08:59:18 13/03/2023', NULL, NULL, 'product/get_list.php', 'GetProductList', 'Get product list', 'GET', 0),
+(61, '08:59:43 13/03/2023', NULL, NULL, 'product/trash.php', 'TrashProduct', 'Trash product', 'PUT', 0),
+(62, '09:00:05 13/03/2023', NULL, NULL, 'product/update.php', 'UpdateProduct', 'Update product', 'PUT', 0),
+(63, '09:49:20 14/03/2023', NULL, NULL, 'product_image/add_list.php', 'AddProductImageList', 'Add product image list', 'POST', 0),
+(64, '10:05:12 14/03/2023', NULL, NULL, 'product_image/delete_list.php', 'DeleteProductImageList', 'Delete product image list', 'DELETE', 0);
 
 -- --------------------------------------------------------
 
@@ -475,7 +544,23 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (1, 47),
 (1, 48),
 (1, 49),
-(1, 50);
+(1, 50),
+(3, 46),
+(3, 47),
+(3, 48),
+(3, 50),
+(3, 51),
+(3, 53),
+(3, 54),
+(3, 55),
+(3, 56),
+(3, 57),
+(3, 59),
+(3, 60),
+(3, 61),
+(3, 62),
+(3, 63),
+(3, 64);
 
 -- --------------------------------------------------------
 
@@ -669,7 +754,7 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -687,13 +772,13 @@ ALTER TABLE `orderstatus`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `productcategory`
 --
 ALTER TABLE `productcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `productreview`
@@ -717,7 +802,7 @@ ALTER TABLE `systemadmin`
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`

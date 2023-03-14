@@ -5,74 +5,76 @@
             <div class="col-md-12">
                <h6 class="mb-0 text-uppercase">Thêm chức năng</h6>
             </div>
-            <div class="col-md-12 pt-3">
-               <!-- name -->
-               <label for="example-text-input" class="form-control-label">
-                  Tên chức năng
-                  <span class="star-input-required">*</span>
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập tên chức năng. VD: AddAccount"
-                  v-model="data.name"
-               />
-               <!-- description -->
-               <label for="example-text-input" class="form-control-label">
-                  Mô tả
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập mô tả"
-                  v-model="data.description"
-               />
-               <!-- apiPath -->
-               <label for="example-text-input" class="form-control-label">
-                  Đường dẫn API
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập đường dẫn API. VD: account/add.php"
-                  v-model="data.apiPath"
-               />
-               <!-- method -->
-               <label for="example-text-input" class="form-control-label">
-                  Phương thức
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập phương thức. VD: GET, POST"
-                  v-model="data.method"
-               />
-               <!-- isBase -->
-               <label for="example-text-input" class="form-control-label">
-                  Trạng thái Base
-               </label>
-               <argon-switch v-model="data.isBase">
-                  {{ data.isBase ? "Có" : "Không" }}
-               </argon-switch>
-            </div>
          </div>
       </div>
-      <div class="card-body pt-4 p-4">
-         <div class="action-btns text-end">
-            <argon-button
-               color="success"
-               size="sm"
-               variant="gradient"
-               class="action-btn me-4"
-               @click="handleSubmit"
-            >
-               Lưu
-            </argon-button>
-            <argon-button
-               color="warning"
-               size="sm"
-               variant="gradient"
-               class="action-btn"
-               @click="handleCloseDialog"
-            >
-               Hủy
-            </argon-button>
+      <div class="card-body pt-3 p-4">
+         <div class="col-md-12">
+            <!-- name -->
+            <label for="example-text-input" class="form-control-label">
+               Tên chức năng
+               <span class="star-input-required">*</span>
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập tên chức năng. VD: AddAccount"
+               v-model="data.name"
+            />
+            <!-- description -->
+            <label for="example-text-input" class="form-control-label">
+               Mô tả
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập mô tả"
+               v-model="data.description"
+            />
+            <!-- apiPath -->
+            <label for="example-text-input" class="form-control-label">
+               Đường dẫn API
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập đường dẫn API. VD: account/add.php"
+               v-model="data.apiPath"
+            />
+            <!-- method -->
+            <label for="example-text-input" class="form-control-label">
+               Phương thức
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập phương thức. VD: GET, POST"
+               v-model="data.method"
+            />
+            <!-- isBase -->
+            <label for="example-text-input" class="form-control-label">
+               Trạng thái Base
+            </label>
+            <argon-switch v-model="data.isBase">
+               {{ data.isBase ? "Có" : "Không" }}
+            </argon-switch>
+         </div>
+         <div class="col-md-12 pt-3">
+            <div class="action-btns text-end">
+               <argon-button
+                  color="success"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn me-4"
+                  @click="handleSubmit"
+               >
+                  Lưu
+               </argon-button>
+               <argon-button
+                  color="warning"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn"
+                  @click="handleCloseDialog"
+               >
+                  Hủy
+               </argon-button>
+            </div>
          </div>
       </div>
    </div>

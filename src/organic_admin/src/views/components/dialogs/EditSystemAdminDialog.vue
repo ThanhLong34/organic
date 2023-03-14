@@ -5,48 +5,50 @@
             <div class="col-md-12">
                <h6 class="mb-0 text-uppercase">Chỉnh sửa admin</h6>
             </div>
-            <div class="col-md-12 pt-3">
-               <!-- systemRoleId -->
-               <div class="selection-wrap">
-                  <label for="example-text-input" class="form-control-label"
-                     >Vai trò <span class="star-input-required">*</span></label
-                  >
-                  <el-select
-                     v-model="dataChange.systemRoleId"
-                     filterable
-                     placeholder="Chọn vai trò"
-                  >
-                     <el-option
-                        v-for="item in systemRoleList"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id"
-                     />
-                  </el-select>
-               </div>
-            </div>
          </div>
       </div>
-      <div class="card-body pt-4 p-4">
-         <div class="action-btns text-end">
-            <argon-button
-               color="success"
-               size="sm"
-               variant="gradient"
-               class="action-btn me-4"
-               @click="handleSubmit"
-            >
-               Lưu
-            </argon-button>
-            <argon-button
-               color="warning"
-               size="sm"
-               variant="gradient"
-               class="action-btn"
-               @click="handleCloseDialog"
-            >
-               Hủy
-            </argon-button>
+      <div class="card-body pt-3 p-4">
+         <div class="col-md-12">
+            <!-- systemRoleId -->
+            <div class="selection-wrap">
+               <label for="example-text-input" class="form-control-label"
+                  >Vai trò <span class="star-input-required">*</span></label
+               >
+               <el-select
+                  v-model="dataChange.systemRoleId"
+                  filterable
+                  placeholder="Chọn vai trò"
+               >
+                  <el-option
+                     v-for="item in systemRoleList"
+                     :key="item.id"
+                     :label="item.name"
+                     :value="item.id"
+                  />
+               </el-select>
+            </div>
+         </div>
+         <div class="col-md-12 pt-3">
+            <div class="action-btns text-end">
+               <argon-button
+                  color="success"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn me-4"
+                  @click="handleSubmit"
+               >
+                  Lưu
+               </argon-button>
+               <argon-button
+                  color="warning"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn"
+                  @click="handleCloseDialog"
+               >
+                  Hủy
+               </argon-button>
+            </div>
          </div>
       </div>
    </div>
@@ -75,18 +77,18 @@ export default {
          data: {
             id: 0,
          },
-			dataChange: {
-				systemRoleId: null,
-			},
-			systemRoleList: []
+         dataChange: {
+            systemRoleId: null,
+         },
+         systemRoleList: [],
       };
    },
    methods: {
-		async getSystemRoleList() {
+      async getSystemRoleList() {
          return API.get(apiPath + `/system_role/get_list.php`, {}, (data) => {
             if (data.code === 1) {
                this.systemRoleList = data.data.map((i) => ({
-						...i,
+                  ...i,
                   id: +i.id,
                }));
 

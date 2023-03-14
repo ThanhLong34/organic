@@ -65,6 +65,19 @@ const functions = {
 	UploadImage: "UploadImage",
 	RemoveImageDontUse: "RemoveImageDontUse",
 	ViewImage: "ViewImage",
+	AddProductCategory: "AddProductCategory",
+	DeleteProductCategory: "DeleteProductCategory",
+	GetProductCategoryItem: "GetProductCategoryItem",
+	GetProductCategoryList: "GetProductCategoryList",
+	UpdateProductCategory: "UpdateProductCategory",
+	TrashProductCategory: "TrashProductCategory",
+	AddProduct: "AddProduct",
+	DeleteProduct: "DeleteProduct",
+	GetProductItem: "GetProductItem",
+	GetProductList: "GetProductList",
+	UpdateProduct: "UpdateProduct",
+	TrashProduct: "TrashProduct",
+	AddProductImageList: "AddProductImageList",
 };
 
 export { menus, functions };

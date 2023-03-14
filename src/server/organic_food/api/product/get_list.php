@@ -20,19 +20,19 @@ header("Content-Type: application/json");
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "GetSystemRoleList";
+$functionName = "GetProductList";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "systemrole";
+$tableName = "product";
 $limit = $_GET["limit"] ?? 0; // limit = 0, hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? 0;
 $searchType = trim($_GET["searchType"] ?? ""); // Hợp lệ: name
 $searchValue = trim($_GET["searchValue"] ?? "");
-$fillType = trim($_GET["fillType"] ?? ""); // Hợp lệ: isBase
+$fillType = trim($_GET["fillType"] ?? ""); // Hợp lệ: isSpecial, isNew, isBestOffer, productCategoryId
 $fillValue = trim($_GET["fillValue"] ?? "");
 $orderby = trim($_GET["orderby"] ?? "id");
 $reverse = $_GET["reverse"] ?? "false"; // Hợp lệ: true, 1
@@ -55,7 +55,11 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    // Không cần kiểm tra dữ liệu payload
 
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL";
+   $baseQuery = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
+      FROM `$tableName` 
+      LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
+      LEFT JOIN `productcategory` ON `productcategory`.`id` = `$tableName`.`productCategoryId`
+      WHERE `$tableName`.`deletedAt` IS NULL";
    $optionQuery = "";
 
 
@@ -81,6 +85,8 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
 
       $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
    }
+
+   // echo($query);
 
    // Thực thi truy vấn
    performsQueryAndResponseToClient($query, $querySelectAllRecord);
