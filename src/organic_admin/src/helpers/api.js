@@ -112,6 +112,42 @@ export function put(
 		});
 }
 
+// Identifier expected. 'delete' is a reserved word that cannot be used here.
+export function remove(
+	url,
+	payload = {},
+	resolveCallback = () => {},
+	rejectCallback = () => {}
+) {
+	let api = url;
+
+	return fetch(api, {
+		method: "DELETE",
+		headers: {
+			"system-role-id": store.state.accountLogin?.systemRoleId ?? 0,
+		},
+		body: JSON.stringify(payload),
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			resolveCallback(data);
+			if (data.code === 9) {
+				ElMessage({
+					message: data.message,
+					type: "error",
+				});
+			}
+		})
+		.catch((error) => {
+			ElMessage({
+				message: "Lỗi",
+				type: "error",
+			});
+			console.error(error);
+			rejectCallback(error);
+		});
+}
+
 export function deleteById(
 	url,
 	id,

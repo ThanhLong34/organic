@@ -85,7 +85,6 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.accessible.functions = data.data.map((i) => i.name);
-						console.log(this.accessible.functions);
                } else {
                   ElMessage({
                      message: data.message,

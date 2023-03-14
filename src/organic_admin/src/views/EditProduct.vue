@@ -22,6 +22,7 @@
                            <span class="star-input-required">*</span>
                         </label>
                         <argon-input
+                           ref="nameRef"
                            type="text"
                            icon="ni ni-app"
                            iconDir="left"
@@ -37,6 +38,7 @@
                            <span class="star-input-required">*</span>
                         </label>
                         <argon-input
+                           ref="originPriceRef"
                            type="number"
                            icon="ni ni-money-coins"
                            iconDir="left"
@@ -51,6 +53,7 @@
                            Giá ưu đãi
                         </label>
                         <argon-input
+                           ref="promotionPriceRef"
                            type="number"
                            icon="ni ni-money-coins"
                            iconDir="left"
@@ -70,6 +73,7 @@
                                  id="isSpecial"
                                  name="isSpecial"
                                  v-model="data.isSpecial"
+                                 :checked="data.isSpecial"
                               >
                                  Đặc biệt
                               </argon-switch>
@@ -79,6 +83,7 @@
                                  id="isNew"
                                  name="isNew"
                                  v-model="data.isNew"
+                                 :checked="data.isNew"
                               >
                                  Mới
                               </argon-switch>
@@ -88,6 +93,7 @@
                                  id="isBestOffer"
                                  name="isBestOffer"
                                  v-model="data.isBestOffer"
+                                 :checked="data.isBestOffer"
                               >
                                  Ưu đãi tốt
                               </argon-switch>
@@ -173,6 +179,7 @@
                   </div>
                   <div class="col-md-12 mt-3">
                      <argon-textarea
+                        ref="shortDescriptionRef"
                         placeholder="Nhập mô tả ngắn"
                         v-model="data.shortDescription"
                      >
@@ -247,8 +254,7 @@ export default {
    components: { ArgonButton, ArgonInput, ArgonSwitch, ArgonTextarea, Plus },
    data() {
       return {
-			data: {},
-         dataChange: {
+         data: {
             name: null,
             featureImageId: null,
             originPrice: null,
@@ -275,6 +281,9 @@ export default {
 
          // Quill editor
          quillEditorEnable: false,
+
+         imageIdListRemoved: [],
+         imageIdListUploaded: [],
       };
    },
    methods: {
@@ -304,6 +313,80 @@ export default {
                }
             }
          );
+      },
+      getProductImageList() {
+         return API.get(
+            apiPath + `/product_image/get_list_by_product_id.php`,
+            {
+               productId: this.data.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.imageFiles = data.data.map((i) => ({
+                     id: +i.imageId,
+                     url: i.imageUrl,
+                  }));
+
+                  // Not found data
+                  if (data.data.length === 0) {
+                     //
+                  }
+               } else {
+                  ElMessage({
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
+      getData() {
+         return API.get(
+            apiPath + `/${apiGroup}/get_item.php`,
+            {
+               id: this.data.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.data.name = data.data.name;
+
+                  this.data.originPrice = data.data.originPrice;
+                  this.data.promotionPrice = data.data.promotionPrice;
+
+                  this.data.isSpecial = +data.data.isSpecial == 1;
+                  this.data.isNew = +data.data.isNew == 1;
+                  this.data.isBestOffer = +data.data.isBestOffer == 1;
+
+                  this.data.productCategoryId = +data.data.productCategoryId;
+
+                  this.data.featureImageId = +data.data.featureImageId;
+                  this.featureImageFiles[0] = {
+                     id: +data.data.featureImageId,
+                     url: data.data.featureImageUrl,
+                  };
+
+                  this.getProductImageList();
+
+                  this.data.shortDescription = data.data.shortDescription;
+                  this.data.description = data.data.description;
+
+                  // Binding data
+                  this.bindingData();
+               } else {
+                  ElMessage({
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
+      bindingData() {
+         this.$refs.nameRef?.setValue(this.data.name);
+         this.$refs.originPriceRef?.setValue(this.data.originPrice);
+         this.$refs.promotionPriceRef?.setValue(this.data.promotionPrice);
+         this.$refs.shortDescriptionRef?.setValue(this.data.shortDescription);
+         this.$refs.quillEditorRef.setHTML(this.data.description);
       },
       handleDataProcessing() {
          // Chế biến lại dữ liệu
@@ -346,7 +429,7 @@ export default {
             return false;
          }
 
-         if (this.data.featureImageId === null) {
+         if (this.data.featureImageId === null || this.featureImageFiles.length <= 0) {
             ElMessage({
                message: "Chưa chọn ảnh đặc trưng cho sản phẩm",
                type: "warning",
@@ -361,20 +444,19 @@ export default {
          if (!this.validateBeforeSubmit()) return;
 
          return API.post(
-            apiPath + `/${apiGroup}/add.php`,
+            apiPath + `/${apiGroup}/update.php`,
             {
                ...this.data,
                description: this.$refs.quillEditorRef.getHTML(),
             },
-            (data) => {
+            async (data) => {
                if (data.code === 1) {
-                  ElMessage({
-                     message: "Thêm sản phẩm thành công",
-                     type: "success",
-                  });
-
-						// Lưu các ảnh của sản phẩm trong CSDL
-                  this.handleSubmitImageUploads(data.data.productId);
+                  // Lưu các ảnh của sản phẩm trong CSDL
+                  await this.handleSubmitImageUploads();
+						// Xóa các ảnh đã remove trong CSDL
+                  await this.handleDeleteProductImageRemoved();
+						// Kết thúc tác vụ chỉnh sửa sản phẩm
+                  await this.handleEndTask();
                } else {
                   ElMessage({
                      message: data.message,
@@ -384,16 +466,16 @@ export default {
             }
          );
       },
-      handleSubmitImageUploads(productId) {
-			return API.post(
+      handleSubmitImageUploads() {
+         return API.post(
             apiPath + `/product_image/add_list.php`,
             {
-               productId,
-					imageIdList: this.imageFiles.map(i => i.id)
+               productId: this.data.id,
+               imageIdList: this.imageIdListUploaded,
             },
             (data) => {
                if (data.code === 1) {
-                  this.$router.go(-1);
+                  //
                } else {
                   ElMessage({
                      message: data.message,
@@ -402,7 +484,26 @@ export default {
                }
             }
          );
-		},
+      },
+      handleDeleteProductImageRemoved() {
+         return API.remove(
+            apiPath + `/product_image/delete_list.php`,
+            {
+               productId: this.data.id,
+               imageIdList: this.imageIdListRemoved,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  //
+               } else {
+                  ElMessage({
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
       handleRedirectToBack() {
          this.$router.go(-1);
       },
@@ -416,7 +517,9 @@ export default {
          file.uid = genFileId();
          this.$refs["featureImageUploadRef"].handleStart(file);
       },
-      handleRemoveImagesUploaded(uploadFile) {},
+      handleRemoveImagesUploaded(uploadFile) {
+         this.imageIdListRemoved.push(uploadFile.id);
+      },
       handleUploadFeatureImage(uploadFile) {
          if (uploadFile.raw) {
             return API.uploadImage(
@@ -457,6 +560,8 @@ export default {
 
                      uploadFile.id = +data.data.id;
                      uploadFile.url = data.data.link;
+
+                     this.imageIdListUploaded.push(uploadFile.id);
                   } else {
                      ElMessage({
                         message: data.message,
@@ -467,14 +572,24 @@ export default {
             );
          }
       },
+      async handleEndTask() {
+         return Promise.resolve("Success").then(() => {
+            ElMessage({
+               message: "Chỉnh sửa sản phẩm thành công",
+               type: "success",
+            });
+            this.handleRedirectToBack();
+         });
+      },
       onReadyQuillEditor() {
          this.quillEditorEnable = true;
       },
    },
-   created() {
-		// this.data.id = this.$route.params.productId;
-		console.log(this.$route.params.id);
-      this.getProductCategoryList();
+   async created() {
+      this.data.id = this.$route.params.id;
+
+      await this.getProductCategoryList();
+      await this.getData();
    },
 };
 </script>

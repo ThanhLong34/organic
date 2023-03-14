@@ -78,6 +78,7 @@ const functions = {
 	UpdateProduct: "UpdateProduct",
 	TrashProduct: "TrashProduct",
 	AddProductImageList: "AddProductImageList",
+	GetProductImageListByProductId: "GetProductImageListByProductId",
 };
 
 export { menus, functions };
