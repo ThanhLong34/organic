@@ -312,7 +312,7 @@ export default {
          // View image dialog
          viewImageDialog: {
             visible: false,
-            url: "",
+            url: null,
          },
 
          // Actions
@@ -496,12 +496,4 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/my_styles/table.scss";
-
-.image-preview {
-   object-fit: contain;
-   object-position: center;
-   width: 100%;
-   aspect-ratio: 1/1;
-   max-height: 65vh;
-}
 </style>

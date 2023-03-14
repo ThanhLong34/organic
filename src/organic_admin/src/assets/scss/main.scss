@@ -82,3 +82,19 @@ i.controller-icon {
 		background-color: rgb(4, 200, 4);
 	}
 }
+
+.image-preview {
+   object-fit: contain;
+   object-position: center;
+   width: 100%;
+   aspect-ratio: 1/1;
+   max-height: 65vh;
+}
+
+.feature-image-upload {
+	width: 100% !important;
+
+	.el-upload-list, .el-upload, .el-upload-list__item {
+		width: 100% !important;
+	}
+}

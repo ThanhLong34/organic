@@ -13,68 +13,60 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: PUT");
+header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
 
-//? ====================
-//? CHECK PERMISSTION
-//? ====================
-$functionName = "UpdateSystemRole";
+// //? ====================
+// //? CHECK PERMISSTION
+// //? ====================
+$functionName = "AddProductCategory";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "systemrole";
+$tableName = "productcategory";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
 $name = trim($data["name"] ?? "");
+$featureImageId = $data["featureImageId"] ?? 0;
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Cập nhật item
-updateItem($id, $name);
+// ✅ Thêm item 
+addItem($name, $featureImageId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $name)
+function addItem($name, $featureImageId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($name === "")) {
+   if ($name === "" || $featureImageId === 0) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
-   // createdAt, updateAt, deletedAt
-   $updatedAt = getCurrentDatetime();
-
-   // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
-   $mainQuery = "";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
-
-   // Cập nhật name
-   if ($name !== "") {
-      if (checkItemExist($name)) {
-         $response = new ResponseAPI(3, "Tên vai trò đã tồn tại");
-         $response->send();
-         return;
-      } else {
-         $mainQuery .= "," . "`name` = '$name'";
-      }
+   // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
+   if (checkItemExist($name)) {
+      $response = new ResponseAPI(3, "Tên chức năng đã tồn tại");
+      $response->send();
+      return;
    }
 
+   // createdAt, updateAt, deletedAt
+   $createdAt = getCurrentDatetime();
+
    // Thực thi query
-   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
+   $query = "INSERT INTO `$tableName`(`createdAt`, `name`, `featureImageId`) 
+      VALUES('$createdAt', '$name', '$featureImageId')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

@@ -5,40 +5,42 @@
             <div class="col-md-12">
                <h6 class="mb-0 text-uppercase">Thêm vai trò</h6>
             </div>
-            <div class="col-md-12 pt-3">
-               <!-- name -->
-               <label for="example-text-input" class="form-control-label">
-                  Tên vai trò
-                  <span class="star-input-required">*</span>
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập tên vai trò"
-                  v-model="data.name"
-               />
-            </div>
          </div>
       </div>
-      <div class="card-body pt-4 p-4">
-         <div class="action-btns text-end">
-            <argon-button
-               color="success"
-               size="sm"
-               variant="gradient"
-               class="action-btn me-4"
-               @click="handleSubmit"
-            >
-               Lưu
-            </argon-button>
-            <argon-button
-               color="warning"
-               size="sm"
-               variant="gradient"
-               class="action-btn"
-               @click="handleCloseDialog"
-            >
-               Hủy
-            </argon-button>
+      <div class="card-body pt-3 p-4">
+         <div class="col-md-12">
+            <!-- name -->
+            <label for="example-text-input" class="form-control-label">
+               Tên vai trò
+               <span class="star-input-required">*</span>
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập tên vai trò"
+               v-model="data.name"
+            />
+         </div>
+         <div class="col-md-12 pt-3">
+            <div class="action-btns text-end">
+               <argon-button
+                  color="success"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn me-4"
+                  @click="handleSubmit"
+               >
+                  Lưu
+               </argon-button>
+               <argon-button
+                  color="warning"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn"
+                  @click="handleCloseDialog"
+               >
+                  Hủy
+               </argon-button>
+            </div>
          </div>
       </div>
    </div>

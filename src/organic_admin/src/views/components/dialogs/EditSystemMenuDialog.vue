@@ -5,59 +5,61 @@
             <div class="col-md-12">
                <h6 class="mb-0 text-uppercase">Chỉnh sửa menu</h6>
             </div>
-            <div class="col-md-12 pt-3">
-               <!-- routeName -->
-               <label for="example-text-input" class="form-control-label">
-                  Tên Route
-                  <span class="star-input-required">*</span>
-               </label>
-               <argon-input
-                  ref="routeNameRef"
-                  type="text"
-                  placeholder="Nhập tên Route"
-                  v-model="dataChange.routeName"
-               />
-               <!-- title -->
-               <label for="example-text-input" class="form-control-label">
-                  Tiêu đề
-                  <span class="star-input-required">*</span>
-               </label>
-               <argon-input
-                  ref="titleRef"
-                  type="text"
-                  placeholder="Nhập tiêu đề"
-                  v-model="dataChange.title"
-               />
-               <!-- isBase -->
-               <label for="example-text-input" class="form-control-label">
-                  Trạng thái Base
-               </label>
-               <argon-switch v-model="dataChange.isBase" :checked="data.isBase">
-                  {{ data.isBase ? "Có" : "Không" }}
-               </argon-switch>
-            </div>
          </div>
       </div>
-      <div class="card-body pt-4 p-4">
-         <div class="action-btns text-end">
-            <argon-button
-               color="success"
-               size="sm"
-               variant="gradient"
-               class="action-btn me-4"
-               @click="handleSubmit"
-            >
-               Lưu
-            </argon-button>
-            <argon-button
-               color="warning"
-               size="sm"
-               variant="gradient"
-               class="action-btn"
-               @click="handleCloseDialog"
-            >
-               Hủy
-            </argon-button>
+      <div class="card-body pt-3 p-4">
+         <div class="col-md-12">
+            <!-- routeName -->
+            <label for="example-text-input" class="form-control-label">
+               Tên Route
+               <span class="star-input-required">*</span>
+            </label>
+            <argon-input
+               ref="routeNameRef"
+               type="text"
+               placeholder="Nhập tên Route"
+               v-model="dataChange.routeName"
+            />
+            <!-- title -->
+            <label for="example-text-input" class="form-control-label">
+               Tiêu đề
+               <span class="star-input-required">*</span>
+            </label>
+            <argon-input
+               ref="titleRef"
+               type="text"
+               placeholder="Nhập tiêu đề"
+               v-model="dataChange.title"
+            />
+            <!-- isBase -->
+            <label for="example-text-input" class="form-control-label">
+               Trạng thái Base
+            </label>
+            <argon-switch v-model="dataChange.isBase" :checked="data.isBase">
+               {{ data.isBase ? "Có" : "Không" }}
+            </argon-switch>
+         </div>
+         <div class="col-md-12 pt-3">
+            <div class="action-btns text-end">
+               <argon-button
+                  color="success"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn me-4"
+                  @click="handleSubmit"
+               >
+                  Lưu
+               </argon-button>
+               <argon-button
+                  color="warning"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn"
+                  @click="handleCloseDialog"
+               >
+                  Hủy
+               </argon-button>
+            </div>
          </div>
       </div>
    </div>

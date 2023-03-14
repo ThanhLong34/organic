@@ -132,14 +132,12 @@ export default {
                   if (data.code === 1) {
 							this.avatarUrl = data.data.link;
                      this.handleUpdateAvatar(data.data.id);
+                  } else {
+                     ElMessage({
+                        message: data.message,
+                        type: "error",
+                     });
                   }
-               },
-               (error) => {
-                  ElMessage({
-                     message: "Có lỗi, thử lại sau",
-                     type: "error",
-                  });
-                  console.error(error);
                }
             );
          }

@@ -5,98 +5,100 @@
             <div class="col-md-12">
                <h6 class="mb-0 text-uppercase">Thêm admin</h6>
             </div>
-            <div class="col-md-12 pt-3">
-               <!-- username -->
-               <label for="example-text-input" class="form-control-label">
-                  Tên đăng nhập
-                  <span class="star-input-required">*</span>
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập tên đăng nhập, viết liền không dấu. VD: admin123"
-                  v-model="data.username"
-               />
-               <!-- password -->
-               <label for="example-text-input" class="form-control-label">
-                  Mật khẩu
-                  <span class="star-input-required">*</span>
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập mật khẩu"
-                  v-model="data.password"
-               />
-               <!-- nickname -->
-               <label for="example-text-input" class="form-control-label">
-                  Biệt danh
-                  <span class="star-input-required">*</span>
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập biệt danh"
-                  v-model="data.nickname"
-               />
-               <!-- email -->
-               <label for="example-text-input" class="form-control-label">
-                  Email
-                  <span class="star-input-required">*</span>
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập email"
-                  v-model="data.email"
-               />
-               <!-- phone -->
-               <label for="example-text-input" class="form-control-label">
-                  Số điện thoại
-                  <span class="star-input-required">*</span>
-               </label>
-               <argon-input
-                  type="text"
-                  placeholder="Nhập số điện thoại"
-                  v-model="data.phone"
-               />
-               <!-- systemRoleId -->
-               <div class="selection-wrap">
-                  <label for="example-text-input" class="form-control-label"
-                     >Vai trò <span class="star-input-required">*</span></label
-                  >
-                  <el-select
-                     v-model="data.systemRoleId"
-                     filterable
-                     placeholder="Chọn vai trò"
-                  >
-                     <el-option
-                        v-for="item in systemRoleList"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id"
-                     />
-                  </el-select>
-               </div>
-            </div>
          </div>
       </div>
-      <div class="card-body pt-4 p-4">
-         <div class="action-btns text-end">
-            <argon-button
-               color="success"
-               size="sm"
-               variant="gradient"
-               class="action-btn me-4"
-               @click="handleSubmit"
-            >
-               Lưu
-            </argon-button>
-            <argon-button
-               color="warning"
-               size="sm"
-               variant="gradient"
-               class="action-btn"
-               @click="handleCloseDialog"
-            >
-               Hủy
-            </argon-button>
+      <div class="card-body pt-3 p-4">
+         <div class="col-md-12">
+            <!-- username -->
+            <label for="example-text-input" class="form-control-label">
+               Tên đăng nhập
+               <span class="star-input-required">*</span>
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập tên đăng nhập, viết liền không dấu. VD: admin123"
+               v-model="data.username"
+            />
+            <!-- password -->
+            <label for="example-text-input" class="form-control-label">
+               Mật khẩu
+               <span class="star-input-required">*</span>
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập mật khẩu"
+               v-model="data.password"
+            />
+            <!-- nickname -->
+            <label for="example-text-input" class="form-control-label">
+               Biệt danh
+               <span class="star-input-required">*</span>
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập biệt danh"
+               v-model="data.nickname"
+            />
+            <!-- email -->
+            <label for="example-text-input" class="form-control-label">
+               Email
+               <span class="star-input-required">*</span>
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập email"
+               v-model="data.email"
+            />
+            <!-- phone -->
+            <label for="example-text-input" class="form-control-label">
+               Số điện thoại
+               <span class="star-input-required">*</span>
+            </label>
+            <argon-input
+               type="text"
+               placeholder="Nhập số điện thoại"
+               v-model="data.phone"
+            />
+            <!-- systemRoleId -->
+            <div class="selection-wrap">
+               <label for="example-text-input" class="form-control-label"
+                  >Vai trò <span class="star-input-required">*</span></label
+               >
+               <el-select
+                  v-model="data.systemRoleId"
+                  filterable
+                  placeholder="Chọn vai trò"
+               >
+                  <el-option
+                     v-for="item in systemRoleList"
+                     :key="item.id"
+                     :label="item.name"
+                     :value="item.id"
+                  />
+               </el-select>
+            </div>
+         </div>
+         <div class="col-md-12 pt-3">
+            <div class="action-btns text-end">
+               <argon-button
+                  color="success"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn me-4"
+                  @click="handleSubmit"
+               >
+                  Lưu
+               </argon-button>
+               <argon-button
+                  color="warning"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn"
+                  @click="handleCloseDialog"
+               >
+                  Hủy
+               </argon-button>
+            </div>
          </div>
       </div>
    </div>
@@ -125,7 +127,7 @@ export default {
             phone: "",
             systemRoleId: null,
          },
-			systemRoleList: []
+         systemRoleList: [],
       };
    },
    methods: {
@@ -133,7 +135,7 @@ export default {
          return API.get(apiPath + `/system_role/get_list.php`, {}, (data) => {
             if (data.code === 1) {
                this.systemRoleList = data.data.map((i) => ({
-						...i,
+                  ...i,
                   id: +i.id,
                }));
 
@@ -261,9 +263,9 @@ export default {
          this.$emit("onCloseDialog", "add");
       },
    },
-	created() {
-		this.getSystemRoleList();
-	}
+   created() {
+      this.getSystemRoleList();
+   },
 };
 </script>
 
