@@ -16,7 +16,7 @@
             </label>
             <argon-input
                type="text"
-               placeholder="Nhập tên Route"
+               placeholder="Nhập tên Route. VD: SystemAdmin"
                v-model="data.routeName"
             />
             <!-- title -->

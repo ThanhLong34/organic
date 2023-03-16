@@ -56,7 +56,7 @@ function addItem($name)
 
    // Kiểm tra item tồn tại trong CSDL theo các tiêu chí
    if (checkItemExist($name)) {
-      $response = new ResponseAPI(3, "Tên route đã tồn tại");
+      $response = new ResponseAPI(3, "Tên vai trò đã tồn tại");
       $response->send();
       return;
    }

@@ -38,7 +38,7 @@ $searchValue = trim($_GET["searchValue"] ?? ""); // string
 $fillType = trim($_GET["fillType"] ?? ""); // string
 $fillValue = trim($_GET["fillValue"] ?? ""); // string
 $orderby = trim($_GET["orderby"] ?? "id"); // string
-$reverse = $_GET["reverse"] ?? false; // boolean
+$reverse = ($_GET["reverse"] ?? "false") === "true"; // boolean
 
 //? ====================
 //? START
@@ -73,11 +73,11 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
 
       // Lấy danh sách id hình ảnh đang sử dụng
       $queries = [
-         "SELECT `featureImageId` FROM `blog` WHERE `featureImageId` IS NOT NULL",
-         "SELECT `featureImageId` FROM `productcategory` WHERE `featureImageId` IS NOT NULL",
+         "SELECT `featureImageId` FROM `blog` WHERE `featureImageId` IS NOT NULL AND `deletedAt` IS NULL",
+         "SELECT `featureImageId` FROM `productcategory` WHERE `featureImageId` IS NOT NULL AND `deletedAt` IS NULL",
          "SELECT `featureImageId` FROM `product` WHERE `featureImageId` IS NOT NULL AND `deletedAt` IS NULL",
          "SELECT `imageId` FROM `product_image`, `product` WHERE `imageId` IS NOT NULL AND `product`.`deletedAt` IS NULL",
-         "SELECT `avatarId` FROM `systemadmin` WHERE `avatarId` IS NOT NULL"
+         "SELECT `avatarId` FROM `systemadmin` WHERE `avatarId` IS NOT NULL AND `deletedAt` IS NULL"
       ];
       foreach ($queries as $key => $value) {
          $result = mysqli_query($connect, $value);
@@ -111,7 +111,7 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    //! Tùy chỉnh truy vấn theo các tiêu chí
    $querySelectAllRecord = $baseQuery . " " . $optionQuery;
    $orderbyQuery = "ORDER BY `$tableName`.`$orderby` ASC";
-   if (is_bool($reverse) && $reverse) {
+   if ($reverse) {
       $orderbyQuery = "ORDER BY `$tableName`.`$orderby` DESC";
    }
    $limitQuery = "LIMIT $limit OFFSET $offset";

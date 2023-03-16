@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2023 at 08:10 AM
+-- Generation Time: Mar 16, 2023 at 09:45 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -46,7 +46,8 @@ CREATE TABLE `blog` (
 INSERT INTO `blog` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImageId`, `title`, `description`, `content`, `systemAdminId`) VALUES
 (3, '22:20:14 14/03/2023', '22:31:03 14/03/2023', NULL, 197, 'Easy way to Build a Perfect Agency Website', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
 (4, '22:24:22 14/03/2023', NULL, NULL, 198, 'Zechsal Magnesium flakes especially made', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
-(5, '22:24:42 14/03/2023', NULL, NULL, 199, 'Our 6 of the Best Organic Grapes to Buy', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17);
+(5, '22:24:42 14/03/2023', NULL, NULL, 199, 'Our 6 of the Best Organic Grapes to Buy', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
+(8, '15:40:11 16/03/2023', '15:41:10 16/03/2023', '15:41:32 16/03/2023', 219, 'sfawfawfw', '', '<p>fwf</p>', 17);
 
 -- --------------------------------------------------------
 
@@ -151,25 +152,9 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (186, '16:30:09 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ea1d4834.png', 'project_image64103ea1d4834.png', 89306),
 (187, '16:30:38 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ebe01624.png', 'project_image64103ebe01624.png', 89306),
 (188, '16:30:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ec037d3f.jpg', 'project_image64103ec037d3f.jpg', 218814),
-(189, '21:11:25 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6410808d76bf0.png', 'project_image6410808d76bf0.png', 110896),
-(190, '21:11:36 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108098bee5f.jpg', 'project_image64108098bee5f.jpg', 38223),
-(191, '21:15:01 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108165dd1e6.jpg', 'project_image64108165dd1e6.jpg', 1187154),
-(192, '21:16:15 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641081af3d6f7.png', 'project_image641081af3d6f7.png', 57821),
-(193, '22:03:52 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108cd81d51d.jpg', 'project_image64108cd81d51d.jpg', 24481),
-(194, '22:07:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108dbc6ff44.jpg', 'project_image64108dbc6ff44.jpg', 38223),
-(195, '22:07:58 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108dcef397f.jpg', 'project_image64108dcef397f.jpg', 24481),
-(196, '22:11:03 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64108e87b46ad.png', 'project_image64108e87b46ad.png', 2781),
 (197, '22:19:47 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64109093e2bca.jpg', 'project_image64109093e2bca.jpg', 206436),
 (198, '22:24:16 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091a0433b4.jpg', 'project_image641091a0433b4.jpg', 297970),
-(199, '22:24:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091b80a830.jpg', 'project_image641091b80a830.jpg', 212053),
-(200, '22:38:08 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641094e0b749d.jpg', 'project_image641094e0b749d.jpg', 212053),
-(201, '10:30:06 16/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64128d3e56b20.jpg', 'project_image64128d3e56b20.jpg', 212053),
-(202, '10:31:51 16/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64128da701dca.jpg', 'project_image64128da701dca.jpg', 297970),
-(203, '10:31:57 16/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64128dad25648.jpg', 'project_image64128dad25648.jpg', 206436),
-(204, '10:34:57 16/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64128e61899b9.png', 'project_image64128e61899b9.png', 2781),
-(205, '10:35:44 16/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64128e9011fae.png', 'project_image64128e9011fae.png', 2781),
-(206, '10:35:47 16/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64128e931a4f8.png', 'project_image64128e931a4f8.png', 2457),
-(207, '10:40:31 16/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64128faf262ac.png', 'project_image64128faf262ac.png', 2494);
+(199, '22:24:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091b80a830.jpg', 'project_image641091b80a830.jpg', 212053);
 
 -- --------------------------------------------------------
 
@@ -262,9 +247,7 @@ INSERT INTO `product` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImag
 (23, '16:27:14 14/03/2023', '19:53:26 14/03/2023', NULL, 177, 'Hành củ tươi', 72000, 72000, 'kg', 'Organic food is usually good for the environment', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 0, 0, 4),
 (24, '16:28:50 14/03/2023', '10:22:41 16/03/2023', NULL, 180, 'Cà chua Alpha', 65000, 55000, 'kg', 'Cà chua như cuộc đời của bạn vậy', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 0, 1, 4),
 (25, '16:30:01 14/03/2023', NULL, NULL, 183, 'Táo thần', 320000, 300000, 'kg', 'Táo này ăn ngon lắm nha', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 0, 1, 2),
-(26, '16:31:21 14/03/2023', NULL, NULL, 186, 'Chuối rừng Amazon', 400000, 300000, 'kg', 'Chuối này hái ở tận rừng Amazon, nơi có những con khỉ vô cùng hung hãn', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 1, 1, 2),
-(27, '10:35:00 16/03/2023', '10:36:50 16/03/2023', NULL, 204, 'testing234', 30000, 30000, 'cai', '', '<p><br></p>', 0, 0, 0, 2),
-(28, '10:40:34 16/03/2023', NULL, NULL, 207, 'Test12afawf', 23, 23, 'cai', '', '<p><br></p>', 1, 1, 1, 15);
+(26, '16:31:21 14/03/2023', NULL, NULL, 186, 'Chuối rừng Amazon', 400000, 300000, 'kg', 'Chuối này hái ở tận rừng Amazon, nơi có những con khỉ vô cùng hung hãn', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -294,7 +277,8 @@ INSERT INTO `productcategory` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `nam
 (13, '13:43:28 14/03/2023', '14:45:36 14/03/2023', NULL, 'Quả mọng & Hạt', 130),
 (14, '13:43:44 14/03/2023', '14:36:40 14/03/2023', NULL, 'Nấm', 126),
 (15, '14:25:59 14/03/2023', '14:56:20 14/03/2023', NULL, 'Gia vị', 134),
-(16, '14:27:36 14/03/2023', '14:36:59 14/03/2023', NULL, 'Trứng', 127);
+(16, '14:27:36 14/03/2023', '14:36:59 14/03/2023', NULL, 'Trứng', 127),
+(18, '14:58:00 16/03/2023', '15:42:15 16/03/2023', '15:42:18 16/03/2023', 'CategoryTesting1234124', 221);
 
 -- --------------------------------------------------------
 
@@ -354,9 +338,7 @@ INSERT INTO `product_image` (`productId`, `imageId`) VALUES
 (25, 184),
 (25, 185),
 (26, 187),
-(26, 188),
-(27, 205),
-(27, 206);
+(26, 188);
 
 -- --------------------------------------------------------
 
@@ -412,7 +394,8 @@ INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `usernam
 (4, '18:08:50 04/03/2023', '10:08:36 07/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
 (5, '18:46:33 04/03/2023', '10:01:40 16/03/2023', NULL, 'client', '202cb962ac59075b964b07152d234b70', 'Client', 'dragondevshop@gmail.com', '0353292241', 26, 2),
 (16, '14:26:09 07/03/2023', '10:47:42 11/03/2023', NULL, 'websitemanager1', '6c6f8143b6241ee993cedd1ad5f402cc', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
-(17, '11:36:09 11/03/2023', '22:23:17 14/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3);
+(17, '11:36:09 11/03/2023', '22:23:17 14/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3),
+(19, '14:26:58 16/03/2023', '14:51:29 16/03/2023', '14:52:03 16/03/2023', 'testingadmin', '202cb962ac59075b964b07152d234b70', 'Testing Admin', '2014468@dlu.edu.vn', '0123456789', 208, 3);
 
 -- --------------------------------------------------------
 
@@ -461,7 +444,7 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (23, '15:02:56 08/03/2023', NULL, NULL, 'system_role_menu/delete.php', 'DeleteSystemRoleMenu', 'Delete system role menu', 'POST, DELETE', 0),
 (24, '15:03:24 08/03/2023', NULL, NULL, 'system_role_function/add.php', 'AddSystemRoleFunction', 'Add system role function', 'POST', 0),
 (25, '15:03:44 08/03/2023', NULL, NULL, 'system_role_function/delete.php', 'DeleteSystemRoleFunction', 'Delete system role function', 'POST, DELETE', 0),
-(26, '15:04:17 08/03/2023', NULL, NULL, 'system_admin/login.php', 'LoginSystemAdmin', 'Login system admin', 'POST', 1),
+(26, '15:04:17 08/03/2023', '14:24:15 16/03/2023', NULL, 'system_admin/login.php', 'LoginSystemAdmin', 'Login system admin', 'POST', 1),
 (27, '15:04:58 08/03/2023', NULL, NULL, 'system_admin/register.php', 'RegisterSystemAdmin', 'Register system admin', 'POST', 0),
 (28, '15:05:33 08/03/2023', NULL, NULL, 'system_admin/delete.php', 'DeleteSystemAdmin', 'Delete system admin by id', 'DELETE', 0),
 (29, '15:05:58 08/03/2023', NULL, NULL, 'system_admin/get_item.php', 'GetSystemAdminItem', 'Get system admin item by id', 'GET', 0),
@@ -590,7 +573,8 @@ INSERT INTO `systemrole` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`) V
 (1, '09:43:18 04/03/2023', '13:17:33 07/03/2023', NULL, 'Quản lý hệ thống'),
 (2, '09:44:00 04/03/2023', '09:52:19 04/03/2023', NULL, 'Ứng dụng'),
 (3, '09:49:56 04/03/2023', '13:17:24 07/03/2023', NULL, 'Quản lý website'),
-(4, '09:50:15 04/03/2023', NULL, NULL, 'Hỗ trợ khách hàng');
+(4, '09:50:15 04/03/2023', NULL, NULL, 'Hỗ trợ khách hàng'),
+(17, '14:14:54 16/03/2023', '14:16:38 16/03/2023', '14:52:23 16/03/2023', 'TestingRole');
 
 -- --------------------------------------------------------
 
@@ -715,7 +699,19 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (2, 69),
 (2, 70),
 (2, 92),
-(2, 93);
+(2, 93),
+(17, 59),
+(17, 60),
+(17, 57),
+(17, 62),
+(17, 34),
+(17, 35),
+(17, 36),
+(17, 37),
+(17, 33),
+(17, 48),
+(17, 46),
+(2, 48);
 
 -- --------------------------------------------------------
 
@@ -750,7 +746,11 @@ INSERT INTO `systemrole_menu` (`systemRoleId`, `systemMenuId`) VALUES
 (3, 16),
 (3, 17),
 (3, 18),
-(1, 6);
+(1, 6),
+(17, 9),
+(17, 14),
+(17, 8),
+(17, 11);
 
 --
 -- Indexes for dumped tables
@@ -891,7 +891,7 @@ ALTER TABLE `systemrole_menu`
 -- AUTO_INCREMENT for table `blog`
 --
 ALTER TABLE `blog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -909,7 +909,7 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -933,7 +933,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `productcategory`
 --
 ALTER TABLE `productcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `productreview`
@@ -945,31 +945,31 @@ ALTER TABLE `productreview`
 -- AUTO_INCREMENT for table `subscribe`
 --
 ALTER TABLE `subscribe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `systemadmin`
 --
 ALTER TABLE `systemadmin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`
 --
 ALTER TABLE `systemmenu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `systemrole`
 --
 ALTER TABLE `systemrole`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables

@@ -36,7 +36,8 @@ $searchValue = trim($_GET["searchValue"] ?? ""); // string
 $fillType = trim($_GET["fillType"] ?? ""); // string
 $fillValue = trim($_GET["fillValue"] ?? ""); // string
 $orderby = trim($_GET["orderby"] ?? "id"); // string
-$reverse = $_GET["reverse"] ?? false; // boolean
+$reverse = ($_GET["reverse"] ?? "false") === "true"; // boolean
+
 
 //? ====================
 //? START
@@ -73,7 +74,7 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    //! Tùy chỉnh truy vấn theo các tiêu chí
    $querySelectAllRecord = $baseQuery . " " . $optionQuery;
    $orderbyQuery = "ORDER BY `$tableName`.`$orderby` ASC";
-   if (is_bool($reverse) && $reverse) {
+   if ($reverse) {
       $orderbyQuery = "ORDER BY `$tableName`.`$orderby` DESC";
    }
    $limitQuery = "LIMIT $limit OFFSET $offset";

@@ -33,7 +33,7 @@ $data = getJSONPayloadRequest();
 $id = $data["id"] ?? ""; // int
 $routeName = trim($data["routeName"] ?? ""); // string
 $title = trim($data["title"] ?? ""); // string
-$isBase = trim($data["isBase"] ?? ""); // boolean
+$isBase = $data["isBase"] ?? ""; // boolean
 
 
 //? ====================

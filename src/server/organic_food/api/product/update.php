@@ -122,15 +122,15 @@ function updateItem(
 
    $mainQuery .= "," . "`description` = '$description'";
 
-   if ($isSpecial !== '' && is_bool($isSpecial)) {
+   if ($isSpecial !== '' && is_bool((boolean)$isSpecial)) {
       $mainQuery .= "," . "`isSpecial` = '$isSpecial'";
    }
 
-   if ($isNew !== '' && is_bool($isNew)) {
+   if ($isNew !== '' && is_bool((boolean)$isNew)) {
       $mainQuery .= "," . "`isNew` = '$isNew'";
    }
 
-   if ($isBestOffer !== '' && is_bool($isBestOffer)) {
+   if ($isBestOffer !== '' && is_bool((boolean)$isBestOffer)) {
       $mainQuery .= "," . "`isBestOffer` = '$isBestOffer'";
    }
 

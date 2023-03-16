@@ -64,9 +64,9 @@ function addItem($featureImageId, $name, $originPrice, $promotionPrice, $unit, $
       !is_numeric($originPrice) ||
       !is_numeric($promotionPrice) ||
       $unit === "" ||
-      !is_bool($isSpecial) ||
-      !is_bool($isNew) ||
-      !is_bool($isBestOffer) ||
+      !is_bool((boolean)$isSpecial) ||
+      !is_bool((boolean)$isNew) ||
+      !is_bool((boolean)$isBestOffer) ||
       $productCategoryId === "" ||
       !is_numeric($productCategoryId)
    ) {

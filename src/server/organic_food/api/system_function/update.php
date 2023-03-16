@@ -35,7 +35,7 @@ $apiPath = trim($data["apiPath"] ?? ""); // string
 $name = trim($data["name"] ?? ""); // string
 $description = trim($data["description"] ?? ""); // string
 $method = trim($data["method"] ?? ""); // string
-$isBase = trim($data["isBase"] ?? ""); // boolean
+$isBase = $data["isBase"] ?? ""; // boolean
 
 
 //? ====================
