@@ -1,6 +1,7 @@
 <template>
    <div class="form-check form-switch">
       <input
+			:disabled="isDisable"
          class="form-check-input"
          :class="inputClass"
          type="checkbox"
@@ -25,6 +26,7 @@ export default {
       labelClass: String,
       checked: Boolean,
       inputClass: String,
+		isDisable: Boolean,
    },
    data() {
       return {

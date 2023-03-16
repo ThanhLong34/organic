@@ -29,9 +29,10 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemmenu";
 $data = getJSONPayloadRequest();
-$routeName = trim($data["routeName"] ?? "");
-$title = trim($data["title"] ?? "");
-$isBase = $data["isBase"] ?? false;
+
+$routeName = trim($data["routeName"] ?? ""); // string
+$title = trim($data["title"] ?? ""); // string
+$isBase = $data["isBase"] ?? false; // boolean
 
 
 //? ====================
@@ -49,7 +50,7 @@ function addItem($routeName, $isBase, $title)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($routeName === "" || !is_bool($isBase)) {
+   if ($routeName === "" || $title === "" || !is_bool($isBase)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

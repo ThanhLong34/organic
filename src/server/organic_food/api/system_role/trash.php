@@ -29,14 +29,15 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemrole";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
+
+$id = $data["id"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Chuyển item vào thùng rác
-trashItem($data["id"]);
+trashItem($id);
 
 
 //? ====================
@@ -47,7 +48,7 @@ function trashItem($id)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -59,7 +60,7 @@ function trashItem($id)
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `deletedAt` = '$deletedAt'";
    $mainQuery = "";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;

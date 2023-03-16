@@ -29,17 +29,18 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "product";
 $data = getJSONPayloadRequest();
-$featureImageId = $data["featureImageId"] ?? 0;
-$name = trim($data["name"] ?? "");
-$originPrice = $data["originPrice"] ?? 0;
-$promotionPrice = $data["promotionPrice"] ?? $data["originPrice"] ?? 0;
-$unit = trim($data["unit"] ?? "");
-$shortDescription = trim($data["shortDescription"] ?? ""); // nvarchar(1000)
-$description = trim($data["description"] ?? ""); // text
-$isSpecial = $data["isSpecial"] ?? false;
-$isNew = $data["isNew"] ?? false;
-$isBestOffer = $data["isBestOffer"] ?? false;
-$productCategoryId = $data["productCategoryId"] ?? 0;
+
+$featureImageId = $data["featureImageId"] ?? ""; // int
+$name = trim($data["name"] ?? ""); // string
+$originPrice = $data["originPrice"] ?? ""; // int
+$promotionPrice = $data["promotionPrice"] ?? $data["originPrice"] ?? ""; // int
+$unit = trim($data["unit"] ?? ""); // string
+$shortDescription = trim($data["shortDescription"] ?? ""); // string
+$description = trim($data["description"] ?? ""); // string
+$isSpecial = $data["isSpecial"] ?? false; // boolean
+$isNew = $data["isNew"] ?? false; // boolean
+$isBestOffer = $data["isBestOffer"] ?? false; // boolean
+$productCategoryId = $data["productCategoryId"] ?? ""; // int
 
 
 //? ====================
@@ -57,7 +58,18 @@ function addItem($featureImageId, $name, $originPrice, $promotionPrice, $unit, $
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($name === "" || $unit === "" || $productCategoryId === 0) {
+   if (
+      ($featureImageId !== "" && !is_numeric($featureImageId)) ||
+      $name === "" ||
+      !is_numeric($originPrice) ||
+      !is_numeric($promotionPrice) ||
+      $unit === "" ||
+      !is_bool($isSpecial) ||
+      !is_bool($isNew) ||
+      !is_bool($isBestOffer) ||
+      $productCategoryId === "" ||
+      !is_numeric($productCategoryId)
+   ) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -84,6 +96,7 @@ function performsQueryAndResponseToClient($query)
 
    if ($result) {
       $obj = new stdClass();
+      // Trả về product id để gọi API lưu images của product
       $obj->productId = $connect->insert_id;
 
       $response = new ResponseAPI(1, "Thành công", $obj);

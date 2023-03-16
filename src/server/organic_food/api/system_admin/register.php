@@ -29,12 +29,13 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemadmin";
 $data = getJSONPayloadRequest();
-$username = trim($data["username"] ?? "");
-$password = trim($data["password"] ?? "");
-$nickname = trim($data["nickname"] ?? "");
-$email = trim($data["email"] ?? "");
-$phone = trim($data["phone"] ?? "");
-$systemRoleId = $data["systemRoleId"] ?? 0;
+
+$username = trim($data["username"] ?? ""); // string
+$password = trim($data["password"] ?? ""); // string
+$nickname = trim($data["nickname"] ?? ""); // string
+$email = trim($data["email"] ?? ""); // string
+$phone = trim($data["phone"] ?? ""); // string
+$systemRoleId = $data["systemRoleId"] ?? ""; // int
 
 
 //? ====================
@@ -52,7 +53,7 @@ function register($username, $password, $nickname, $email, $phone, $systemRoleId
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($username === "" || $password === "" || $nickname === "" || $email === "" || $phone === "" || $systemRoleId === 0) {
+   if ($username === "" || $password === "" || $nickname === "" || $email === "" || $phone === "" || $systemRoleId === "" || !is_numeric($systemRoleId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

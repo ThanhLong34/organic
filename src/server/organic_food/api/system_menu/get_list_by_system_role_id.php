@@ -28,7 +28,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "systemmenu";
-$systemRoleId = $_GET["systemRoleId"] ?? 0;
+
+$systemRoleId = $_GET["systemRoleId"] ?? ""; // int
 
 
 //? ====================
@@ -45,14 +46,20 @@ function getList($systemRoleId)
 {
    global $connect, $tableName;
 
+   // Kiểm tra dữ liệu payload
+   if ($systemRoleId === "" || !is_numeric($systemRoleId)) {
+      $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
+      $response->send();
+      return;
+   }
+
+   // Thực thi truy vấn
    $query = "SELECT DISTINCT `$tableName`.* 
       FROM `$tableName`, `systemrole_menu` 
       WHERE `systemrole_menu`.`systemRoleId` = '$systemRoleId' 
       AND `systemrole_menu`.`systemMenuId` = `$tableName`.`id`
       OR `$tableName`.`isBase` = 1
       AND `$tableName`.`deletedAt` IS NULL";
-
-   // Thực thi truy vấn
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

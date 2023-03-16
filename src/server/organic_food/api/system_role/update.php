@@ -29,8 +29,9 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemrole";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
-$name = trim($data["name"] ?? "");
+
+$id = $data["id"] ?? ""; // int
+$name = trim($data["name"] ?? ""); // string
 
 
 //? ====================
@@ -48,7 +49,7 @@ function updateItem($id, $name)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($name === "")) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -60,7 +61,7 @@ function updateItem($id, $name)
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
    $mainQuery = "";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Cập nhật name
    if ($name !== "") {

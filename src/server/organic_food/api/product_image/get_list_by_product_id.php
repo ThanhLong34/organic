@@ -28,7 +28,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "product_image";
-$productId = $_GET["productId"] ?? 0;
+
+$productId = $_GET["productId"] ?? ""; // int
 
 
 //? ====================
@@ -46,7 +47,7 @@ function getList($productId)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($productId === 0) {
+   if ($productId === "" || !is_numeric($productId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

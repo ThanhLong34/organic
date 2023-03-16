@@ -29,8 +29,9 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemrole_menu";
 $data = getJSONPayloadRequest();
-$systemRoleId = $data["systemRoleId"] ?? 0;
-$systemMenuId = $data["systemMenuId"] ?? 0;
+
+$systemRoleId = $data["systemRoleId"] ?? ""; // int
+$systemMenuId = $data["systemMenuId"] ?? ""; // int
 
 
 //? ====================
@@ -48,7 +49,7 @@ function deleteItem($systemRoleId, $systemMenuId)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($systemRoleId === 0 || $systemMenuId === 0) {
+   if (!is_numeric($systemRoleId) || !is_numeric($systemMenuId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

@@ -29,10 +29,11 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemmenu";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
-$routeName = trim($data["routeName"] ?? "");
-$title = trim($data["title"] ?? "");
-$isBase = trim($data["isBase"] ?? "");
+
+$id = $data["id"] ?? ""; // int
+$routeName = trim($data["routeName"] ?? ""); // string
+$title = trim($data["title"] ?? ""); // string
+$isBase = trim($data["isBase"] ?? ""); // boolean
 
 
 //? ====================
@@ -50,7 +51,7 @@ function updateItem($id, $routeName, $title, $isBase)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($routeName === "" && $title === "" && $isBase === "")) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -62,7 +63,7 @@ function updateItem($id, $routeName, $title, $isBase)
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
    $mainQuery = "";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Cập nhật routeName
    if ($routeName !== "") {
@@ -81,7 +82,7 @@ function updateItem($id, $routeName, $title, $isBase)
    }
 
    // Cập nhật isBase
-   if ($isBase !== "") {
+   if ($isBase !== "" && is_bool($isBase)) {
       $mainQuery .= "," . "`isBase` = '$isBase'";
    }
 

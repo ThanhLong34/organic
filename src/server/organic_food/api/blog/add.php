@@ -29,11 +29,12 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "blog";
 $data = getJSONPayloadRequest();
-$featureImageId = $data["featureImageId"] ?? 0;
-$title = trim($data["title"] ?? "");
-$description = trim($data["description"] ?? ""); // text
-$content = trim($data["content"] ?? ""); // text
-$systemAdminId = $data["systemAdminId"] ?? 0;
+
+$featureImageId = $data["featureImageId"] ?? ""; // int
+$title = trim($data["title"] ?? ""); // string
+$description = trim($data["description"] ?? ""); // string
+$content = trim($data["content"] ?? ""); // string
+$systemAdminId = $data["systemAdminId"] ?? ""; // int
 
 
 //? ====================
@@ -51,7 +52,7 @@ function addItem($featureImageId, $title, $description, $content, $systemAdminId
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($title === "" || $systemAdminId === 0) {
+   if (($featureImageId !== "" && !is_numeric($featureImageId)) || $title === "" || $systemAdminId === "" || !is_numeric($systemAdminId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -77,10 +78,7 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $obj = new stdClass();
-      $obj->productId = $connect->insert_id;
-
-      $response = new ResponseAPI(1, "Thành công", $obj);
+      $response = new ResponseAPI(1, "Thành công");
       $response->send();
    } else {
       $response = new ResponseAPI(2, "Thất bại");

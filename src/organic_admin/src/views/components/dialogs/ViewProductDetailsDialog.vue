@@ -13,15 +13,15 @@
             <label for="example-text-input" class="form-control-label mt-3">
                Thời gian tạo
             </label>
-				<div>
+            <div>
                {{ data.createdAt }}
             </div>
             <!-- updatedAt -->
             <label for="example-text-input" class="form-control-label mt-3">
                Thời gian cập nhật
             </label>
-				<div>
-               {{ data.updatedAt ? data.updatedAt : 'Chưa cập nhật lần nào' }}
+            <div>
+               {{ data.updatedAt ? data.updatedAt : "Chưa cập nhật lần nào" }}
             </div>
             <!-- name -->
             <label for="example-text-input" class="form-control-label mt-3">
@@ -58,6 +58,7 @@
             <div class="row switch-btns">
                <div class="col-md-4">
                   <argon-switch
+                     isDisable
                      id="isSpecial"
                      name="isSpecial"
                      :checked="data.isSpecial"
@@ -66,12 +67,18 @@
                   </argon-switch>
                </div>
                <div class="col-md-4">
-                  <argon-switch id="isNew" name="isNew" :checked="data.isNew">
+                  <argon-switch
+                     isDisable
+                     id="isNew"
+                     name="isNew"
+                     :checked="data.isNew"
+                  >
                      Mới
                   </argon-switch>
                </div>
                <div class="col-md-4">
                   <argon-switch
+                     isDisable
                      id="isBestOffer"
                      name="isBestOffer"
                      :checked="data.isBestOffer"
@@ -107,18 +114,18 @@
                   <img :src="item.url" alt="product image" />
                </li>
             </ul>
-				<!-- shortDescription -->
+            <!-- shortDescription -->
             <label for="example-text-input" class="form-control-label mt-3">
                Mô tả ngắn
             </label>
-				<div>
-					<p>{{ data.shortDescription }}</p>
-				</div>
-				<!-- shortDescription -->
+            <div>
+               <p>{{ data.shortDescription }}</p>
+            </div>
+            <!-- shortDescription -->
             <label for="example-text-input" class="form-control-label mt-3">
                Thông tin / Mô tả
             </label>
-				<div ref="descriptionRef" class="view-content"></div>
+            <div ref="descriptionRef" class="view-content"></div>
          </div>
          <div class="col-md-12 pt-3">
             <div class="action-btns text-end">
@@ -212,7 +219,7 @@ export default {
                      isBestOffer: +data.data.isBestOffer == 1,
                      productCategoryId: +data.data.productCategoryId,
                   };
-						this.$refs.descriptionRef.innerHTML = this.data.description;
+                  this.$refs.descriptionRef.innerHTML = this.data.description;
                } else {
                   ElMessage({
                      message: data.message,
@@ -270,6 +277,6 @@ export default {
 }
 
 label.form-control-label {
-	text-transform: uppercase;
+   text-transform: uppercase;
 }
 </style>

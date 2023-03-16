@@ -29,8 +29,9 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemadmin";
 $data = getJSONPayloadRequest();
-$username = trim($data["username"] ?? "");
-$password = trim($data["password"] ?? "");
+
+$username = trim($data["username"] ?? ""); // string
+$password = trim($data["password"] ?? ""); // string
 
 //? ====================
 //? START

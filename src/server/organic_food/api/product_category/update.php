@@ -29,9 +29,10 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "productcategory";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
-$name = trim($data["name"] ?? "");
-$featureImageId = $data["featureImageId"] ?? 0;
+
+$id = $data["id"] ?? ""; // int
+$name = trim($data["name"] ?? ""); // string
+$featureImageId = $data["featureImageId"] ?? ""; // int
 
 
 //? ====================
@@ -49,7 +50,7 @@ function updateItem($id, $name, $featureImageId)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($name === "" && $featureImageId === 0)) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -61,7 +62,7 @@ function updateItem($id, $name, $featureImageId)
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
    $mainQuery = "";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Cập nhật name
    if ($name !== "") {
@@ -75,7 +76,7 @@ function updateItem($id, $name, $featureImageId)
    }
 
    // Cập nhật featureImageId
-   if ($featureImageId !== 0) {
+   if ($featureImageId !== "" && is_numeric($featureImageId)) {
       $mainQuery .= "," . "`featureImageId` = '$featureImageId'";
    }
 

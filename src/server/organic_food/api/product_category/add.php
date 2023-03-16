@@ -29,8 +29,9 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "productcategory";
 $data = getJSONPayloadRequest();
-$name = trim($data["name"] ?? "");
-$featureImageId = $data["featureImageId"] ?? 0;
+
+$name = trim($data["name"] ?? ""); // string
+$featureImageId = $data["featureImageId"] ?? ""; // int
 
 
 //? ====================
@@ -48,7 +49,7 @@ function addItem($name, $featureImageId)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($name === "" || $featureImageId === 0) {
+   if (($featureImageId !== "" && !is_numeric($featureImageId)) || $name === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

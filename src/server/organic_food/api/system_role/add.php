@@ -29,7 +29,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemrole";
 $data = getJSONPayloadRequest();
-$name = trim($data["name"] ?? "");
+
+$name = trim($data["name"] ?? ""); // string
 
 
 //? ====================

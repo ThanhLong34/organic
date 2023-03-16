@@ -28,15 +28,15 @@ if (!checkPermissionFunction($functionName)) exit;
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "blog";
-$limit = $_GET["limit"] ?? 0; // limit = 0, hoặc không có payload để lấy tất cả
-$offset = $_GET["offset"] ?? 0;
-$searchType = trim($_GET["searchType"] ?? ""); // Hợp lệ: title
-$searchValue = trim($_GET["searchValue"] ?? "");
-$fillType = trim($_GET["fillType"] ?? ""); // Hợp lệ:
-$fillValue = trim($_GET["fillValue"] ?? "");
-$orderby = trim($_GET["orderby"] ?? "id");
-$reverse = $_GET["reverse"] ?? "false"; // Hợp lệ: true, 1
 
+$limit = $_GET["limit"] ?? ""; // int, limit = "", hoặc không có payload để lấy tất cả
+$offset = $_GET["offset"] ?? ""; // int
+$searchType = trim($_GET["searchType"] ?? ""); // string
+$searchValue = trim($_GET["searchValue"] ?? ""); // string
+$fillType = trim($_GET["fillType"] ?? ""); // string
+$fillValue = trim($_GET["fillValue"] ?? ""); // string
+$orderby = trim($_GET["orderby"] ?? "id"); // string
+$reverse = $_GET["reverse"] ?? false; // boolean
 
 //? ====================
 //? START
@@ -52,7 +52,13 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
 {
    global $connect, $tableName;
 
-   // Không cần kiểm tra dữ liệu payload
+   // Kiểm tra dữ liệu payload
+   if (($limit !== "" && !is_numeric($limit)) || ($offset !== "" && !is_numeric($offset)) || !is_bool($reverse))
+   {
+      $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
+      $response->send();
+      return;
+   }
 
    //! Thêm tùy chỉnh Code ở đây
    $baseQuery = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `systemadmin`.`nickname` AS 'systemAdminNickname'
@@ -67,12 +73,12 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    //! Tùy chỉnh truy vấn theo các tiêu chí
    $querySelectAllRecord = $baseQuery . " " . $optionQuery;
    $orderbyQuery = "ORDER BY `$tableName`.`$orderby` ASC";
-   if ($reverse == "true" || $reverse == 1) {
+   if (is_bool($reverse) && $reverse) {
       $orderbyQuery = "ORDER BY `$tableName`.`$orderby` DESC";
    }
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
-   if ($limit == 0) {
+   if ($limit === "") {
       $query = $querySelectAllRecord;
    } else {
       if ($searchType !== "" && $searchValue !== "" && $fillType !== "" && $fillValue !== "") {
@@ -85,8 +91,6 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
 
       $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
    }
-
-   // echo($query);
 
    // Thực thi truy vấn
    performsQueryAndResponseToClient($query, $querySelectAllRecord);

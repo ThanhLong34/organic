@@ -143,9 +143,9 @@
                </template>
             </sidenav-item>
          </li>
-         <li class="nav-item" v-if="accessibleMenus?.includes(menus.CounponCode)">
+         <li class="nav-item" v-if="accessibleMenus?.includes(menus.CouponCode)">
             <sidenav-item
-               routeName="CounponCode"
+               routeName="CouponCode"
                :class="getRoute() === 'counpon-code' ? 'active' : ''"
                navText="Mã giảm giá"
             >

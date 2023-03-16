@@ -29,8 +29,9 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemadmin";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
-$nickname = trim($data["nickname"] ?? "");
+
+$id = $data["id"] ?? ""; // int
+$nickname = trim($data["nickname"] ?? ""); // string
 
 
 //? ====================
@@ -48,7 +49,7 @@ function updateItem($id, $nickname)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || $nickname === "") {
+   if ($id === "" || !is_numeric($id) || $nickname === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -60,7 +61,7 @@ function updateItem($id, $nickname)
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
    $mainQuery = "," . "`nickname` = '$nickname'";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;

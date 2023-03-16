@@ -29,8 +29,9 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemadmin";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
-$systemRoleId = $data["systemRoleId"] ?? 0;
+
+$id = $data["id"] ?? ""; // int
+$systemRoleId = $data["systemRoleId"] ?? ""; // int
 
 
 //? ====================
@@ -48,7 +49,7 @@ function updateItem($id, $systemRoleId)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || $systemRoleId === 0) {
+   if ($id === "" || !is_numeric($id) || $systemRoleId === "" || !is_numeric($systemRoleId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -60,7 +61,7 @@ function updateItem($id, $systemRoleId)
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
    $mainQuery = "," . "`systemRoleId` = '$systemRoleId'";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
