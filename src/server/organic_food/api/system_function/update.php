@@ -29,12 +29,13 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemfunction";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
-$apiPath = trim($data["apiPath"] ?? "");
-$name = trim($data["name"] ?? "");
-$description = trim($data["description"] ?? "");
-$method = trim($data["method"] ?? "");
-$isBase = trim($data["isBase"] ?? "");
+
+$id = $data["id"] ?? ""; // int
+$apiPath = trim($data["apiPath"] ?? ""); // string
+$name = trim($data["name"] ?? ""); // string
+$description = trim($data["description"] ?? ""); // string
+$method = trim($data["method"] ?? ""); // string
+$isBase = $data["isBase"] ?? ""; // boolean
 
 
 //? ====================
@@ -52,7 +53,7 @@ function updateItem($id, $apiPath, $name, $description, $method, $isBase)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || ($apiPath === "" && $name === "" && $description === "" && $method === "" && $isBase === "")) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -64,7 +65,7 @@ function updateItem($id, $apiPath, $name, $description, $method, $isBase)
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
    $mainQuery = "";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
    // Cập nhật name
    if ($name !== "") {
@@ -93,7 +94,7 @@ function updateItem($id, $apiPath, $name, $description, $method, $isBase)
    }
 
    // Cập nhật isBase
-   if ($isBase !== "") {
+   if ($isBase !== "" && is_bool($isBase)) {
       $mainQuery .= "," . "`isBase` = '$isBase'";
    }
 

@@ -29,8 +29,9 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "systemrole_function";
 $data = getJSONPayloadRequest();
-$systemRoleId = $data["systemRoleId"] ?? 0;
-$systemFunctionId = $data["systemFunctionId"] ?? 0;
+
+$systemRoleId = $data["systemRoleId"] ?? ""; // int
+$systemFunctionId = $data["systemFunctionId"] ?? ""; // int
 
 
 //? ====================
@@ -48,7 +49,7 @@ function addItem($systemRoleId, $systemFunctionId)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($systemRoleId === 0 || $systemFunctionId === 0) {
+   if (!is_numeric($systemRoleId) || !is_numeric($systemFunctionId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;

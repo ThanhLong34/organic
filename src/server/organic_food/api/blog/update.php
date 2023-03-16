@@ -29,12 +29,12 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "blog";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
-$featureImageId = $data["featureImageId"] ?? 0;
-$title = trim($data["title"] ?? "");
-$description = trim($data["description"] ?? ""); // text
-$content = trim($data["content"] ?? ""); // text
-$systemAdminId = $data["systemAdminId"] ?? 0;
+
+$id = $data["id"] ?? ""; // int
+$featureImageId = $data["featureImageId"] ?? ""; // int
+$title = trim($data["title"] ?? ""); // string
+$description = trim($data["description"] ?? ""); // string
+$content = trim($data["content"] ?? ""); // string
 
 
 //? ====================
@@ -46,8 +46,8 @@ updateItem(
    $featureImageId,
    $title,
    $description,
-   $content,
-   $systemAdminId
+   $content
+   // không cho phép cập nhật systemAdminId
 );
 
 
@@ -59,13 +59,12 @@ function updateItem(
    $featureImageId,
    $title,
    $description,
-   $content,
-   $systemAdminId
+   $content
 ) {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || $title === "" || $systemAdminId === 0) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -77,9 +76,9 @@ function updateItem(
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
    $mainQuery = "";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
-   if ($featureImageId !== 0) {
+   if ($featureImageId !== "" && is_numeric($featureImageId)) {
       $mainQuery .= "," . "`featureImageId` = '$featureImageId'";
    }
 
@@ -87,17 +86,9 @@ function updateItem(
       $mainQuery .= "," . "`title` = '$title'";
    }
 
-   if ($description !== '') {
-      $mainQuery .= "," . "`description` = '$description'";
-   }
+   $mainQuery .= "," . "`description` = '$description'";
 
-   if ($content !== '') {
-      $mainQuery .= "," . "`content` = '$content'";
-   }
-
-   if ($systemAdminId !== 0) {
-      $mainQuery .= "," . "`systemAdminId` = '$systemAdminId'";
-   }
+   $mainQuery .= "," . "`content` = '$content'";
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;

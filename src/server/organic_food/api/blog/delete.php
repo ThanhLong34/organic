@@ -29,7 +29,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "blog";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
+
+$id = $data["id"] ?? ""; // int
 
 
 //? ====================
@@ -47,7 +48,7 @@ function deleteItem($id)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -61,7 +62,7 @@ function deleteItem($id)
    }
 
    // Thực thi query
-   $query = "DELETE FROM `$tableName` WHERE `id` = $id AND `deletedAt` IS NOT NULL";
+   $query = "DELETE FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NOT NULL";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -88,7 +89,7 @@ function checkItemInTrash($id)
 {
    global $connect, $tableName;
 
-   $query = "SELECT * FROM `$tableName` WHERE `id` = $id AND `deletedAt` IS NOT NULL LIMIT 1";
+   $query = "SELECT * FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NOT NULL LIMIT 1";
    $result = mysqli_query($connect, $query);
 
    if ($result && mysqli_num_rows($result) > 0) {

@@ -28,16 +28,17 @@ if (!checkPermissionFunction($functionName)) exit;
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "image";
-$target = trim($_GET["target"] ?? "all"); // Hợp lệ: all, using, dont_using
-$limit = $_GET["limit"] ?? 0; // limit = 0, hoặc không có payload để lấy tất cả
-$offset = $_GET["offset"] ?? 0;
-$searchType = trim($_GET["searchType"] ?? ""); // Hợp lệ: filename
-$searchValue = trim($_GET["searchValue"] ?? "");
-$fillType = trim($_GET["fillType"] ?? ""); // Hợp lệ: 
-$fillValue = trim($_GET["fillValue"] ?? "");
-$orderby = trim($_GET["orderby"] ?? "id");
-$reverse = $_GET["reverse"] ?? "false"; // Hợp lệ: true, 1
 
+$target = trim($_GET["target"] ?? "all"); // Hợp lệ: all, using, dont_using
+
+$limit = $_GET["limit"] ?? ""; // int, limit = "", hoặc không có payload để lấy tất cả
+$offset = $_GET["offset"] ?? ""; // int
+$searchType = trim($_GET["searchType"] ?? ""); // string
+$searchValue = trim($_GET["searchValue"] ?? ""); // string
+$fillType = trim($_GET["fillType"] ?? ""); // string
+$fillValue = trim($_GET["fillValue"] ?? ""); // string
+$orderby = trim($_GET["orderby"] ?? "id"); // string
+$reverse = ($_GET["reverse"] ?? "false") === "true"; // boolean
 
 //? ====================
 //? START
@@ -53,7 +54,13 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
 {
    global $connect, $tableName;
 
-   // Không cần kiểm tra dữ liệu payload
+   // Kiểm tra dữ liệu payload
+   if (($limit !== "" && !is_numeric($limit)) || ($offset !== "" && !is_numeric($offset)) || !is_bool($reverse))
+   {
+      $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
+      $response->send();
+      return;
+   }
 
    //! Thêm tùy chỉnh Code ở đây
    $baseQuery = "SELECT * FROM `$tableName` WHERE `deletedAt` IS NULL";
@@ -66,11 +73,11 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
 
       // Lấy danh sách id hình ảnh đang sử dụng
       $queries = [
-         "SELECT `featureImageId` FROM `blog` WHERE `featureImageId` IS NOT NULL",
-         "SELECT `featureImageId` FROM `productcategory` WHERE `featureImageId` IS NOT NULL",
+         "SELECT `featureImageId` FROM `blog` WHERE `featureImageId` IS NOT NULL AND `deletedAt` IS NULL",
+         "SELECT `featureImageId` FROM `productcategory` WHERE `featureImageId` IS NOT NULL AND `deletedAt` IS NULL",
          "SELECT `featureImageId` FROM `product` WHERE `featureImageId` IS NOT NULL AND `deletedAt` IS NULL",
          "SELECT `imageId` FROM `product_image`, `product` WHERE `imageId` IS NOT NULL AND `product`.`deletedAt` IS NULL",
-         "SELECT `avatarId` FROM `systemadmin` WHERE `avatarId` IS NOT NULL"
+         "SELECT `avatarId` FROM `systemadmin` WHERE `avatarId` IS NOT NULL AND `deletedAt` IS NULL"
       ];
       foreach ($queries as $key => $value) {
          $result = mysqli_query($connect, $value);
@@ -104,12 +111,12 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    //! Tùy chỉnh truy vấn theo các tiêu chí
    $querySelectAllRecord = $baseQuery . " " . $optionQuery;
    $orderbyQuery = "ORDER BY `$tableName`.`$orderby` ASC";
-   if ($reverse == "true" || $reverse == 1) {
+   if ($reverse) {
       $orderbyQuery = "ORDER BY `$tableName`.`$orderby` DESC";
    }
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
-   if ($limit == 0) {
+   if ($limit === "") {
       $query = $querySelectAllRecord;
    } else {
       if ($searchType !== "" && $searchValue !== "" && $fillType !== "" && $fillValue !== "") {

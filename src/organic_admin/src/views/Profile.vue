@@ -444,9 +444,9 @@ export default {
                   });
 
                   this.newPassword = "";
-               } else if (data.code === 2) {
+               } else {
                   ElMessage({
-                     message: "Thay đổi mật khẩu thất bại",
+                     message: data.message,
                      type: "error",
                   });
                }
@@ -477,14 +477,9 @@ export default {
 
                   this.$store.state.accountLogin.email = this.profile.email;
                   SessionStorage.setAccountLogin(this.profile);
-               } else if (data.code === 2) {
+               } else {
                   ElMessage({
-                     message: "Thay đổi email thất bại",
-                     type: "error",
-                  });
-               } else if (data.code === 3) {
-                  ElMessage({
-                     message: "Không đúng định dạng email",
+                     message: data.message,
                      type: "error",
                   });
                }
@@ -516,9 +511,9 @@ export default {
                   this.$store.state.accountLogin.nickname =
                      this.profile.nickname;
                   SessionStorage.setAccountLogin(this.profile);
-               } else if (data.code === 2) {
+               } else {
                   ElMessage({
-                     message: "Thay đổi biệt danh thất bại",
+                     message: data.message,
                      type: "error",
                   });
                }
@@ -554,7 +549,7 @@ export default {
                      message: "Thay đổi số điện thoại thất bại",
                      type: "error",
                   });
-               } else if (data.code === 3) {
+               } else {
                   ElMessage({
                      message: data.message,
                      type: "error",

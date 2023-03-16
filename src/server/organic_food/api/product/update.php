@@ -29,18 +29,19 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "product";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
-$featureImageId = $data["featureImageId"] ?? 0;
-$name = trim($data["name"] ?? "");
-$originPrice = trim($data["originPrice"]) === '' ? 0 : trim($data["originPrice"]);
-$promotionPrice = trim($data["promotionPrice"]) === '' ? $originPrice : trim($data["promotionPrice"]);
-$unit = trim($data["unit"] ?? "");
-$shortDescription = trim($data["shortDescription"] ?? ""); // nvarchar(1000)
-$description = trim($data["description"] ?? ""); // text
-$isSpecial = trim($data["isSpecial"] ?? '');
-$isNew = trim($data["isNew"] ?? '');
-$isBestOffer = trim($data["isBestOffer"] ?? '');
-$productCategoryId = $data["productCategoryId"] ?? 0;
+
+$id = $data["id"] ?? ""; // int
+$featureImageId = $data["featureImageId"] ?? ""; // int
+$name = trim($data["name"] ?? ""); // string
+$originPrice = trim($data["originPrice"]) === '' ? 0 : trim($data["originPrice"]); // int
+$promotionPrice = trim($data["promotionPrice"]) === '' ? $originPrice : trim($data["promotionPrice"]); // int
+$unit = trim($data["unit"] ?? ""); // string
+$shortDescription = trim($data["shortDescription"] ?? ""); // string
+$description = trim($data["description"] ?? ""); // string
+$isSpecial = $data["isSpecial"] ?? ''; // boolean
+$isNew = $data["isNew"] ?? ''; // boolean
+$isBestOffer = $data["isBestOffer"] ?? ''; // boolean
+$productCategoryId = $data["productCategoryId"] ?? ""; // int
 
 
 //? ====================
@@ -83,7 +84,7 @@ function updateItem(
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0 || $name === "" || $unit === "" || $productCategoryId === 0) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -95,9 +96,9 @@ function updateItem(
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
    $mainQuery = "";
-   $endQuery = "WHERE `id` = $id AND `deletedAt` IS NULL";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
-   if ($featureImageId !== 0) {
+   if ($featureImageId !== "" && is_numeric($featureImageId)) {
       $mainQuery .= "," . "`featureImageId` = '$featureImageId'";
    }
 
@@ -105,11 +106,11 @@ function updateItem(
       $mainQuery .= "," . "`name` = '$name'";
    }
 
-   if ($originPrice !== '') {
+   if ($originPrice !== '' && is_numeric($originPrice)) {
       $mainQuery .= "," . "`originPrice` = '$originPrice'";
    }
 
-   if ($promotionPrice !== '') {
+   if ($promotionPrice !== '' && is_numeric($promotionPrice)) {
       $mainQuery .= "," . "`promotionPrice` = '$promotionPrice'";
    }
 
@@ -117,30 +118,25 @@ function updateItem(
       $mainQuery .= "," . "`unit` = '$unit'";
    }
 
-   if ($shortDescription !== '') {
-      $mainQuery .= "," . "`shortDescription` = '$shortDescription'";
-   }
+   $mainQuery .= "," . "`shortDescription` = '$shortDescription'";
 
-   if ($description !== '') {
-      $mainQuery .= "," . "`description` = '$description'";
-   }
+   $mainQuery .= "," . "`description` = '$description'";
 
-   if ($isSpecial !== '') {
+   if ($isSpecial !== '' && is_bool((boolean)$isSpecial)) {
       $mainQuery .= "," . "`isSpecial` = '$isSpecial'";
    }
 
-   if ($isNew !== '') {
+   if ($isNew !== '' && is_bool((boolean)$isNew)) {
       $mainQuery .= "," . "`isNew` = '$isNew'";
    }
 
-   if ($isBestOffer !== '') {
+   if ($isBestOffer !== '' && is_bool((boolean)$isBestOffer)) {
       $mainQuery .= "," . "`isBestOffer` = '$isBestOffer'";
    }
 
-   if ($productCategoryId !== 0) {
+   if ($productCategoryId !== 0 && is_numeric($productCategoryId)) {
       $mainQuery .= "," . "`productCategoryId` = '$productCategoryId'";
    }
-
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;

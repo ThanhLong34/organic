@@ -28,7 +28,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "image";
-$file = $_FILES['image'] ?? null;
+
+$file = $_FILES['image'] ?? null; // file
 
 
 //? ====================

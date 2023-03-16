@@ -20,7 +20,7 @@ import AddBlog from "../views/AddBlog.vue";
 import EditBlog from "../views/EditBlog.vue";
 import Subscribe from "../views/Subscribe.vue";
 import Contact from "../views/Contact.vue";
-import CounponCode from "../views/CounponCode.vue";
+import CouponCode from "../views/CouponCode.vue";
 import OrderStatus from "../views/OrderStatus.vue";
 import Order from "../views/Order.vue";
 import Profile from "../views/Profile.vue";
@@ -164,9 +164,9 @@ const routes = [
 		},
 	},
 	{
-		path: "/counpon-code",
-		name: menus.CounponCode,
-		component: CounponCode,
+		path: "/coupon-code",
+		name: menus.CouponCode,
+		component: CouponCode,
 		meta: {
 			breadcrumbName: "Mã giảm giá",
 		},

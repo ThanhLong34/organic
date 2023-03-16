@@ -48,7 +48,8 @@ function checkPermissionFunction($functionName)
          WHERE `$systemRoleFunctionTableName`.`systemRoleId` = $systemRoleId
          AND `$systemRoleFunctionTableName`.`systemFunctionId` = `$systemFunctionTableName`.`id`
          AND `$systemFunctionTableName`.`name` = '$functionName'
-         OR `$systemFunctionTableName`.`isBase` = 1 LIMIT 1";
+         OR (`$systemFunctionTableName`.`isBase` = 1 AND `$systemFunctionTableName`.`name` = '$functionName') 
+         LIMIT 1";
 
       $result = mysqli_query($connect, $query);
 

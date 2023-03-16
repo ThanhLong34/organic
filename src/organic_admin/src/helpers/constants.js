@@ -14,7 +14,7 @@ const menus = {
 	EditBlog: "EditBlog",
 	Subscribe: "Subscribe",
 	Contact: "Contact",
-	CounponCode: "CounponCode",
+	CouponCode: "CouponCode",
 	OrderStatus: "OrderStatus",
 	Order: "Order",
 	Profile: "Profile",
@@ -99,6 +99,32 @@ const functions = {
 	TrashBlog: "TrashBlog",
 	UpdateBlog: "UpdateBlog",
 	ViewBlogDetails: "ViewBlogDetails",
+	// Contact
+	AddContact: "AddContact",
+	DeleteContact: "DeleteContact",
+	GetContactItem: "GetContactItem",
+	GetContactList: "GetContactList",
+	TrashContact: "TrashContact",
+	// Subscribe
+	AddSubscribe: "AddSubscribe",
+	DeleteSubscribe: "DeleteSubscribe",
+	GetSubscribeItem: "GetSubscribeItem",
+	GetSubscribeList: "GetSubscribeList",
+	TrashSubscribe: "TrashSubscribe",
+	// CouponCode
+	AddCouponCode: "AddCouponCode",
+	DeleteCouponCode: "DeleteCouponCode",
+	GetCouponCodeItem: "GetCouponCodeItem",
+	GetCouponCodeList: "GetCouponCodeList",
+	TrashCouponCode: "TrashCouponCode",
+	UpdateCouponCode: "UpdateCouponCode",
+	// OrderStatus
+	AddOrderStatus: "AddOrderStatus",
+	DeleteOrderStatus: "DeleteOrderStatus",
+	GetOrderStatusItem: "GetOrderStatusItem",
+	GetOrderStatusList: "GetOrderStatusList",
+	TrashOrderStatus: "TrashOrderStatus",
+	UpdateOrderStatus: "UpdateOrderStatus",
 };
 
 export { menus, functions };

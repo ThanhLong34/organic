@@ -29,7 +29,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "image";
 $data = getJSONPayloadRequest();
-$id = $data["id"] ?? 0;
+
+$id = $data["id"] ?? ""; // int
 
 
 //? ====================
@@ -47,14 +48,14 @@ function deleteItem($id)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
    // Kiểm tra xem image có tồn tại trong DB không
-   $query = "SELECT * FROM `$tableName` WHERE `id` = $id LIMIT 1";
+   $query = "SELECT * FROM `$tableName` WHERE `id` = '$id' LIMIT 1";
    $result = mysqli_query($connect, $query);
    $obj = null;
 
@@ -70,7 +71,7 @@ function deleteItem($id)
    // Xóa file trên server
    if (unlink($fileLocation)) {
       // Thực thi query
-      $query = "DELETE FROM `$tableName` WHERE `id` = $id";
+      $query = "DELETE FROM `$tableName` WHERE `id` = '$id'";
       performsQueryAndResponseToClient($query);
    } else {
       $response = new ResponseAPI(2, "Xóa file ảnh thất bại");

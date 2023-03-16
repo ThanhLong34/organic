@@ -3,7 +3,7 @@ class ResponseAPI
 {
    public $code, $message, $data, $totalItem;
 
-   public function __construct($code = 0, $message = '', $data = null, $totalItem = 0)
+   public function __construct($code = 0, $message = "", $data = null, $totalItem = 0)
    {
       $this->code = $code;
       $this->message = $message;

@@ -28,7 +28,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? PARAMETERS & PAYLOAD
 //? ====================
 $tableName = "systemrole";
-$id = $_GET["id"] ?? 0;
+
+$id = $_GET["id"] ?? ""; // int
 
 
 //? ====================
@@ -46,7 +47,7 @@ function getItem($id)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === 0) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
