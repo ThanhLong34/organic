@@ -22,11 +22,11 @@
                                  iconDir="left"
                                  :placeholder="
                                     searchType === 'name'
-                                       ? 'Nhập tên chức năng'
+                                       ? 'Nhập tên chức năng...'
                                        : searchType === 'description'
-                                       ? 'Nhập mô tả'
+                                       ? 'Nhập mô tả...'
                                        : searchType === 'apiPath'
-                                       ? 'Nhập đường dẫn API'
+                                       ? 'Nhập đường dẫn API...'
                                        : searchType === 'method'
                                        ? 'Nhập phương thức (GET, POST, ...)'
                                        : ''

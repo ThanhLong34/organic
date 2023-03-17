@@ -76,23 +76,9 @@ function updateItem($id)
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
-   performsQueryAndResponseToClient($query, $email, "[Organic-Food] Lấy lại mật khẩu", "Mật khẩu mới là: $newPassword");
-
-   // Đóng kết nối
-   $connect->close();
-}
-
-// Thực thi truy vấn và trả về kết quả cho Client
-function performsQueryAndResponseToClient($query, $email, $subject, $message)
-{
-   global $connect;
-
-   $result = mysqli_query($connect, $query);
-
-   if ($result) {
-
+   if (performsQueryAndResponseToClient($query)) {
       // Send mail
-      if (sendMail($email, $subject, $message)) {
+      if (sendMail($email, "[Organic-Food] Lấy lại mật khẩu", "Mật khẩu mới là: $newPassword")) {
          $response = new ResponseAPI(1, "Thành công");
          $response->send();
       } else {
@@ -103,6 +89,18 @@ function performsQueryAndResponseToClient($query, $email, $subject, $message)
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
+
+   // Đóng kết nối
+   $connect->close();
+}
+
+// Thực thi truy vấn và trả về kết quả cho Client
+function performsQueryAndResponseToClient($query)
+{
+   global $connect;
+
+   $result = mysqli_query($connect, $query);
+   return $result;
 }
 
 // Lấy email tài khoản admin

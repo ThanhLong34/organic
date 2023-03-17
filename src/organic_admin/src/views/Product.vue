@@ -265,7 +265,7 @@
                                           href="javascript:;"
                                           @click.prevent="
                                              () =>
-                                                handleOpenViewProductDetailsDialog(
+                                                handleOpenViewDetailsDialog(
                                                    item.id
                                                 )
                                           "
@@ -735,7 +735,7 @@ export default {
             }
          );
       },
-      handleOpenViewProductDetailsDialog(id) {
+      handleOpenViewDetailsDialog(id) {
          this.itemIdSelect = id;
          this.viewDialog.visible = true;
       },

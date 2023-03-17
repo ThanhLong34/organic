@@ -132,7 +132,7 @@
                                           href="javascript:;"
                                           @click.prevent="
                                              () =>
-                                                handleOpenViewBlogDetailsDialog(
+                                                handleOpenViewDetailsDialog(
                                                    item.id
                                                 )
                                           "
@@ -421,7 +421,7 @@ export default {
       handleRedirectToEditBlogView(id) {
          this.$router.push({ name: menus.EditBlog, params: { id } });
       },
-      handleOpenViewBlogDetailsDialog(id) {
+      handleOpenViewDetailsDialog(id) {
          this.itemIdSelect = id;
          this.viewDialog.visible = true;
       },

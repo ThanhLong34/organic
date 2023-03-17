@@ -22,9 +22,9 @@
                                  iconDir="left"
                                  :placeholder="
                                     searchType === 'routeName'
-                                       ? 'Nhập tên Route'
+                                       ? 'Nhập tên Route...'
                                        : searchType === 'title'
-                                       ? 'Nhập tiêu đề'
+                                       ? 'Nhập tiêu đề...'
                                        : ''
                                  "
                                  v-model="searchValue"

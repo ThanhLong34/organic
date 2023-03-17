@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2023 at 09:45 AM
+-- Generation Time: Mar 17, 2023 at 04:37 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -46,8 +46,7 @@ CREATE TABLE `blog` (
 INSERT INTO `blog` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImageId`, `title`, `description`, `content`, `systemAdminId`) VALUES
 (3, '22:20:14 14/03/2023', '22:31:03 14/03/2023', NULL, 197, 'Easy way to Build a Perfect Agency Website', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
 (4, '22:24:22 14/03/2023', NULL, NULL, 198, 'Zechsal Magnesium flakes especially made', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
-(5, '22:24:42 14/03/2023', NULL, NULL, 199, 'Our 6 of the Best Organic Grapes to Buy', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
-(8, '15:40:11 16/03/2023', '15:41:10 16/03/2023', '15:41:32 16/03/2023', 219, 'sfawfawfw', '', '<p>fwf</p>', 17);
+(5, '22:24:42 14/03/2023', NULL, NULL, 199, 'Our 6 of the Best Organic Grapes to Buy', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17);
 
 -- --------------------------------------------------------
 
@@ -63,8 +62,22 @@ CREATE TABLE `contact` (
   `fullname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `subject` varchar(255) NOT NULL,
-  `message` varchar(1000) NOT NULL
+  `message` varchar(1000) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `contact`
+--
+
+INSERT INTO `contact` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `email`, `subject`, `message`, `status`) VALUES
+(1, '09:38:50 17/03/2023', '10:13:51 17/03/2023', NULL, 'Nguyễn Thị Huế', '2014468@dlu.edu.vn', 'Hoàn tiền sản phẩm', 'Làm sao tôi có thể hoàn tiền sản phẩm mua nhầm?', 1),
+(2, '09:40:19 17/03/2023', '10:19:58 17/03/2023', NULL, 'Dương Mỹ Lộc', '2014468@dlu.edu.vn', 'Đổi sản phẩm', 'Làm sao tôi có thể đổi sản phẩm?', 1),
+(3, '10:22:53 17/03/2023', '10:26:43 17/03/2023', NULL, 'Nguyễn Việt Hoàng', '2014468@dlu.edu.vn', 'Thời gian nhận hàng', 'Shop thường gửi hàng tới nơi lúc nào?', 1),
+(4, '10:23:48 17/03/2023', '10:34:41 17/03/2023', NULL, 'Phạm Thanh Sơn', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 1),
+(5, '10:35:52 17/03/2023', NULL, NULL, 'Tesgin 1', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 0),
+(6, '10:35:56 17/03/2023', '10:36:56 17/03/2023', NULL, 'Tesgin 2', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 1),
+(7, '10:36:01 17/03/2023', NULL, NULL, 'Tesgin 3', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 0);
 
 -- --------------------------------------------------------
 
@@ -277,8 +290,7 @@ INSERT INTO `productcategory` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `nam
 (13, '13:43:28 14/03/2023', '14:45:36 14/03/2023', NULL, 'Quả mọng & Hạt', 130),
 (14, '13:43:44 14/03/2023', '14:36:40 14/03/2023', NULL, 'Nấm', 126),
 (15, '14:25:59 14/03/2023', '14:56:20 14/03/2023', NULL, 'Gia vị', 134),
-(16, '14:27:36 14/03/2023', '14:36:59 14/03/2023', NULL, 'Trứng', 127),
-(18, '14:58:00 16/03/2023', '15:42:15 16/03/2023', '15:42:18 16/03/2023', 'CategoryTesting1234124', 221);
+(16, '14:27:36 14/03/2023', '14:36:59 14/03/2023', NULL, 'Trứng', 127);
 
 -- --------------------------------------------------------
 
@@ -366,6 +378,15 @@ CREATE TABLE `subscribe` (
   `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `subscribe`
+--
+
+INSERT INTO `subscribe` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `email`) VALUES
+(3, '08:43:33 17/03/2023', NULL, NULL, 'customer1@gmail.com'),
+(4, '08:44:59 17/03/2023', NULL, NULL, 'customer2@gmail.com'),
+(5, '08:45:03 17/03/2023', NULL, NULL, 'customer3@gmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -393,9 +414,8 @@ CREATE TABLE `systemadmin` (
 INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `nickname`, `email`, `phone`, `avatarId`, `systemRoleId`) VALUES
 (4, '18:08:50 04/03/2023', '10:08:36 07/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
 (5, '18:46:33 04/03/2023', '10:01:40 16/03/2023', NULL, 'client', '202cb962ac59075b964b07152d234b70', 'Client', 'dragondevshop@gmail.com', '0353292241', 26, 2),
-(16, '14:26:09 07/03/2023', '10:47:42 11/03/2023', NULL, 'websitemanager1', '6c6f8143b6241ee993cedd1ad5f402cc', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
-(17, '11:36:09 11/03/2023', '22:23:17 14/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3),
-(19, '14:26:58 16/03/2023', '14:51:29 16/03/2023', '14:52:03 16/03/2023', 'testingadmin', '202cb962ac59075b964b07152d234b70', 'Testing Admin', '2014468@dlu.edu.vn', '0123456789', 208, 3);
+(16, '14:26:09 07/03/2023', '09:34:26 17/03/2023', NULL, 'websitemanager1', 'd317e5657d554ce894af34cb4c569535', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
+(17, '11:36:09 11/03/2023', '22:23:17 14/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3);
 
 -- --------------------------------------------------------
 
@@ -507,7 +527,9 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (92, '09:47:03 16/03/2023', NULL, NULL, 'order_status/get_item.php', 'GetOrderStatusItem', 'Get order status item by id', 'GET', 0),
 (93, '09:47:34 16/03/2023', NULL, NULL, 'order_status/get_list.php', 'GetOrderStatusList', 'Get order status list', 'GET', 0),
 (94, '09:47:59 16/03/2023', '09:48:37 16/03/2023', NULL, 'order_status/trash.php', 'TrashOrderStatus', 'Trash order status by id', 'PUT', 0),
-(95, '09:48:23 16/03/2023', '09:48:39 16/03/2023', NULL, 'order_status/update.php', 'UpdateOrderStatus', 'Update order status by id', 'PUT', 0);
+(95, '09:48:23 16/03/2023', '09:48:39 16/03/2023', NULL, 'order_status/update.php', 'UpdateOrderStatus', 'Update order status by id', 'PUT', 0),
+(97, '08:49:26 17/03/2023', '09:01:50 17/03/2023', NULL, '', 'ViewContactDetails', 'View contact details by id', '', 0),
+(98, '09:33:21 17/03/2023', NULL, NULL, 'contact/reply.php', 'ReplyContact', 'Reply contact', 'POST', 0);
 
 -- --------------------------------------------------------
 
@@ -573,8 +595,7 @@ INSERT INTO `systemrole` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`) V
 (1, '09:43:18 04/03/2023', '13:17:33 07/03/2023', NULL, 'Quản lý hệ thống'),
 (2, '09:44:00 04/03/2023', '09:52:19 04/03/2023', NULL, 'Ứng dụng'),
 (3, '09:49:56 04/03/2023', '13:17:24 07/03/2023', NULL, 'Quản lý website'),
-(4, '09:50:15 04/03/2023', NULL, NULL, 'Hỗ trợ khách hàng'),
-(17, '14:14:54 16/03/2023', '14:16:38 16/03/2023', '14:52:23 16/03/2023', 'TestingRole');
+(4, '09:50:15 04/03/2023', NULL, NULL, 'Hỗ trợ khách hàng');
 
 -- --------------------------------------------------------
 
@@ -700,18 +721,9 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (2, 70),
 (2, 92),
 (2, 93),
-(17, 59),
-(17, 60),
-(17, 57),
-(17, 62),
-(17, 34),
-(17, 35),
-(17, 36),
-(17, 37),
-(17, 33),
-(17, 48),
-(17, 46),
-(2, 48);
+(2, 48),
+(3, 98),
+(3, 97);
 
 -- --------------------------------------------------------
 
@@ -746,11 +758,7 @@ INSERT INTO `systemrole_menu` (`systemRoleId`, `systemMenuId`) VALUES
 (3, 16),
 (3, 17),
 (3, 18),
-(1, 6),
-(17, 9),
-(17, 14),
-(17, 8),
-(17, 11);
+(1, 6);
 
 --
 -- Indexes for dumped tables
@@ -897,7 +905,7 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `couponcode`
@@ -945,7 +953,7 @@ ALTER TABLE `productreview`
 -- AUTO_INCREMENT for table `subscribe`
 --
 ALTER TABLE `subscribe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `systemadmin`
@@ -957,7 +965,7 @@ ALTER TABLE `systemadmin`
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`

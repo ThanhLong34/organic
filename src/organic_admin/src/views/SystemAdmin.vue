@@ -22,13 +22,13 @@
                                  iconDir="left"
                                  :placeholder="
                                     searchType === 'username'
-                                       ? 'Nhập tên đăng nhập'
+                                       ? 'Nhập tên đăng nhập...'
                                        : searchType === 'nickname'
-                                       ? 'Nhập biệt danh'
+                                       ? 'Nhập biệt danh...'
                                        : searchType === 'email'
-                                       ? 'Nhập email'
+                                       ? 'Nhập email...'
                                        : searchType === 'phone'
-                                       ? 'Nhập số điện thoại'
+                                       ? 'Nhập số điện thoại...'
                                        : ''
                                  "
                                  v-model="searchValue"
