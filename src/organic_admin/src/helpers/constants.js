@@ -105,6 +105,8 @@ const functions = {
 	GetContactItem: "GetContactItem",
 	GetContactList: "GetContactList",
 	TrashContact: "TrashContact",
+	ViewContactDetails: "ViewContactDetails",
+	ReplyContact: "ReplyContact",
 	// Subscribe
 	AddSubscribe: "AddSubscribe",
 	DeleteSubscribe: "DeleteSubscribe",

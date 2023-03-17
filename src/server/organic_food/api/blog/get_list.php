@@ -80,7 +80,7 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
    if ($limit === "") {
-      $query = $querySelectAllRecord;
+      $query = $querySelectAllRecord . " " . $orderbyQuery;
    } else {
       if ($searchType !== "" && $searchValue !== "" && $fillType !== "" && $fillValue !== "") {
          $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%' AND `$tableName`.`$fillType` = '$fillValue'";

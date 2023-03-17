@@ -120,7 +120,7 @@ export default {
       },
 		getPermissionFunctions() {
          return API.get(apiPath + `/${apiGroupSystemFunction}/get_list.php`, {
-				orderby: "apiPath"
+				orderby: "name"
 			}, (data) => {
             if (data.code === 1) {
                this.permission.functions = data.data.map(i => ({
