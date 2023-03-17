@@ -11,6 +11,8 @@
             <i :class="getIcon(icon)"></i>
          </span>
          <input
+				:min="min"
+				:max="max"
             :disabled="isDisable"
             :type="type"
             class="form-control"
@@ -56,6 +58,8 @@ export default {
       type: String,
       isRequired: Boolean,
       isDisable: Boolean,
+		min: Number,
+		max: Number
    },
    data() {
       return {

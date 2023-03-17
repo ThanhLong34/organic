@@ -20,34 +20,30 @@ header("Content-Type: application/json");
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "UpdateCouponCode";
+$functionName = "TrashOrder";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "couponcode";
+$tableName = "order";
 $data = getJSONPayloadRequest();
 
 $id = $data["id"] ?? ""; // int
-$description = trim($data["description"] ?? ""); // string
-$isLimited = $data["isLimited"] ?? ""; // boolean
-$percentValue = $data["percentValue"] ?? ""; // int, vd: 30 -> 30%
-$quantityApplied = $data["quantityApplied"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Cập nhật item
-updateItem($id, $description, $isLimited, $percentValue, $quantityApplied);
+// ✅ Chuyển item vào thùng rác
+trashItem($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $description, $isLimited, $percentValue, $quantityApplied)
+function trashItem($id)
 {
    global $connect, $tableName;
 
@@ -59,32 +55,12 @@ function updateItem($id, $description, $isLimited, $percentValue, $quantityAppli
    }
 
    // createdAt, updateAt, deletedAt
-   $updatedAt = getCurrentDatetime();
+   $deletedAt = getCurrentDatetime();
 
    // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
+   $baseQuery = "UPDATE `$tableName` SET `deletedAt` = '$deletedAt'";
    $mainQuery = "";
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
-
-   // Cập nhật description
-   if ($description !== "") {
-      $mainQuery .= "," . "`description` = '$description'";
-   }
-
-   // Cập nhật isLimited
-   if ($isLimited !== "" && is_bool($isLimited)) {
-      $mainQuery .= "," . "`isLimited` = '$isLimited'";
-   }
-
-   // Cập nhật percentValue
-   if ($percentValue !== "" && is_numeric($percentValue)) {
-      $mainQuery .= "," . "`percentValue` = '$percentValue'";
-   }
-
-   // Cập nhật quantityApplied
-   if ($quantityApplied !== "" && is_numeric($quantityApplied)) {
-      $mainQuery .= "," . "`quantityApplied` = '$quantityApplied'";
-   }
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;

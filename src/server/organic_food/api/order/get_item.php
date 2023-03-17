@@ -13,59 +13,52 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json");
 
 
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "AddCouponCode";
+$functionName = "GetOrderItem";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "couponcode";
-$data = getJSONPayloadRequest();
+$tableName = "order";
 
-$description = trim($data["description"] ?? ""); // string
-$isLimited = $data["isLimited"] ?? false; // boolean
-$percentValue = $data["percentValue"] ?? ""; // int, vd: 30 -> 30%
-$quantityApplied = $data["quantityApplied"] ?? ""; // int
+$id = $_GET["id"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Thêm item 
-addItem($description, $isLimited, $percentValue, $quantityApplied);
+// ✅ Lấy item theo id
+getItem($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function addItem($description, $isLimited, $percentValue, $quantityApplied)
+function getItem($id)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_bool($isLimited) || $percentValue === "" || !is_numeric($percentValue)) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
-   // createdAt, updateAt, deletedAt
-   $createdAt = getCurrentDatetime();
-
-   // Tạo code
-   $code = generateRandomString(12);
-
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `code`, `description`, `isLimited`, `percentValue`, `quantityApplied`) 
-      VALUES('$createdAt', '$code', '$description', '$isLimited', '$percentValue', '$quantityApplied')";
+   $query = "SELECT `$tableName`.*, `couponcode`.`code` AS 'couponCodeCode', `orderstatus`.`name` AS 'orderStatusName' 
+      FROM `$tableName`
+      LEFT JOIN `couponcode` ON `couponcode`.`id` = `$tableName`.`couponCodeId`
+      LEFT JOIN `orderstatus` ON `orderstatus`.`id` = `$tableName`.`orderStatusId`
+      WHERE `$tableName`.`id` = '$id' AND `$tableName`.`deletedAt` IS NULL LIMIT 1";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -80,10 +73,16 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Thành công");
-      $response->send();
+      $item = $result->fetch_object();
+      if ($item != null) {
+         $response = new ResponseAPI(1, "Thành công", $item, 1);
+         $response->send();
+      } else {
+         $response = new ResponseAPI(2, "Không tìm thấy");
+         $response->send();
+      }
    } else {
-      $response = new ResponseAPI(2, "Thất bại");
+      $response = new ResponseAPI(3, "Thất bại");
       $response->send();
    }
 }

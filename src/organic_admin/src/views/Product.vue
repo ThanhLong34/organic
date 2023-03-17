@@ -220,12 +220,12 @@
                                  </td>
                                  <td>
                                     <p class="text-sm font-weight-bold mb-0">
-                                       {{ toVND(item.originPrice, "đ") }}
+                                       {{ toVND(item.originPrice) }}
                                     </p>
                                  </td>
                                  <td>
                                     <p class="text-sm font-weight-bold mb-0">
-                                       {{ toVND(item.promotionPrice, "đ") }}
+                                       {{ toVND(item.promotionPrice) }}
                                     </p>
                                  </td>
                                  <td>
