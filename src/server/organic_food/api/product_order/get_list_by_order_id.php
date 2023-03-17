@@ -13,61 +13,55 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json");
 
 
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "AddCouponCode";
+$functionName = "GetProductOrderListByOrderId";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "couponcode";
-$data = getJSONPayloadRequest();
+$tableName = "product_order";
 
-$description = trim($data["description"] ?? ""); // string
-$isLimited = $data["isLimited"] ?? false; // boolean
-$percentValue = $data["percentValue"] ?? ""; // int, vd: 30 -> 30%
-$quantityApplied = $data["quantityApplied"] ?? ""; // int
+$orderId = $_GET["orderId"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Thêm item 
-addItem($description, $isLimited, $percentValue, $quantityApplied);
+// ✅ Lấy danh sách item 
+getList($orderId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function addItem($description, $isLimited, $percentValue, $quantityApplied)
+function getList($orderId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_bool($isLimited) || $percentValue === "" || !is_numeric($percentValue)) {
+   if ($orderId === "" || !is_numeric($orderId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
-   // createdAt, updateAt, deletedAt
-   $createdAt = getCurrentDatetime();
-
-   // Tạo code
-   $code = generateRandomString(12);
-
-   // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `code`, `description`, `isLimited`, `percentValue`, `quantityApplied`) 
-      VALUES('$createdAt', '$code', '$description', '$isLimited', '$percentValue', '$quantityApplied')";
+   // Thực thi truy vấn
+   $query = "SELECT `$tableName`.*, `product`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
+      FROM `$tableName` 
+      LEFT JOIN `product` ON `product`.`id` = `$tableName`.`productId`
+      LEFT JOIN `image` ON `image`.`id` = `product`.`featureImageId`
+      LEFT JOIN `productcategory` ON `productcategory`.`id` = `product`.`productCategoryId`
+      WHERE `$tableName`.`orderId` = $orderId";
    performsQueryAndResponseToClient($query);
-
+   
    // Đóng kết nối
    $connect->close();
 }
@@ -80,7 +74,13 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Thành công");
+      $list = [];
+
+      while ($obj = $result->fetch_object()) {
+         array_push($list, $obj);
+      }
+
+      $response = new ResponseAPI(1, "Thành công", $list);
       $response->send();
    } else {
       $response = new ResponseAPI(2, "Thất bại");

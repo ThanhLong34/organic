@@ -13,41 +13,37 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: PUT");
+header("Access-Control-Allow-Methods: DELETE");
 header("Content-Type: application/json");
 
 
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "UpdateCouponCode";
+$functionName = "DeleteOrder";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "couponcode";
+$tableName = "order";
 $data = getJSONPayloadRequest();
 
 $id = $data["id"] ?? ""; // int
-$description = trim($data["description"] ?? ""); // string
-$isLimited = $data["isLimited"] ?? ""; // boolean
-$percentValue = $data["percentValue"] ?? ""; // int, vd: 30 -> 30%
-$quantityApplied = $data["quantityApplied"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Cập nhật item
-updateItem($id, $description, $isLimited, $percentValue, $quantityApplied);
+// ✅ Xóa item theo id
+deleteItem($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $description, $isLimited, $percentValue, $quantityApplied)
+function deleteItem($id)
 {
    global $connect, $tableName;
 
@@ -58,36 +54,15 @@ function updateItem($id, $description, $isLimited, $percentValue, $quantityAppli
       return;
    }
 
-   // createdAt, updateAt, deletedAt
-   $updatedAt = getCurrentDatetime();
-
-   // Các chuỗi truy vấn
-   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
-   $mainQuery = "";
-   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
-
-   // Cập nhật description
-   if ($description !== "") {
-      $mainQuery .= "," . "`description` = '$description'";
-   }
-
-   // Cập nhật isLimited
-   if ($isLimited !== "" && is_bool($isLimited)) {
-      $mainQuery .= "," . "`isLimited` = '$isLimited'";
-   }
-
-   // Cập nhật percentValue
-   if ($percentValue !== "" && is_numeric($percentValue)) {
-      $mainQuery .= "," . "`percentValue` = '$percentValue'";
-   }
-
-   // Cập nhật quantityApplied
-   if ($quantityApplied !== "" && is_numeric($quantityApplied)) {
-      $mainQuery .= "," . "`quantityApplied` = '$quantityApplied'";
+   // Kiểm tra item đã đánh dấu trong thùng rác chưa
+   if (!checkItemInTrash($id)) {
+      $response = new ResponseAPI(3, "Xóa thất bại, đối tượng chưa được chuyển vào thùng rác");
+      $response->send();
+      return;
    }
 
    // Thực thi query
-   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
+   $query = "DELETE FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NOT NULL";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -98,7 +73,6 @@ function updateItem($id, $description, $isLimited, $percentValue, $quantityAppli
 function performsQueryAndResponseToClient($query)
 {
    global $connect;
-
    $result = mysqli_query($connect, $query);
 
    if ($result) {
@@ -108,4 +82,19 @@ function performsQueryAndResponseToClient($query)
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
+}
+
+// Kiểm tra trường dữ liệu deletedAt có null không
+function checkItemInTrash($id)
+{
+   global $connect, $tableName;
+
+   $query = "SELECT * FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NOT NULL LIMIT 1";
+   $result = mysqli_query($connect, $query);
+
+   if ($result && mysqli_num_rows($result) > 0) {
+      return true;
+   }
+
+   return false;
 }

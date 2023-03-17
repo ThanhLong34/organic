@@ -20,39 +20,36 @@ header("Content-Type: application/json");
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "UpdateCouponCode";
+$functionName = "UpdateOrderStatusForOrder";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "couponcode";
+$tableName = "order";
 $data = getJSONPayloadRequest();
 
 $id = $data["id"] ?? ""; // int
-$description = trim($data["description"] ?? ""); // string
-$isLimited = $data["isLimited"] ?? ""; // boolean
-$percentValue = $data["percentValue"] ?? ""; // int, vd: 30 -> 30%
-$quantityApplied = $data["quantityApplied"] ?? ""; // int
+$orderStatusId = $data["orderStatusId"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Cập nhật item
-updateItem($id, $description, $isLimited, $percentValue, $quantityApplied);
+updateItem($id, $orderStatusId);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $description, $isLimited, $percentValue, $quantityApplied)
+function updateItem($id, $orderStatusId)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id)) {
+   if ($id === "" || !is_numeric($id) || $orderStatusId === "" || !is_numeric($orderStatusId)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -63,28 +60,8 @@ function updateItem($id, $description, $isLimited, $percentValue, $quantityAppli
 
    // Các chuỗi truy vấn
    $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
-   $mainQuery = "";
+   $mainQuery = "," . "`orderStatusId` = '$orderStatusId'";
    $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
-
-   // Cập nhật description
-   if ($description !== "") {
-      $mainQuery .= "," . "`description` = '$description'";
-   }
-
-   // Cập nhật isLimited
-   if ($isLimited !== "" && is_bool($isLimited)) {
-      $mainQuery .= "," . "`isLimited` = '$isLimited'";
-   }
-
-   // Cập nhật percentValue
-   if ($percentValue !== "" && is_numeric($percentValue)) {
-      $mainQuery .= "," . "`percentValue` = '$percentValue'";
-   }
-
-   // Cập nhật quantityApplied
-   if ($quantityApplied !== "" && is_numeric($quantityApplied)) {
-      $mainQuery .= "," . "`quantityApplied` = '$quantityApplied'";
-   }
 
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;

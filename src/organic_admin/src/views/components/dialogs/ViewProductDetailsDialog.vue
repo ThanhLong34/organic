@@ -35,14 +35,14 @@
                Giá gốc
             </label>
             <div>
-               {{ toVND(data.originPrice, "đ") }}
+               {{ toVND(data.originPrice) }}
             </div>
             <!-- promotionPrice -->
             <label for="example-text-input" class="form-control-label mt-3">
                Giá ưu đãi
             </label>
             <div>
-               {{ toVND(data.promotionPrice, "đ") }}
+               {{ toVND(data.promotionPrice) }}
             </div>
             <!-- unit -->
             <label for="example-text-input" class="form-control-label mt-3">

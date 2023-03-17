@@ -127,6 +127,16 @@ const functions = {
 	GetOrderStatusList: "GetOrderStatusList",
 	TrashOrderStatus: "TrashOrderStatus",
 	UpdateOrderStatus: "UpdateOrderStatus",
+	// Order
+	AddOrder: "AddOrder",
+	DeleteOrder: "DeleteOrder",
+	GetOrderItem: "GetOrderItem",
+	GetOrderList: "GetOrderList",
+	TrashOrder: "TrashOrder",
+	UpdateOrderStatusForOrder: "UpdateOrderStatusForOrder",
+	ViewOrderDetails: "ViewOrderDetails",
+	// ProductOrder
+	GetProductOrderListByOrderId: "GetProductOrderListByOrderId",
 };
 
 export { menus, functions };

@@ -313,14 +313,6 @@ export default {
 			// Import constants
 			functions,
 
-         // Table states
-         tableData: [],
-         totalItem: 0,
-         numberOfPage: 1,
-         currentPage: 1,
-         limit: 10,
-         offset: 0,
-
 			// Search
          searchPlaceholder: "Nhập họ tên...",
          searchType: "fullname",
@@ -339,6 +331,14 @@ export default {
             { value: 0, title: "Chưa phản hồi" },
             { value: 1, title: "Đã phản hồi" },
          ],
+
+         // Table states
+         tableData: [],
+         totalItem: 0,
+         numberOfPage: 1,
+         currentPage: 1,
+         limit: 10,
+         offset: 0,
 
          // Actions
          itemIdSelect: "",
@@ -370,6 +370,7 @@ export default {
                   this.tableData = data.data.map((item) => ({
                      ...item,
                      id: +item.id,
+							status: +item.status
                   }));
                   this.totalItem = +data.totalItem;
                   this.numberOfPage = Math.ceil(this.totalItem / this.limit);

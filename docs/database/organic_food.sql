@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2023 at 04:37 AM
+-- Generation Time: Mar 17, 2023 at 04:37 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -77,7 +77,7 @@ INSERT INTO `contact` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, 
 (4, '10:23:48 17/03/2023', '10:34:41 17/03/2023', NULL, 'Phạm Thanh Sơn', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 1),
 (5, '10:35:52 17/03/2023', NULL, NULL, 'Tesgin 1', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 0),
 (6, '10:35:56 17/03/2023', '10:36:56 17/03/2023', NULL, 'Tesgin 2', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 1),
-(7, '10:36:01 17/03/2023', NULL, NULL, 'Tesgin 3', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 0);
+(7, '10:36:01 17/03/2023', '21:59:01 17/03/2023', NULL, 'Tesgin 3', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 1);
 
 -- --------------------------------------------------------
 
@@ -96,6 +96,15 @@ CREATE TABLE `couponcode` (
   `percentValue` int(11) DEFAULT 0,
   `quantityApplied` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `couponcode`
+--
+
+INSERT INTO `couponcode` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `code`, `description`, `isLimited`, `percentValue`, `quantityApplied`) VALUES
+(1, '13:39:52 17/03/2023', NULL, NULL, 'wtCrhTjWZdKC', 'Dành cho khách hàng đăng ký', 0, 20, 0),
+(2, '13:49:17 17/03/2023', NULL, NULL, 'yjGVkVoSeco7', 'Ưu đãi 30/4', 1, 15, 10),
+(3, '13:52:09 17/03/2023', '14:50:58 17/03/2023', NULL, 'HdrkmxeYxKIB', 'Ưu đãi 1/5', 1, 20, 20);
 
 -- --------------------------------------------------------
 
@@ -190,8 +199,16 @@ CREATE TABLE `order` (
   `deliveryCost` int(11) DEFAULT 0,
   `totalCost` int(11) DEFAULT 0,
   `paymentCost` int(11) DEFAULT 0,
-  `orderStatusId` int(11) NOT NULL
+  `orderStatusId` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `streetAddress`, `city`, `phone`, `email`, `notes`, `couponCodeId`, `deliveryCost`, `totalCost`, `paymentCost`, `orderStatusId`) VALUES
+(10, '19:34:52 17/03/2023', '22:35:28 17/03/2023', NULL, 'Thành Long', '24 Vạn Xuân', 'Đà Lạt', '0353292241', '2014468@dlu.edu.vn', '', 0, 0, 320000, 320000, 4),
+(11, '19:42:01 17/03/2023', '22:35:38 17/03/2023', NULL, 'Nguyễn Huế', '24 Vạn Kiếp', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'Nhớ giao hàng sớm nhé', 0, 0, 120000, 120000, 2);
 
 -- --------------------------------------------------------
 
@@ -364,6 +381,15 @@ CREATE TABLE `product_order` (
   `quantity` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `product_order`
+--
+
+INSERT INTO `product_order` (`productId`, `orderId`, `quantity`) VALUES
+(17, 10, 2),
+(20, 11, 1),
+(23, 11, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -529,7 +555,15 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (94, '09:47:59 16/03/2023', '09:48:37 16/03/2023', NULL, 'order_status/trash.php', 'TrashOrderStatus', 'Trash order status by id', 'PUT', 0),
 (95, '09:48:23 16/03/2023', '09:48:39 16/03/2023', NULL, 'order_status/update.php', 'UpdateOrderStatus', 'Update order status by id', 'PUT', 0),
 (97, '08:49:26 17/03/2023', '09:01:50 17/03/2023', NULL, '', 'ViewContactDetails', 'View contact details by id', '', 0),
-(98, '09:33:21 17/03/2023', NULL, NULL, 'contact/reply.php', 'ReplyContact', 'Reply contact', 'POST', 0);
+(98, '09:33:21 17/03/2023', NULL, NULL, 'contact/reply.php', 'ReplyContact', 'Reply contact', 'POST', 0),
+(99, '19:10:48 17/03/2023', NULL, NULL, 'order/add.php', 'AddOrder', 'Add order', 'POST', 0),
+(100, '20:49:57 17/03/2023', '20:50:13 17/03/2023', NULL, 'order/delete.php', 'DeleteOrder', 'Delete order by id', 'DELETE', 0),
+(101, '20:50:30 17/03/2023', NULL, NULL, 'order/get_item.php', 'GetOrderItem', 'Get order item by id', 'GET', 0),
+(102, '20:50:44 17/03/2023', NULL, NULL, 'order/get_list.php', 'GetOrderList', 'Get order list', 'GET', 0),
+(103, '20:51:06 17/03/2023', NULL, NULL, 'order/trash.php', 'TrashOrder', 'Trash order by id', 'PUT', 0),
+(104, '20:51:34 17/03/2023', NULL, NULL, 'order/update_order_status_for_order.php', 'UpdateOrderStatusForOrder', 'Update order status for order', 'PUT', 0),
+(105, '20:53:19 17/03/2023', NULL, NULL, '', 'ViewOrderDetails', 'View order details by id', '', 0),
+(106, '22:12:35 17/03/2023', '22:14:25 17/03/2023', NULL, 'product_order/get_list_by_order_id.php', 'GetProductOrderListByOrderId', 'Get product order list by order id', 'GET', 0);
 
 -- --------------------------------------------------------
 
@@ -709,9 +743,6 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (3, 94),
 (2, 85),
 (2, 74),
-(2, 81),
-(2, 46),
-(2, 47),
 (2, 53),
 (2, 54),
 (2, 59),
@@ -719,11 +750,19 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (2, 65),
 (2, 69),
 (2, 70),
-(2, 92),
-(2, 93),
 (2, 48),
+(3, 97),
 (3, 98),
-(3, 97);
+(2, 99),
+(3, 104),
+(3, 103),
+(3, 101),
+(3, 102),
+(3, 105),
+(2, 101),
+(2, 104),
+(3, 106),
+(2, 106);
 
 -- --------------------------------------------------------
 
@@ -797,7 +836,6 @@ ALTER TABLE `image`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `couponCodeId` (`couponCodeId`),
   ADD KEY `orderStatusId` (`orderStatusId`);
 
 --
@@ -911,7 +949,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `couponcode`
 --
 ALTER TABLE `couponcode`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `image`
@@ -923,13 +961,13 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `orderstatus`
 --
 ALTER TABLE `orderstatus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -965,7 +1003,7 @@ ALTER TABLE `systemadmin`
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`
@@ -993,7 +1031,6 @@ ALTER TABLE `blog`
 -- Constraints for table `order`
 --
 ALTER TABLE `order`
-  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`couponCodeId`) REFERENCES `couponcode` (`id`),
   ADD CONSTRAINT `order_ibfk_2` FOREIGN KEY (`orderStatusId`) REFERENCES `orderstatus` (`id`);
 
 --

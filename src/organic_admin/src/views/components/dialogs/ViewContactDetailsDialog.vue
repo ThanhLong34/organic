@@ -30,6 +30,13 @@
             <div>
                {{ data.subject }}
             </div>
+            <!-- message -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Nội dung tin nhắn
+            </label>
+            <div>
+               {{ data.message }}
+            </div>
             <!-- createdAt -->
             <label for="example-text-input" class="form-control-label mt-3">
                Thời gian gửi
@@ -54,8 +61,9 @@
                </span>
             </div>
             <!-- REPLY -->
-            <div class="form-control-label mt-3" v-if="data.status == 0">
+            <div v-if="data.status == 0 && checkPermissionFunction(functions.ReplyContact)">
                <argon-textarea
+						class="form-control-label mt-3"
                   placeholder="Nhập phản hồi"
                   v-model="reply.message"
                >
@@ -66,7 +74,10 @@
          <div class="col-md-12 pt-3">
             <div class="action-btns text-end">
                <argon-button
-                  v-if="data.status == 0"
+                  v-if="
+                     data.status == 0 &&
+                     checkPermissionFunction(functions.ReplyContact)
+                  "
                   color="success"
                   size="sm"
                   variant="gradient"
@@ -100,6 +111,9 @@ import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 const apiGroup = "contact";
 
+import { functions } from "@/helpers/constants.js";
+import Funcs from "@/helpers/funcs.js";
+
 export default {
    name: "ViewContactDetailsDialog",
    components: { ArgonButton, ArgonTextarea },
@@ -112,15 +126,23 @@ export default {
    },
    data() {
       return {
+			// Import constants
+         functions,
+
          data: {},
+
          reply: {
             subject: "",
             message: "",
          },
+
          isReplyClicked: false,
       };
    },
    methods: {
+		checkPermissionFunction(functionName) {
+         return Funcs.checkPermissionFunction(functionName);
+      },
       getData() {
          return API.get(
             apiPath + `/${apiGroup}/get_item.php`,
@@ -146,14 +168,14 @@ export default {
       handleDataProcessing() {
          // Chế biến lại dữ liệu
 
-         if (typeof this.data.message === "string") {
-            this.data.message = this.data.message.trim();
+         if (typeof this.reply.message === "string") {
+            this.reply.message = this.reply.message.trim();
          }
       },
       validateBeforeSubmit() {
          this.handleDataProcessing();
 
-         if (this.data.message === "") {
+         if (this.reply.message === "") {
             ElMessage({
                message: "Không được để trống nội dung phản hồi",
                type: "warning",
