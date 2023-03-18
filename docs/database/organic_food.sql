@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2023 at 12:47 PM
+-- Generation Time: Mar 18, 2023 at 04:40 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -212,7 +212,7 @@ CREATE TABLE `order` (
 INSERT INTO `order` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `streetAddress`, `city`, `phone`, `email`, `notes`, `couponCodeId`, `deliveryCost`, `totalCost`, `paymentCost`, `orderStatusId`) VALUES
 (10, '19:34:52 17/03/2023', '22:35:28 17/03/2023', NULL, 'Thành Long', '24 Vạn Xuân', 'Đà Lạt', '0353292241', '2014468@dlu.edu.vn', '', 0, 0, 320000, 320000, 4),
 (11, '19:42:01 17/03/2023', '22:35:38 17/03/2023', NULL, 'Nguyễn Huế', '24 Vạn Kiếp', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'Nhớ giao hàng sớm nhé', 2, 0, 120000, 120000, 2),
-(12, '18:39:38 18/03/2023', '18:46:21 18/03/2023', NULL, 'Đơn hàng test', '24 ABC', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'AHIHI', 3, 20000, 120000, 112000, 2),
+(12, '18:39:38 18/03/2023', '18:46:21 18/03/2023', NULL, 'Đơn hàng test', '24 ABC', 'Đà Lạt', '0123456789', 'thanhlongedu0304@gmail.com', 'AHIHI', 3, 20000, 120000, 112000, 2),
 (13, '18:42:08 18/03/2023', NULL, NULL, 'Đơn hàng test 2', '24 ABC', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'AHIHI', 2, 0, 100000, 85000, 1);
 
 -- --------------------------------------------------------
@@ -335,6 +335,16 @@ CREATE TABLE `productreview` (
   `productId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `productreview`
+--
+
+INSERT INTO `productreview` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `email`, `comment`, `rating`, `isShow`, `productId`) VALUES
+(1, '21:48:10 18/03/2023', NULL, NULL, 'Thành Long', '2014468@dlu.edu.vn', 'Test comment', 4, 1, 23),
+(3, '21:53:01 18/03/2023', NULL, NULL, 'Nguyễn Thành Long', 'thanhlongedu0304@gmail.com', 'Sản phẩm tốt', 5, 1, 23),
+(4, '21:53:48 18/03/2023', NULL, NULL, 'Bot 2', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 3, 1, 20),
+(5, '21:54:10 18/03/2023', NULL, NULL, 'Nguyễn Thị Huế', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 4, 1, 17);
+
 -- --------------------------------------------------------
 
 --
@@ -400,7 +410,8 @@ INSERT INTO `product_order` (`productId`, `orderId`, `quantity`) VALUES
 (22, 10, 2),
 (29, 11, 1),
 (29, 12, 3),
-(23, 13, 3);
+(23, 13, 3),
+(23, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -577,7 +588,10 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (104, '20:51:34 17/03/2023', NULL, NULL, 'order/update_order_status_for_order.php', 'UpdateOrderStatusForOrder', 'Update order status for order', 'PUT', 0),
 (105, '20:53:19 17/03/2023', NULL, NULL, '', 'ViewOrderDetails', 'View order details by id', '', 0),
 (106, '22:12:35 17/03/2023', '22:14:25 17/03/2023', NULL, 'product_order/get_list_by_order_id.php', 'GetProductOrderListByOrderId', 'Get product order list by order id', 'GET', 0),
-(107, '09:29:19 18/03/2023', NULL, NULL, 'product_order/add_list.php', 'AddProductOrderList', 'Add product order list', 'POST', 0);
+(107, '09:29:19 18/03/2023', NULL, NULL, 'product_order/add_list.php', 'AddProductOrderList', 'Add product order list', 'POST', 0),
+(108, '18:54:24 18/03/2023', '20:58:49 18/03/2023', NULL, 'coupon_code/get_item_by_code.php', 'GetCouponCodeItemByCode', 'Get coupon code item by code', 'POST', 0),
+(109, '21:08:24 18/03/2023', '21:14:44 18/03/2023', NULL, 'mail/send_customize.php', 'SendCustomizeMail', 'Send customize mail', 'POST', 0),
+(110, '21:45:39 18/03/2023', NULL, NULL, 'product_review/add.php', 'AddProductPreview', 'Add product preview', 'POST', 0);
 
 -- --------------------------------------------------------
 
@@ -777,7 +791,12 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (2, 104),
 (3, 106),
 (2, 106),
-(2, 107);
+(2, 107),
+(3, 108),
+(2, 108),
+(3, 109),
+(2, 109),
+(2, 110);
 
 -- --------------------------------------------------------
 
@@ -976,7 +995,7 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `orderstatus`
@@ -1000,7 +1019,7 @@ ALTER TABLE `productcategory`
 -- AUTO_INCREMENT for table `productreview`
 --
 ALTER TABLE `productreview`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `subscribe`
@@ -1018,7 +1037,7 @@ ALTER TABLE `systemadmin`
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`

@@ -61,21 +61,30 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
       return;
    }
 
+
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName', `productcategory`.`deletedAt` AS 'productCategoryDeletedAt'
-      FROM `$tableName` 
+   $baseQuery = "SELECT `$tableName`.*, 
+      CEIL(AVG(`productreview`.`rating`)) AS 'averageRating',
+      `image`.`link` AS 'featureImageUrl', 
+      `productcategory`.`name` AS 'productCategoryName', 
+      `productcategory`.`deletedAt` AS 'productCategoryDeletedAt'
+      FROM `$tableName`
       LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
       LEFT JOIN `productcategory` ON `productcategory`.`id` = `$tableName`.`productCategoryId`
-      WHERE `$tableName`.`deletedAt` IS NULL";
+      LEFT JOIN `productreview` ON `productreview`.`productId` = `$tableName`.`id`
+      WHERE `$tableName`.`deletedAt` IS NULL
+      GROUP BY `$tableName`.`id`";
    $optionQuery = "";
 
 
    //! Cẩn thận khi sửa Code ở đây
    //! Tùy chỉnh truy vấn theo các tiêu chí
    $querySelectAllRecord = $baseQuery . " " . $optionQuery;
-   $orderbyQuery = "ORDER BY `$tableName`.`$orderby` ASC";
+   // Ở đây không cần nên dùng `tableName`.`$orderby` bời vì
+   // Để có thể lọc theo averageRating ở bảng productreview
+   $orderbyQuery = "ORDER BY `$orderby` ASC";
    if ($reverse) {
-      $orderbyQuery = "ORDER BY `$tableName`.`$orderby` DESC";
+      $orderbyQuery = "ORDER BY `$orderby` DESC";
    }
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
@@ -93,6 +102,7 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
       $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
    }
 
+   echo($query);
 
    // Thực thi truy vấn
    performsQueryAndResponseToClient($query, $querySelectAllRecord);

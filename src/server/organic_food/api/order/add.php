@@ -186,6 +186,11 @@ function updateQuantityAppliedForCouponCode($couponCodeId) {
    // Nếu tìm thấy coupon code
    if ($result && ($couponCode = $result->fetch_object()) != null) {
 
+      // Nếu mã giảm giá không giới hạn số lần áp dụng
+      if ($couponCode->isLimited == 0) {
+         return $couponCode->percentValue;
+      } 
+
       // Cast to int
       $couponCode->remainingQuantityApplied = (int)$couponCode->remainingQuantityApplied;
 
