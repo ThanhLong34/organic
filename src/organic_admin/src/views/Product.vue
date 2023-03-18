@@ -219,12 +219,16 @@
                                     </div>
                                  </td>
                                  <td>
-                                    <p class="text-sm font-weight-bold mb-0">
+                                    <p
+                                       class="text-sm font-weight-bold mb-0 text-warning"
+                                    >
                                        {{ toVND(item.originPrice) }}
                                     </p>
                                  </td>
                                  <td>
-                                    <p class="text-sm font-weight-bold mb-0">
+                                    <p
+                                       class="text-sm font-weight-bold mb-0 text-pink"
+                                    >
                                        {{ toVND(item.promotionPrice) }}
                                     </p>
                                  </td>
@@ -251,6 +255,12 @@
                                  <td>
                                     <p class="text-sm font-weight-bold mb-0">
                                        {{ item.productCategoryName }}
+                                       <span
+                                          v-if="item.productCategoryDeletedAt"
+														class="text-danger"
+                                       >
+														&lpar;Đã xóa&rpar;
+													</span>
                                     </p>
                                  </td>
                                  <td class="align-middle">

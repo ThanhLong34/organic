@@ -62,7 +62,7 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    }
 
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
+   $baseQuery = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName', `productcategory`.`deletedAt` AS 'productCategoryDeletedAt'
       FROM `$tableName` 
       LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
       LEFT JOIN `productcategory` ON `productcategory`.`id` = `$tableName`.`productCategoryId`

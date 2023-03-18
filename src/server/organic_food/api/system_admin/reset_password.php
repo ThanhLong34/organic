@@ -6,7 +6,7 @@ require("../../core/config.php");
 require("../../core/connect_db.php");
 require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
-require("../../lib/mail/sendmail.php");
+require("../../classes/mails/reset_password_system_admin.php");
 
 //? ====================
 //? HEADERS
@@ -77,14 +77,19 @@ function updateItem($id)
    // Thực thi query
    $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
    if (performsQueryAndResponseToClient($query)) {
+      
+      // Tạo đối tượng mail
+      $mail = new ResetPasswordSystemAdminMail($email, $newPassword);
+
       // Send mail
-      if (sendMail($email, "[Organic-Food] Lấy lại mật khẩu", "Mật khẩu mới là: $newPassword")) {
+      if ($mail->send()) {
          $response = new ResponseAPI(1, "Thành công");
          $response->send();
       } else {
          $response = new ResponseAPI(4, "Gửi mail không thành công");
          $response->send();
       }
+      
    } else {
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();

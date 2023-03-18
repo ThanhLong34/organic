@@ -37,6 +37,13 @@
             <div>
                {{ data.message }}
             </div>
+            <!-- replyMessage -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Nội dung phản hồi
+            </label>
+            <div>
+               {{ data.replyMessage }}
+            </div>
             <!-- createdAt -->
             <label for="example-text-input" class="form-control-label mt-3">
                Thời gian gửi
@@ -132,7 +139,6 @@ export default {
          data: {},
 
          reply: {
-            subject: "",
             message: "",
          },
 
@@ -201,18 +207,7 @@ export default {
             apiPath + `/${apiGroup}/reply.php`,
             {
                id: this.data.id,
-               subject: `Phản hồi từ liên hệ của: ${this.data.fullname}`,
-               message: `
-						<div>Thời gian gửi: <span style='color: #e6802e;'>${this.data.createdAt}</span></div>
-						<div>
-							<p>Nội dung liên hệ của bạn:</p>
-							<p style='color: #c9223e;'>${this.data.message}</p>
-						</div>
-						<div>
-							<p>Phản hồi từ chúng tôi:</p>
-							<p style='color: #22995a;'>${this.reply.message}</p>
-						</div>
-					`,
+               replyMessage: this.reply.message,
             },
             (data) => {
                if (data.code === 1) {

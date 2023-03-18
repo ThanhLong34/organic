@@ -61,7 +61,7 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    }
 
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT `$tableName`.*, `couponcode`.`code` AS 'couponCodeCode', `orderstatus`.`name` AS 'orderStatusName' 
+   $baseQuery = "SELECT `$tableName`.*, `couponcode`.`code` AS 'couponCodeCode', `couponcode`.`percentValue` AS 'couponCodePercentValue', `couponcode`.`deletedAt` AS 'couponCodeDeletedAt', `orderstatus`.`name` AS 'orderStatusName' 
       FROM `$tableName`
       LEFT JOIN `couponcode` ON `couponcode`.`id` = `$tableName`.`couponCodeId`
       LEFT JOIN `orderstatus` ON `orderstatus`.`id` = `$tableName`.`orderStatusId`

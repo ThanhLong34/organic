@@ -6,6 +6,7 @@ require("../../core/config.php");
 require("../../core/connect_db.php");
 require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
+require("../../classes/mails/order_success.php");
 
 
 //? ====================
@@ -39,7 +40,6 @@ $notes = trim($data["notes"] ?? ""); // string
 $couponCodeId = $data["couponCodeId"] ?? ""; // int
 $deliveryCost = $data["deliveryCost"] ?? ""; // int
 $totalCost = $data["totalCost"] ?? ""; // int
-$paymentCost = $data["paymentCost"] ?? ""; // int
 
 
 //? ====================
@@ -55,8 +55,7 @@ addItem(
    $notes,
    $couponCodeId,
    $deliveryCost,
-   $totalCost,
-   $paymentCost
+   $totalCost
 );
 
 
@@ -72,8 +71,7 @@ function addItem(
    $notes,
    $couponCodeId,
    $deliveryCost,
-   $totalCost,
-   $paymentCost
+   $totalCost
 ) {
    global $connect, $tableName;
 
@@ -86,8 +84,7 @@ function addItem(
       $email === "" ||
       ($couponCodeId !== "" && !is_numeric($couponCodeId)) ||
       ($deliveryCost !== "" && !is_numeric($deliveryCost)) ||
-      ($totalCost !== "" && !is_numeric($totalCost)) ||
-      ($paymentCost !== "" && !is_numeric($paymentCost))
+      ($totalCost !== "" && !is_numeric($totalCost))
    ) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
@@ -111,11 +108,39 @@ function addItem(
    // createdAt, updateAt, deletedAt
    $createdAt = getCurrentDatetime();
 
+   // Tiền thanh toán
+   $paymentCost = $totalCost + $deliveryCost;
+
+   if ($couponCodeId !== "" && is_numeric($couponCodeId)) {
+      // Cập nhật số lượng áp dụng còn lại của mã giảm giá
+      if (($couponCodePercentValue = updateQuantityAppliedForCouponCode($couponCodeId)) >= 0) {
+         // Tính toán tiền phải thanh toán
+         $paymentCost = calculatePaymentCost($deliveryCost, $totalCost, $couponCodePercentValue);
+      }
+   }
+
    // Thực thi query
    $query = "INSERT 
       INTO `$tableName`(`createdAt`, `fullname`, `streetAddress`, `city`, `phone`, `email`, `notes`, `couponCodeId`, `deliveryCost`, `totalCost`, `paymentCost`) 
       VALUES('$createdAt', '$fullname', '$streetAddress', '$city', '$phone', '$email', '$notes', '$couponCodeId', '$deliveryCost', '$totalCost', '$paymentCost')";
-   performsQueryAndResponseToClient($query);
+
+
+   if (performsQueryAndResponseToClient($query)) {
+      $response = new ResponseAPI(1, "Thành công");
+      $response->send();
+
+      $newOrder = getOrderHasJustBeenInserted();
+
+      // Tạo đối tượng gửi mail
+      $mail = new OrderSuccessMail($email, $newOrder);
+
+      // Gửi mail
+      $mail->send();
+
+   } else {
+      $response = new ResponseAPI(2, "Thất bại");
+      $response->send();
+   }
 
    // Đóng kết nối
    $connect->close();
@@ -127,12 +152,59 @@ function performsQueryAndResponseToClient($query)
    global $connect;
 
    $result = mysqli_query($connect, $query);
+   return $result;
+}
 
-   if ($result) {
-      $response = new ResponseAPI(1, "Thành công");
-      $response->send();
-   } else {
-      $response = new ResponseAPI(2, "Thất bại");
-      $response->send();
+// Lấy ra order vừa mới được thêm vào trong CSDL để gửi mail
+function getOrderHasJustBeenInserted() {
+   global $connect, $tableName;
+
+   $lastId = $connect->insert_id;
+
+   $query = "SELECT `$tableName`.*, `couponcode`.`code` AS 'couponCodeCode', `couponcode`.`percentValue` AS 'couponCodePercentValue', `orderstatus`.`name` AS 'orderStatusName' 
+      FROM `$tableName`
+      LEFT JOIN `couponcode` ON `couponcode`.`id` = `$tableName`.`couponCodeId`
+      LEFT JOIN `orderstatus` ON `orderstatus`.`id` = `$tableName`.`orderStatusId`
+      WHERE `$tableName`.`id` = '$lastId' AND `$tableName`.`deletedAt` IS NULL LIMIT 1";
+
+   $result = mysqli_query($connect, $query);
+   if ($result && ($order = $result->fetch_object()) != null) {
+      return $order;
    }
+
+   return null;
+}
+
+// Cập nhật lại remainingQuantityApplied cho mã giảm giá (coupon code)
+function updateQuantityAppliedForCouponCode($couponCodeId) {
+   global $connect;
+
+   // Tìm coupon code
+   $query = "SELECT * FROM `couponcode` WHERE `id` = '$couponCodeId' LIMIT 1";
+   $result = mysqli_query($connect, $query);
+
+   // Nếu tìm thấy coupon code
+   if ($result && ($couponCode = $result->fetch_object()) != null) {
+
+      // Cast to int
+      $couponCode->remainingQuantityApplied = (int)$couponCode->remainingQuantityApplied;
+
+      // Cập nhật lại remainingQuantityApplied
+      if ($couponCode->remainingQuantityApplied > 0) {
+         $quantityAppliedUpdated = $couponCode->remainingQuantityApplied - 1;
+
+         $query = "UPDATE `couponcode` SET `remainingQuantityApplied` = '$quantityAppliedUpdated' WHERE `id` = '$couponCodeId' AND `deletedAt` IS NULL";
+         $result = mysqli_query($connect, $query);
+
+         return $couponCode->percentValue;
+      }
+   }
+
+   return -1;
+}
+
+// Tính toán số tiền cần phải thanh toán của đơn hàng
+function calculatePaymentCost($deliveryCost, $totalCost, $couponCodePercentValue) {
+   $totalCost += $deliveryCost;
+   return $totalCost - ($totalCost / 100 * $couponCodePercentValue);
 }

@@ -29,7 +29,8 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "product_image";
 $data = getJSONPayloadRequest();
-$productId = $data["productId"] ?? 0;
+
+$productId = $data["productId"] ?? "";
 $imageIdList = $data["imageIdList"] ?? [];
 
 
@@ -48,7 +49,7 @@ function addList($productId, $imageIdList)
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($productId === 0 || !is_array($imageIdList)) {
+   if ($productId === "" || !is_numeric($productId) || !is_array($imageIdList)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
