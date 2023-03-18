@@ -120,6 +120,7 @@ const functions = {
 	GetCouponCodeList: "GetCouponCodeList",
 	TrashCouponCode: "TrashCouponCode",
 	UpdateCouponCode: "UpdateCouponCode",
+	GetCouponCodeItemByCode: "GetCouponCodeItemByCode",
 	// OrderStatus
 	AddOrderStatus: "AddOrderStatus",
 	DeleteOrderStatus: "DeleteOrderStatus",
@@ -138,6 +139,10 @@ const functions = {
 	// ProductOrder
 	AddProductOrderList: "AddProductOrderList",
 	GetProductOrderListByOrderId: "GetProductOrderListByOrderId",
+	// Mail
+	SendCustomizeMail: "SendCustomizeMail",
+	// ProductReview
+	AddProductPreview: "AddProductPreview",
 };
 
 export { menus, functions };
