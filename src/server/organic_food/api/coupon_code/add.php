@@ -33,20 +33,20 @@ $data = getJSONPayloadRequest();
 $description = trim($data["description"] ?? ""); // string
 $isLimited = $data["isLimited"] ?? false; // boolean
 $percentValue = $data["percentValue"] ?? ""; // int, vd: 30 -> 30%
-$quantityApplied = $data["quantityApplied"] ?? ""; // int
+$remainingQuantityApplied = $data["remainingQuantityApplied"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Thêm item 
-addItem($description, $isLimited, $percentValue, $quantityApplied);
+addItem($description, $isLimited, $percentValue, $remainingQuantityApplied);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function addItem($description, $isLimited, $percentValue, $quantityApplied)
+function addItem($description, $isLimited, $percentValue, $remainingQuantityApplied)
 {
    global $connect, $tableName;
 
@@ -64,8 +64,8 @@ function addItem($description, $isLimited, $percentValue, $quantityApplied)
    $code = generateRandomString(12);
 
    // Thực thi query
-   $query = "INSERT INTO `$tableName`(`createdAt`, `code`, `description`, `isLimited`, `percentValue`, `quantityApplied`) 
-      VALUES('$createdAt', '$code', '$description', '$isLimited', '$percentValue', '$quantityApplied')";
+   $query = "INSERT INTO `$tableName`(`createdAt`, `code`, `description`, `isLimited`, `percentValue`, `remainingQuantityApplied`) 
+      VALUES('$createdAt', '$code', '$description', '$isLimited', '$percentValue', '$remainingQuantityApplied')";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

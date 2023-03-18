@@ -34,20 +34,20 @@ $id = $data["id"] ?? ""; // int
 $description = trim($data["description"] ?? ""); // string
 $isLimited = $data["isLimited"] ?? ""; // boolean
 $percentValue = $data["percentValue"] ?? ""; // int, vd: 30 -> 30%
-$quantityApplied = $data["quantityApplied"] ?? ""; // int
+$remainingQuantityApplied = $data["remainingQuantityApplied"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Cập nhật item
-updateItem($id, $description, $isLimited, $percentValue, $quantityApplied);
+updateItem($id, $description, $isLimited, $percentValue, $remainingQuantityApplied);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function updateItem($id, $description, $isLimited, $percentValue, $quantityApplied)
+function updateItem($id, $description, $isLimited, $percentValue, $remainingQuantityApplied)
 {
    global $connect, $tableName;
 
@@ -81,9 +81,9 @@ function updateItem($id, $description, $isLimited, $percentValue, $quantityAppli
       $mainQuery .= "," . "`percentValue` = '$percentValue'";
    }
 
-   // Cập nhật quantityApplied
-   if ($quantityApplied !== "" && is_numeric($quantityApplied)) {
-      $mainQuery .= "," . "`quantityApplied` = '$quantityApplied'";
+   // Cập nhật remainingQuantityApplied
+   if ($remainingQuantityApplied !== "" && is_numeric($remainingQuantityApplied)) {
+      $mainQuery .= "," . "`remainingQuantityApplied` = '$remainingQuantityApplied'";
    }
 
    // Thực thi query

@@ -13,63 +13,84 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
 
-//? ====================
-//? CHECK PERMISSTION
-//? ====================
-$functionName = "DeleteProductImageList";
+// //? ====================
+// //? CHECK PERMISSTION
+// //? ====================
+$functionName = "AddProductOrderList";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "product_image";
+$tableName = "product_order";
 $data = getJSONPayloadRequest();
 
-$productId = $data["productId"] ?? "";
-$imageIdList = $data["imageIdList"] ?? [];
+$orderId = $data["orderId"] ?? "";
+$productListInCart = $data["productListInCart"] ?? [];
+// {
+//    id: // productId,
+//    quantity: // quantity
+// }
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Xóa list
-deleteList($productId, $imageIdList);
+// ✅ Thêm list 
+addList($orderId, $productListInCart);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function deleteList($productId, $imageIdList)
+function addList($orderId, $productListInCart)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($productId === "" || !is_numeric($productId) || !is_array($imageIdList)) {
+   if ($orderId === "" || !is_numeric($orderId) || !is_array($productListInCart)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
 
-   // Lặp qua từng item trong imageIdList để thêm vào CSDL
-   foreach ($imageIdList as $key => $imageId) {
-      // Thực thi query
-      $query = "DELETE FROM `$tableName` WHERE `productId` = $productId AND `imageId` = $imageId";
-      if (!performsQueryAndResponseToClient($query)) {
-         $response = new ResponseAPI(2, "Thất bại");
+   // Lặp qua từng item trong productListInCart để thêm vào CSDL
+   foreach ($productListInCart as $key => $product) {
+      $productId = $product['id'] ?? "";
+      $quantity = $product['quantity'] ?? "";
+
+      if ($productId === "" || !is_numeric($productId) || $quantity === "" || !is_numeric($quantity)) {
+
+         $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
          $response->send();
 
          // Đóng kết nối
          $connect->close();
 
          return;
+      } else {
+         // Thực thi query
+         $query = "INSERT INTO `$tableName`(`orderId`, `productId`, `quantity`) 
+            VALUES('$orderId', '$productId', '$quantity')";
+
+         if (!performsQueryAndResponseToClient($query)) {
+            $response = new ResponseAPI(2, "Thất bại");
+            $response->send();
+
+            // Đóng kết nối
+            $connect->close();
+
+            return;
+         }
       }
    }
+
 
    $response = new ResponseAPI(1, "Thành công");
    $response->send();

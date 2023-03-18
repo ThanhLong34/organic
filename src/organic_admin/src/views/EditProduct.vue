@@ -285,6 +285,7 @@ export default {
          },
 
          productCategoryList: [],
+         productCategoryIdList: [],
 
          // Upload images
          featureImageFiles: [],
@@ -314,6 +315,8 @@ export default {
                      ...i,
                      id: +i.id,
                   }));
+
+						this.productCategoryIdList = data.data.map(i => +i.id);
 
                   // Not found data
                   if (data.data.length === 0) {
@@ -382,6 +385,14 @@ export default {
                   };
 
                   this.getProductImageList();
+
+						// Hiển thị các danh mục đã xóa
+						if (!this.productCategoryIdList.includes(this.data.productCategoryId)) {
+							this.productCategoryList.push({
+								id: +this.data.productCategoryId,
+								name: `${this.data.productCategoryName} (Đã xóa)`
+							});
+						}
 
                   // Binding data
                   this.bindingData();

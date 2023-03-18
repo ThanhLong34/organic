@@ -136,6 +136,7 @@ const functions = {
 	UpdateOrderStatusForOrder: "UpdateOrderStatusForOrder",
 	ViewOrderDetails: "ViewOrderDetails",
 	// ProductOrder
+	AddProductOrderList: "AddProductOrderList",
 	GetProductOrderListByOrderId: "GetProductOrderListByOrderId",
 };
 

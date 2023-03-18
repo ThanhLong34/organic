@@ -121,7 +121,7 @@
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                                  >
-                                    Filename
+                                    Tên tệp
                                  </th>
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
@@ -288,7 +288,7 @@ export default {
          functions,
 
          // Search
-         searchPlaceholder: "Nhập filename...",
+         searchPlaceholder: "Nhập tên tệp...",
          searchType: "filename",
          searchValue: "",
 

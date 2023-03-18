@@ -34,14 +34,14 @@
             <label for="example-text-input" class="form-control-label mt-3">
                Giá gốc
             </label>
-            <div>
+            <div class="text-warning">
                {{ toVND(data.originPrice) }}
             </div>
             <!-- promotionPrice -->
             <label for="example-text-input" class="form-control-label mt-3">
                Giá ưu đãi
             </label>
-            <div>
+            <div class="text-pink">
                {{ toVND(data.promotionPrice) }}
             </div>
             <!-- unit -->
@@ -93,6 +93,9 @@
             </label>
             <div>
                {{ data.productCategoryName }}
+               <span v-if="data.productCategoryDeletedAt" class="text-danger">
+                  &lpar;Đã xóa&rpar;
+               </span>
             </div>
             <!-- featureImageId -->
             <label for="example-text-input" class="form-control-label mt-3">

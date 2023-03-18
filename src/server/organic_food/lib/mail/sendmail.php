@@ -12,9 +12,9 @@ require '../../lib/mail/PHPMailer/src/SMTP.php';
 
 function sendMail($mailTo, $subject, $body)
 {
+
    // Instantiation and passing `true` enables exceptions
    $mail = new PHPMailer(true);
-
 
    try {
       $mail->CharSet = "UTF-8";
@@ -54,7 +54,7 @@ function sendMail($mailTo, $subject, $body)
       $mail->send();
       return true;
    } catch (Exception $e) {
-      echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+      echo "Message could not be sent. Mailer Error: {$e}";
       return false;
    }
 }

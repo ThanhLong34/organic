@@ -6,7 +6,7 @@ require("../../core/config.php");
 require("../../core/connect_db.php");
 require("../../classes/ResponseAPI.php");
 require("../../helpers/functions.php");
-require("../../lib/mail/sendmail.php");
+require("../../classes/mails/reply_contact.php");
 
 
 //? ====================
@@ -32,26 +32,25 @@ $tableName = "contact";
 $data = getJSONPayloadRequest();
 
 $id = $data["id"] ?? ""; // int
-$subject = trim($data["subject"] ?? ""); // string
-$message = trim($data["message"] ?? ""); // string
+$replyMessage = trim($data["replyMessage"] ?? ""); // string
 
 
 //? ====================
 //? START
 //? ====================
 // ✅ Thêm item 
-reply($id, $subject, $message);
+reply($id, $replyMessage);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function reply($id, $subject, $message)
+function reply($id, $replyMessage)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if ($id === "" || !is_numeric($id) || $subject === "" || $message === "") {
+   if ($id === "" || !is_numeric($id) || $replyMessage === "") {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
@@ -75,14 +74,21 @@ function reply($id, $subject, $message)
          $mainQuery = "";
          $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
 
+         // Cập nhật replyMessage
+         $mainQuery .= "," . "`replyMessage` = '$replyMessage'";
+
          // Cập nhật status
          $mainQuery .= "," . "`status` = '1'";
 
          // Thực thi query
          $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
          if (performsQueryAndResponseToClient($query)) {
+
+            // Tạo đối đượng mail
+            $mail = new ReplyContactMail($objSelect->email, $objSelect, $replyMessage);
+
             // Gửi email
-            if (sendMail($objSelect->email, $subject, $message)) {
+            if ($mail->send()) {
                $response = new ResponseAPI(1, "Thành công");
                $response->send();
             } else {

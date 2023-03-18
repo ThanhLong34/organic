@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2023 at 04:37 PM
+-- Generation Time: Mar 18, 2023 at 12:47 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -61,8 +61,9 @@ CREATE TABLE `contact` (
   `deletedAt` varchar(255) DEFAULT NULL,
   `fullname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `subject` varchar(255) NOT NULL,
-  `message` varchar(1000) NOT NULL,
+  `subject` varchar(1000) NOT NULL,
+  `message` text NOT NULL,
+  `replyMessage` text DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -70,14 +71,14 @@ CREATE TABLE `contact` (
 -- Dumping data for table `contact`
 --
 
-INSERT INTO `contact` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `email`, `subject`, `message`, `status`) VALUES
-(1, '09:38:50 17/03/2023', '10:13:51 17/03/2023', NULL, 'Nguyễn Thị Huế', '2014468@dlu.edu.vn', 'Hoàn tiền sản phẩm', 'Làm sao tôi có thể hoàn tiền sản phẩm mua nhầm?', 1),
-(2, '09:40:19 17/03/2023', '10:19:58 17/03/2023', NULL, 'Dương Mỹ Lộc', '2014468@dlu.edu.vn', 'Đổi sản phẩm', 'Làm sao tôi có thể đổi sản phẩm?', 1),
-(3, '10:22:53 17/03/2023', '10:26:43 17/03/2023', NULL, 'Nguyễn Việt Hoàng', '2014468@dlu.edu.vn', 'Thời gian nhận hàng', 'Shop thường gửi hàng tới nơi lúc nào?', 1),
-(4, '10:23:48 17/03/2023', '10:34:41 17/03/2023', NULL, 'Phạm Thanh Sơn', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 1),
-(5, '10:35:52 17/03/2023', NULL, NULL, 'Tesgin 1', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 0),
-(6, '10:35:56 17/03/2023', '10:36:56 17/03/2023', NULL, 'Tesgin 2', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 1),
-(7, '10:36:01 17/03/2023', '21:59:01 17/03/2023', NULL, 'Tesgin 3', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 1);
+INSERT INTO `contact` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `email`, `subject`, `message`, `replyMessage`, `status`) VALUES
+(1, '09:38:50 17/03/2023', '09:10:16 18/03/2023', NULL, 'Nguyễn Thị Huế', '2014468@dlu.edu.vn', 'Hoàn tiền sản phẩm', 'Làm sao tôi có thể hoàn tiền sản phẩm mua nhầm?', 'Bạn có thể thương lượng với chúng tôi', 1),
+(2, '09:40:19 17/03/2023', '10:19:58 17/03/2023', NULL, 'Dương Mỹ Lộc', '2014468@dlu.edu.vn', 'Đổi sản phẩm', 'Làm sao tôi có thể đổi sản phẩm?', NULL, 0),
+(3, '10:22:53 17/03/2023', '10:26:43 17/03/2023', NULL, 'Nguyễn Việt Hoàng', '2014468@dlu.edu.vn', 'Thời gian nhận hàng', 'Shop thường gửi hàng tới nơi lúc nào?', NULL, 0),
+(4, '10:23:48 17/03/2023', '09:11:46 18/03/2023', NULL, 'Phạm Thanh Sơn', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 'Có nha bạn', 1),
+(5, '10:35:52 17/03/2023', NULL, NULL, 'Tesgin 1', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0),
+(6, '10:35:56 17/03/2023', '10:36:56 17/03/2023', NULL, 'Tesgin 2', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0),
+(7, '10:36:01 17/03/2023', '21:59:01 17/03/2023', NULL, 'Tesgin 3', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -94,17 +95,17 @@ CREATE TABLE `couponcode` (
   `description` varchar(1000) DEFAULT NULL,
   `isLimited` tinyint(1) NOT NULL DEFAULT 0,
   `percentValue` int(11) DEFAULT 0,
-  `quantityApplied` int(11) NOT NULL DEFAULT 0
+  `remainingQuantityApplied` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `couponcode`
 --
 
-INSERT INTO `couponcode` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `code`, `description`, `isLimited`, `percentValue`, `quantityApplied`) VALUES
+INSERT INTO `couponcode` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `code`, `description`, `isLimited`, `percentValue`, `remainingQuantityApplied`) VALUES
 (1, '13:39:52 17/03/2023', NULL, NULL, 'wtCrhTjWZdKC', 'Dành cho khách hàng đăng ký', 0, 20, 0),
-(2, '13:49:17 17/03/2023', NULL, NULL, 'yjGVkVoSeco7', 'Ưu đãi 30/4', 1, 15, 10),
-(3, '13:52:09 17/03/2023', '14:50:58 17/03/2023', NULL, 'HdrkmxeYxKIB', 'Ưu đãi 1/5', 1, 20, 20);
+(2, '13:49:17 17/03/2023', NULL, NULL, 'yjGVkVoSeco7', 'Ưu đãi 30/4', 1, 15, 9),
+(3, '13:52:09 17/03/2023', '18:38:55 18/03/2023', NULL, 'HdrkmxeYxKIB', 'Ưu đãi 1/5', 1, 20, 9);
 
 -- --------------------------------------------------------
 
@@ -176,7 +177,9 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (188, '16:30:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ec037d3f.jpg', 'project_image64103ec037d3f.jpg', 218814),
 (197, '22:19:47 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64109093e2bca.jpg', 'project_image64109093e2bca.jpg', 206436),
 (198, '22:24:16 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091a0433b4.jpg', 'project_image641091a0433b4.jpg', 297970),
-(199, '22:24:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091b80a830.jpg', 'project_image641091b80a830.jpg', 212053);
+(199, '22:24:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091b80a830.jpg', 'project_image641091b80a830.jpg', 212053),
+(222, '10:22:10 18/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64152e62d8c31.png', 'project_image64152e62d8c31.png', 93226),
+(223, '10:23:07 18/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64152e9bb2b85.png', 'project_image64152e9bb2b85.png', 2781);
 
 -- --------------------------------------------------------
 
@@ -208,7 +211,9 @@ CREATE TABLE `order` (
 
 INSERT INTO `order` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `streetAddress`, `city`, `phone`, `email`, `notes`, `couponCodeId`, `deliveryCost`, `totalCost`, `paymentCost`, `orderStatusId`) VALUES
 (10, '19:34:52 17/03/2023', '22:35:28 17/03/2023', NULL, 'Thành Long', '24 Vạn Xuân', 'Đà Lạt', '0353292241', '2014468@dlu.edu.vn', '', 0, 0, 320000, 320000, 4),
-(11, '19:42:01 17/03/2023', '22:35:38 17/03/2023', NULL, 'Nguyễn Huế', '24 Vạn Kiếp', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'Nhớ giao hàng sớm nhé', 0, 0, 120000, 120000, 2);
+(11, '19:42:01 17/03/2023', '22:35:38 17/03/2023', NULL, 'Nguyễn Huế', '24 Vạn Kiếp', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'Nhớ giao hàng sớm nhé', 2, 0, 120000, 120000, 2),
+(12, '18:39:38 18/03/2023', '18:46:21 18/03/2023', NULL, 'Đơn hàng test', '24 ABC', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'AHIHI', 3, 20000, 120000, 112000, 2),
+(13, '18:42:08 18/03/2023', NULL, NULL, 'Đơn hàng test 2', '24 ABC', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'AHIHI', 2, 0, 100000, 85000, 1);
 
 -- --------------------------------------------------------
 
@@ -277,7 +282,8 @@ INSERT INTO `product` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImag
 (23, '16:27:14 14/03/2023', '19:53:26 14/03/2023', NULL, 177, 'Hành củ tươi', 72000, 72000, 'kg', 'Organic food is usually good for the environment', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 0, 0, 4),
 (24, '16:28:50 14/03/2023', '10:22:41 16/03/2023', NULL, 180, 'Cà chua Alpha', 65000, 55000, 'kg', 'Cà chua như cuộc đời của bạn vậy', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 0, 0, 1, 4),
 (25, '16:30:01 14/03/2023', NULL, NULL, 183, 'Táo thần', 320000, 300000, 'kg', 'Táo này ăn ngon lắm nha', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 0, 1, 2),
-(26, '16:31:21 14/03/2023', NULL, NULL, 186, 'Chuối rừng Amazon', 400000, 300000, 'kg', 'Chuối này hái ở tận rừng Amazon, nơi có những con khỉ vô cùng hung hãn', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 1, 1, 2);
+(26, '16:31:21 14/03/2023', NULL, NULL, 186, 'Chuối rừng Amazon', 400000, 300000, 'kg', 'Chuối này hái ở tận rừng Amazon, nơi có những con khỉ vô cùng hung hãn', '<p>Organic food is usually good for the environment. However, it is also relatively more expensive: the USDA (US Department of Agriculture) reports that the cost of organic fruits and vegetables is often 20% more than conventional products. Sometimes the difference can be much higher, especially for certain items like organic milk and eggs.</p><p><br></p><p>You know how to read labels on organic products to help us make better food choices. There are three common types of organic labels:</p><p><br></p><ul><li>“100% organic”: ie all ingredients in the food are certified organic.</li><li>“Organic”: at least 95% of ingredients are certified organic.</li><li>“Made with organic products”: at least 70% of ingredients are certified organic.</li></ul>', 1, 1, 1, 2),
+(29, '10:22:12 18/03/2023', '17:34:15 18/03/2023', '17:34:31 18/03/2023', 222, 'San pham test delete', 10000, 10000, 'kg', '', '<p><br></p>', 1, 0, 1, 16);
 
 -- --------------------------------------------------------
 
@@ -307,7 +313,8 @@ INSERT INTO `productcategory` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `nam
 (13, '13:43:28 14/03/2023', '14:45:36 14/03/2023', NULL, 'Quả mọng & Hạt', 130),
 (14, '13:43:44 14/03/2023', '14:36:40 14/03/2023', NULL, 'Nấm', 126),
 (15, '14:25:59 14/03/2023', '14:56:20 14/03/2023', NULL, 'Gia vị', 134),
-(16, '14:27:36 14/03/2023', '14:36:59 14/03/2023', NULL, 'Trứng', 127);
+(16, '14:27:36 14/03/2023', '14:36:59 14/03/2023', NULL, 'Trứng', 127),
+(19, '10:23:16 18/03/2023', NULL, '10:23:43 18/03/2023', 'Danh muc test delete', 223);
 
 -- --------------------------------------------------------
 
@@ -388,7 +395,12 @@ CREATE TABLE `product_order` (
 INSERT INTO `product_order` (`productId`, `orderId`, `quantity`) VALUES
 (17, 10, 2),
 (20, 11, 1),
-(23, 11, 1);
+(23, 11, 1),
+(18, 10, 1),
+(22, 10, 2),
+(29, 11, 1),
+(29, 12, 3),
+(23, 13, 3);
 
 -- --------------------------------------------------------
 
@@ -440,8 +452,9 @@ CREATE TABLE `systemadmin` (
 INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `nickname`, `email`, `phone`, `avatarId`, `systemRoleId`) VALUES
 (4, '18:08:50 04/03/2023', '10:08:36 07/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
 (5, '18:46:33 04/03/2023', '10:01:40 16/03/2023', NULL, 'client', '202cb962ac59075b964b07152d234b70', 'Client', 'dragondevshop@gmail.com', '0353292241', 26, 2),
-(16, '14:26:09 07/03/2023', '09:34:26 17/03/2023', NULL, 'websitemanager1', 'd317e5657d554ce894af34cb4c569535', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
-(17, '11:36:09 11/03/2023', '22:23:17 14/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3);
+(16, '14:26:09 07/03/2023', '08:55:33 18/03/2023', NULL, 'websitemanager1', '90638fa097af66f3c8cc68fe3afb9acb', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
+(17, '11:36:09 11/03/2023', '22:23:17 14/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3),
+(20, '09:17:22 18/03/2023', NULL, '09:18:03 18/03/2023', 'AdminTesting', '202cb962ac59075b964b07152d234b70', 'Admin Testing', '2014468@dlu.edu.vn', '0123456789', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -563,7 +576,8 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (103, '20:51:06 17/03/2023', NULL, NULL, 'order/trash.php', 'TrashOrder', 'Trash order by id', 'PUT', 0),
 (104, '20:51:34 17/03/2023', NULL, NULL, 'order/update_order_status_for_order.php', 'UpdateOrderStatusForOrder', 'Update order status for order', 'PUT', 0),
 (105, '20:53:19 17/03/2023', NULL, NULL, '', 'ViewOrderDetails', 'View order details by id', '', 0),
-(106, '22:12:35 17/03/2023', '22:14:25 17/03/2023', NULL, 'product_order/get_list_by_order_id.php', 'GetProductOrderListByOrderId', 'Get product order list by order id', 'GET', 0);
+(106, '22:12:35 17/03/2023', '22:14:25 17/03/2023', NULL, 'product_order/get_list_by_order_id.php', 'GetProductOrderListByOrderId', 'Get product order list by order id', 'GET', 0),
+(107, '09:29:19 18/03/2023', NULL, NULL, 'product_order/add_list.php', 'AddProductOrderList', 'Add product order list', 'POST', 0);
 
 -- --------------------------------------------------------
 
@@ -762,7 +776,8 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (2, 101),
 (2, 104),
 (3, 106),
-(2, 106);
+(2, 106),
+(2, 107);
 
 -- --------------------------------------------------------
 
@@ -955,13 +970,13 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `orderstatus`
@@ -973,13 +988,13 @@ ALTER TABLE `orderstatus`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `productcategory`
 --
 ALTER TABLE `productcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `productreview`
@@ -997,13 +1012,13 @@ ALTER TABLE `subscribe`
 -- AUTO_INCREMENT for table `systemadmin`
 --
 ALTER TABLE `systemadmin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`

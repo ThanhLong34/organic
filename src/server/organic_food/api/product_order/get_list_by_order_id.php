@@ -54,7 +54,7 @@ function getList($orderId)
    }
 
    // Thực thi truy vấn
-   $query = "SELECT `$tableName`.*, `product`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
+   $query = "SELECT `$tableName`.*, `product`.*, `product`.`deletedAt` AS 'productDeletedAt', `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
       FROM `$tableName` 
       LEFT JOIN `product` ON `product`.`id` = `$tableName`.`productId`
       LEFT JOIN `image` ON `image`.`id` = `product`.`featureImageId`

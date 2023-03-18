@@ -56,6 +56,13 @@
             <div>
                {{ data.email }}
             </div>
+            <!-- couponCodePercentValue -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Giá trị giảm (áp dụng cho mã giảm giá)
+            </label>
+            <div class="text-danger">
+               {{ data.couponCodePercentValue }}&#37;
+            </div>
             <!-- deliveryCost -->
             <label for="example-text-input" class="form-control-label mt-3">
                Tiền vận chuyển
@@ -67,14 +74,14 @@
             <label for="example-text-input" class="form-control-label mt-3">
                Tổng tiền
             </label>
-            <div>
+            <div class="text-warning">
                {{ toVND(data.totalCost) }}
             </div>
             <!-- paymentCost -->
             <label for="example-text-input" class="form-control-label mt-3">
-               Tiền phải trả
+               Tiền thanh toán
             </label>
-            <div>
+            <div class="text-pink">
                {{ toVND(data.paymentCost) }}
             </div>
             <!-- notes -->
@@ -95,7 +102,7 @@
             </div>
 
             <!-- Product table -->
-				<label for="example-text-input" class="form-control-label mt-4">
+            <label for="example-text-input" class="form-control-label mt-4">
                Danh sách sản phẩm đặt mua
             </label>
             <div class="table-responsive p-0">
@@ -145,17 +152,25 @@
                               <div class="my-auto">
                                  <h6 class="mb-0 text-sm">
                                     {{ item.name }}
+                                    <span
+                                       v-if="item.productDeletedAt"
+                                       class="text-danger"
+                                    >
+                                       &lpar;Đã xóa&rpar;
+                                    </span>
                                  </h6>
                               </div>
                            </div>
                         </td>
                         <td>
-                           <p class="text-sm font-weight-bold mb-0">
+                           <p
+                              class="text-sm font-weight-bold mb-0 text-warning"
+                           >
                               {{ toVND(item.originPrice) }}
                            </p>
                         </td>
                         <td>
-                           <p class="text-sm font-weight-bold mb-0">
+                           <p class="text-sm font-weight-bold mb-0 text-pink">
                               {{ toVND(item.promotionPrice) }}
                            </p>
                         </td>
@@ -195,7 +210,7 @@
                </div>
             </div>
          </div>
-         <div class="col-md-12 pt-3">
+         <div class="col-md-12 pt-4">
             <div class="action-btns text-end">
                <argon-button
                   v-if="
@@ -276,9 +291,9 @@ export default {
             (data) => {
                if (data.code === 1) {
                   this.productListForOrder = data.data.map((i) => ({
-							...i,
+                     ...i,
                      id: +i.id,
-							featureImageId: +i.featureImageId,
+                     featureImageId: +i.featureImageId,
                      originPrice: +i.originPrice,
                      promotionPrice: +i.promotionPrice,
                      isSpecial: +i.isSpecial == 1,
@@ -290,8 +305,7 @@ export default {
                   // Not found data
                   if (data.data.length === 0) {
                      ElMessage({
-                        message:
-                           "Không tìm thấy sản phẩm cho đơn hàng này",
+                        message: "Không tìm thấy sản phẩm cho đơn hàng này",
                         type: "warning",
                      });
                   }
@@ -342,6 +356,7 @@ export default {
                      ...data.data,
                      id: +data.data.id,
                      couponCodeId: +data.data.couponCodeId,
+                     couponCodePercentValue: +data.data.couponCodePercentValue,
                      deliveryCost: +data.data.deliveryCost,
                      totalCost: +data.data.totalCost,
                      paymentCost: +data.data.paymentCost,

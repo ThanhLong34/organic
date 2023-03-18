@@ -175,7 +175,7 @@
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                                  >
-                                    Tiền phải trả
+                                    Tiền thanh toán
                                  </th>
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
@@ -234,12 +234,12 @@
                                     </p>
                                  </td>
                                  <td>
-                                    <p class="text-sm font-weight-bold mb-0">
+                                    <p class="text-sm font-weight-bold mb-0 text-warning">
                                        {{ toVND(item.totalCost) }}
                                     </p>
                                  </td>
                                  <td>
-                                    <p class="text-sm font-weight-bold mb-0">
+                                    <p class="text-sm font-weight-bold mb-0 text-pink">
                                        {{ toVND(item.paymentCost) }}
                                     </p>
                                  </td>
@@ -464,6 +464,7 @@ export default {
                      ...item,
                      id: +item.id,
                      couponCodeId: +item.couponCodeId,
+                     couponCodePercentValue: +item.couponCodePercentValue,
                      deliveryCost: +item.deliveryCost,
                      totalCost: +item.totalCost,
                      paymentCost: +item.paymentCost,

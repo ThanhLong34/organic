@@ -147,7 +147,7 @@
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                                  >
-                                    Số lượng áp dụng
+                                    Số lượng áp dụng còn lại
                                  </th>
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
@@ -177,12 +177,12 @@
                                  </td>
                                  <td>
                                     <p class="text-sm font-weight-bold mb-0">
-                                       {{ item.percentValue }}
+                                       {{ item.percentValue }}&#37;
                                     </p>
                                  </td>
                                  <td>
                                     <p class="text-sm font-weight-bold mb-0">
-                                       {{ item.quantityApplied }}
+                                       {{ item.remainingQuantityApplied }}
                                     </p>
                                  </td>
 											<td>

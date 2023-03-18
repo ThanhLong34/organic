@@ -54,7 +54,7 @@ function getItem($id)
    }
 
    // Thực thi query
-   $query = "SELECT `$tableName`.*, `couponcode`.`code` AS 'couponCodeCode', `orderstatus`.`name` AS 'orderStatusName' 
+   $query = "SELECT `$tableName`.*, `couponcode`.`code` AS 'couponCodeCode', `couponcode`.`percentValue` AS 'couponCodePercentValue', `orderstatus`.`name` AS 'orderStatusName' 
       FROM `$tableName`
       LEFT JOIN `couponcode` ON `couponcode`.`id` = `$tableName`.`couponCodeId`
       LEFT JOIN `orderstatus` ON `orderstatus`.`id` = `$tableName`.`orderStatusId`

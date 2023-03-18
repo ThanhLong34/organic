@@ -54,7 +54,7 @@ function getItem($id)
    }
 
    // Thực thi query
-   $query = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName'
+   $query = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl', `productcategory`.`name` AS 'productCategoryName', `productcategory`.`deletedAt` AS 'productCategoryDeletedAt'
       FROM `$tableName` 
       LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
       LEFT JOIN `productcategory` ON `productcategory`.`id` = `$tableName`.`productCategoryId`

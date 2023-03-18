@@ -32,15 +32,15 @@
 					:max="100"
                v-model="dataChange.percentValue"
             />
-				<!-- quantityApplied -->
+				<!-- remainingQuantityApplied -->
             <label for="example-text-input" class="form-control-label">
-               Số lượng áp dụng
+               Số lượng áp dụng còn lại
             </label>
             <argon-input
 					ref="quantityAppliedRef"
                type="number"
                placeholder="Nhập số lượng áp dụng"
-               v-model="dataChange.quantityApplied"
+               v-model="dataChange.remainingQuantityApplied"
             />
             <!-- isLimited -->
             <label for="example-text-input" class="form-control-label">
@@ -102,7 +102,7 @@ export default {
          dataChange: {
             description: null,
             percentValue: null,
-            quantityApplied: null,
+            remainingQuantityApplied: null,
             isLimited: null,
          },
       };
@@ -135,7 +135,7 @@ export default {
       bindingData() {
          this.$refs.descriptionRef?.setValue(this.data.description);
          this.$refs.percentValueRef?.setValue(this.data.percentValue);
-         this.$refs.quantityAppliedRef?.setValue(this.data.quantityApplied);
+         this.$refs.quantityAppliedRef?.setValue(this.data.remainingQuantityApplied);
       },
       handleDataProcessing() {
          // Chế biến lại dữ liệu
@@ -148,8 +148,8 @@ export default {
             this.dataChange.percentValue = +this.dataChange.percentValue.trim();
          }
 
-         if (typeof this.dataChange.quantityApplied === "string") {
-            this.dataChange.quantityApplied = +this.dataChange.quantityApplied.trim();
+         if (typeof this.dataChange.remainingQuantityApplied === "string") {
+            this.dataChange.remainingQuantityApplied = +this.dataChange.remainingQuantityApplied.trim();
          }
       },
       validateBeforeSubmit() {
@@ -159,7 +159,7 @@ export default {
             this.dataChange.percentValue === "" ||
             (this.dataChange.percentValue === null &&
                this.dataChange.description === null &&
-               this.dataChange.quantityApplied === null &&
+               this.dataChange.remainingQuantityApplied === null &&
                this.dataChange.isLimited === null)
          ) {
             ElMessage({

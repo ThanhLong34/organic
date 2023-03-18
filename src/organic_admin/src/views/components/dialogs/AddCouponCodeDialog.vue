@@ -30,14 +30,14 @@
 					:max="100"
                v-model="data.percentValue"
             />
-            <!-- quantityApplied -->
+            <!-- remainingQuantityApplied -->
             <label for="example-text-input" class="form-control-label">
-               Số lượng áp dụng
+               Số lượng áp dụng còn lại
             </label>
             <argon-input
                type="number"
                placeholder="Nhập số lượng áp dụng"
-               v-model="data.quantityApplied"
+               v-model="data.remainingQuantityApplied"
             />
 				<!-- isLimited -->
             <label for="example-text-input" class="form-control-label">
@@ -92,7 +92,7 @@ export default {
          data: {
             description: "",
             percentValue: "",
-            quantityApplied: "",
+            remainingQuantityApplied: "",
             isLimited: false,
          },
       };
@@ -109,8 +109,8 @@ export default {
             this.data.percentValue = +this.data.percentValue.trim();
          }
 
-         if (typeof this.data.quantityApplied === "string") {
-            this.data.quantityApplied = +this.data.quantityApplied.trim();
+         if (typeof this.data.remainingQuantityApplied === "string") {
+            this.data.remainingQuantityApplied = +this.data.remainingQuantityApplied.trim();
          }
       },
       validateBeforeSubmit() {
