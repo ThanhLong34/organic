@@ -176,7 +176,7 @@
                         </td>
                         <td>
                            <p class="text-sm font-weight-bold mb-0">
-                              {{ `${item.quantity} ${item.unit}` }}
+                              {{ `${item.quantity} x ${item.unit}` }}
                            </p>
                         </td>
                      </tr>

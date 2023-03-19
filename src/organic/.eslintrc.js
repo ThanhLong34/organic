@@ -22,6 +22,7 @@ module.exports = {
 		// override configuration set by extending "eslint:recommended"
 		"init-declarations": "off",
 		"no-cond-assign": ["error", "always"],
+		"prefer-const": "off",
 		// disable rules from base configurations
 		"for-direction": "off",
 		"vue/custom-event-name-casing": "off",

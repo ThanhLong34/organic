@@ -40,7 +40,7 @@
                   <router-link
                      :to="{
                         name: 'shop',
-                        params: { categoryName: 'category-name' },
+                        params: { categoryName: 'show-all' },
                      }"
                   >
                      <i class="fa-solid fa-caret-right"></i>

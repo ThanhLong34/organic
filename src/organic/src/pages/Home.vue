@@ -20,7 +20,7 @@
                         <router-link
                            :to="{
                               name: 'shop',
-                              params: { categoryName: 'category-name' },
+                              params: { categoryName: 'show-all' },
                            }"
                         >
                            <button-v-2>
@@ -81,7 +81,7 @@
                            Dinh dưỡng tươi hoàn toàn tự nhiên.
                         </p>
                         <div class="icon-section-item-btn-wrap">
-                           <button-v-1>Đọc thêm</button-v-1>
+                           <button-v-1 @click="handleRedirectToAboutPage">Đọc thêm</button-v-1>
                         </div>
                      </div>
                   </div>
@@ -118,7 +118,7 @@
                            Sản phẩm của chúng tôi hoàn toàn là sản phẩm hữu cơ.
                         </p>
                         <div class="icon-section-item-btn-wrap">
-                           <button-v-1>Đọc thêm</button-v-1>
+                           <button-v-1 @click="handleRedirectToAboutPage">Đọc thêm</button-v-1>
                         </div>
                      </div>
                   </div>
@@ -155,7 +155,7 @@
                            Tất cả sản phẩm đều đảm bảo chất lượng tốt nhất.
                         </p>
                         <div class="icon-section-item-btn-wrap">
-                           <button-v-1>Đọc thêm</button-v-1>
+                           <button-v-1 @click="handleRedirectToAboutPage">Đọc thêm</button-v-1>
                         </div>
                      </div>
                   </div>
@@ -192,7 +192,7 @@
                            Sản phẩm hoàn toàn được trồng và nuôi tự nhiên
                         </p>
                         <div class="icon-section-item-btn-wrap">
-                           <button-v-1>Đọc thêm</button-v-1>
+                           <button-v-1 @click="handleRedirectToAboutPage">Đọc thêm</button-v-1>
                         </div>
                      </div>
                   </div>
@@ -218,7 +218,7 @@
                         </p>
                         <h5 class="about-section-heading">
                            <strong>Tươi &amp; An toàn</strong>
-                           Rau hữu cơ
+                           Thực phẩm hữu cơ
                         </h5>
                         <p class="about-section-para">
                            Hãy cùng chúng tôi xây dựng một bầu khí quyển trong
@@ -235,7 +235,7 @@
                               Thực phẩm được kiểm nghiệm an toàn
                            </li>
                         </ul>
-                        <button-v-2>
+                        <button-v-2 @click="handleRedirectToShopPage">
                            Cửa hàng
                            <i class="fa-solid fa-arrow-right"></i>
                         </button-v-2>
@@ -301,7 +301,7 @@
                               </li>
                            </ul>
                         </div>
-                        <button-v-2>
+                        <button-v-2 @click="handleRedirectToShopPage">
                            Mua ngay
                            <i class="fa-solid fa-arrow-right"></i>
                         </button-v-2>
@@ -368,7 +368,7 @@
                            <div class="col- l-5 m-5 s-12">
                               <div class="slider-section-product-txt">
                                  <div class="slider-section-product-price">
-                                    160.000đ
+                                    Chỉ từ 100.000 đ
                                  </div>
                                  <h5 class="slider-section-product-name">
                                     <strong>Bơ</strong> tươi
@@ -378,7 +378,7 @@
                                     <br />
                                     100% hữu cơ
                                  </p>
-                                 <button-v-2>
+                                 <button-v-2 @click="handleRedirectToShopPage">
                                     Xem thêm
                                     <i class="fa-solid fa-arrow-right"></i>
                                  </button-v-2>
@@ -401,7 +401,7 @@
                            <div class="col- l-5 m-5 s-12">
                               <div class="slider-section-product-txt">
                                  <div class="slider-section-product-price">
-                                    160.000đ
+                                    Chỉ từ 100.000 đ
                                  </div>
                                  <h5 class="slider-section-product-name">
                                     <strong>Bắp cải</strong> tươi
@@ -411,7 +411,7 @@
                                     <br />
                                     100% hữu cơ
                                  </p>
-                                 <button-v-2>
+                                 <button-v-2 @click="handleRedirectToShopPage">
                                     Xem thêm
                                     <i class="fa-solid fa-arrow-right"></i>
                                  </button-v-2>
@@ -434,17 +434,17 @@
                            <div class="col- l-5 m-5 s-12">
                               <div class="slider-section-product-txt">
                                  <div class="slider-section-product-price">
-                                    160.000đ
+                                    Chỉ từ 100.000 đ
                                  </div>
                                  <h5 class="slider-section-product-name">
-                                    <strong>Hành củ</strong> tươi
+                                    <strong>Hành tây</strong> tươi
                                  </h5>
                                  <p class="slider-section-product-desc">
                                     Luôn luôn tươi ngon
                                     <br />
                                     100% hữu cơ
                                  </p>
-                                 <button-v-2>
+                                 <button-v-2 @click="handleRedirectToShopPage">
                                     Xem thêm
                                     <i class="fa-solid fa-arrow-right"></i>
                                  </button-v-2>
@@ -467,7 +467,7 @@
                            <div class="col- l-5 m-5 s-12">
                               <div class="slider-section-product-txt">
                                  <div class="slider-section-product-price">
-                                    160.000đ
+                                    Chỉ từ 100.000 đ
                                  </div>
                                  <h5 class="slider-section-product-name">
                                     <strong>Cà chua</strong> tươi
@@ -477,7 +477,7 @@
                                     <br />
                                     100% hữu cơ
                                  </p>
-                                 <button-v-2>
+                                 <button-v-2 @click="handleRedirectToShopPage">
                                     Xem thêm
                                     <i class="fa-solid fa-arrow-right"></i>
                                  </button-v-2>
@@ -566,6 +566,11 @@
 </template>
 
 <script>
+
+import { ref, computed, reactive } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+
 /* eslint-disable */
 import ButtonV1 from "@/components/ButtonV1.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
@@ -582,8 +587,6 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper";
 //#endregion
 
-import { ref, computed, reactive } from "vue";
-import { useStore } from "vuex";
 
 export default {
    name: "HomePage",
@@ -600,6 +603,7 @@ export default {
    },
    setup() {
       const store = useStore();
+      const router = useRouter();
 
       const homeTopImageNode = ref(null);
       const saleTime = computed(() => {
@@ -607,6 +611,11 @@ export default {
       });
       const modulesSwiper = [Autoplay];
 
+		const productSpecial = reactive([
+			{
+
+			}
+		]);
       const productsNew = reactive([
          {
             category: "Fresh",
@@ -658,21 +667,6 @@ export default {
          },
       ]);
 
-      function handleMoveEffectTopImage(e) {
-         let mouseX = e.clientX;
-         let mouseY = e.clientY;
-
-         const imgNode = homeTopImageNode.value;
-
-         let imgX = mouseX - getCoords(imgNode).x;
-         let imgY = mouseY - getCoords(imgNode).y;
-
-         imgNode.style.transform = `
-        translateX(-${imgX / 50}px)
-        translateY(-${imgY / 50}px)
-      `;
-      }
-
       function getCoords(el) {
          let coords = el.getBoundingClientRect();
          return {
@@ -690,14 +684,39 @@ export default {
          return { d, h, m, s };
       }
 
+      function handleMoveEffectTopImage(e) {
+         let mouseX = e.clientX;
+         let mouseY = e.clientY;
+
+         const imgNode = homeTopImageNode.value;
+
+         let imgX = mouseX - getCoords(imgNode).x;
+         let imgY = mouseY - getCoords(imgNode).y;
+
+         imgNode.style.transform = `
+        translateX(-${imgX / 50}px)
+        translateY(-${imgY / 50}px)
+      `;
+      }
+
+		function handleRedirectToAboutPage() {
+			router.push({ name: "about" });
+		}
+
+		function handleRedirectToShopPage() {
+			router.push({ name: "shop", params: { categoryName: 'show-all' } });
+		}
+
       return {
          homeTopImageNode,
          saleTime,
-         handleMoveEffectTopImage,
          secondsToDhms,
          modulesSwiper,
          productsNew,
          blogs,
+         handleMoveEffectTopImage,
+         handleRedirectToAboutPage,
+         handleRedirectToShopPage,
       };
    },
 };
