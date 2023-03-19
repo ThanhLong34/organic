@@ -86,6 +86,11 @@
                                  >
                                     Ảnh đặc trưng &amp; Tên danh mục
                                  </th>
+											<th
+                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                 >
+                                    Số lượng sản phẩm
+                                 </th>
                                  <th></th>
                               </tr>
                            </thead>
@@ -101,7 +106,7 @@
                                                    ? item.featureImageUrl
                                                    : `${require('@/assets/img/no-image.jpg')}`
                                              "
-                                             class="image-contain avatar avatar-sm me-2"
+                                             class="image-contain avatar-sm me-2"
                                              alt="feature image url"
                                           />
                                        </div>
@@ -111,6 +116,13 @@
                                           </h6>
                                        </div>
                                     </div>
+                                 </td>
+											<td>
+                                    <p
+                                       class="text-sm font-weight-bold mb-0"
+                                    >
+                                       {{ item.quantityProduct }}
+                                    </p>
                                  </td>
                                  <td class="align-middle">
                                     <div class="ms-auto text-end action-btns">
@@ -295,6 +307,7 @@ export default {
                   this.tableData = data.data.map((item) => ({
                      ...item,
                      id: +item.id,
+                     quantityProduct: +item.quantityProduct,
                   }));
                   this.totalItem = +data.totalItem;
                   this.numberOfPage = Math.ceil(this.totalItem / this.limit);

@@ -62,11 +62,14 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    }
 
    //! Thêm tùy chỉnh Code ở đây
-   $baseQuery = "SELECT `$tableName`.*, `image`.`link` AS 'featureImageUrl' 
+   $baseQuery = "SELECT COUNT(`product`.`id`) AS 'quantityProduct', `$tableName`.*, `image`.`link` AS 'featureImageUrl'
       FROM `$tableName` 
       LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
+      LEFT JOIN `product` ON `product`.`productCategoryId` = `productcategory`.`id` 
+      AND `product`.`deletedAt` IS NULL
       WHERE `$tableName`.`deletedAt` IS NULL";
    $optionQuery = "";
+   $groupbyQuery = "GROUP BY `$tableName`.`id`";
 
 
    //! Cẩn thận khi sửa Code ở đây
@@ -79,7 +82,7 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    $limitQuery = "LIMIT $limit OFFSET $offset";
 
    if ($limit === "") {
-      $query = $querySelectAllRecord . " " . $orderbyQuery;
+      $query = $querySelectAllRecord . " " . $groupbyQuery . " " . $orderbyQuery;
    } else {
       if ($searchType !== "" && $searchValue !== "" && $fillType !== "" && $fillValue !== "") {
          $querySelectAllRecord .= " AND `$tableName`.`$searchType` LIKE '%$searchValue%' AND `$tableName`.`$fillType` = '$fillValue'";
@@ -89,8 +92,10 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
          $querySelectAllRecord .= " AND `$tableName`.`$fillType` = '$fillValue'";
       }
 
-      $query = $querySelectAllRecord . " " . $orderbyQuery . " " . $limitQuery;
+      $query = $querySelectAllRecord . " " . $groupbyQuery . " " . $orderbyQuery . " " . $limitQuery;
    }
+
+   $querySelectAllRecord .= " " . $groupbyQuery;
 
    // Thực thi truy vấn
    performsQueryAndResponseToClient($query, $querySelectAllRecord);

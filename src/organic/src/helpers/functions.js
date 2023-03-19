@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 export function checkElementInViewport(ele, offsetTop) {
   if (ele) {
     const position = ele.getBoundingClientRect();
@@ -12,8 +10,7 @@ export function checkElementInViewport(ele, offsetTop) {
     // checking for partial visibility
     if (position.top < screenHeight && position.bottom >= 0) {
       return true;
-    } else
-      return false;
+    }
   }
 
   // checking whether fully visible

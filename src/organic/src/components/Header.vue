@@ -22,18 +22,22 @@
                         <!-- item -->
                         <li
                            class="categories-item"
-                           v-for="(item, index) in categories"
+                           v-for="(item, index) in productCategoryList"
                            :key="index"
                         >
                            <div class="categories-item-img">
                               <img
-                                 :src="`${require(`@/assets/images/categories_icon/${item.icon}`)}`"
+                                 :src="
+                                    item.featureImageUrl
+                                       ? item.featureImageUrl
+                                       : `${require('@/assets/images/no-image.jpg')}`
+                                 "
                                  alt="icon"
                               />
                            </div>
                            <h6 class="categories-item-name">{{ item.name }}</h6>
                            <p class="categories-item-total">
-                              &lpar;30 sản phẩm&rpar;
+                              &lpar;{{ item.quantityProduct }} sản phẩm&rpar;
                            </p>
                         </li>
                      </ul>
@@ -72,10 +76,13 @@
 
 <script>
 /* eslint-disable */
+import { ref, computed, onMounted, reactive } from "vue";
+
 import Navigator from "@/components/Navigator.vue";
 import ViewCartBox from "@/components/ViewCartBox.vue";
 
-import { ref, computed, onMounted, reactive } from "vue";
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "HeaderComponent",
@@ -92,17 +99,27 @@ export default {
    emits: ["openMenuSidebar", "showOverlayMain", "hideOverlayMain"],
    setup(props, { emit }) {
       const isShowCategoryBox = ref(false);
-      const categories = reactive([
-         { name: "Vegetables", icon: "vegetables.png" },
-         { name: "Fresh Fruits", icon: "fresh_fruits.png" },
-         { name: "Beverages", icon: "beverages.png" },
-         { name: "Babies & Kids", icon: "babies_and_kids.png" },
-         { name: "Frozen Foods", icon: "frozen_foods.png" },
-         { name: "Superfoods & Greens", icon: "superfoods_and_greens.png" },
-         { name: "Fresh Tomatoes", icon: "fresh_tomatoes.png" },
-         { name: "Fresh Nut & Seed", icon: "fresh_nut_and_seed.png" },
-         { name: "Fresh Organic", icon: "fresh_organic.png" },
-      ]);
+      const productCategoryList = ref([]);
+
+		//? GET DATA HERE
+		getProductCategoryList();
+
+      function getProductCategoryList() {
+         return API.get(
+            apiPath + `/product_category/get_list.php`,
+            {},
+            (data) => {
+               if (data.code === 1) {
+                  // TABLE STATES
+                  productCategoryList.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                     quantityProduct: +item.quantityProduct,
+                  }));
+               }
+            }
+         );
+      }
 
       function handleToggleShowCategoryBox() {
          if (props.isHideCategoryBox) {
@@ -123,7 +140,7 @@ export default {
 
       return {
          isShowCategoryBox,
-         categories,
+         productCategoryList,
          handleToggleShowCategoryBox,
          handleOpenMenuSidebar,
       };

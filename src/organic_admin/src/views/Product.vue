@@ -212,7 +212,7 @@
                                                    ? item.featureImageUrl
                                                    : `${require('@/assets/img/no-image.jpg')}`
                                              "
-                                             class="image-contain avatar avatar-sm me-2"
+                                             class="image-contain avatar-sm me-2"
                                              alt="feature image url"
                                           />
                                        </div>

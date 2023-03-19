@@ -334,6 +334,10 @@ export default {
          if (typeof this.data.shortDescription === "string") {
             this.data.shortDescription = this.data.shortDescription.trim();
          }
+
+         if (this.data.promotionPrice === "") {
+            this.data.promotionPrice = this.data.originPrice;
+         }
       },
       validateBeforeSubmit() {
          this.handleDataProcessing();
@@ -356,18 +360,18 @@ export default {
             return false;
          }
 
-         if (this.data.unit === "") {
+         if (this.data.originPrice === null) {
             ElMessage({
-               message: "Chưa nhập đơn vị tính cho sản phẩm",
+               message: "Chưa nhập giá gốc cho sản phẩm",
                type: "warning",
             });
 
             return false;
          }
 
-         if (this.data.productCategoryId === null) {
+         if (this.data.unit === "") {
             ElMessage({
-               message: "Chưa chọn danh mục cho sản phẩm",
+               message: "Chưa nhập đơn vị tính cho sản phẩm",
                type: "warning",
             });
 
