@@ -204,7 +204,7 @@
                                           >Xem tin nhắn
                                        </a>
                                        <el-popconfirm
-														v-if="checkPermissionFunction(functions.TrashSystemRole)"
+														v-if="checkPermissionFunction(functions.TrashContact)"
                                           confirm-button-text="OK"
                                           cancel-button-text="Hủy"
                                           title="Xác nhận xóa"

@@ -8,7 +8,7 @@ class OrderSuccessMail extends Mail
       $this->mailTo = $mailTo;
       $this->subject = "Đặt đơn hàng thành công cho đơn hàng có mã: #$order->id";
       $this->body = "
-         <div>Thời gian gửi: <span style='color: #e6802e;'>$order->createdAt</span></div>
+         <div>Thời gian đặt đơn hàng: <span style='color: #e6802e;'>$order->createdAt</span></div>
          <div>
             <span>ID (mã đơn hàng): </span>
             <span style='color: #c9223e;'>$order->id</span>

@@ -3,51 +3,75 @@
       <div class="card-header pb-0">
          <div class="row">
             <div class="col-md-12">
-               <h6 class="mb-0 text-uppercase">Chỉnh sửa mã giảm giá</h6>
+               <h6 class="mb-0 text-uppercase">Chỉnh sửa đánh giá</h6>
             </div>
          </div>
       </div>
       <div class="card-body pt-3 p-4">
          <div class="col-md-12">
-            <!-- description -->
-            <label for="example-text-input" class="form-control-label">
-               Mô tả
+            <!-- fullname -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Họ tên
             </label>
-            <argon-input
-               ref="descriptionRef"
-               type="text"
-               placeholder="Nhập mô tả"
-               v-model="dataChange.description"
-            />
-            <!-- percentValue -->
-            <label for="example-text-input" class="form-control-label">
-               Giá trị giảm (%)
-               <span class="star-input-required">*</span>
+            <div>
+               {{ data.fullname }}
+            </div>
+            <!-- email -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Email
             </label>
-            <argon-input
-					ref="percentValueRef"
-               type="number"
-               placeholder="Nhập giá trị giảm (%)"
-					:min="1"
-					:max="100"
-               v-model="dataChange.percentValue"
-            />
-				<!-- remainingQuantityApplied -->
-            <label for="example-text-input" class="form-control-label">
-               Số lượng áp dụng còn lại
+            <div>
+               {{ data.email }}
+            </div>
+            <!-- rating -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Đánh giá
             </label>
-            <argon-input
-					ref="quantityAppliedRef"
-               type="number"
-               placeholder="Nhập số lượng áp dụng"
-               v-model="dataChange.remainingQuantityApplied"
-            />
-            <!-- isLimited -->
-            <label for="example-text-input" class="form-control-label">
-               Trạng thái giới hạn
+            <div>
+               {{ data.rating }}
+               <i class="fa fa-star rating-star" aria-hidden="true"></i>
+            </div>
+            <!-- isShow -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Hiển thị
             </label>
-            <argon-switch v-model="dataChange.isLimited" :checked="data.isLimited">
-               {{ data.isLimited ? "Có" : "Không" }}
+            <div>
+               {{ data.isShow ? "Có" : "Không" }}
+            </div>
+            <!-- createdAt -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Thời gian gửi
+            </label>
+            <div>
+               {{ data.createdAt }}
+            </div>
+            <!-- comment -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Bình luận
+            </label>
+            <div>
+               {{ data.comment }}
+            </div>
+            <!-- Trạng thái phản hồi -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Trạng thái phản hồi
+            </label>
+            <div>
+               <span
+                  class="badge badge-md"
+                  :class="
+                     hasReply ? 'bg-gradient-success' : 'bg-gradient-secondary'
+                  "
+               >
+                  {{ hasReply ? "Đã phản hồi" : "Chưa phản hồi" }}
+               </span>
+            </div>
+            <!-- Thay đổi trạng thái hiển thị / ẩn -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Thay đổi trạng thái hiển thị / ẩn
+            </label>
+				<argon-switch v-model="dataChange.isShow" :checked="data.isShow">
+               {{ dataChange.isShow ? "Có" : "Không" }}
             </argon-switch>
          </div>
          <div class="col-md-12 pt-3">
@@ -68,7 +92,7 @@
                   class="action-btn"
                   @click="handleCloseDialog"
                >
-                  Hủy
+                  Đóng
                </argon-button>
             </div>
          </div>
@@ -77,18 +101,21 @@
 </template>
 
 <script>
+
 import { ElMessage } from "element-plus";
 import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonSwitch from "@/components/ArgonSwitch.vue";
-import ArgonInput from "@/components/ArgonInput.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
-const apiGroup = "coupon_code";
+const apiGroup = "product_review";
+
+import { functions } from "@/helpers/constants.js";
+import Funcs from "@/helpers/funcs.js";
 
 export default {
-   name: "EditCouponCodeDialog",
-   components: { ArgonButton, ArgonSwitch, ArgonInput },
+   name: "EditProductReviewDialog",
+   components: { ArgonButton, ArgonSwitch },
    emits: ["onCloseDialog"],
    props: {
       itemIdSelect: {
@@ -98,16 +125,27 @@ export default {
    },
    data() {
       return {
+         // Import constants
+         functions,
+
          data: {},
          dataChange: {
-            description: null,
-            percentValue: null,
-            remainingQuantityApplied: null,
-            isLimited: null,
+            isShow: "",
          },
+
+         reply: {
+            message: "",
+         },
+
+         isReplyClicked: false,
+
+         hasReply: false,
       };
    },
    methods: {
+      checkPermissionFunction(functionName) {
+         return Funcs.checkPermissionFunction(functionName);
+      },
       getData() {
          return API.get(
             apiPath + `/${apiGroup}/get_item.php`,
@@ -118,8 +156,14 @@ export default {
                if (data.code === 1) {
                   this.data = {
                      ...data.data,
-                     isLimited: +data.data.isLimited == 1,
+                     id: +data.data.id,
+                     isShow: +data.data.isShow == 1,
+                     rating: +data.data.rating,
+                     productId: +data.data.productId,
                   };
+
+                  // Has reply
+                  this.hasReply = !!this.data.repliedAt;
 
                   // Binding data
                   this.bindingData();
@@ -133,51 +177,22 @@ export default {
          );
       },
       bindingData() {
-         this.$refs.descriptionRef?.setValue(this.data.description);
-         this.$refs.percentValueRef?.setValue(this.data.percentValue);
-         this.$refs.quantityAppliedRef?.setValue(this.data.remainingQuantityApplied);
+         this.$refs.replyMessageRef?.setValue(this.data.replyMessage);
       },
       handleDataProcessing() {
          // Chế biến lại dữ liệu
-
-         if (typeof this.dataChange.description === "string") {
-            this.dataChange.description = this.dataChange.description.trim();
-         }
-
-         if (typeof this.dataChange.percentValue === "string") {
-            this.dataChange.percentValue = +this.dataChange.percentValue.trim();
-         }
-
-         if (typeof this.dataChange.remainingQuantityApplied === "string") {
-            this.dataChange.remainingQuantityApplied = +this.dataChange.remainingQuantityApplied.trim();
-         }
       },
       validateBeforeSubmit() {
          this.handleDataProcessing();
 
-         if (
-            this.dataChange.percentValue === "" ||
-            (this.dataChange.percentValue === null &&
-               this.dataChange.description === null &&
-               this.dataChange.remainingQuantityApplied === null &&
-               this.dataChange.isLimited === null)
-         ) {
+         if (this.dataChange.isShow === "") {
             ElMessage({
-               message: "Nhập giá trị giảm mới hoặc không được để trống",
+               message: "Không có gì để thay đổi",
                type: "warning",
             });
 
             return false;
          }
-
-			if (this.dataChange.percentValue != null && (this.dataChange.percentValue <= 0 || this.dataChange.percentValue > 100)) {
-				ElMessage({
-               message: "Giá trị giảm phải nằm trong khoảng 1 -> 100",
-               type: "warning",
-            });
-
-            return false;
-			}
 
          return true;
       },
@@ -188,7 +203,7 @@ export default {
             apiPath + `/${apiGroup}/update.php`,
             {
                id: this.data.id,
-               ...this.dataChange,
+               isShow: this.dataChange.isShow,
             },
             (data) => {
                if (data.code === 1) {
@@ -220,4 +235,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/my_styles/table.scss";
+
+label.form-control-label {
+   text-transform: uppercase;
+}
 </style>

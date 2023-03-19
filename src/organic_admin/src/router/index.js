@@ -15,6 +15,7 @@ import ProductCategory from "../views/ProductCategory.vue";
 import Product from "../views/Product.vue";
 import AddProduct from "../views/AddProduct.vue";
 import EditProduct from "../views/EditProduct.vue";
+import ProductReview from "../views/ProductReview.vue";
 import Blog from "../views/Blog.vue";
 import AddBlog from "../views/AddBlog.vue";
 import EditBlog from "../views/EditBlog.vue";
@@ -121,6 +122,14 @@ const routes = [
 		component: EditProduct,
 		meta: {
 			breadcrumbName: "Chỉnh sửa thông tin sản phẩm",
+		},
+	},
+	{
+		path: "/product-preview/:id",
+		name: menus.ProductReview,
+		component: ProductReview,
+		meta: {
+			breadcrumbName: "Đánh giá sản phẩm",
 		},
 	},
 	{

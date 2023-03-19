@@ -191,7 +191,7 @@
                "
             >
                <label for="example-text-input" class="form-control-label mt-3">
-                  Trạng thái đơn hàng
+                  Thay đổi trạng thái đơn hàng
                </label>
 
                <div class="selection-wrap">
@@ -389,7 +389,7 @@ export default {
       handleSubmit() {
          if (!this.validateBeforeSubmit()) return;
 
-         return API.post(
+         return API.put(
             apiPath + `/${apiGroup}/update_order_status_for_order.php`,
             {
                id: this.data.id,

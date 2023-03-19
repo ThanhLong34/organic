@@ -147,7 +147,7 @@ export default {
       handleSubmit() {
          if (!this.validateBeforeSubmit()) return;
 
-         return API.post(
+         return API.put(
             apiPath + `/${apiGroup}/update_system_role.php`,
             {
                id: this.data.id,

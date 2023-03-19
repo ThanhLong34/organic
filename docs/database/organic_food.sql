@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2023 at 04:40 PM
+-- Generation Time: Mar 19, 2023 at 09:31 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -44,7 +44,7 @@ CREATE TABLE `blog` (
 --
 
 INSERT INTO `blog` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImageId`, `title`, `description`, `content`, `systemAdminId`) VALUES
-(3, '22:20:14 14/03/2023', '22:31:03 14/03/2023', NULL, 197, 'Easy way to Build a Perfect Agency Website', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
+(3, '22:20:14 14/03/2023', '13:40:32 19/03/2023', NULL, 197, 'Easy way to Build a Perfect Agency Website', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
 (4, '22:24:22 14/03/2023', NULL, NULL, 198, 'Zechsal Magnesium flakes especially made', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17),
 (5, '22:24:42 14/03/2023', NULL, NULL, 199, 'Our 6 of the Best Organic Grapes to Buy', 'Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed. The goodness of rolled wholegrain oats are combined Sumptuous, filling, and temptingly healthy, our Biona Organic Granola with Wild Berries is just the thing to get you out of bed.', '<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Aenean id ullamcorper</p><p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies,&nbsp;<span style=\"background-color: transparent;\">vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</span></p><p><br></p><p><img src=\"https://themewar.com/html/organia/demo/assets/images/blog/post.jpg\"></p><p><br></p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p><p>Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit ametVestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. faucibus risus, a euismod lorem tincidunt id.</p><p>Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vulputate, tortor nec commodo ultricies, vitae viverra urna nulla sed turpis. Nullam lacinia faucibus risus, a euismod lorem tincidunt id.</p>', 17);
 
@@ -177,9 +177,7 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (188, '16:30:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64103ec037d3f.jpg', 'project_image64103ec037d3f.jpg', 218814),
 (197, '22:19:47 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64109093e2bca.jpg', 'project_image64109093e2bca.jpg', 206436),
 (198, '22:24:16 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091a0433b4.jpg', 'project_image641091a0433b4.jpg', 297970),
-(199, '22:24:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091b80a830.jpg', 'project_image641091b80a830.jpg', 212053),
-(222, '10:22:10 18/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64152e62d8c31.png', 'project_image64152e62d8c31.png', 93226),
-(223, '10:23:07 18/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64152e9bb2b85.png', 'project_image64152e9bb2b85.png', 2781);
+(199, '22:24:40 14/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641091b80a830.jpg', 'project_image641091b80a830.jpg', 212053);
 
 -- --------------------------------------------------------
 
@@ -329,9 +327,11 @@ CREATE TABLE `productreview` (
   `deletedAt` varchar(255) DEFAULT NULL,
   `fullname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `comment` varchar(1000) NOT NULL,
+  `comment` text NOT NULL,
   `rating` tinyint(4) NOT NULL,
   `isShow` tinyint(1) NOT NULL DEFAULT 1,
+  `repliedAt` varchar(255) DEFAULT NULL,
+  `replyMessage` text DEFAULT NULL,
   `productId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -339,11 +339,11 @@ CREATE TABLE `productreview` (
 -- Dumping data for table `productreview`
 --
 
-INSERT INTO `productreview` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `email`, `comment`, `rating`, `isShow`, `productId`) VALUES
-(1, '21:48:10 18/03/2023', NULL, NULL, 'Thành Long', '2014468@dlu.edu.vn', 'Test comment', 4, 1, 23),
-(3, '21:53:01 18/03/2023', NULL, NULL, 'Nguyễn Thành Long', 'thanhlongedu0304@gmail.com', 'Sản phẩm tốt', 5, 1, 23),
-(4, '21:53:48 18/03/2023', NULL, NULL, 'Bot 2', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 3, 1, 20),
-(5, '21:54:10 18/03/2023', NULL, NULL, 'Nguyễn Thị Huế', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 4, 1, 17);
+INSERT INTO `productreview` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `email`, `comment`, `rating`, `isShow`, `repliedAt`, `replyMessage`, `productId`) VALUES
+(1, '21:48:10 18/03/2023', '13:15:54 19/03/2023', NULL, 'Thành Long', '2014468@dlu.edu.vn', 'Test comment', 4, 1, NULL, NULL, 23),
+(3, '21:53:01 18/03/2023', '15:28:32 19/03/2023', NULL, 'Nguyễn Thành Long', 'thanhlongedu0304@gmail.com', 'Sản phẩm tốt', 5, 0, '12:42:15 19/03/2023', 'Hihi Shop cảm ơn bạn nhiều nhé', 23),
+(4, '21:53:48 18/03/2023', NULL, NULL, 'Bot 2', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 3, 1, NULL, NULL, 20),
+(5, '21:54:10 18/03/2023', NULL, NULL, 'Nguyễn Thị Huế', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 4, 1, '12:05:58 19/03/2023', 'Cảm ơn bạn đã mua sản phẩm ahihi', 17);
 
 -- --------------------------------------------------------
 
@@ -461,10 +461,10 @@ CREATE TABLE `systemadmin` (
 --
 
 INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `nickname`, `email`, `phone`, `avatarId`, `systemRoleId`) VALUES
-(4, '18:08:50 04/03/2023', '10:08:36 07/03/2023', NULL, 'dragondev0304', '202cb962ac59075b964b07152d234b70', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
+(4, '18:08:50 04/03/2023', '15:30:25 19/03/2023', NULL, 'dragondev0304', '0192023a7bbd73250516f069df18b500', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
 (5, '18:46:33 04/03/2023', '10:01:40 16/03/2023', NULL, 'client', '202cb962ac59075b964b07152d234b70', 'Client', 'dragondevshop@gmail.com', '0353292241', 26, 2),
 (16, '14:26:09 07/03/2023', '08:55:33 18/03/2023', NULL, 'websitemanager1', '90638fa097af66f3c8cc68fe3afb9acb', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
-(17, '11:36:09 11/03/2023', '22:23:17 14/03/2023', NULL, 'admin123', '72bfb23a06b036130967f222965b1c3d', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3),
+(17, '11:36:09 11/03/2023', '15:30:52 19/03/2023', NULL, 'admin123', '0192023a7bbd73250516f069df18b500', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3),
 (20, '09:17:22 18/03/2023', NULL, '09:18:03 18/03/2023', 'AdminTesting', '202cb962ac59075b964b07152d234b70', 'Admin Testing', '2014468@dlu.edu.vn', '0123456789', NULL, 4);
 
 -- --------------------------------------------------------
@@ -511,9 +511,9 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (20, '15:01:06 08/03/2023', '09:34:33 16/03/2023', NULL, 'system_function/trash.php', 'TrashSystemFunction', 'Trash system function by id', 'PUT', 0),
 (21, '15:01:20 08/03/2023', '09:34:36 16/03/2023', NULL, 'system_function/update.php', 'UpdateSystemFunction', 'Update system function by id', 'PUT', 0),
 (22, '15:02:27 08/03/2023', NULL, NULL, 'system_role_menu/add.php', 'AddSystemRoleMenu', 'Add system role menu', 'POST', 0),
-(23, '15:02:56 08/03/2023', NULL, NULL, 'system_role_menu/delete.php', 'DeleteSystemRoleMenu', 'Delete system role menu', 'POST, DELETE', 0),
+(23, '15:02:56 08/03/2023', '13:31:41 19/03/2023', NULL, 'system_role_menu/delete.php', 'DeleteSystemRoleMenu', 'Delete system role menu', 'DELETE', 0),
 (24, '15:03:24 08/03/2023', NULL, NULL, 'system_role_function/add.php', 'AddSystemRoleFunction', 'Add system role function', 'POST', 0),
-(25, '15:03:44 08/03/2023', NULL, NULL, 'system_role_function/delete.php', 'DeleteSystemRoleFunction', 'Delete system role function', 'POST, DELETE', 0),
+(25, '15:03:44 08/03/2023', '13:31:56 19/03/2023', NULL, 'system_role_function/delete.php', 'DeleteSystemRoleFunction', 'Delete system role function', 'DELETE', 0),
 (26, '15:04:17 08/03/2023', '14:24:15 16/03/2023', NULL, 'system_admin/login.php', 'LoginSystemAdmin', 'Login system admin', 'POST', 1),
 (27, '15:04:58 08/03/2023', NULL, NULL, 'system_admin/register.php', 'RegisterSystemAdmin', 'Register system admin', 'POST', 0),
 (28, '15:05:33 08/03/2023', NULL, NULL, 'system_admin/delete.php', 'DeleteSystemAdmin', 'Delete system admin by id', 'DELETE', 0),
@@ -535,7 +535,7 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (50, '18:15:46 11/03/2023', NULL, NULL, '', 'ViewImage', 'View image', '', 0),
 (51, '15:41:03 12/03/2023', NULL, NULL, 'product_category/add.php', 'AddProductCategory', 'Add product category', 'POST', 0),
 (52, '15:41:27 12/03/2023', '09:33:10 16/03/2023', NULL, 'product_category/delete.php', 'DeleteProductCategory', 'Delete product category by id', 'DELETE', 0),
-(53, '15:41:48 12/03/2023', '09:33:15 16/03/2023', NULL, 'product_category/delete.php', 'GetProductCategoryItem', 'Get product category item by id', 'GET', 0),
+(53, '15:41:48 12/03/2023', '14:28:50 19/03/2023', NULL, 'product_category/get_item.php', 'GetProductCategoryItem', 'Get product category item by id', 'GET', 0),
 (54, '15:42:20 12/03/2023', NULL, NULL, 'product_category/get_list.php', 'GetProductCategoryList', 'Get product category list', 'GET', 0),
 (55, '15:42:49 12/03/2023', '09:33:19 16/03/2023', NULL, 'product_category/trash.php', 'TrashProductCategory', 'Trash product category by id', 'PUT', 0),
 (56, '15:43:30 12/03/2023', '09:33:28 16/03/2023', NULL, 'product_category/update.php', 'UpdateProductCategory', 'Update product category by id', 'PUT', 0),
@@ -579,7 +579,7 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (94, '09:47:59 16/03/2023', '09:48:37 16/03/2023', NULL, 'order_status/trash.php', 'TrashOrderStatus', 'Trash order status by id', 'PUT', 0),
 (95, '09:48:23 16/03/2023', '09:48:39 16/03/2023', NULL, 'order_status/update.php', 'UpdateOrderStatus', 'Update order status by id', 'PUT', 0),
 (97, '08:49:26 17/03/2023', '09:01:50 17/03/2023', NULL, '', 'ViewContactDetails', 'View contact details by id', '', 0),
-(98, '09:33:21 17/03/2023', NULL, NULL, 'contact/reply.php', 'ReplyContact', 'Reply contact', 'POST', 0),
+(98, '09:33:21 17/03/2023', '11:36:13 19/03/2023', NULL, 'contact/reply.php', 'ReplyContact', 'Reply contact by id', 'POST', 0),
 (99, '19:10:48 17/03/2023', NULL, NULL, 'order/add.php', 'AddOrder', 'Add order', 'POST', 0),
 (100, '20:49:57 17/03/2023', '20:50:13 17/03/2023', NULL, 'order/delete.php', 'DeleteOrder', 'Delete order by id', 'DELETE', 0),
 (101, '20:50:30 17/03/2023', NULL, NULL, 'order/get_item.php', 'GetOrderItem', 'Get order item by id', 'GET', 0),
@@ -591,7 +591,15 @@ INSERT INTO `systemfunction` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `apiP
 (107, '09:29:19 18/03/2023', NULL, NULL, 'product_order/add_list.php', 'AddProductOrderList', 'Add product order list', 'POST', 0),
 (108, '18:54:24 18/03/2023', '20:58:49 18/03/2023', NULL, 'coupon_code/get_item_by_code.php', 'GetCouponCodeItemByCode', 'Get coupon code item by code', 'POST', 0),
 (109, '21:08:24 18/03/2023', '21:14:44 18/03/2023', NULL, 'mail/send_customize.php', 'SendCustomizeMail', 'Send customize mail', 'POST', 0),
-(110, '21:45:39 18/03/2023', NULL, NULL, 'product_review/add.php', 'AddProductPreview', 'Add product preview', 'POST', 0);
+(110, '21:45:39 18/03/2023', '10:33:01 19/03/2023', NULL, 'product_review/add.php', 'AddProductReview', 'Add product review', 'POST', 0),
+(111, '08:59:54 19/03/2023', '14:32:37 19/03/2023', NULL, 'product_review/get_list_for_product.php', 'GetProductReviewListForProduct', 'Get product review list for product', 'GET', 0),
+(112, '09:30:12 19/03/2023', '11:45:42 19/03/2023', NULL, '', 'ViewProductReviewDetails', 'View product review details by id', '', 0),
+(113, '11:11:43 19/03/2023', '11:33:52 19/03/2023', NULL, 'product_review/update.php', 'UpdateProductReview', 'Update product review by id', 'PUT', 0),
+(114, '11:34:29 19/03/2023', NULL, NULL, 'product_review/delete.php', 'DeleteProductReview', 'Delete product review by id', 'DELETE', 0),
+(115, '11:35:01 19/03/2023', NULL, NULL, 'product_review/get_item.php', 'GetProductReviewItem', 'Get product review item by id', 'GET', 0),
+(116, '11:35:33 19/03/2023', NULL, NULL, 'product_review/reply.php', 'ReplyProductReview', 'Reply product review by id', 'POST', 0),
+(117, '11:35:54 19/03/2023', NULL, NULL, 'product_review/trash.php', 'TrashProductReview', 'Trash product review by id', 'PUT', 0),
+(118, '12:17:42 19/03/2023', NULL, NULL, 'product_review/remove_reply.php', 'RemoveReplyProductReview', 'Remove reply product review by id', 'PUT', 0);
 
 -- --------------------------------------------------------
 
@@ -633,7 +641,8 @@ INSERT INTO `systemmenu` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `routeNam
 (17, '15:27:45 05/03/2023', NULL, NULL, 'OrderStatus', 'Trạng thái đơn hàng', 0),
 (18, '15:27:48 05/03/2023', NULL, NULL, 'Order', 'Đơn hàng', 0),
 (19, '15:27:52 05/03/2023', '10:06:35 07/03/2023', NULL, 'Profile', 'Hồ sơ cá nhân', 1),
-(20, '15:28:12 05/03/2023', NULL, NULL, 'Signin', 'Đăng nhập', 1);
+(20, '15:28:12 05/03/2023', NULL, NULL, 'Signin', 'Đăng nhập', 1),
+(51, '09:04:33 19/03/2023', NULL, NULL, 'ProductReview', 'Đánh giá sản phẩm', 0);
 
 -- --------------------------------------------------------
 
@@ -749,7 +758,6 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (3, 66),
 (3, 69),
 (3, 70),
-(3, 71),
 (3, 72),
 (3, 67),
 (3, 73),
@@ -796,7 +804,20 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (2, 108),
 (3, 109),
 (2, 109),
-(2, 110);
+(2, 110),
+(3, 111),
+(3, 112),
+(2, 111),
+(3, 113),
+(3, 115),
+(3, 116),
+(3, 117),
+(3, 118),
+(3, 71),
+(1, 70),
+(1, 102),
+(1, 60),
+(1, 54);
 
 -- --------------------------------------------------------
 
@@ -829,9 +850,10 @@ INSERT INTO `systemrole_menu` (`systemRoleId`, `systemMenuId`) VALUES
 (3, 14),
 (3, 15),
 (3, 16),
+(1, 6),
+(3, 51),
 (3, 17),
-(3, 18),
-(1, 6);
+(3, 18);
 
 --
 -- Indexes for dumped tables
@@ -1037,13 +1059,13 @@ ALTER TABLE `systemadmin`
 -- AUTO_INCREMENT for table `systemfunction`
 --
 ALTER TABLE `systemfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `systemmenu`
 --
 ALTER TABLE `systemmenu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `systemrole`

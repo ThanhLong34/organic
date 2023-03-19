@@ -5,30 +5,30 @@
             <div class="row">
                <div class="col-lg-3 col-md-6 col-12">
                   <card
-                     :title="statistics.category.title"
-                     :value="statistics.category.value"
-                     :iconClass="statistics.category.iconClass"
-                     :iconBackground="statistics.category.iconBackground"
+                     :title="statistics.productCategory.title"
+                     :value="statistics.productCategory.value"
+                     :iconClass="statistics.productCategory.iconClass"
+                     :iconBackground="statistics.productCategory.iconBackground"
                      detail=""
                      directionReverse
                   ></card>
                </div>
                <div class="col-lg-3 col-md-6 col-12">
                   <card
-                     :title="statistics.project.title"
-                     :value="statistics.project.value"
-                     :iconClass="statistics.project.iconClass"
-                     :iconBackground="statistics.project.iconBackground"
+                     :title="statistics.product.title"
+                     :value="statistics.product.value"
+                     :iconClass="statistics.product.iconClass"
+                     :iconBackground="statistics.product.iconBackground"
                      detail=""
                      directionReverse
                   ></card>
                </div>
                <div class="col-lg-3 col-md-6 col-12">
                   <card
-                     :title="statistics.customerAccount.title"
-                     :value="statistics.customerAccount.value"
-                     :iconClass="statistics.customerAccount.iconClass"
-                     :iconBackground="statistics.customerAccount.iconBackground"
+                     :title="statistics.blog.title"
+                     :value="statistics.blog.value"
+                     :iconClass="statistics.blog.iconClass"
+                     :iconBackground="statistics.blog.iconBackground"
                      detail=""
                      directionReverse
                   ></card>
@@ -113,23 +113,23 @@ export default {
    data() {
       return {
          statistics: {
-            category: {
-               title: "Danh mục",
+            productCategory: {
+               title: "Danh mục SP",
                value: "0",
                iconClass: "ni ni-collection",
                iconBackground: "bg-gradient-warning",
             },
-            project: {
-               title: "Dự án",
+            product: {
+               title: "Sản phẩm",
                value: "0",
-               iconClass: "ni ni-app",
-               iconBackground: "bg-gradient-info",
-            },
-            customerAccount: {
-               title: "Khách hàng",
-               value: "0",
-               iconClass: "ni ni-badge",
+               iconClass: "ni ni-diamond",
                iconBackground: "bg-gradient-primary",
+            },
+            blog: {
+               title: "Bài viết",
+               value: "0",
+               iconClass: "ni ni-single-copy-04",
+               iconBackground: "bg-gradient-info",
             },
             order: {
                title: "Đơn hàng",
@@ -140,116 +140,69 @@ export default {
          },
          salary: {
             classIcon: "text-white fa-solid fa-landmark",
-            title: "Tiền lương",
+            title: "Lương thưởng",
             desc: "Tương tác",
-            price: "20.000.000 VND",
+            price: "20.000.000",
          },
          paypal: {
             classIcon: "text-white fa-solid fa-sack-dollar",
-            title: "Tiền dự án",
+            title: "Sản phẩm",
             desc: "Tự do",
-            price: "100,000,000 VND",
+            price: "100.000.000",
          },
       };
    },
    methods: {
-      getCategories() {
+      getProductCategoryList() {
          return API.get(
-            apiPath + "/category/get_list.php",
-            {
-               limit: 0,
-               offset: 0,
-            },
+            apiPath + "/product_category/get_list.php",
+            {},
             (data) => {
                if (data.code === 1) {
-                  this.statistics.category.value = `${data.data.length}`;
-               } else if (data.code === 2) {
-                  ElMessage({
-                     message: "Không lấy được dữ liệu danh mục",
-                     type: "error",
-                  });
-                  console.error(data.message);
+                  this.statistics.productCategory.value = `${data.totalItem}`;
                }
             }
          );
       },
-      getProjects() {
+      getProductList() {
          return API.get(
-            apiPath + "/project/get_list.php",
-            {
-               limit: 0,
-               offset: 0,
-            },
+            apiPath + "/product/get_list.php",
+            {},
             (data) => {
                if (data.code === 1) {
-                  this.statistics.project.value = `${data.data.length}`;
-               } else if (data.code === 2) {
-                  ElMessage({
-                     message: "Không lấy được dữ liệu dự án",
-                     type: "error",
-                  });
-                  console.error(data.message);
+                  this.statistics.product.value = `${data.totalItem}`;
                }
             }
          );
       },
-      getCustomerAccounts() {
+      getBlogList() {
          return API.get(
-            apiPath + "/customer_account/get_list.php",
-            {
-               limit: 0,
-               offset: 0,
-            },
+            apiPath + "/blog/get_list.php",
+            {},
             (data) => {
                if (data.code === 1) {
-                  this.statistics.customerAccount.value = `${data.data.length}`;
-               } else if (data.code === 2) {
-                  ElMessage({
-                     message: "Không lấy được dữ liệu tài khoản khách hàng",
-                     type: "error",
-                  });
-                  console.error(data.message);
+                  this.statistics.blog.value = `${data.totalItem}`;
                }
             }
          );
       },
-      getOrders() {
+      getOrderList() {
          return API.get(
             apiPath + "/order/get_list.php",
-            {
-               limit: 0,
-               offset: 0,
-            },
+            {},
             (data) => {
                if (data.code === 1) {
-                  this.statistics.order.value = `${data.data.length}`;
-                  this.paypal.price = data.data.reduce((total, order) => {
-                     // Đã thanh toán
-                     if (+order.Status === 1) {
-                        return +order.Total;
-                     }
-                     return 0;
-                  }, 0);
-                  this.paypal.price = this.paypal.price.toLocaleString(
-                     "it-IT",
-                     { style: "currency", currency: "VND" }
-                  );
-               } else if (data.code === 2) {
-                  ElMessage({
-                     message: "Không lấy được dữ liệu đơn hàng",
-                     type: "error",
-                  });
-                  console.error(data.message);
+                  this.statistics.order.value = `${data.totalItem}`;
                }
             }
          );
       },
    },
    created() {
-      // this.getCategories();
-      // this.getProjects();
-      // this.getCustomerAccounts();
-      // this.getOrders();
+      this.getProductCategoryList();
+      this.getProductList();
+      this.getBlogList();
+      this.getOrderList();
    },
 };
 </script>

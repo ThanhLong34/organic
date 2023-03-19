@@ -167,7 +167,7 @@ export default {
                }
             );
          } else {
-            return API.post(
+            return API.remove(
                apiPath + `/system_role_menu/delete.php`,
                {
                   systemRoleId: this.$props.systemRoleId,
@@ -212,7 +212,7 @@ export default {
                }
             );
          } else {
-            return API.post(
+            return API.remove(
                apiPath + `/system_role_function/delete.php`,
                {
                   systemRoleId: this.$props.systemRoleId,

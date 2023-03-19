@@ -98,7 +98,7 @@
                                  <td class="align-middle">
                                     <div class="ms-auto text-end action-btns">
                                        <el-popconfirm
-														v-if="checkPermissionFunction(functions.TrashSystemRole)"
+														v-if="checkPermissionFunction(functions.TrashSubscribe)"
                                           confirm-button-text="OK"
                                           cancel-button-text="Hủy"
                                           title="Xác nhận xóa"
