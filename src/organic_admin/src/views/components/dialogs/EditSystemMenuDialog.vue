@@ -166,7 +166,7 @@ export default {
       handleSubmit() {
          if (!this.validateBeforeSubmit()) return;
 
-         return API.post(
+         return API.put(
             apiPath + `/${apiGroup}/update.php`,
             {
                id: this.data.id,

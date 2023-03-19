@@ -3,7 +3,7 @@
       <div class="card-header pb-0">
          <div class="row">
             <div class="col-md-12">
-               <h6 class="mb-0 text-uppercase">Chi tiết liên hệ</h6>
+               <h6 class="mb-0 text-uppercase">Chi tiết đánh giá</h6>
             </div>
          </div>
       </div>
@@ -23,26 +23,20 @@
             <div>
                {{ data.email }}
             </div>
-            <!-- subject -->
+            <!-- rating -->
             <label for="example-text-input" class="form-control-label mt-3">
-               Chủ đề
+               Đánh giá
             </label>
             <div>
-               {{ data.subject }}
+               {{ data.rating }}
+               <i class="fa fa-star rating-star" aria-hidden="true"></i>
             </div>
-            <!-- message -->
+            <!-- isShow -->
             <label for="example-text-input" class="form-control-label mt-3">
-               Nội dung tin nhắn
+               Hiển thị
             </label>
             <div>
-               {{ data.message }}
-            </div>
-            <!-- replyMessage -->
-            <label for="example-text-input" class="form-control-label mt-3">
-               Nội dung phản hồi
-            </label>
-            <div>
-               {{ data.replyMessage }}
+               {{ data.isShow ? "Có" : "Không" }}
             </div>
             <!-- createdAt -->
             <label for="example-text-input" class="form-control-label mt-3">
@@ -51,26 +45,39 @@
             <div>
                {{ data.createdAt }}
             </div>
-            <!-- status -->
+            <!-- comment -->
             <label for="example-text-input" class="form-control-label mt-3">
-               Trạng thái
+               Bình luận
+            </label>
+            <div>
+               {{ data.comment }}
+            </div>
+            <!-- Trạng thái phản hồi -->
+            <label for="example-text-input" class="form-control-label mt-3">
+               Trạng thái phản hồi
             </label>
             <div>
                <span
                   class="badge badge-md"
                   :class="
-                     data.status == 1
-                        ? 'bg-gradient-success'
-                        : 'bg-gradient-secondary'
+                     hasReply ? 'bg-gradient-success' : 'bg-gradient-secondary'
                   "
                >
-                  {{ data.status == 1 ? "Đã phản hồi" : "Chưa phản hồi" }}
+                  {{ hasReply ? "Đã phản hồi" : "Chưa phản hồi" }}
                </span>
             </div>
-            <!-- REPLY -->
-            <div v-if="data.status == 0 && checkPermissionFunction(functions.ReplyContact)">
+            <!-- repliedAt -->
+            <label for="example-text-input" class="form-control-label mt-4">
+               Thời gian phản hồi
+            </label>
+            <div v-if="hasReply">
+               {{ data.repliedAt }}
+            </div>
+            <!-- REPLY - replyMessage -->
+            <div v-if="checkPermissionFunction(functions.ReplyProductReview)">
                <argon-textarea
-						class="form-control-label mt-3"
+                  ref="replyMessageRef"
+                  class="form-control-label mt-3"
                   placeholder="Nhập phản hồi"
                   v-model="reply.message"
                >
@@ -81,10 +88,7 @@
          <div class="col-md-12 pt-3">
             <div class="action-btns text-end">
                <argon-button
-                  v-if="
-                     data.status == 0 &&
-                     checkPermissionFunction(functions.ReplyContact)
-                  "
+                  v-if="checkPermissionFunction(functions.ReplyProductReview)"
                   color="success"
                   size="sm"
                   variant="gradient"
@@ -93,6 +97,19 @@
                   @click="() => !isReplyClicked && handleSubmit()"
                >
                   {{ isReplyClicked ? "Đã gửi phản hồi" : "Gửi phản hồi" }}
+               </argon-button>
+               <argon-button
+                  v-if="
+                     checkPermissionFunction(functions.RemoveReplyProductReview)
+                  "
+                  color="danger"
+                  size="sm"
+                  variant="gradient"
+                  class="action-btn me-4"
+                  :disabled="!hasReply"
+                  @click="() => hasReply && handleOpenConfirmRemoveReply()"
+               >
+                  Xóa phản hồi
                </argon-button>
                <argon-button
                   color="warning"
@@ -110,19 +127,22 @@
 </template>
 
 <script>
-import { ElMessage, ElNotification } from "element-plus";
+import { markRaw } from "vue";
+
+import { ElMessage, ElNotification, ElMessageBox } from "element-plus";
+import { Delete } from "@element-plus/icons-vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonTextarea from "@/components/ArgonTextarea.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
-const apiGroup = "contact";
+const apiGroup = "product_review";
 
 import { functions } from "@/helpers/constants.js";
 import Funcs from "@/helpers/funcs.js";
 
 export default {
-   name: "ViewContactDetailsDialog",
+   name: "ViewProductReviewDetailsDialog",
    components: { ArgonButton, ArgonTextarea },
    emits: ["onCloseDialog"],
    props: {
@@ -133,7 +153,7 @@ export default {
    },
    data() {
       return {
-			// Import constants
+         // Import constants
          functions,
 
          data: {},
@@ -143,10 +163,12 @@ export default {
          },
 
          isReplyClicked: false,
+
+         hasReply: false,
       };
    },
    methods: {
-		checkPermissionFunction(functionName) {
+      checkPermissionFunction(functionName) {
          return Funcs.checkPermissionFunction(functionName);
       },
       getData() {
@@ -160,8 +182,16 @@ export default {
                   this.data = {
                      ...data.data,
                      id: +data.data.id,
-                     status: +data.data.status,
+                     isShow: +data.data.isShow == 1,
+                     rating: +data.data.rating,
+                     productId: +data.data.productId,
                   };
+
+                  // Has reply
+                  this.hasReply = !!this.data.repliedAt;
+
+                  // Binding data
+                  this.bindingData();
                } else {
                   ElMessage({
                      message: data.message,
@@ -170,6 +200,9 @@ export default {
                }
             }
          );
+      },
+      bindingData() {
+         this.$refs.replyMessageRef?.setValue(this.data.replyMessage);
       },
       handleDataProcessing() {
          // Chế biến lại dữ liệu
@@ -183,7 +216,7 @@ export default {
 
          if (this.reply.message === "") {
             ElMessage({
-               message: "Không được để trống nội dung phản hồi",
+               message: "Nhập nội dung phản hồi mới hoặc không được để trống",
                type: "warning",
             });
 
@@ -226,8 +259,46 @@ export default {
             }
          );
       },
+      handleRemoveReply() {
+         this.hasReply = false;
+         this.reply.message = "";
+         this.$refs.replyMessageRef?.setValue("");
+
+         return API.put(
+            apiPath + `/${apiGroup}/remove_reply.php`,
+            {
+               id: this.data.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  ElMessage({
+                     message: "Xóa phản hồi thành công",
+                     type: "success",
+                  });
+               } else {
+                  ElMessage({
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+            }
+         );
+      },
       handleCloseDialog() {
          this.$emit("onCloseDialog", "view");
+      },
+      handleOpenConfirmRemoveReply() {
+         ElMessageBox.confirm(
+            "Bạn có chắc chắn muốn xóa phản hồi không?",
+            "Xác nhận xóa phản hồi",
+            {
+               type: "warning",
+               icon: markRaw(Delete),
+            }
+         )
+            .then(() => {
+               this.handleRemoveReply();
+            });
       },
    },
    created() {

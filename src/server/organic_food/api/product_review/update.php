@@ -13,50 +13,63 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Methods: PUT");
 header("Content-Type: application/json");
 
 
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "DeleteSystemRoleFunction";
+$functionName = "UpdateProductReview";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "systemrole_function";
+$tableName = "productreview";
 $data = getJSONPayloadRequest();
 
-$systemRoleId = $data["systemRoleId"] ?? ""; // int
-$systemFunctionId = $data["systemFunctionId"] ?? ""; // int
+$id = $data["id"] ?? ""; // int
+$isShow = $data["isShow"] ?? ""; // boolean
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Xóa item 
-deleteItem($systemRoleId, $systemFunctionId);
+// ✅ Cập nhật item
+updateItem($id, $isShow);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function deleteItem($systemRoleId, $systemFunctionId)
+function updateItem($id, $isShow)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_numeric($systemRoleId) || !is_numeric($systemFunctionId)) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
+   // createdAt, updateAt, deletedAt
+   $updatedAt = getCurrentDatetime();
+
+   // Các chuỗi truy vấn
+   $baseQuery = "UPDATE `$tableName` SET `updatedAt` = '$updatedAt'";
+   $mainQuery = "";
+   $endQuery = "WHERE `id` = '$id' AND `deletedAt` IS NULL";
+
+   // Cập nhật isShow
+   if ($isShow !== "" && is_bool($isShow)) {
+      $mainQuery .= "," . "`isShow` = '$isShow'";
+   }
+
    // Thực thi query
-   $query = "DELETE FROM `$tableName` WHERE `systemRoleId` = '$systemRoleId' AND `systemFunctionId` = '$systemFunctionId'";
+   $query = $baseQuery . " " . $mainQuery . " " . $endQuery;
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối

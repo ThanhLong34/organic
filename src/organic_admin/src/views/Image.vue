@@ -297,8 +297,8 @@ export default {
          fillType: "target",
          fillValue: "",
          fillOptions: [
-            { value: "dont_using", title: "Không sử dụng" },
             { value: "using", title: "Đang sử dụng" },
+            { value: "dont_using", title: "Không sử dụng" },
          ],
 
          // Table states

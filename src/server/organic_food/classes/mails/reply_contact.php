@@ -8,7 +8,7 @@ class ReplyContactMail extends Mail
       $this->mailTo = $mailTo;
       $this->subject = "Phản hồi từ liên hệ của: $contact->fullname";
       $this->body = "
-         <div>Thời gian gửi: <span style='color: #e6802e;'>$contact->createdAt</span></div>
+         <div>Thời gian gửi liên hệ: <span style='color: #e6802e;'>$contact->createdAt</span></div>
          <div>
             <p>Nội dung liên hệ của bạn:</p>
             <p style='color: #c9223e;'>$contact->message</p>

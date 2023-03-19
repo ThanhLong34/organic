@@ -20,43 +20,49 @@ header("Content-Type: application/json");
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "DeleteSystemRoleFunction";
+$functionName = "DeleteProductReview";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "systemrole_function";
+$tableName = "productreview";
 $data = getJSONPayloadRequest();
 
-$systemRoleId = $data["systemRoleId"] ?? ""; // int
-$systemFunctionId = $data["systemFunctionId"] ?? ""; // int
+$id = $data["id"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Xóa item 
-deleteItem($systemRoleId, $systemFunctionId);
+// ✅ Xóa item theo id
+deleteItem($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function deleteItem($systemRoleId, $systemFunctionId)
+function deleteItem($id)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_numeric($systemRoleId) || !is_numeric($systemFunctionId)) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
+   // Kiểm tra item đã đánh dấu trong thùng rác chưa
+   if (!checkItemInTrash($id)) {
+      $response = new ResponseAPI(3, "Xóa thất bại, đối tượng chưa được chuyển vào thùng rác");
+      $response->send();
+      return;
+   }
+
    // Thực thi query
-   $query = "DELETE FROM `$tableName` WHERE `systemRoleId` = '$systemRoleId' AND `systemFunctionId` = '$systemFunctionId'";
+   $query = "DELETE FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NOT NULL";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -67,7 +73,6 @@ function deleteItem($systemRoleId, $systemFunctionId)
 function performsQueryAndResponseToClient($query)
 {
    global $connect;
-
    $result = mysqli_query($connect, $query);
 
    if ($result) {
@@ -77,4 +82,19 @@ function performsQueryAndResponseToClient($query)
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();
    }
+}
+
+// Kiểm tra trường dữ liệu deletedAt có null không
+function checkItemInTrash($id)
+{
+   global $connect, $tableName;
+
+   $query = "SELECT * FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NOT NULL LIMIT 1";
+   $result = mysqli_query($connect, $query);
+
+   if ($result && mysqli_num_rows($result) > 0) {
+      return true;
+   }
+
+   return false;
 }

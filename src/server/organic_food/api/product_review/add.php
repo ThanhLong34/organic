@@ -20,7 +20,7 @@ header("Content-Type: application/json");
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "AddProductPreview";
+$functionName = "AddProductReview";
 if (!checkPermissionFunction($functionName)) exit;
 
 

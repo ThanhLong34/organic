@@ -29,8 +29,6 @@ if (!checkPermissionFunction($functionName)) exit;
 //? ====================
 $tableName = "image";
 
-$target = trim($_GET["target"] ?? "all"); // Hợp lệ: all, using, dont_using
-
 $limit = $_GET["limit"] ?? ""; // int, limit = "", hoặc không có payload để lấy tất cả
 $offset = $_GET["offset"] ?? ""; // int
 $searchType = trim($_GET["searchType"] ?? ""); // string
@@ -39,6 +37,9 @@ $fillType = trim($_GET["fillType"] ?? ""); // string
 $fillValue = trim($_GET["fillValue"] ?? ""); // string
 $orderby = trim($_GET["orderby"] ?? "id"); // string
 $reverse = ($_GET["reverse"] ?? "false") === "true"; // boolean
+
+$target = trim($_GET["target"] ?? "all"); // Hợp lệ: all, using, dont_using
+
 
 //? ====================
 //? START

@@ -1,6 +1,0 @@
-Tạo các mail:
-- Đặt đơn hàng thành công
-- Đơn hàng đã được duyệt
-- Đơn hàng đã bị từ chối
-- Hủy đơn hàng thành công
-- Đơn hàng đã được thanh toán

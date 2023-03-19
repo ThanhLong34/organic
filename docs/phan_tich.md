@@ -42,20 +42,15 @@
 
 -  Sản phẩm:
 
-   -  Tên phải phân biệt để tránh trùng tên route
    -  Chỉ có danh mục
-   -  Thông tin sản phẩm (không chứa hình ảnh)
    -  Đánh giá của khách hàng (chỉ được phép đánh giá khi email của khách có mua sản phẩm này)
 
 -  Bài viết:
 
-   -  Nội dung bài viết có thể chứa hình ảnh
    -  Không có danh mục
    -  Không có tag
    -  Không có bình luận
 
--  Có mã giám giá cho khách hàng (counpon):
+-  Có mã giám giá cho khách hàng (coupon code):
 
-   -  Mã chỉ có tác dụng 1 lần
-   -  Phải đúng với email được áp dụng
    -  Mã sẽ giảm giá theo phần trăm

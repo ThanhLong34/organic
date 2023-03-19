@@ -6,7 +6,7 @@
             <div class="card mb-4">
                <div class="card-body px-4 pt-4 pb-4">
                   <div class="row">
-                     <div class="col-12 mb-4">
+                     <div class="col-9 mb-4">
                         <div>
                            <div class="pb-1">
                               <h6 class="controller-title">
@@ -20,7 +20,13 @@
                                  type="search"
                                  icon="fas fa-search"
                                  iconDir="left"
-                                 :placeholder="searchPlaceholder"
+                                 :placeholder="
+                                    searchType === 'fullname'
+                                       ? 'Nhập họ tên...'
+                                       : searchType === 'email'
+                                       ? 'Nhập email...'
+                                       : ''
+                                 "
                                  v-model="searchValue"
                               />
                               <argon-button
@@ -39,6 +45,30 @@
                               >
                                  Tải lại
                               </argon-button>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-3 mb-4">
+                        <div>
+                           <div class="pb-1">
+                              <h6 class="controller-title">
+                                 <i class="controller-icon yellow"></i>
+                                 Tiêu chí tìm kiếm
+                              </h6>
+                           </div>
+                           <div class="selection-wrap">
+                              <el-select
+                                 v-model="searchType"
+                                 filterable
+                                 placeholder="Chọn kiểu tìm kiếm"
+                              >
+                                 <el-option
+                                    v-for="item in searchOptions"
+                                    :key="item.value"
+                                    :label="item.title"
+                                    :value="item.value"
+                                 />
+                              </el-select>
                            </div>
                         </div>
                      </div>
@@ -72,18 +102,18 @@
                            <div class="pb-1">
                               <h6 class="controller-title">
                                  <i class="controller-icon green"></i>
-                                 Lọc theo loại
+                                 Lọc theo trạng thái hiển thị / ẩn
                               </h6>
                            </div>
                            <div class="selection-wrap">
                               <el-select
-                                 v-model="fillByTypeType"
+                                 v-model="fillByIsShowValue"
                                  filterable
-                                 :placeholder="fillByTypePlaceholder"
-                                 @change="handleFillByType"
+                                 :placeholder="fillByIsShowPlaceholder"
+                                 @change="handleFillByIsShow"
                               >
                                  <el-option
-                                    v-for="item in fillByTypeOptions"
+                                    v-for="item in fillByIsShowOptions"
                                     :key="item.value"
                                     :label="item.title"
                                     :value="item.value"
@@ -97,18 +127,18 @@
                            <div class="pb-1">
                               <h6 class="controller-title">
                                  <i class="controller-icon green"></i>
-                                 Lọc theo danh mục
+                                 Lọc theo trạng thái phản hồi
                               </h6>
                            </div>
                            <div class="selection-wrap">
                               <el-select
-                                 v-model="fillByProductCategoryValue"
+                                 v-model="fillByReplyStatusValue"
                                  filterable
-                                 :placeholder="fillByProductCategoryPlaceholder"
-                                 @change="handleFillByProductCategory"
+                                 :placeholder="fillByReplyStatusPlaceholder"
+                                 @change="handleFillByReplyStatus"
                               >
                                  <el-option
-                                    v-for="item in fillByProductCategoryOptions"
+                                    v-for="item in fillByReplyStatusOptions"
                                     :key="item.value"
                                     :label="item.title"
                                     :value="item.value"
@@ -127,20 +157,9 @@
                   <div class="card-header pb-0">
                      <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                           <h6>Danh sách sản phẩm ({{ tableData.length }})</h6>
-                        </div>
-                        <div
-                           class="col-6 text-end"
-                           v-if="checkPermissionFunction(functions.AddProduct)"
-                        >
-                           <argon-button
-                              color="info"
-                              variant="gradient"
-                              @click="handleRedirectToAddProductView"
-                           >
-                              <i class="fas fa-plus me-2"></i>
-                              Thêm sản phẩm
-                           </argon-button>
+                           <h6>
+                              Danh sách đánh giá ({{ tableData.length }})
+                           </h6>
                         </div>
                      </div>
                   </div>
@@ -155,47 +174,32 @@
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                  >
-                                    Ảnh đặc trưng &amp; Tên sản phẩm
+                                    Họ tên
                                  </th>
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                                  >
-                                    Giá gốc
-                                 </th>
-                                 <th
-                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-                                 >
-                                    Giá ưu đãi
-                                 </th>
-                                 <th
-                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-                                 >
-                                    Đơn vị tính
-                                 </th>
-                                 <th
-                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-                                 >
-                                    Loại đặc biệt
-                                 </th>
-                                 <th
-                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-                                 >
-                                    Loại mới
-                                 </th>
-                                 <th
-                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-                                 >
-                                    Loại ưu đãi tốt
-                                 </th>
-                                 <th
-                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-                                 >
-                                    Danh mục
+                                    Email
                                  </th>
                                  <th
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                                  >
                                     Đánh giá
+                                 </th>
+                                 <th
+                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                 >
+                                    Hiển thị
+                                 </th>
+                                 <th
+                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                 >
+                                    Thời gian gửi
+                                 </th>
+                                 <th
+                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                 >
+                                    Trạng thái phản hồi
                                  </th>
                                  <th></th>
                               </tr>
@@ -204,82 +208,61 @@
                               <!-- Table List -->
                               <tr v-for="item in tableData" :key="item.id">
                                  <td>
-                                    <div class="d-flex px-3">
-                                       <div>
-                                          <img
-                                             :src="
-                                                item.featureImageUrl
-                                                   ? item.featureImageUrl
-                                                   : `${require('@/assets/img/no-image.jpg')}`
-                                             "
-                                             class="image-contain avatar avatar-sm me-2"
-                                             alt="feature image url"
-                                          />
-                                       </div>
-                                       <div class="my-auto">
-                                          <h6 class="mb-0 text-sm">
-                                             {{ item.name }}
-                                          </h6>
-                                       </div>
+                                    <div
+                                       class="my-auto"
+                                       style="margin-left: 16px"
+                                    >
+                                       <h6 class="mb-0 text-sm">
+                                          {{ item.fullname }}
+                                       </h6>
                                     </div>
                                  </td>
                                  <td>
-                                    <p
-                                       class="text-sm font-weight-bold mb-0 text-warning"
+                                    <p class="text-sm font-weight-bold mb-0">
+                                       {{ item.email }}
+                                    </p>
+                                 </td>
+                                 <td>
+                                    <p class="text-sm font-weight-bold mb-0">
+                                       {{ item.rating }}
+                                       <i
+                                          class="fa fa-star rating-star"
+                                          aria-hidden="true"
+                                       ></i>
+                                    </p>
+                                 </td>
+                                 <td>
+                                    <p class="text-sm font-weight-bold mb-0">
+                                       {{ item.isShow ? "Có" : "Không" }}
+                                    </p>
+                                 </td>
+                                 <td>
+                                    <p class="text-sm font-weight-bold mb-0">
+                                       {{ item.createdAt }}
+                                    </p>
+                                 </td>
+                                 <td>
+                                    <span
+                                       class="badge badge-md"
+                                       :class="
+                                          item.repliedAt
+                                             ? 'bg-gradient-success'
+                                             : 'bg-gradient-secondary'
+                                       "
                                     >
-                                       {{ toVND(item.originPrice) }}
-                                    </p>
-                                 </td>
-                                 <td>
-                                    <p
-                                       class="text-sm font-weight-bold mb-0 text-pink"
-                                    >
-                                       {{ toVND(item.promotionPrice) }}
-                                    </p>
-                                 </td>
-                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">
-                                       {{ item.unit }}
-                                    </p>
-                                 </td>
-                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">
-                                       {{ item.isSpecial ? "Có" : "Không" }}
-                                    </p>
-                                 </td>
-                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">
-                                       {{ item.isNew ? "Có" : "Không" }}
-                                    </p>
-                                 </td>
-                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">
-                                       {{ item.isBestOffer ? "Có" : "Không" }}
-                                    </p>
-                                 </td>
-                                 <td>
-                                    <p class="text-sm font-weight-bold mb-0">
-                                       {{ item.productCategoryName }}
-                                       <span
-                                          v-if="item.productCategoryDeletedAt"
-														class="text-danger"
-                                       >
-														&lpar;Đã xóa&rpar;
-													</span>
-                                    </p>
-                                 </td>
-											<td>
-                                    <p v-if="item.averageRating" class="text-sm font-weight-bold mb-0">
-                                       {{ item.averageRating }}
-													<i class="fa fa-star rating-star" aria-hidden="true"></i>
-                                    </p>
+                                       {{
+                                          item.repliedAt
+                                             ? "Đã phản hồi"
+                                             : "Chưa phản hồi"
+                                       }}
+                                    </span>
                                  </td>
                                  <td class="align-middle">
                                     <div class="ms-auto text-end action-btns">
                                        <a
                                           v-if="
                                              checkPermissionFunction(
-                                                functions.ViewProductDetails
+                                                functions.ViewProductReviewDetails
                                              )
                                           "
                                           class="btn btn-link text-info text-gradient px-2 mb-0"
@@ -295,40 +278,19 @@
                                              class="fas fa-eye me-2"
                                              aria-hidden="true"
                                           ></i
-                                          >Xem chi tiết
+                                          >Xem bình luận
                                        </a>
                                        <a
                                           v-if="
                                              checkPermissionFunction(
-                                                functions.GetProductReviewListForProduct
-                                             )
-                                          "
-                                          class="btn btn-link text-primary text-gradient px-2 mb-0"
-                                          href="javascript:;"
-                                          @click.prevent="
-                                             () =>
-                                                handleRedirectToProductReviewView(
-                                                   item.id
-                                                )
-                                          "
-                                       >
-                                          <i
-                                             class="fa fa-commenting me-2"
-                                             aria-hidden="true"
-                                          ></i
-                                          >Xem đánh giá
-                                       </a>
-                                       <a
-                                          v-if="
-                                             checkPermissionFunction(
-                                                functions.UpdateProduct
+                                                functions.UpdateProductReview
                                              )
                                           "
                                           class="btn btn-link text-dark text-gradient px-2 mb-0"
                                           href="javascript:;"
                                           @click.prevent="
                                              () =>
-                                                handleRedirectToEditProductView(
+                                                handleOpenEditDialog(
                                                    item.id
                                                 )
                                           "
@@ -342,7 +304,7 @@
                                        <el-popconfirm
                                           v-if="
                                              checkPermissionFunction(
-                                                functions.TrashProduct
+                                                functions.TrashSystemRole
                                              )
                                           "
                                           confirm-button-text="OK"
@@ -406,12 +368,35 @@
                         </div>
                      </div>
                   </div>
+                  <!-- Buttons -->
+                  <div class="card-footer">
+                     <div class="col-md-12 pt-0 text-end">
+                        <argon-button
+                           color="warning"
+                           size="sm"
+                           variant="gradient"
+                           class="action-btn"
+                           @click="handleRedirectToBack"
+                        >
+                           Quay lại
+                        </argon-button>
+                     </div>
+                  </div>
                </div>
             </div>
             <!-- View dialog -->
             <div v-if="viewDialog.visible">
                <el-dialog v-model="viewDialog.visible">
-                  <ViewProductDetailsDialog
+                  <ViewProductReviewDetailsDialog
+                     :itemIdSelect="itemIdSelect"
+                     @onCloseDialog="handleCloseDialog"
+                  />
+               </el-dialog>
+            </div>
+            <!-- Edit dialog -->
+            <div v-if="editDialog.visible">
+               <el-dialog v-model="editDialog.visible">
+                  <EditProductReviewDialog
                      :itemIdSelect="itemIdSelect"
                      @onCloseDialog="handleCloseDialog"
                   />
@@ -430,63 +415,66 @@ import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonPagination from "@/components/ArgonPagination.vue";
 import ArgonPaginationItem from "@/components/ArgonPaginationItem.vue";
 
-import ViewProductDetailsDialog from "./components/dialogs/ViewProductDetailsDialog.vue";
+import ViewProductReviewDetailsDialog from "./components/dialogs/ViewProductReviewDetailsDialog.vue";
+import EditProductReviewDialog from "./components/dialogs/EditProductReviewDialog.vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
-const apiGroup = "product";
+const apiGroup = "product_review";
 
-import { menus, functions } from "@/helpers/constants.js";
+import { functions } from "@/helpers/constants.js";
 import Funcs from "@/helpers/funcs.js";
 
 export default {
-   name: "ProductView",
+   name: "ProductReviewView",
    components: {
       ArgonInput,
       ArgonButton,
       ArgonPagination,
       ArgonPaginationItem,
-      ViewProductDetailsDialog,
+      ViewProductReviewDetailsDialog,
+      EditProductReviewDialog,
    },
    data() {
       return {
-         // Funcs
-         toVND: Funcs.toVND,
-
          // Import constants
          functions,
 
-         // Search
-         searchPlaceholder: "Nhập tên sản phẩm...",
-         searchType: "name",
-         searchValue: "",
+         data: {},
 
-         // Fill by type
-         fillByTypePlaceholder: "Chọn loại",
-         fillByTypeType: "",
-         fillByTypeValue: 1,
-         fillByTypeOptions: [
-            { value: "isSpecial", title: "Đặc biệt" },
-            { value: "isNew", title: "Mới" },
-            { value: "isBestOffer", title: "Ưu đãi tốt" },
+         // Search
+         searchPlaceholder: "Nhập họ tên...",
+         searchType: "fullname",
+         searchValue: "",
+         searchOptions: [
+            { value: "fullname", title: "Họ tên" },
+            { value: "email", title: "Email" },
          ],
 
-         // Fill by product category
-         fillByProductCategoryPlaceholder: "Chọn danh mục",
-         fillByProductCategoryType: "productCategoryId",
-         fillByProductCategoryValue: "",
-         fillByProductCategoryOptions: [],
+         // Fill by is show
+         fillByIsShowPlaceholder: "Chọn trạng thái hiển thị / ẩn",
+         fillByIsShowType: "isShow",
+         fillByIsShowValue: "",
+         fillByIsShowOptions: [
+            { value: 1, title: "Hiển thị" },
+            { value: 0, title: "Ẩn" },
+         ],
+
+         // Fill by reply status
+         fillByReplyStatusPlaceholder: "Chọn trạng thái hiển thị / ẩn",
+         fillByReplyStatusType: "repliedAt",
+         fillByReplyStatusValue: "",
+         fillByReplyStatusOptions: [
+            { value: "replied", title: "Đã phản hồi" },
+            { value: "not_reply", title: "Chưa phản hồi" },
+         ],
 
          // Sort
          sortPlaceholder: "Chọn kiểu sắp xếp",
          sortValue: "",
          sortOptions: [
-            { value: "originPrice_ASC", title: "Tăng theo giá gốc" },
-            { value: "originPrice_DESC", title: "Giảm theo giá gốc" },
-            { value: "promotionPrice_ASC", title: "Tăng theo giá ưu đãi" },
-            { value: "promotionPrice_DESC", title: "Giảm theo giá ưu đãi" },
-            { value: "averageRating_ASC", title: "Giảm theo đánh giá" },
-            { value: "averageRating_DESC", title: "Tăng theo đánh giá" },
+            { value: "rating_ASC", title: "Tăng theo đánh giá" },
+            { value: "rating_DESC", title: "Giảm theo đánh giá" },
          ],
 
          // Table states
@@ -504,87 +492,34 @@ export default {
          viewDialog: {
             visible: false,
          },
-
-         imageIdListRemovedWhenDeleteProduct: [],
+			// Edit dialog
+         editDialog: {
+            visible: false,
+         },
       };
    },
    methods: {
-      getProductImageList(id) {
-         return API.get(
-            apiPath + `/product_image/get_list_by_product_id.php`,
-            {
-               productId: id,
-            },
-            (data) => {
-               if (data.code === 1) {
-                  this.imageIdListRemovedWhenDeleteProduct = data.data.map(
-                     (i) => +i.imageId
-                  );
-               } else {
-                  ElMessage({
-                     message: data.message,
-                     type: "error",
-                  });
-               }
-            }
-         );
-      },
-      getProductCategoryList() {
-         return API.get(
-            apiPath + `/product_category/get_list.php`,
-            {},
-            (data) => {
-               if (data.code === 1) {
-                  this.fillByProductCategoryOptions = data.data.map((i) => ({
-                     value: +i.id,
-                     title: i.name,
-                  }));
-
-                  // Not found data
-                  if (data.data.length === 0) {
-                     ElMessage({
-                        message: "Không có dữ liệu danh mục sản phẩm",
-                        type: "warning",
-                     });
-                  }
-               } else {
-                  ElMessage({
-                     message: data.message,
-                     type: "error",
-                  });
-               }
-            }
-         );
-      },
       checkPermissionFunction(functionName) {
          return Funcs.checkPermissionFunction(functionName);
       },
       getTableData() {
          return API.get(
-            apiPath + `/${apiGroup}/get_list.php`,
+            apiPath + `/${apiGroup}/get_list_for_product.php`,
             {
                limit: this.limit,
                offset: this.offset,
                searchType: this.searchType,
                searchValue: this.searchValue,
                fillType: (() => {
-                  if (this.fillByTypeType !== "") {
-                     return this.fillByTypeType;
-                  }
-
-                  if (this.fillByProductCategoryValue !== "") {
-                     return this.fillByProductCategoryType;
+                  if (this.fillByIsShowValue !== "") {
+                     return this.fillByIsShowType;
                   }
 
                   return "";
                })(),
                fillValue: (() => {
-                  if (this.fillByTypeType !== "") {
-                     return this.fillByTypeValue;
-                  }
-
-                  if (this.fillByProductCategoryValue !== "") {
-                     return this.fillByProductCategoryValue;
+                  if (this.fillByIsShowValue !== "") {
+                     return this.fillByIsShowValue;
                   }
 
                   return "";
@@ -601,6 +536,11 @@ export default {
                   }
                   return false;
                })(),
+               productId: this.data.id,
+               target:
+                  this.fillByReplyStatusValue === ""
+                     ? "all"
+                     : this.fillByReplyStatusValue,
             },
             (data) => {
                if (data.code === 1) {
@@ -608,14 +548,9 @@ export default {
                   this.tableData = data.data.map((item) => ({
                      ...item,
                      id: +item.id,
-                     featureImageId: +item.featureImageId,
-                     originPrice: +item.originPrice,
-                     promotionPrice: +item.promotionPrice,
-                     isSpecial: +item.isSpecial == 1,
-                     isNew: +item.isNew == 1,
-                     isBestOffer: +item.isBestOffer == 1,
-                     productCategoryId: +item.productCategoryId,
-                     averageRating: +item.averageRating,
+                     rating: +item.rating,
+                     isShow: +item.isShow == 1,
+                     productId: +item.productId,
                   }));
                   this.totalItem = +data.totalItem;
                   this.numberOfPage = Math.ceil(this.totalItem / this.limit);
@@ -668,21 +603,13 @@ export default {
          return API.deleteById(
             apiPath + `/${apiGroup}/trash.php`,
             id,
-            async (data) => {
+            (data) => {
                if (data.code === 1) {
                   ElMessage({
                      message: "Xóa thành công",
                      type: "success",
                   });
-
-                  // Lấy ảnh của product bị xóa
-                  await this.getProductImageList(id);
-
-                  // Xóa ảnh của product bị xóa
-                  await this.handleDeleteProductImageWhenDeleteProduct(id);
-
-                  // Reload lại dữ liệu
-                  await this.reloadDataCurrentPage();
+                  this.reloadDataCurrentPage();
                } else {
                   ElMessage({
                      message: data.message,
@@ -696,9 +623,9 @@ export default {
          // Reset search value
          this.$refs.searchRef.resetValue();
          this.searchValue = "";
-         // Reset fill type & value
-         this.fillByTypeType = "";
-         this.fillByProductCategoryValue = "";
+         // Reset fill value
+         this.fillByIsShowValue = "";
+         this.fillByReplyStatusValue = "";
          // Reset sort value
          this.sortValue = "";
 
@@ -721,10 +648,10 @@ export default {
 
          this.getTableData();
       },
-      handleFillByType() {
-         if (this.fillByTypeType === "") return;
+      handleFillByIsShow() {
+         if (this.fillByIsShowValue === "") return;
 
-         this.fillByProductCategoryValue = "";
+         this.fillByReplyStatusValue = "";
 
          // Reset limit & offset
          this.currentPage = 1;
@@ -733,10 +660,10 @@ export default {
 
          this.getTableData();
       },
-      handleFillByProductCategory() {
-         if (this.fillByProductCategoryValue === "") return;
+      handleFillByReplyStatus() {
+         if (this.fillByReplyStatusValue === "") return;
 
-         this.fillByTypeType = "";
+         this.fillByIsShowValue = "";
 
          // Reset limit & offset
          this.currentPage = 1;
@@ -755,47 +682,31 @@ export default {
 
          this.getTableData();
       },
-      handleRedirectToAddProductView() {
-         this.$router.push({ name: menus.AddProduct });
-      },
-      handleRedirectToEditProductView(id) {
-         this.$router.push({ name: menus.EditProduct, params: { id } });
-      },
-      handleRedirectToProductReviewView(id) {
-         this.$router.push({ name: menus.ProductReview, params: { id } });
-      },
-      handleDeleteProductImageWhenDeleteProduct(id) {
-         return API.remove(
-            apiPath + `/product_image/delete_list.php`,
-            {
-               productId: id,
-               imageIdList: this.imageIdListRemovedWhenDeleteProduct,
-            },
-            (data) => {
-               if (data.code === 1) {
-                  //
-               } else {
-                  ElMessage({
-                     message: data.message,
-                     type: "error",
-                  });
-               }
-            }
-         );
-      },
       handleOpenViewDetailsDialog(id) {
          this.itemIdSelect = id;
          this.viewDialog.visible = true;
       },
+		handleOpenEditDialog(id) {
+         this.itemIdSelect = id;
+         this.editDialog.visible = true;
+      },
       handleCloseDialog(type) {
-         if (type === "view") {
+         if (type === "edit") {
+            this.editDialog.visible = false;
+         } else if (type === "view") {
             this.viewDialog.visible = false;
          }
+
+         this.reloadDataCurrentPage();
+      },
+      handleRedirectToBack() {
+         this.$router.go(-1);
       },
    },
-   async created() {
-      await this.getProductCategoryList();
-      await this.getTableData();
+   created() {
+      this.data.id = this.$route.params.id;
+
+      this.getTableData();
    },
 };
 </script>

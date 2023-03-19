@@ -13,50 +13,48 @@ require("../../helpers/functions.php");
 //? ====================
 header("Access-Control-Allow-Origin: " . ACCESS_CONTROL_ALLOW_ORIGIN);
 header("Access-Control-Allow-Headers: " . ACCESS_CONTROL_ALLOW_HEADERS);
-header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Methods: GET");
 header("Content-Type: application/json");
 
 
 //? ====================
 //? CHECK PERMISSTION
 //? ====================
-$functionName = "DeleteSystemRoleFunction";
+$functionName = "GetProductReviewItem";
 if (!checkPermissionFunction($functionName)) exit;
 
 
 //? ====================
 //? PARAMETERS & PAYLOAD
 //? ====================
-$tableName = "systemrole_function";
-$data = getJSONPayloadRequest();
+$tableName = "productreview";
 
-$systemRoleId = $data["systemRoleId"] ?? ""; // int
-$systemFunctionId = $data["systemFunctionId"] ?? ""; // int
+$id = $_GET["id"] ?? ""; // int
 
 
 //? ====================
 //? START
 //? ====================
-// ✅ Xóa item 
-deleteItem($systemRoleId, $systemFunctionId);
+// ✅ Lấy item theo id
+getItem($id);
 
 
 //? ====================
 //? FUNCTIONS
 //? ====================
-function deleteItem($systemRoleId, $systemFunctionId)
+function getItem($id)
 {
    global $connect, $tableName;
 
    // Kiểm tra dữ liệu payload
-   if (!is_numeric($systemRoleId) || !is_numeric($systemFunctionId)) {
+   if ($id === "" || !is_numeric($id)) {
       $response = new ResponseAPI(9, "Không đủ payload để thực hiện");
       $response->send();
       return;
    }
 
    // Thực thi query
-   $query = "DELETE FROM `$tableName` WHERE `systemRoleId` = '$systemRoleId' AND `systemFunctionId` = '$systemFunctionId'";
+   $query = "SELECT * FROM `$tableName` WHERE `id` = '$id' AND `deletedAt` IS NULL LIMIT 1";
    performsQueryAndResponseToClient($query);
 
    // Đóng kết nối
@@ -71,10 +69,16 @@ function performsQueryAndResponseToClient($query)
    $result = mysqli_query($connect, $query);
 
    if ($result) {
-      $response = new ResponseAPI(1, "Thành công");
-      $response->send();
+      $item = $result->fetch_object();
+      if ($item != null) {
+         $response = new ResponseAPI(1, "Thành công", $item, 1);
+         $response->send();
+      } else {
+         $response = new ResponseAPI(2, "Không tìm thấy");
+         $response->send();
+      }
    } else {
-      $response = new ResponseAPI(2, "Thất bại");
+      $response = new ResponseAPI(3, "Thất bại");
       $response->send();
    }
 }
