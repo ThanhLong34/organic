@@ -19,7 +19,7 @@
                   <router-link
                      :to="{
                         name: 'shop_search',
-                        params: { productName: 'product-name' },
+                        params: { id: 1 },
                      }"
                      class="search-btn"
                   >

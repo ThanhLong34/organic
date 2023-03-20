@@ -3,7 +3,7 @@
       <router-link
          :to="{
             name: 'shop_details',
-            params: { productId: product.id, productName: 'product-name' },
+            params: { id: product.id },
          }"
       >
          <div class="product-v2-img">
@@ -61,7 +61,10 @@ import { toVND } from "@/helpers/functions";
 export default {
    name: "ProductV2Component",
    props: {
-      product: Object,
+      product: {
+			type: Object,
+			required: true
+		},
    },
 	setup(props) {
 		return {
@@ -80,7 +83,7 @@ export default {
    border-radius: 20px;
    position: relative;
    padding: 22px;
-   margin-bottom: 40px;
+   margin-bottom: 24px;
    cursor: pointer;
 
    &:hover &-img {

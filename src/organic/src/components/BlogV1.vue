@@ -5,8 +5,7 @@
             :to="{
                name: 'blog_details',
                params: {
-                  blogId: blog.id,
-                  blogTitle: 'blog-title',
+                  id: blog.id
                },
             }"
          >
@@ -30,8 +29,7 @@
                :to="{
                   name: 'blog_details',
                   params: {
-                     blogId: blog.id,
-                     blogTitle: 'blog-title',
+                     id: blog.id
                   },
                }"
             >
@@ -47,7 +45,10 @@
 export default {
    name: "BlogV1Component",
    props: {
-      blog: Object,
+      blog: {
+			type: Object,
+			required: true
+		},
    },
 };
 </script>

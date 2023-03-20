@@ -526,7 +526,7 @@
                   </div>
                </div>
             </div>
-            <button-v-2>
+            <button-v-2 @click="handleRedirectToShopPage">
                Xem thêm
                <i class="fa-solid fa-arrow-right"></i>
             </button-v-2>
@@ -576,7 +576,7 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
@@ -626,9 +626,6 @@ export default {
 
       const productListIsNew = ref([]);
       const blogList = ref([]);
-
-      getProductListIsNew();
-      getBlogList();
 
       function getProductListIsNew() {
          return API.get(
@@ -718,6 +715,11 @@ export default {
       function handleRedirectToBlogPage() {
          router.push({ name: "blog" });
       }
+
+      onBeforeMount(() => {
+         getProductListIsNew();
+         getBlogList();
+      });
 
       return {
          toVND,

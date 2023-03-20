@@ -65,6 +65,7 @@ function getList($limit, $offset, $searchType, $searchValue, $fillType, $fillVal
    //! Thêm tùy chỉnh Code ở đây
    $baseQuery = "SELECT `$tableName`.*, 
       CEIL(AVG(`productreview`.`rating`)) AS 'averageRating',
+      COUNT(`productreview`.`productId`) AS 'quantityReview',
       `image`.`link` AS 'featureImageUrl', 
       `productcategory`.`name` AS 'productCategoryName', 
       `productcategory`.`deletedAt` AS 'productCategoryDeletedAt'

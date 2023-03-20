@@ -34,7 +34,7 @@
                               <router-link
                                  :to="{
                                     name: 'shop_details',
-                                    params: { productName: 'product-name' },
+                                    params: { id: 1 },
                                  }"
                               >
                                  <ProductV2 :product="item" />
@@ -78,6 +78,7 @@ export default {
    setup() {
       const products = reactive([
          {
+				id: 1,
             category: "Fresh",
             image: "exp.png",
             name: "Vegan Egg Replacer",
@@ -88,6 +89,7 @@ export default {
             star: 4,
          },
          {
+				id: 1,
             category: "Fresh",
             image: "exp1.png",
             name: "Vegan Egg Replacer",
@@ -98,6 +100,7 @@ export default {
             star: 5,
          },
          {
+				id: 1,
             category: "Fresh",
             image: "exp2.png",
             name: "Vegan Egg Replacer",
@@ -108,6 +111,7 @@ export default {
             star: 4,
          },
          {
+				id: 1,
             category: "Fresh",
             image: "exp3.png",
             name: "Vegan Egg Replacer",

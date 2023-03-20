@@ -16,7 +16,7 @@
             <router-link
                :to="{
                   name: 'shop_details',
-                  params: { productId: 1, productName: 'product-name' },
+                  params: { id: product.id },
                }"
                >{{ product.name }}</router-link
             >
@@ -83,7 +83,10 @@ export default {
       ButtonIcon,
    },
    props: {
-      product: Object,
+      product: {
+			type: Object,
+			required: true
+		},
    },
    setup() {
       const info = reactive({

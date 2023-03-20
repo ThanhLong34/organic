@@ -13,7 +13,7 @@
                   <router-link
                      :to="{
                         name: 'shop_details',
-                        params: { productId: 1, productName: 'product-name' },
+                        params: { id: 1 },
                      }"
                   >
                      Green Bow

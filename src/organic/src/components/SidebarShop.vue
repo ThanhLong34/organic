@@ -5,23 +5,58 @@
             <p class="sidebar-title">Sắp xếp theo:</p>
             <div class="sidebar-sort-checkboxs">
                <label>
-                  <input type="radio" name="radio" checked />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.default"
+                     :value="sortOptions.default"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Mặc định</span>
                </label>
                <label>
-                  <input type="radio" name="radio" />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.productNew"
+                     :value="sortOptions.productNew"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Sản phẩm mới nhất</span>
                </label>
                <label>
-                  <input type="radio" name="radio" />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.highRating"
+                     :value="sortOptions.highRating"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Sản phẩm được đánh giá cao</span>
                </label>
                <label>
-                  <input type="radio" name="radio" />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.priceLowToHigh"
+                     :value="sortOptions.priceLowToHigh"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Giá: thấp tới cao</span>
                </label>
                <label>
-                  <input type="radio" name="radio" />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.priceHighToLow"
+                     :value="sortOptions.priceHighToLow"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Giá: cao tới thấp</span>
                </label>
             </div>
@@ -33,11 +68,14 @@
                   v-for="item in productCategoryList"
                   :class="{
                      'sidebar-category-item': true,
-                     active: item.id === 1,
+                     active: item.id === currentProductCategoryId,
                   }"
                   :key="item.id"
                >
-                  <a href="javascript:;">
+                  <a
+                     href="javascript:;"
+                     @click.prevent="() => handleFillByProductCategory(item.id)"
+                  >
                      <i class="fa-solid fa-caret-right"></i>
                      {{ item.name }}
                   </a>
@@ -92,7 +130,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper";
 //#endregion
 
-import { ref, reactive } from "vue";
+import { ref, reactive, onBeforeMount } from "vue";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
@@ -104,13 +142,21 @@ export default {
       Swiper,
       SwiperSlide,
    },
-   setup() {
+   emits: ["onFillByProductCategory", "onSort"],
+   setup(props, { emit }) {
       const modulesSwiper = [Autoplay];
       const productCategoryList = ref([]);
       const productListIsBestOffer = ref([]);
+      const currentProductCategoryId = ref("");
 
-      getProductCategoryList();
-      getProductListIsBestOffer();
+      const sortValue = ref("");
+      const sortOptions = reactive({
+         default: "",
+         productNew: "id_DESC",
+         highRating: "averageRating_DESC",
+         priceLowToHigh: "promotionPrice_ASC",
+         priceHighToLow: "promotionPrice_DESC",
+      });
 
       function getProductCategoryList() {
          return API.get(
@@ -122,6 +168,10 @@ export default {
                      ...item,
                      id: +item.id,
                   }));
+
+                  currentProductCategoryId.value =
+                     productCategoryList.value[0]?.id ?? "";
+                  handleFillByProductCategory(currentProductCategoryId.value);
                }
             }
          );
@@ -151,10 +201,29 @@ export default {
          );
       }
 
+      function handleFillByProductCategory(productCategoryId) {
+         currentProductCategoryId.value = productCategoryId;
+         emit("onFillByProductCategory", productCategoryId);
+      }
+
+      function handleChooseSortValue() {
+         emit("onSort", sortValue.value);
+      }
+
+      onBeforeMount(() => {
+         getProductCategoryList();
+         getProductListIsBestOffer();
+      });
+
       return {
          modulesSwiper,
          productCategoryList,
+         sortValue,
+         sortOptions,
          productListIsBestOffer,
+         currentProductCategoryId,
+         handleFillByProductCategory,
+         handleChooseSortValue,
       };
    },
 };

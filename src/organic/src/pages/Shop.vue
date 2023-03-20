@@ -9,22 +9,26 @@
          <!-- sidebar & tableData -->
          <section class="main-section">
             <div class="grid wide">
-               <div class="row sidebar-and-table-data">
+               <div class="row">
                   <div class="col l-3 m-12 s-12">
-                     <SidebarShop />
+                     <SidebarShop
+                        @onFillByProductCategory="handleFillByProductCategory"
+                        @onSort="handleSort"
+                     />
                   </div>
                   <div class="col l-9 m-12 s-12">
-                     <div>
+                     <div class="product-list-table">
                         <!-- information: total product -->
                         <div class="information">
                            <div class="information-content">
                               <p class="information-total">
-                                 9 sản phẩm trên tổng {{ totalItem }}
+                                 {{ tableData.length }} sản phẩm trên tổng
+                                 {{ totalItem }}
                               </p>
                            </div>
                         </div>
                         <!-- tableData -->
-                        <ul class="row product-list">
+                        <ul v-if="totalItem > 0" class="row product-list">
                            <li
                               class="col l-4 m-4 s-12"
                               v-for="item in tableData"
@@ -33,14 +37,17 @@
                               <ProductV2 :product="item" />
                            </li>
                         </ul>
+								<p v-if="totalItem <= 0" class="product-list-none-data">Không có sản phẩm</p>
                         <!-- page number -->
-                        <PageNumber
-                           :numberOfPage="numberOfPage"
-                           :currentPage="currentPage"
-                           @onChoosePage="handleChoosePage"
-                           @onPrevPage="handlePrevPage"
-                           @onNextPage="handleNextPage"
-                        />
+                        <div v-if="totalItem > 0" class="pagination">
+                           <PageNumber
+                              :numberOfPage="numberOfPage"
+                              :currentPage="currentPage"
+                              @onChoosePage="handleChoosePage"
+                              @onPrevPage="handlePrevPage"
+                              @onNextPage="handleNextPage"
+                           />
+                        </div>
                      </div>
                   </div>
                </div>
@@ -88,10 +95,8 @@ export default {
       const currentPage = ref(1);
       const limit = ref(9);
       const offset = ref(0);
-		const fillByProductCategoryValue = ref('');
-		const sortValue = ref('');
-
-      getTableData();
+      const fillByProductCategoryValue = ref("");
+      const sortValue = ref("");
 
       function getTableData() {
          return API.get(
@@ -99,40 +104,26 @@ export default {
             {
                limit: limit.value,
                offset: offset.value,
-               // fillType: (() => {
-               //    if (fillByTypeType.value !== "") {
-               //       return fillByTypeType.value;
-               //    }
+               fillType: "productCategoryId",
+               fillValue: (() => {
+                  if (fillByProductCategoryValue.value !== "") {
+                     return fillByProductCategoryValue.value;
+                  }
 
-               //    if (fillByProductCategoryValue.value !== "") {
-               //       return fillByProductCategoryType.value;
-               //    }
-
-               //    return "";
-               // })(),
-               // fillValue: (() => {
-               //    if (fillByTypeType.value !== "") {
-               //       return fillByTypeValue.value;
-               //    }
-
-               //    if (fillByProductCategoryValue.value !== "") {
-               //       return fillByProductCategoryValue.value;
-               //    }
-
-               //    return "";
-               // })(),
-               // orderby: (() => {
-               //    if (sortValue.value) {
-               //       return sortValue.value.split("_")[0];
-               //    }
-               //    return "id";
-               // })(),
-               // reverse: (() => {
-               //    if (sortValue.value) {
-               //       return sortValue.value.split("_")[1] === "DESC";
-               //    }
-               //    return false;
-               // })(),
+                  return "";
+               })(),
+               orderby: (() => {
+                  if (sortValue.value) {
+                     return sortValue.value.split("_")[0];
+                  }
+                  return "id";
+               })(),
+               reverse: (() => {
+                  if (sortValue.value) {
+                     return sortValue.value.split("_")[1] === "DESC";
+                  }
+                  return false;
+               })(),
             },
             (data) => {
                if (data.code === 1) {
@@ -157,7 +148,7 @@ export default {
       }
 
       function handleChoosePage(page) {
-			// console.log(page);
+         // console.log(page);
          currentPage.value = page;
          offset.value = (page - 1) * limit.value;
          getTableData();
@@ -181,23 +172,25 @@ export default {
          getTableData();
       }
 
-      function handleFillByProductCategory() {
-         if (fillByProductCategoryValue.value === "") return;
+      function handleFillByProductCategory(productCategoryId) {
+         if (productCategoryId === "") return;
+
+         fillByProductCategoryValue.value = productCategoryId;
 
          // Reset limit & offset
          currentPage.value = 1;
-         limit.value = 10;
+         limit.value = 9;
          offset.value = 0;
 
          getTableData();
       }
 
-      function handleSort() {
-         if (sortValue.value === "") return;
+      function handleSort(val) {
+         sortValue.value = val;
 
          // Reset limit & offset
          currentPage.value = 1;
-         limit.value = 10;
+         limit.value = 9;
          offset.value = 0;
 
          getTableData();
@@ -261,6 +254,27 @@ export default {
 }
 
 .contact-mail-section {
-   padding: 100px 0;
+   padding: 50px 0 100px;
+}
+
+.product-list-table {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+}
+
+.product-list {
+   place-content: flex-start;
+   flex-grow: 1;
+}
+
+.pagination {
+   align-items: flex-end;
+}
+
+.product-list-none-data {
+	color: #bbbbbb;
+	font-size: 1.8rem;
+	text-align: center;
 }
 </style>

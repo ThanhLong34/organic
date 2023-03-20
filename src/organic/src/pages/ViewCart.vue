@@ -97,6 +97,7 @@ export default {
    setup() {
       const products = reactive([
          {
+				id: 1,
             category: "Fresh",
             image: "exp.png",
             name: "Vegan Egg Replacer",
@@ -106,6 +107,7 @@ export default {
             star: 4,
          },
          {
+				id: 1,
             category: "Fresh",
             image: "exp1.png",
             name: "Vegan Egg Replacer",
@@ -115,6 +117,7 @@ export default {
             star: 5,
          },
          {
+				id: 1,
             category: "Fresh",
             image: "exp6.png",
             name: "Vegan Egg Replacer",
@@ -124,6 +127,7 @@ export default {
             star: 4,
          },
          {
+				id: 1,
             category: "Fresh",
             image: "exp7.png",
             name: "Vegan Egg Replacer",

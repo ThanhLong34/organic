@@ -68,7 +68,7 @@ export default {
 @use "@/assets/scss/variables.scss" as *;
 
 .page-number {
-   padding-top: 30px;
+   padding-top: 24px;
    display: flex;
    align-items: center;
    justify-content: center;

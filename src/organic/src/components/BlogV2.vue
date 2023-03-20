@@ -2,11 +2,15 @@
    <div class="blog-v2">
       <div class="blog-v2-img">
          <div class="blog-v2-time-top">
-            09 <br />
-            Thg.12
+            {{ getDayInCreatedAt() }} <br />
+            Thg.{{ getMonthInCreatedAt() }}
          </div>
          <img
-            :src="`${require(`@/assets/images/blog/${blog.image}`)}`"
+            :src="
+               blog.featureImageUrl
+                  ? blog.featureImageUrl
+                  : `${require('@/assets/images/no-image.jpg')}`
+            "
             alt="blog image"
          />
       </div>
@@ -14,11 +18,11 @@
          <div class="blog-v2-row">
             <h6 class="blog-v2-author">
                <i class="fa-solid fa-circle-user"></i>
-               Đăng bởi <span>Admin</span>
+               Đăng bởi <span>{{ blog.systemAdminNickname }}</span>
             </h6>
             <time class="blog-v2-time">
                <i class="fa-solid fa-calendar-days"></i>
-               {{ blog.date }}
+               {{ blog.createdAt }}
             </time>
          </div>
          <h6 class="blog-v2-title">
@@ -26,8 +30,7 @@
                :to="{
                   name: 'blog_details',
                   params: {
-                     blogId: 1,
-                     blogTitle: 'blog-title',
+                     id: blog.id
                   },
                }"
             >
@@ -41,8 +44,7 @@
             :to="{
                name: 'blog_details',
                params: {
-                  blogId: 1,
-                  blogTitle: 'blog-title',
+                  id: blog.id
                },
             }"
          >
@@ -65,8 +67,19 @@ export default {
       ButtonV2,
    },
    props: {
-      blog: Object,
+      blog: {
+			type: Object,
+			required: true
+		},
    },
+	methods: {
+		getDayInCreatedAt() {
+			return this.$props.blog.createdAt.split(' ')[1].split('/')[0];
+		},
+		getMonthInCreatedAt() {
+			return this.$props.blog.createdAt.split(' ')[1].split('/')[1];
+		}
+	}
 };
 </script>
 

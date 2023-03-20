@@ -43,7 +43,7 @@
                               Không sử dụng Hormone tăng trưởng
                            </li>
                         </ul>
-                        <button-v-2>
+                        <button-v-2 @click="handleRedirectToShopPage">
                            Cửa hàng
                            <i class="fa-solid fa-arrow-right"></i>
                         </button-v-2>
@@ -293,9 +293,11 @@ export default {
       Statistical,
       SubscribeMail,
    },
-   setup() {
-      return {};
-   },
+	methods: {
+		handleRedirectToShopPage() {
+			this.$router.push({ name: 'shop' });
+		}
+	}
 };
 </script>
 
