@@ -34,7 +34,7 @@
                               <router-link
                                  :to="{
                                     name: 'shop_details',
-                                    params: { productName: 'product-name' },
+                                    params: { id: 1 },
                                  }"
                               >
                                  <ProductV2 :product="item" />
@@ -50,7 +50,7 @@
          </section>
          <!-- contact mail -->
          <section class="contact-mail-section">
-            <ContactMail />
+            <SubscribeMail />
          </section>
       </div>
    </div>
@@ -60,7 +60,7 @@
 /* eslint-disable */
 import TopPage from "@/components/TopPage.vue";
 import ProductV2 from "@/components/ProductV2.vue";
-import ContactMail from "@/components/ContactMail.vue";
+import SubscribeMail from "@/components/SubscribeMail.vue";
 import Service from "@/components/Service.vue";
 import PageNumber from "@/components/PageNumber.vue";
 
@@ -71,13 +71,14 @@ export default {
    components: {
       TopPage,
       ProductV2,
-      ContactMail,
+      SubscribeMail,
       Service,
       PageNumber,
    },
    setup() {
       const products = reactive([
          {
+				id: 1,
             category: "Fresh",
             image: "exp.png",
             name: "Vegan Egg Replacer",
@@ -88,6 +89,7 @@ export default {
             star: 4,
          },
          {
+				id: 1,
             category: "Fresh",
             image: "exp1.png",
             name: "Vegan Egg Replacer",
@@ -98,6 +100,7 @@ export default {
             star: 5,
          },
          {
+				id: 1,
             category: "Fresh",
             image: "exp2.png",
             name: "Vegan Egg Replacer",
@@ -108,6 +111,7 @@ export default {
             star: 4,
          },
          {
+				id: 1,
             category: "Fresh",
             image: "exp3.png",
             name: "Vegan Egg Replacer",

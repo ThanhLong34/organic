@@ -1,21 +1,28 @@
 <template>
    <div class="page-number">
-      <button class="page-number-btn page-number-prev-btn">
+      <button
+         class="page-number-btn page-number-prev-btn"
+         @click="handlePrevPage"
+      >
          <i class="fa-solid fa-arrow-left"></i>
       </button>
       <ul class="page-number-list">
          <li
+            v-for="i in numberOfPage"
+            :key="i"
             :class="{
                'page-number-item': true,
-               active: i === 1,
+               active: i === currentPage,
             }"
-            v-for="i in 4"
-            :key="i"
+            @click="() => handleChoosePage(i)"
          >
             {{ i }}
          </li>
       </ul>
-      <button class="page-number-btn page-number-next-btn">
+      <button
+         class="page-number-btn page-number-next-btn"
+         @click="handleNextPage"
+      >
          <i class="fa-solid fa-arrow-right"></i>
       </button>
    </div>
@@ -24,6 +31,36 @@
 /* eslint-disable */
 export default {
    name: "PageNumberComponent",
+   props: {
+      numberOfPage: {
+         type: Number,
+         required: true,
+      },
+      currentPage: {
+         type: Number,
+         required: true,
+      },
+   },
+   emits: ["onChoosePage", "onPrevPage", "onNextPage"],
+   setup(props, { emit }) {
+      function handleChoosePage(pageNumber) {
+         emit("onChoosePage", pageNumber);
+      }
+
+      function handlePrevPage() {
+         emit("onPrevPage");
+      }
+
+      function handleNextPage() {
+         emit("onNextPage");
+      }
+
+      return {
+         handleChoosePage,
+         handlePrevPage,
+         handleNextPage,
+      };
+   },
 };
 </script>
 
@@ -31,7 +68,7 @@ export default {
 @use "@/assets/scss/variables.scss" as *;
 
 .page-number {
-   padding-top: 30px;
+   padding-top: 24px;
    display: flex;
    align-items: center;
    justify-content: center;

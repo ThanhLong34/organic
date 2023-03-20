@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2023 at 03:11 PM
+-- Generation Time: Mar 20, 2023 at 04:32 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -107,7 +107,7 @@ CREATE TABLE `couponcode` (
 
 INSERT INTO `couponcode` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `code`, `description`, `isLimited`, `percentValue`, `remainingQuantityApplied`) VALUES
 (1, '13:39:52 17/03/2023', NULL, NULL, 'wtCrhTjWZdKC', 'Dành cho khách hàng đăng ký', 0, 20, 0),
-(2, '13:49:17 17/03/2023', NULL, NULL, 'yjGVkVoSeco7', 'Ưu đãi 30/4', 1, 15, 9),
+(2, '13:49:17 17/03/2023', NULL, NULL, 'yjGVkVoSeco7', 'Ưu đãi 30/4', 1, 15, 8),
 (3, '13:52:09 17/03/2023', '18:38:55 18/03/2023', NULL, 'HdrkmxeYxKIB', 'Ưu đãi 1/5', 1, 20, 9);
 
 -- --------------------------------------------------------
@@ -247,7 +247,15 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (287, '20:30:07 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64170e5f2bd2c.jpg', 'project_image64170e5f2bd2c.jpg', 203199),
 (288, '20:52:45 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641713ad89ddc.jpg', 'project_image641713ad89ddc.jpg', 188690),
 (289, '20:53:46 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641713ea86785.jpg', 'project_image641713ea86785.jpg', 76208),
-(290, '20:58:35 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6417150b713a0.jpg', 'project_image6417150b713a0.jpg', 94231);
+(290, '20:58:35 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6417150b713a0.jpg', 'project_image6417150b713a0.jpg', 94231),
+(291, '18:23:42 20/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6418423e70140.png', 'project_image6418423e70140.png', 221463),
+(292, '18:23:45 20/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image64184241ef6b4.png', 'project_image64184241ef6b4.png', 221463),
+(293, '18:24:58 20/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6418428a3cc3e.png', 'project_image6418428a3cc3e.png', 156503),
+(294, '18:25:01 20/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6418428d09d17.png', 'project_image6418428d09d17.png', 156503),
+(295, '18:25:41 20/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641842b519a21.png', 'project_image641842b519a21.png', 261685),
+(296, '18:25:43 20/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641842b77deff.png', 'project_image641842b77deff.png', 261685),
+(297, '18:26:41 20/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641842f1dba80.png', 'project_image641842f1dba80.png', 173355),
+(298, '18:26:44 20/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image641842f4e3bb0.png', 'project_image641842f4e3bb0.png', 173355);
 
 -- --------------------------------------------------------
 
@@ -281,7 +289,8 @@ INSERT INTO `order` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `s
 (10, '19:34:52 17/03/2023', '22:35:28 17/03/2023', NULL, 'Thành Long', '24 Vạn Xuân', 'Đà Lạt', '0353292241', '2014468@dlu.edu.vn', '', 0, 0, 320000, 320000, 4),
 (11, '19:42:01 17/03/2023', '22:35:38 17/03/2023', NULL, 'Nguyễn Huế', '24 Vạn Kiếp', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'Nhớ giao hàng sớm nhé', 2, 0, 120000, 120000, 2),
 (12, '18:39:38 18/03/2023', '18:46:21 18/03/2023', NULL, 'Đơn hàng test', '24 ABC', 'Đà Lạt', '0123456789', 'thanhlongedu0304@gmail.com', 'AHIHI', 3, 20000, 120000, 112000, 2),
-(13, '18:42:08 18/03/2023', NULL, NULL, 'Đơn hàng test 2', '24 ABC', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'AHIHI', 2, 0, 100000, 85000, 1);
+(13, '18:42:08 18/03/2023', NULL, NULL, 'Đơn hàng test 2', '24 ABC', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'AHIHI', 2, 0, 100000, 85000, 1),
+(16, '10:16:58 20/03/2023', NULL, NULL, 'Trần Thị Ngọc Ánh', '123 ABC affw', 'Đà Lạt', '0123456999', 'nguyenlong0304tester1@gmail.com', 'Giao hàng nhanh', 2, 0, 200000, 170000, 1);
 
 -- --------------------------------------------------------
 
@@ -352,7 +361,7 @@ INSERT INTO `product` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImag
 (25, '16:30:01 14/03/2023', '20:33:57 19/03/2023', NULL, 183, 'Táo thần', 320000, 300000, '300g', 'Táo này ăn vào sẽ bất tử, thích hợp để chuẩn bị trước khi quậy nóc nhà', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 1, 2),
 (26, '16:31:21 14/03/2023', '20:38:26 19/03/2023', NULL, 186, 'Chuối rừng Amazon', 400000, 300000, '500g', 'Chuối này hái ở tận rừng Amazon, nơi có những con khỉ vô cùng hung hãn', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 1, 1, 2),
 (29, '10:22:12 18/03/2023', '17:34:15 18/03/2023', '17:34:31 18/03/2023', 222, 'San pham test delete', 10000, 10000, '1 kg', '', '<p><br></p>', 1, 0, 1, 16),
-(30, '18:15:45 19/03/2023', '19:36:51 19/03/2023', NULL, 224, 'Bắp cải tím hữu cơ', 55000, 55000, '500g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 1),
+(30, '18:15:45 19/03/2023', '19:36:51 19/03/2023', NULL, 224, 'Bắp cải tím hữu cơ', 55000, 55000, '500g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm 123 hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 1),
 (31, '18:19:47 19/03/2023', '19:37:01 19/03/2023', NULL, 227, 'Cải thìa hữu cơ', 68000, 68000, '300g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 1),
 (32, '18:22:01 19/03/2023', '19:37:10 19/03/2023', NULL, 230, 'Cải thảo hữu cơ', 62000, 62000, '300g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 1),
 (33, '18:27:42 19/03/2023', '19:39:06 19/03/2023', NULL, 233, 'Cà rốt hữu cơ', 43500, 43500, '200g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 4),
@@ -373,7 +382,11 @@ INSERT INTO `product` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `featureImag
 (48, '20:24:50 19/03/2023', '20:28:02 19/03/2023', NULL, 276, 'Ba chỉ bò Obe', 225000, 225000, '300g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 12),
 (49, '20:27:46 19/03/2023', '20:39:21 19/03/2023', NULL, 279, 'Bắp heo rút xương', 165000, 135000, '500g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 1, 12),
 (50, '20:28:59 19/03/2023', '20:29:08 19/03/2023', NULL, 282, 'Cá chẽm tự nhiên', 238000, 238000, '550g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 12),
-(51, '20:30:13 19/03/2023', '20:36:38 19/03/2023', NULL, 285, 'Bò lúc lắc Obe', 232500, 232500, '1 hộp', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 1, 0, 0, 12);
+(51, '20:30:13 19/03/2023', '20:36:38 19/03/2023', NULL, 285, 'Bò lúc lắc Obe', 232500, 232500, '1 hộp', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 1, 0, 0, 12),
+(52, '18:23:51 20/03/2023', '18:24:15 20/03/2023', NULL, 291, 'Lá bạc hà', 30000, 30000, '50g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 1),
+(53, '18:25:03 20/03/2023', '18:25:16 20/03/2023', NULL, 293, 'Cải bẹ xanh', 38000, 38000, '300g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 1),
+(54, '18:25:45 20/03/2023', '18:26:03 20/03/2023', NULL, 295, 'Cải bó xôi', 47500, 47500, '250g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 1),
+(55, '18:26:47 20/03/2023', '18:26:59 20/03/2023', NULL, 297, 'Cải ngồng', 38000, 38000, '300g', 'Thực phẩm hữu cơ thường tốt cho môi trường', '<p>Thực phẩm hữu cơ thường tốt cho môi trường. Tuy nhiên, nó cũng tương đối đắt hơn: USDA (Bộ Nông nghiệp Hoa Kỳ) báo cáo rằng giá của trái cây và rau hữu cơ thường cao hơn 20% so với các sản phẩm thông thường. Đôi khi sự khác biệt có thể cao hơn nhiều, đặc biệt đối với một số mặt hàng như sữa hữu cơ và trứng.</p><p>Bạn biết cách đọc nhãn trên các sản phẩm hữu cơ để giúp chúng tôi lựa chọn thực phẩm tốt hơn. Có ba loại nhãn hữu cơ phổ biến:</p><ul><li>“100% hữu cơ”: tức là tất cả các thành phần trong thực phẩm đều được chứng nhận hữu cơ.</li><li>“Hữu cơ”: ít nhất 95% thành phần được chứng nhận hữu cơ.</li><li>“Được làm bằng các sản phẩm hữu cơ”: ít nhất 70% thành phần được chứng nhận hữu cơ.</li></ul>', 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -418,6 +431,7 @@ CREATE TABLE `productreview` (
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `fullname` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `comment` text NOT NULL,
   `rating` tinyint(4) NOT NULL,
@@ -431,11 +445,10 @@ CREATE TABLE `productreview` (
 -- Dumping data for table `productreview`
 --
 
-INSERT INTO `productreview` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `email`, `comment`, `rating`, `isShow`, `repliedAt`, `replyMessage`, `productId`) VALUES
-(1, '21:48:10 18/03/2023', '13:15:54 19/03/2023', NULL, 'Thành Long', '2014468@dlu.edu.vn', 'Test comment', 4, 1, NULL, NULL, 23),
-(3, '21:53:01 18/03/2023', '15:28:32 19/03/2023', NULL, 'Nguyễn Thành Long', 'thanhlongedu0304@gmail.com', 'Sản phẩm tốt', 5, 0, '12:42:15 19/03/2023', 'Hihi Shop cảm ơn bạn nhiều nhé', 23),
-(4, '21:53:48 18/03/2023', NULL, NULL, 'Bot 2', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 3, 1, NULL, NULL, 20),
-(5, '21:54:10 18/03/2023', NULL, NULL, 'Nguyễn Thị Huế', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 4, 1, '12:05:58 19/03/2023', 'Cảm ơn bạn đã mua sản phẩm ahihi', 17);
+INSERT INTO `productreview` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `phone`, `email`, `comment`, `rating`, `isShow`, `repliedAt`, `replyMessage`, `productId`) VALUES
+(7, '10:24:22 20/03/2023', NULL, NULL, 'Thành Long', '0353292241', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 4, 1, NULL, NULL, 17),
+(8, '10:26:37 20/03/2023', NULL, NULL, 'Nguyễn Huế', '0123456789', '2014468@dlu.edu.vn', 'Sản phẩm mua về rất ưng ý', 5, 1, '21:04:48 20/03/2023', 'Cảm ơn bạn đã tin tưởng mua hàng của chúng tôi', 20),
+(9, '21:04:14 20/03/2023', NULL, NULL, 'Trần Thị Ngọc Ánh', '0123456999', 'nguyenlong0304tester1@gmail.com', 'Sản phẩm ngon và tươi', 4, 1, NULL, NULL, 20);
 
 -- --------------------------------------------------------
 
@@ -517,7 +530,11 @@ INSERT INTO `product_image` (`productId`, `imageId`) VALUES
 (50, 283),
 (50, 284),
 (51, 287),
-(51, 286);
+(51, 286),
+(52, 292),
+(53, 294),
+(54, 296),
+(55, 298);
 
 -- --------------------------------------------------------
 
@@ -544,7 +561,8 @@ INSERT INTO `product_order` (`productId`, `orderId`, `quantity`) VALUES
 (29, 11, 1),
 (29, 12, 3),
 (23, 13, 3),
-(23, 12, 1);
+(23, 12, 1),
+(20, 16, 2);
 
 -- --------------------------------------------------------
 
@@ -565,9 +583,9 @@ CREATE TABLE `subscribe` (
 --
 
 INSERT INTO `subscribe` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `email`) VALUES
-(3, '08:43:33 17/03/2023', NULL, NULL, 'customer1@gmail.com'),
-(4, '08:44:59 17/03/2023', NULL, NULL, 'customer2@gmail.com'),
-(5, '08:45:03 17/03/2023', NULL, NULL, 'customer3@gmail.com');
+(10, '11:08:23 20/03/2023', NULL, NULL, '2014468@dlu.edu.vn'),
+(11, '11:09:06 20/03/2023', NULL, NULL, 'thanhlongedu0304@gmail.com'),
+(19, '14:26:56 20/03/2023', NULL, NULL, 'nguyenlong0304tester1@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -950,7 +968,8 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (1, 70),
 (1, 102),
 (1, 60),
-(1, 54);
+(1, 54),
+(2, 115);
 
 -- --------------------------------------------------------
 
@@ -1144,13 +1163,13 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=291;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=299;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `orderstatus`
@@ -1162,7 +1181,7 @@ ALTER TABLE `orderstatus`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `productcategory`
@@ -1174,13 +1193,13 @@ ALTER TABLE `productcategory`
 -- AUTO_INCREMENT for table `productreview`
 --
 ALTER TABLE `productreview`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `subscribe`
 --
 ALTER TABLE `subscribe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `systemadmin`

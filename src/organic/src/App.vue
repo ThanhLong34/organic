@@ -39,7 +39,7 @@
 
    <!-- Router View -->
    <main class="router-view">
-      <RouterView />
+      <RouterView :key="$route.fullPath" />
    </main>
 
    <!-- Footer -->
@@ -260,6 +260,10 @@ body {
    }
 }
 
+.align-start {
+   align-items: flex-start !important;
+}
+
 /* Override Swiper navigation */
 .swiper-button-next,
 .swiper-button-prev {
@@ -272,6 +276,60 @@ body {
    &::after {
       font-size: 12px !important;
       font-weight: bold !important;
+   }
+}
+
+//? CUSTOMIZE ELEMENT UI PLUS
+.el-dialog {
+   border-radius: 1rem !important;
+}
+
+.el-overlay {
+   z-index: 9999 !important;
+}
+
+.el-popper {
+   z-index: 9000 !important;
+}
+
+.el-message,
+.el-notification {
+   z-index: 10000 !important;
+}
+
+.el-checkbox {
+   margin-bottom: 0;
+   margin-left: 0;
+
+   &:hover {
+      color: #409eff;
+   }
+}
+
+.el-select__popper {
+   z-index: 10001 !important;
+}
+
+.el-drawer__header {
+   margin-bottom: 8px !important;
+}
+
+.content-render {
+   * {
+      font-size: 1.2rem;
+   }
+
+   p + p {
+      padding: 10px 0;
+   }
+
+   ul {
+      list-style-type: disc;
+      padding: 14px 18px;
+   }
+
+   li + li {
+      margin-top: 10px;
    }
 }
 </style>

@@ -9,7 +9,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
+// Element Plus
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
+
 // import image zoomer styles
 import "vue-image-zoomer/dist/style.css";
 
-createApp(App).use(store).use(router).mount("#app");
+const appInstance = createApp(App);
+appInstance.use(store);
+appInstance.use(router);
+appInstance.use(ElementPlus);
+appInstance.mount("#app");

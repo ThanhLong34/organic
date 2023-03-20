@@ -40,7 +40,7 @@
 
       <div class="order-details-full-toshop-btn">
          <router-link
-            :to="{ name: 'shop', params: { categoryName: 'show-all' } }"
+            :to="{ name: 'shop' }"
          >
             <button-v-5>TIẾP TỤC MUA SẮM</button-v-5>
          </router-link>

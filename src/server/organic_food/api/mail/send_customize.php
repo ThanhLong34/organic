@@ -54,6 +54,13 @@ function sendCustomizeMail($mailTo, $subject, $body)
       return;
    }
 
+   // Kiểm tra định dạng email
+   if (!validateEmail($mailTo)) {
+      $response = new ResponseAPI(3, "Không đúng định dạng email");
+      $response->send();
+      return;
+   }
+
    // Tạo đối tượng gửi mail
    $mail = new EmptyMail($mailTo, $subject, $body);
 

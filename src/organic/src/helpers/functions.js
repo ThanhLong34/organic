@@ -1,3 +1,8 @@
+const VND = new Intl.NumberFormat("vi-VN", {
+	style: "currency",
+	currency: "VND",
+});
+
 export function checkElementInViewport(ele, offsetTop) {
   if (ele) {
     const position = ele.getBoundingClientRect();
@@ -18,4 +23,8 @@ export function checkElementInViewport(ele, offsetTop) {
   //   console.log("Element is fully visible in screen");
   // }
   return false;
+}
+
+export function toVND(price) {
+	return VND.format(price);
 }

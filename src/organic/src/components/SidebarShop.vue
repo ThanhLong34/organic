@@ -5,23 +5,58 @@
             <p class="sidebar-title">Sắp xếp theo:</p>
             <div class="sidebar-sort-checkboxs">
                <label>
-                  <input type="radio" name="radio" checked />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.default"
+                     :value="sortOptions.default"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Mặc định</span>
                </label>
                <label>
-                  <input type="radio" name="radio" />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.productNew"
+                     :value="sortOptions.productNew"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Sản phẩm mới nhất</span>
                </label>
                <label>
-                  <input type="radio" name="radio" />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.highRating"
+                     :value="sortOptions.highRating"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Sản phẩm được đánh giá cao</span>
                </label>
                <label>
-                  <input type="radio" name="radio" />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.priceLowToHigh"
+                     :value="sortOptions.priceLowToHigh"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Giá: thấp tới cao</span>
                </label>
                <label>
-                  <input type="radio" name="radio" />
+                  <input
+                     type="radio"
+                     name="radio"
+                     :checked="sortValue === sortOptions.priceHighToLow"
+                     :value="sortOptions.priceHighToLow"
+                     v-model="sortValue"
+                     @change="handleChooseSortValue"
+                  />
                   <span>Giá: cao tới thấp</span>
                </label>
             </div>
@@ -30,22 +65,20 @@
             <p class="sidebar-title">Danh mục:</p>
             <ul class="sidebar-category-list">
                <li
+                  v-for="item in productCategoryList"
                   :class="{
                      'sidebar-category-item': true,
-                     active: i === 1,
+                     active: item.id === currentProductCategoryId,
                   }"
-                  v-for="i in 5"
-                  :key="i"
+                  :key="item.id"
                >
-                  <router-link
-                     :to="{
-                        name: 'shop',
-                        params: { categoryName: 'show-all' },
-                     }"
+                  <a
+                     href="javascript:;"
+                     @click.prevent="() => handleFillByProductCategory(item.id)"
                   >
                      <i class="fa-solid fa-caret-right"></i>
-                     Rau củ
-                  </router-link>
+                     {{ item.name }}
+                  </a>
                </li>
             </ul>
          </div>
@@ -74,7 +107,7 @@
                :modules="modulesSwiper"
             >
                <swiper-slide
-                  v-for="(item, index) in productsSeller"
+                  v-for="(item, index) in productListIsBestOffer"
                   :key="index"
                >
                   <ProductV2 :product="item" />
@@ -97,7 +130,10 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper";
 //#endregion
 
-import { reactive } from "vue";
+import { ref, reactive, onBeforeMount } from "vue";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "SidebarShopComponent",
@@ -106,54 +142,88 @@ export default {
       Swiper,
       SwiperSlide,
    },
-   setup() {
+   emits: ["onFillByProductCategory", "onSort"],
+   setup(props, { emit }) {
       const modulesSwiper = [Autoplay];
-      const productsSeller = reactive([
-         {
-            category: "Fresh",
-            image: "exp.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-            category: "Fresh",
-            image: "exp1.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-         {
-            category: "Fresh",
-            image: "exp2.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-            category: "Fresh",
-            image: "exp3.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-      ]);
+      const productCategoryList = ref([]);
+      const productListIsBestOffer = ref([]);
+      const currentProductCategoryId = ref("");
+
+      const sortValue = ref("");
+      const sortOptions = reactive({
+         default: "",
+         productNew: "id_DESC",
+         highRating: "averageRating_DESC",
+         priceLowToHigh: "promotionPrice_ASC",
+         priceHighToLow: "promotionPrice_DESC",
+      });
+
+      function getProductCategoryList() {
+         return API.get(
+            apiPath + `/product_category/get_list.php`,
+            {},
+            (data) => {
+               if (data.code === 1) {
+                  productCategoryList.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                  }));
+
+                  currentProductCategoryId.value =
+                     productCategoryList.value[0]?.id ?? "";
+                  handleFillByProductCategory(currentProductCategoryId.value);
+               }
+            }
+         );
+      }
+
+      function getProductListIsBestOffer() {
+         return API.get(
+            apiPath + `/product/get_list.php`,
+            {
+               limit: 5,
+               offset: 0,
+               fillType: "isBestOffer",
+               fillValue: 1,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  productListIsBestOffer.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                     originPrice: +item.originPrice,
+                     promotionPrice: +item.promotionPrice,
+                     quantityReview: +item.quantityReview,
+                     productCategoryId: +item.productCategoryId,
+                  }));
+               }
+            }
+         );
+      }
+
+      function handleFillByProductCategory(productCategoryId) {
+         currentProductCategoryId.value = productCategoryId;
+         emit("onFillByProductCategory", productCategoryId);
+      }
+
+      function handleChooseSortValue() {
+         emit("onSort", sortValue.value);
+      }
+
+      onBeforeMount(() => {
+         getProductCategoryList();
+         getProductListIsBestOffer();
+      });
 
       return {
          modulesSwiper,
-         productsSeller,
+         productCategoryList,
+         sortValue,
+         sortOptions,
+         productListIsBestOffer,
+         currentProductCategoryId,
+         handleFillByProductCategory,
+         handleChooseSortValue,
       };
    },
 };

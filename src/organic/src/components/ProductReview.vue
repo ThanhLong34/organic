@@ -1,8 +1,14 @@
 <template>
    <div class="product-review">
-      <p class="product-review-title">3 đánh giá</p>
+      <p class="product-review-title">
+         {{ productReviewList.length }} đánh giá
+      </p>
       <ul class="product-review-list">
-         <li class="product-review-item" v-for="i in 2" :key="i">
+         <li
+            class="product-review-item"
+            v-for="item in productReviewList"
+            :key="item.id"
+         >
             <div class="product-review-item-avt">
                <img
                   src="@/assets/images/product_review/avatar.png"
@@ -10,28 +16,37 @@
                />
             </div>
             <div class="product-review-item-info">
-               <p class="product-review-item-name">Nguyễn Văn A</p>
+               <p class="product-review-item-name">{{ item.fullname }}</p>
                <p class="product-review-item-para">
-                  Hàng này chất lượng bật nhất thế giới luôn nè.
+                  {{ item.comment }}
                </p>
                <div class="product-review-item-row">
                   <div>
                      <p class="product-review-item-email">
                         <i class="fa-regular fa-envelope"></i>
-                        anv@gmail.com
+                        {{ item.email }}
                      </p>
                      <time class="product-review-item-time">
                         <i class="fa-regular fa-clock"></i>
-                        06/01/2023
+                        {{ item.createdAt }}
                      </time>
                   </div>
                   <div class="product-review-item-stars">
-                     <i class="fa-solid fa-star active"></i>
-                     <i class="fa-solid fa-star active"></i>
-                     <i class="fa-solid fa-star active"></i>
-                     <i class="fa-solid fa-star active"></i>
-                     <i class="fa-regular fa-star"></i>
+                     <i
+                        v-for="i in item.rating"
+                        :key="i"
+                        class="fa-solid fa-star active"
+                     ></i>
+                     <i
+                        v-for="i in 5 - item.rating"
+                        :key="i"
+                        class="fa-regular fa-star"
+                     ></i>
                   </div>
+               </div>
+               <div v-if="item.repliedAt" class="product-review-item-reply">
+                  <p class="product-review-item-reply-title">Phản hồi từ admin:</p>
+                  <p class="product-review-item-reply-message">{{ item.replyMessage }}</p>
                </div>
             </div>
          </li>
@@ -82,7 +97,9 @@
 
          <!-- name -->
          <InputV1 placeholder="Nhập họ tên" />
-         <!-- mail -->
+         <!-- phone -->
+         <InputV1 placeholder="Nhập số điện thoại (SĐT của bạn sẽ không được hiển thị)" />
+         <!-- email -->
          <InputV1 placeholder="Nhập email" />
          <!-- comment -->
          <TextAreaV1 placeholder="Nhập bình luận" />
@@ -99,7 +116,10 @@ import ButtonV2 from "@/components/ButtonV2.vue";
 import InputV1 from "@/components/InputV1.vue";
 import TextAreaV1 from "@/components/TextAreaV1.vue";
 
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "ProductReviewComponent",
@@ -108,10 +128,18 @@ export default {
       InputV1,
       TextAreaV1,
    },
-   setup() {
+   props: {
+      productId: {
+         type: Number,
+         required: true,
+      },
+   },
+   setup(props) {
       const productReviewFormStars = ref(null);
       const isRated = ref(false);
       const rating = ref(0);
+
+      const productReviewList = ref([]);
 
       function ratingStar(rate) {
          productReviewFormStars.value.childNodes.forEach((i) => {
@@ -121,6 +149,27 @@ export default {
                i.classList.remove("active");
             }
          });
+      }
+
+      function getProductReviewList() {
+         return API.get(
+            apiPath + `/product_review/get_list_for_product.php`,
+            {
+               productId: props.productId,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  // TABLE STATES
+                  productReviewList.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                     rating: +item.rating,
+                     isShow: +item.isShow == 1,
+                     productId: +item.productId,
+                  }));
+               }
+            }
+         );
       }
 
       function handleSubmitReview() {
@@ -148,8 +197,13 @@ export default {
          }
       }
 
+      onBeforeMount(() => {
+         getProductReviewList();
+      });
+
       return {
          isRated,
+         productReviewList,
          productReviewFormStars,
          handleChooseRating,
          handleSubmitReview,
@@ -193,6 +247,10 @@ export default {
 
       & + & {
          border-top: 1px solid rgb(223, 223, 223);
+      }
+
+      &-info {
+         width: 100%;
       }
 
       &-avt {
@@ -253,6 +311,20 @@ export default {
             }
          }
       }
+
+		&-reply {
+			margin-top: 20px;
+
+			&-title {
+				color: #ff105c;
+				font-size: 1.2rem;
+				margin-bottom: 6px;
+			}
+
+			&-message {
+				color: #636363;
+			}
+		}
    }
 
    &-form {

@@ -10,47 +10,30 @@
                      <div
                         class="blog-details-top"
                         :style="{
-                           backgroundImage: `url(${require('@/assets/images/blog_details/exp.jpg')})`,
+                           backgroundImage: `url(${blog.featureImageUrl})`,
                         }"
                      >
                         <div class="blog-details-top-txt">
                            <div class="blog-details-row">
                               <h6 class="blog-details-author">
                                  <i class="fa-solid fa-circle-user"></i>
-                                 Đăng bởi <span>Admin</span>
+                                 Đăng bởi
+                                 <span>{{ blog.systemAdminNickname }}</span>
                               </h6>
                               <time class="blog-details-time">
                                  <i class="fa-solid fa-calendar-days"></i>
-                                 20/05/2023
+                                 {{ blog.createdAt }}
                               </time>
                            </div>
                            <h5 class="blog-details-title">
-                              Easy way to Build a Perfect Agency Website.
+                              {{ blog.title }}
                            </h5>
                         </div>
                      </div>
-                     <div class="blog-details-body">
-                        <p>
-                           Morbi mollis vestibulum sollicitudin. Nunc in eros a
-                           justo facilisis rutrum. Aenean id ullamcorper libero.
-                           Vestibulum imperdiet nibh vel magna lacinia ultrices.
-                           Sed id interdum urna.
-                        </p>
-                        <img
-                           src="@/assets/images/blog_details/exp1.jpg"
-                           alt="image"
-                        />
-                        <p>
-                           Nam ac elit a ante commodo tristique. Duis lacus
-                           urna, condimentum a vehicula a, hendrerit ac nisi
-                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                           elit. Aliquam vulputate, tortor nec commodo
-                           ultricies, vitae viverra urna nulla sed turpis.
-                           Nullam lacinia faucibus risus, a euismod lorem
-                           tincidunt id.
-                        </p>
-                        <a href="#">This is link</a>
-                     </div>
+                     <div
+                        ref="contentRef"
+                        class="blog-details-body content-render"
+                     ></div>
                   </div>
                </div>
                <div class="col l-3 m-4 s-12">
@@ -93,8 +76,8 @@
                                  :modules="modulesSwiper"
                               >
                                  <swiper-slide
-                                    v-for="(item, index) in blogs"
-                                    :key="index"
+                                    v-for="item in blogListNew"
+                                    :key="item.id"
                                  >
                                     <BlogV1 :blog="item" />
                                  </swiper-slide>
@@ -123,7 +106,12 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper";
 //#endregion
 
-import { reactive } from "vue";
+import { ref, reactive, onBeforeMount, onMounted, watch } from "vue";
+
+import { useRoute } from "vue-router";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "BlogDetailsPage",
@@ -135,38 +123,66 @@ export default {
       SwiperSlide,
    },
    setup() {
+      const route = useRoute();
+
       const modulesSwiper = [Autoplay];
-      const blogs = reactive([
-         {
-            image: "exp.jpg",
-            date: "20/05/2023",
-            title: "Food industry leaders often change",
-         },
-         {
-            image: "exp2.jpg",
-            date: "20/05/2023",
-            title: "Strategy for Norway's Peion Fund Global",
-         },
-         {
-            image: "exp3.jpg",
-            date: "20/05/2023",
-            title: "Strategy for Norway's Peion Fund Global",
-         },
-         {
-            image: "exp4.jpg",
-            date: "20/05/2023",
-            title: "Strategy for Norway's Peion Fund Global",
-         },
-         {
-            image: "exp2.jpg",
-            date: "20/05/2023",
-            title: "Strategy for Norway's Peion Fund Global",
-         },
-      ]);
+      const contentRef = ref(null);
+
+      const blogListNew = ref([]);
+
+      const blog = ref({});
+      blog.value.id = +route.params.id;
+
+      function getBlog() {
+         return API.get(
+            apiPath + `/blog/get_item.php`,
+            {
+               id: blog.value.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  blog.value = {
+                     ...data.data,
+                     id: +data.data.id,
+                  };
+               }
+            }
+         );
+      }
+
+      function getBlogListNew() {
+         return API.get(
+            apiPath + `/blog/get_list.php`,
+            {
+               limit: 4,
+               offset: 0,
+               reverse: true,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  blogListNew.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                  }));
+               }
+            }
+         );
+      }
+
+      onBeforeMount(() => {
+         getBlog();
+         getBlogListNew();
+      });
+
+		watch(blog, () => {
+			contentRef.value.innerHTML = blog.value.content;
+		});
 
       return {
          modulesSwiper,
-         blogs,
+         contentRef,
+         blog,
+         blogListNew,
       };
    },
 };

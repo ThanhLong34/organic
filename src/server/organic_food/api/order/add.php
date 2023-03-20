@@ -111,11 +111,26 @@ function addItem(
    // Tiền thanh toán
    $paymentCost = $totalCost + $deliveryCost;
 
+   // Trường hợp đơn hàng có áp dụng mã giảm giá
    if ($couponCodeId !== "" && is_numeric($couponCodeId)) {
-      // Cập nhật số lượng áp dụng còn lại của mã giảm giá
-      if (($couponCodePercentValue = updateQuantityAppliedForCouponCode($couponCodeId)) >= 0) {
-         // Tính toán tiền phải thanh toán
-         $paymentCost = calculatePaymentCost($deliveryCost, $totalCost, $couponCodePercentValue);
+
+      // Kiểm tra xem mã giảm giá được áp dụng có được phép dùng không
+      if (checkAllowCouponCodeApplied($couponCodeId, $phone, $email)) {
+         // Cập nhật số lượng áp dụng còn lại của mã giảm giá
+         if (($couponCodePercentValue = updateQuantityAppliedForCouponCode($couponCodeId)) >= 0) {
+            // Tính toán tiền phải thanh toán
+            $paymentCost = calculatePaymentCost($deliveryCost, $totalCost, $couponCodePercentValue);
+         }
+      } else {
+
+         $response = new ResponseAPI(6, "Mã giảm giá đã được sử dụng, đơn hàng chưa được đặt thành công, vui lòng bỏ áp dụng mã giảm giá và đặt đơn lại");
+         $response->send();
+         return;
+
+         // Đóng kết nối
+         $connect->close();
+
+         return;
       }
    }
 
@@ -136,7 +151,6 @@ function addItem(
 
       // Gửi mail
       $mail->send();
-
    } else {
       $response = new ResponseAPI(2, "Thất bại");
       $response->send();
@@ -156,7 +170,8 @@ function performsQueryAndResponseToClient($query)
 }
 
 // Lấy ra order vừa mới được thêm vào trong CSDL để gửi mail
-function getOrderHasJustBeenInserted() {
+function getOrderHasJustBeenInserted()
+{
    global $connect, $tableName;
 
    $lastId = $connect->insert_id;
@@ -176,7 +191,8 @@ function getOrderHasJustBeenInserted() {
 }
 
 // Cập nhật lại remainingQuantityApplied cho mã giảm giá (coupon code)
-function updateQuantityAppliedForCouponCode($couponCodeId) {
+function updateQuantityAppliedForCouponCode($couponCodeId)
+{
    global $connect;
 
    // Tìm coupon code
@@ -189,7 +205,7 @@ function updateQuantityAppliedForCouponCode($couponCodeId) {
       // Nếu mã giảm giá không giới hạn số lần áp dụng
       if ($couponCode->isLimited == 0) {
          return $couponCode->percentValue;
-      } 
+      }
 
       // Cast to int
       $couponCode->remainingQuantityApplied = (int)$couponCode->remainingQuantityApplied;
@@ -209,7 +225,28 @@ function updateQuantityAppliedForCouponCode($couponCodeId) {
 }
 
 // Tính toán số tiền cần phải thanh toán của đơn hàng
-function calculatePaymentCost($deliveryCost, $totalCost, $couponCodePercentValue) {
+function calculatePaymentCost($deliveryCost, $totalCost, $couponCodePercentValue)
+{
    $totalCost += $deliveryCost;
    return $totalCost - ($totalCost / 100 * $couponCodePercentValue);
+}
+
+// Kiểm tra xem mã giảm giá đã từng áp dụng chưa
+// Nếu đã áp dụng rồi thì không được phép dùng mã đó nữa
+function checkAllowCouponCodeApplied($couponCodeId, $phone, $email)
+{
+   global $connect, $tableName;
+
+   $query = "SELECT * FROM `$tableName`
+      WHERE `$tableName`.`couponCodeId` = '$couponCodeId'
+      AND `$tableName`.`phone` = '$phone'
+      OR `$tableName`.`email` = '$email'
+   ";
+   $result = mysqli_query($connect, $query);
+
+   if ($result && mysqli_num_rows($result) > 0) {
+      return false; // Vì đã áp dụng mã này rồi, nên không được dùng lại nữa
+   }
+
+   return true;
 }

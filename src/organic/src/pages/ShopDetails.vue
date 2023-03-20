@@ -18,24 +18,14 @@
                               :thumbs="{ swiper: thumbsSwiper }"
                               watch-slides-progress
                               navigation
+                              class="product-image-slider-wrapper"
                            >
-                              <swiper-slide>
-                                 <img
-                                    src="@/assets/images/shop_details/exp.png"
-                                    alt="product image"
-                                 />
-                              </swiper-slide>
-                              <swiper-slide>
-                                 <img
-                                    src="@/assets/images/shop_details/exp.png"
-                                    alt="product image"
-                                 />
-                              </swiper-slide>
-                              <swiper-slide>
-                                 <img
-                                    src="@/assets/images/shop_details/exp.png"
-                                    alt="product image"
-                                 />
+                              <swiper-slide
+                                 v-for="item in imageList"
+                                 :key="item.id"
+                                 class="product-image-slider"
+                              >
+                                 <img :src="item.url" alt="product image" />
                               </swiper-slide>
                            </swiper>
                         </div>
@@ -48,7 +38,7 @@
                      <!-- product information -->
                      <div class="shop-details-product-info">
                         <h4 class="shop-details-product-name">
-                           Veggan Egg Fresh
+                           {{ product.name }}
                         </h4>
                         <div class="shop-details-product-rating">
                            <div class="shop-details-product-rating-stars">
@@ -63,24 +53,26 @@
                            </div>
                         </div>
                         <p class="shop-details-product-price">
-                           <span class="shop-details-product-price-old"
-                              >200.000đ</span
+                           <span
+                              v-if="
+                                 product.originPrice !== product.promotionPrice
+                              "
+                              class="shop-details-product-price-old"
+                              >{{ toVND(product.originPrice) }}</span
                            >
                            <span class="shop-details-product-price-new"
-                              >180.000đ
+                              >{{ toVND(product.promotionPrice) }}
                               <span class="shop-details-product-unit"
-                                 >/ Kg</span
+                                 >/ {{ product.unit }}</span
                               ></span
                            >
                         </p>
                         <p class="shop-details-product-desc">
-                           Sumptuous, filling, and temptingly healthy, our Biona
-                           Organic Granola with Wild Berries is just the thing
-                           to get you out of bed. The goodness of rolled
-                           wholegrain oats are combined.
+                           {{ product.shortDescription }}
                         </p>
                         <p class="shop-details-product-category">
-                           DANH MỤC: <span>Rau củ</span>
+                           DANH MỤC:
+                           <span>{{ product.productCategoryName }}</span>
                         </p>
                         <div class="shop-details-product-ctrl">
                            <div class="shop-details-product-ctrl-quantity">
@@ -139,8 +131,14 @@
                   </div>
                   <div class="col l-9 m-12 s-12">
                      <div class="shop-details-desc-and-rev-box">
-                        <ProductDescription v-show="tab === 'description'" />
-                        <ProductReview v-show="tab === 'review'" />
+                        <ProductDescription
+                           v-show="tab === 'description'"
+                           :content="product.description"
+                        />
+                        <ProductReview
+                           v-if="tab === 'review'"
+                           :productId="product.id"
+                        />
                      </div>
                   </div>
                   <div class="col l-3 m-12 s-12"></div>
@@ -153,7 +151,7 @@
                   <div class="col l-12 m-12 s-12">
                      <div class="shop-details-related-title">
                         <p>HOÀN TOÀN TỰ NHIÊN</p>
-                        <h5>Sản phẩm khác</h5>
+                        <h5>Sản phẩm cùng danh mục</h5>
                      </div>
                   </div>
                   <div class="col l-12 m-12 s-12">
@@ -182,8 +180,8 @@
                            :modules="modulesSwiper"
                         >
                            <swiper-slide
-                              v-for="(item, index) in productsRelated"
-                              :key="index"
+                              v-for="item in productListRelated"
+                              :key="item.id"
                            >
                               <ProductV2 :product="item" />
                            </swiper-slide>
@@ -213,7 +211,13 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, Thumbs, Navigation } from "swiper";
 //#endregion
 
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, onBeforeMount } from "vue";
+import { useRoute } from "vue-router";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+
+import { toVND } from "@/helpers/functions";
 
 export default {
    name: "ShopDetailsPage",
@@ -227,7 +231,14 @@ export default {
       Swiper,
       SwiperSlide,
    },
-   setup() {
+   setup(props, { emit }) {
+      const route = useRoute();
+
+      const product = ref({});
+      product.value.id = +route.params.id;
+
+      const imageList = ref([]);
+
       const info = reactive({
          quantity: 1,
       });
@@ -239,48 +250,77 @@ export default {
          thumbsSwiper.value = swiper;
       };
 
-      const productsRelated = reactive([
-         {
-            category: "Fresh",
-            image: "exp.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-            category: "Fresh",
-            image: "exp1.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-         {
-            category: "Fresh",
-            image: "exp2.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-            category: "Fresh",
-            image: "exp3.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-      ]);
+      const productListRelated = ref([]);
+
+      function getProduct() {
+         return API.get(
+            apiPath + `/product/get_item.php`,
+            {
+               id: product.value.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  product.value = {
+                     ...data.data,
+                     id: +data.data.id,
+                     featureImageId: +data.data.featureImageId,
+                     originPrice: +data.data.originPrice,
+                     promotionPrice: +data.data.promotionPrice,
+                     isSpecial: +data.data.isSpecial == 1,
+                     isNew: +data.data.isNew == 1,
+                     isBestOffer: +data.data.isBestOffer == 1,
+                     productCategoryId: +data.data.productCategoryId,
+                     averageRating: +data.data.averageRating,
+                  };
+               }
+            }
+         );
+      }
+
+      function getImageListForProduct() {
+         return API.get(
+            apiPath + `/product_image/get_list_by_product_id.php`,
+            {
+               productId: product.value.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  imageList.value = data.data.map((i) => ({
+                     id: +i.imageId,
+                     url: i.imageUrl,
+                  }));
+               }
+            }
+         );
+      }
+
+      function getProductListRelated() {
+         return API.get(
+            apiPath + `/product/get_list.php`,
+            {
+               limit: 6,
+               offset: 0,
+               fillType: "productCategoryId",
+               fillValue: product.value.productCategoryId,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  productListRelated.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                     featureImageId: +item.featureImageId,
+                     originPrice: +item.originPrice,
+                     promotionPrice: +item.promotionPrice,
+                     isSpecial: +item.isSpecial == 1,
+                     isNew: +item.isNew == 1,
+                     isBestOffer: +item.isBestOffer == 1,
+                     productCategoryId: +item.productCategoryId,
+                     averageRating: +item.averageRating,
+                  }));
+               }
+            }
+         );
+      }
 
       function handleSubQuantity() {
          if (info.quantity > 1) {
@@ -294,17 +334,26 @@ export default {
          }
       }
 
+      onBeforeMount(async () => {
+         await getProduct();
+         await getImageListForProduct();
+         await getProductListRelated();
+      });
+
       return {
+         product,
+         imageList,
          info,
          tab,
          modulesSwiper,
          handleSubQuantity,
          handleAddQuantity,
-         productsRelated,
+         productListRelated,
          Navigation,
          Thumbs,
          thumbsSwiper,
          setThumbsSwiper,
+         toVND,
       };
    },
 };
@@ -312,6 +361,16 @@ export default {
 
 <style lang="scss" scoped>
 @use "@/assets/scss/variables.scss" as *;
+
+.product-image-slider {
+   align-self: center;
+
+   img {
+      height: 100%;
+      max-height: 400px;
+      object-fit: contain;
+   }
+}
 
 .shop-details-product {
    padding: 100px 0;

@@ -12,17 +12,17 @@ const routes = [
 		component: Home,
 	},
 	{
-		path: "/shop/:categoryName",
+		path: "/shop",
 		name: "shop",
 		component: () => import("../pages/Shop.vue"),
 	},
 	{
-		path: "/shop-search/:productName",
+		path: "/shop-search/:id",
 		name: "shop_search",
 		component: () => import("../pages/ShopSearch.vue"),
 	},
 	{
-		path: "/shop-details/:productName",
+		path: "/shop-details/:id",
 		name: "shop_details",
 		component: () => import("../pages/ShopDetails.vue"),
 	},
@@ -52,7 +52,7 @@ const routes = [
 		component: () => import("../pages/Blog.vue"),
 	},
 	{
-		path: "/blog-details/:blogTitle",
+		path: "/blog-details/:id",
 		name: "blog_details",
 		component: () => import("../pages/BlogDetails.vue"),
 	},

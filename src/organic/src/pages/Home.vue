@@ -20,7 +20,6 @@
                         <router-link
                            :to="{
                               name: 'shop',
-                              params: { categoryName: 'show-all' },
                            }"
                         >
                            <button-v-2>
@@ -81,7 +80,9 @@
                            Dinh dưỡng tươi hoàn toàn tự nhiên.
                         </p>
                         <div class="icon-section-item-btn-wrap">
-                           <button-v-1 @click="handleRedirectToAboutPage">Đọc thêm</button-v-1>
+                           <button-v-1 @click="handleRedirectToAboutPage"
+                              >Đọc thêm</button-v-1
+                           >
                         </div>
                      </div>
                   </div>
@@ -118,7 +119,9 @@
                            Sản phẩm của chúng tôi hoàn toàn là sản phẩm hữu cơ.
                         </p>
                         <div class="icon-section-item-btn-wrap">
-                           <button-v-1 @click="handleRedirectToAboutPage">Đọc thêm</button-v-1>
+                           <button-v-1 @click="handleRedirectToAboutPage"
+                              >Đọc thêm</button-v-1
+                           >
                         </div>
                      </div>
                   </div>
@@ -155,7 +158,9 @@
                            Tất cả sản phẩm đều đảm bảo chất lượng tốt nhất.
                         </p>
                         <div class="icon-section-item-btn-wrap">
-                           <button-v-1 @click="handleRedirectToAboutPage">Đọc thêm</button-v-1>
+                           <button-v-1 @click="handleRedirectToAboutPage"
+                              >Đọc thêm</button-v-1
+                           >
                         </div>
                      </div>
                   </div>
@@ -192,7 +197,9 @@
                            Sản phẩm hoàn toàn được trồng và nuôi tự nhiên
                         </p>
                         <div class="icon-section-item-btn-wrap">
-                           <button-v-1 @click="handleRedirectToAboutPage">Đọc thêm</button-v-1>
+                           <button-v-1 @click="handleRedirectToAboutPage"
+                              >Đọc thêm</button-v-1
+                           >
                         </div>
                      </div>
                   </div>
@@ -214,7 +221,10 @@
                   <div class="col l-5 m-12 s-12">
                      <div class="about-section-txt">
                         <p class="about-section-top">
-                           CHỈ TỪ <span class="primary-text">19.000đ</span>
+                           CHỈ TỪ
+                           <span class="primary-text">
+                              {{ toVND(59000) }}
+                           </span>
                         </p>
                         <h5 class="about-section-heading">
                            <strong>Tươi &amp; An toàn</strong>
@@ -253,7 +263,7 @@
                         <h5 class="offer-section-heading">
                            Việt quất <span>&amp;</span> Hạt
                         </h5>
-                        <p class="offer-section-price">280.000đ</p>
+                        <p class="offer-section-price">{{ toVND(280000) }}</p>
                         <p class="offer-section-para">
                            Việt quất (blueberry) là loại quả nổi tiếng khắp thế
                            giới bởi hương vị thơm ngon cùng giá trị dinh dưỡng
@@ -368,7 +378,7 @@
                            <div class="col- l-5 m-5 s-12">
                               <div class="slider-section-product-txt">
                                  <div class="slider-section-product-price">
-                                    Chỉ từ 100.000 đ
+                                    Chỉ từ {{ toVND(100000) }}
                                  </div>
                                  <h5 class="slider-section-product-name">
                                     <strong>Bơ</strong> tươi
@@ -401,7 +411,7 @@
                            <div class="col- l-5 m-5 s-12">
                               <div class="slider-section-product-txt">
                                  <div class="slider-section-product-price">
-                                    Chỉ từ 100.000 đ
+                                    Chỉ từ {{ toVND(100000) }}
                                  </div>
                                  <h5 class="slider-section-product-name">
                                     <strong>Bắp cải</strong> tươi
@@ -434,7 +444,7 @@
                            <div class="col- l-5 m-5 s-12">
                               <div class="slider-section-product-txt">
                                  <div class="slider-section-product-price">
-                                    Chỉ từ 100.000 đ
+                                    Chỉ từ {{ toVND(100000) }}
                                  </div>
                                  <h5 class="slider-section-product-name">
                                     <strong>Hành tây</strong> tươi
@@ -467,7 +477,7 @@
                            <div class="col- l-5 m-5 s-12">
                               <div class="slider-section-product-txt">
                                  <div class="slider-section-product-price">
-                                    Chỉ từ 100.000 đ
+                                    Chỉ từ {{ toVND(100000) }}
                                  </div>
                                  <h5 class="slider-section-product-name">
                                     <strong>Cà chua</strong> tươi
@@ -509,14 +519,14 @@
                   </div>
                   <div
                      class="col l-6 m-12 s-12"
-                     v-for="(item, index) in productsNew"
-                     :key="index"
+                     v-for="item in productListIsNew"
+                     :key="item.id"
                   >
                      <ProductV1 :product="item" />
                   </div>
                </div>
             </div>
-            <button-v-2>
+            <button-v-2 @click="handleRedirectToShopPage">
                Xem thêm
                <i class="fa-solid fa-arrow-right"></i>
             </button-v-2>
@@ -528,11 +538,11 @@
          <!-- blog -->
          <section class="blog-section">
             <div class="grid wide">
-               <div class="row">
+               <div class="row align-start">
                   <div
                      class="col l-3 m-6 s-12"
-                     v-for="(item, index) in blogs"
-                     :key="index"
+                     v-for="item in blogList"
+                     :key="item.id"
                   >
                      <BlogV1 :blog="item" />
                   </div>
@@ -548,7 +558,7 @@
                            khỏe của bạn. Chúng tôi luôn lựa chọn những sản phẩm
                            có chất lượng tốt nhất dành cho bạn.
                         </p>
-                        <button-v-2>
+                        <button-v-2 @click="handleRedirectToBlogPage">
                            Xem thêm
                            <i class="fa-solid fa-arrow-right"></i>
                         </button-v-2>
@@ -559,15 +569,14 @@
          </section>
          <!-- mail -->
          <section class="mail-section">
-            <ContactMail />
+            <SubscribeMail />
          </section>
       </div>
    </div>
 </template>
 
 <script>
-
-import { ref, computed, reactive } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
@@ -576,7 +585,7 @@ import ButtonV1 from "@/components/ButtonV1.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
 import HeadingSection from "@/components/HeadingSection.vue";
 import Statistical from "@/components/Statistical.vue";
-import ContactMail from "@/components/ContactMail.vue";
+import SubscribeMail from "@/components/SubscribeMail.vue";
 import ProductV1 from "@/components/ProductV1.vue";
 import BlogV1 from "@/components/BlogV1.vue";
 
@@ -587,6 +596,10 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper";
 //#endregion
 
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+
+import { toVND } from "@/helpers/functions";
 
 export default {
    name: "HomePage",
@@ -597,7 +610,7 @@ export default {
       Swiper,
       SwiperSlide,
       Statistical,
-      ContactMail,
+      SubscribeMail,
       ProductV1,
       BlogV1,
    },
@@ -611,61 +624,53 @@ export default {
       });
       const modulesSwiper = [Autoplay];
 
-		const productSpecial = reactive([
-			{
+      const productListIsNew = ref([]);
+      const blogList = ref([]);
 
-			}
-		]);
-      const productsNew = reactive([
-         {
-            category: "Fresh",
-            image: "exp.png",
-            name: "Vegan Egg Replacer",
-            price: "280.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-            category: "Fresh",
-            image: "exp1.png",
-            name: "Vegan Egg Replacer",
-            price: "280.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-         {
-            category: "Fresh",
-            image: "exp2.png",
-            name: "Vegan Egg Replacer",
-            price: "280.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-            category: "Fresh",
-            image: "exp3.png",
-            name: "Vegan Egg Replacer",
-            price: "280.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-      ]);
-      const blogs = reactive([
-         {
-            image: "exp.jpg",
-            date: "20 Febuary, 2022",
-            title: "Food industry leaders often change",
-         },
-         {
-            image: "exp4.jpg",
-            date: "25 May, 2022",
-            title: "Strategy for Norway's Peion Fund Global",
-         },
-      ]);
+      function getProductListIsNew() {
+         return API.get(
+            apiPath + `/product/get_list.php`,
+            {
+               limit: 6,
+               offset: 0,
+               fillType: "isNew",
+               fillValue: 1,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  // TABLE STATES
+                  productListIsNew.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                     originPrice: +item.originPrice,
+                     promotionPrice: +item.promotionPrice,
+                     averageRating: +item.averageRating,
+                     quantityReview: +item.quantityReview,
+                  }));
+               }
+            }
+         );
+      }
+
+      function getBlogList() {
+         return API.get(
+            apiPath + `/blog/get_list.php`,
+            {
+               limit: 2,
+               offset: 0,
+               reverse: true,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  // TABLE STATES
+                  blogList.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                  }));
+               }
+            }
+         );
+      }
 
       function getCoords(el) {
          let coords = el.getBoundingClientRect();
@@ -699,24 +704,35 @@ export default {
       `;
       }
 
-		function handleRedirectToAboutPage() {
-			router.push({ name: "about" });
-		}
+      function handleRedirectToAboutPage() {
+         router.push({ name: "about" });
+      }
 
-		function handleRedirectToShopPage() {
-			router.push({ name: "shop", params: { categoryName: 'show-all' } });
-		}
+      function handleRedirectToShopPage() {
+         router.push({ name: "shop", params: { categoryName: "show-all" } });
+      }
+
+      function handleRedirectToBlogPage() {
+         router.push({ name: "blog" });
+      }
+
+      onBeforeMount(() => {
+         getProductListIsNew();
+         getBlogList();
+      });
 
       return {
+         toVND,
          homeTopImageNode,
          saleTime,
          secondsToDhms,
          modulesSwiper,
-         productsNew,
-         blogs,
+         productListIsNew,
+         blogList,
          handleMoveEffectTopImage,
          handleRedirectToAboutPage,
          handleRedirectToShopPage,
+         handleRedirectToBlogPage,
       };
    },
 };

@@ -10,7 +10,7 @@
                      LỚN &amp; GIẢM GIÁ
                   </p>
                   <p class="contact-mail-para">
-                     Đăng ký để nhận mã giảm giá -30%
+                     Đăng ký để nhận mã giảm giá -20%
                   </p>
                </div>
             </div>
@@ -20,9 +20,10 @@
                      type="text"
                      class="contact-mail-input"
                      placeholder="Nhập email của bạn"
+                     v-model="email"
                   />
-                  <button-v-2 @click="handleSubsrcribe" ref="buttonSend">
-                     Đăng ký ngay
+                  <button-v-2 @click="handleSubmit" :disable="isClickedSubmit">
+                     {{ isClickedSubmit ? "Vui lòng chờ..." : "Đăng ký ngay" }}
                      <i class="fa-solid fa-angles-right"></i>
                   </button-v-2>
                </div>
@@ -30,46 +31,116 @@
          </div>
       </div>
    </div>
-   <ToastMessage v-if="isShowToastMessage" v-bind="propsToastMessage" />
 </template>
 
 <script>
 /* eslint-disable */
-import ButtonV2 from "@/components/ButtonV2.vue";
-import ToastMessage from "@/components/ToastMessage.vue";
 import { ref } from "vue";
 
+import ButtonV2 from "@/components/ButtonV2.vue";
+import { ElNotification } from "element-plus";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+
 export default {
-   name: "ContactMailComponent",
+   name: "SubscribeMailComponent",
    components: {
       ButtonV2,
-      ToastMessage,
    },
    setup() {
-      const isShowToastMessage = ref(false);
+      const email = ref("");
+      const isClickedSubmit = ref(false);
       const buttonSend = ref(null);
-      const propsToastMessage = {
-         message: "Xem mã giảm giá trong email của bạn",
-         type: "success",
-         secondDisplayNone: 1200,
-         secondHideEffect: 4000,
-      };
 
-      function handleSubsrcribe() {
-         isShowToastMessage.value = true;
-         buttonSend.value.$el.classList.add("processing");
+      function handleDataProcessing() {
+         // Chế biến lại dữ liệu
 
-         setTimeout(() => {
-            buttonSend.value.$el.classList.remove("processing");
-            isShowToastMessage.value = false;
-         }, 6000);
+         if (typeof email.value === "string") {
+            email.value = email.value.trim();
+         }
+      }
+
+      function validateBeforeSubmit() {
+         handleDataProcessing();
+
+         if (email.value === "") {
+            ElNotification({
+               title: "Cảnh báo",
+               message: "Bạn chưa nhập email",
+               type: "warning",
+            });
+
+            return false;
+         }
+
+         return true;
+      }
+
+      function handleSubmit() {
+         if (!validateBeforeSubmit()) return;
+
+         return API.post(
+            apiPath + `/subscribe/add.php`,
+            {
+               email: email.value,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  handleSendMailCouponCode();
+               } else {
+                  ElNotification({
+                     title: "Có lỗi",
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+            }
+         );
+      }
+
+      function handleSendMailCouponCode() {
+         isClickedSubmit.value = true;
+
+         const couponCode = "wtCrhTjWZdKC";
+
+         ElNotification({
+            title: "Thông báo",
+            message: "Đang gửi mail, vui lòng chờ",
+            type: "info",
+         });
+
+         return API.post(
+            apiPath + `/mail/send_customize.php`,
+            {
+               mailTo: email.value,
+               subject: "Gửi tặng bạn yêu mã giảm giá khi đăng ký",
+               body: `Mã giảm giá: <span style='color: #ff0d3d;'>${couponCode}</span>. Lưu ý mã chỉ áp dụng cho 1 lần đặt đơn hàng.`,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  ElNotification({
+                     title: "Đăng ký thành công",
+                     message: "Bạn hãy kiểm tra email",
+                     type: "success",
+                  });
+               } else {
+                  ElNotification({
+                     title: "Có lỗi",
+                     message: data.message,
+                     type: "error",
+                  });
+               }
+
+               isClickedSubmit.value = false;
+            }
+         );
       }
 
       return {
-         isShowToastMessage,
-         buttonSend,
-         propsToastMessage,
-         handleSubsrcribe,
+         email,
+         isClickedSubmit,
+         handleSubmit,
       };
    },
 };

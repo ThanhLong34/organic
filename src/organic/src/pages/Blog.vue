@@ -9,14 +9,23 @@
                   <!-- blogs -->
                   <div class="blog-list">
                      <BlogV2
-                        v-for="(item, index) in blogs"
-                        :key="index"
+                        v-for="item in tableData"
+                        :key="item.id"
                         :blog="item"
                      />
                   </div>
                   <!-- pages -->
                   <div class="blog-pages">
-                     <PageNumber />
+                     <!-- page number -->
+                     <div v-if="totalItem > 0">
+                        <PageNumber
+                           :numberOfPage="numberOfPage"
+                           :currentPage="currentPage"
+                           @onChoosePage="handleChoosePage"
+                           @onPrevPage="handlePrevPage"
+                           @onNextPage="handleNextPage"
+                        />
+                     </div>
                   </div>
                </div>
                <div class="col l-3 m-4 s-12">
@@ -35,7 +44,11 @@ import TopPage from "@/components/TopPage.vue";
 import Author from "@/components/Author.vue";
 import BlogV2 from "@/components/BlogV2.vue";
 import PageNumber from "@/components/PageNumber.vue";
-import { reactive } from "vue";
+
+import { ref, reactive, onBeforeMount } from "vue";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "BlogPage",
@@ -46,47 +59,75 @@ export default {
       PageNumber,
    },
    setup() {
-      const blogs = reactive([
-         {
-            image: "exp1.jpg",
-            title: "Easy way to Build a Perfect Agency Website.",
-            date: "10 May, 2002",
-            description: `
-          Sumptuous, filling, and temptingly healthy, our Biona Organic Granola
-          with Wild Berries is just the thing to get you out of bed. The goodness
-          of rolled wholegrain oats are combined Sumptuous, filling, and
-          temptingly healthy, our Biona Organic Granola with Wild Berries is just
-          the thing to get you out of bed.
-        `,
-         },
-         {
-            image: "exp2.jpg",
-            title: "Zechsal Magnesium flakes especially made.",
-            date: "10 May, 2002",
-            description: `
-          Sumptuous, filling, and temptingly healthy, our Biona Organic Granola
-          with Wild Berries is just the thing to get you out of bed. The goodness
-          of rolled wholegrain oats are combined Sumptuous, filling, and
-          temptingly healthy, our Biona Organic Granola with Wild Berries is just
-          the thing to get you out of bed.
-        `,
-         },
-         {
-            image: "exp3.jpg",
-            title: "Our 6 of the Best Organic Grapes to Buy.",
-            date: "10 May, 2002",
-            description: `
-          Sumptuous, filling, and temptingly healthy, our Biona Organic Granola
-          with Wild Berries is just the thing to get you out of bed. The goodness
-          of rolled wholegrain oats are combined Sumptuous, filling, and
-          temptingly healthy, our Biona Organic Granola with Wild Berries is just
-          the thing to get you out of bed.
-        `,
-         },
-      ]);
+      // Table states
+      const tableData = ref([]);
+      const totalItem = ref(0);
+      const numberOfPage = ref(1);
+      const currentPage = ref(1);
+      const limit = ref(3);
+      const offset = ref(0);
+
+      function getTableData() {
+         return API.get(
+            apiPath + `/blog/get_list.php`,
+            {
+               limit: limit.value,
+               offset: offset.value
+            },
+            (data) => {
+               if (data.code === 1) {
+                  // TABLE STATES
+                  tableData.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                  }));
+                  totalItem.value = +data.totalItem;
+                  numberOfPage.value = Math.ceil(totalItem.value / limit.value);
+               }
+            }
+         );
+      }
+
+      function handleChoosePage(page) {
+         // console.log(page);
+         currentPage.value = page;
+         offset.value = (page - 1) * limit.value;
+         getTableData();
+      }
+
+      function handleNextPage() {
+         currentPage.value++;
+         if (currentPage.value >= numberOfPage.value) {
+            currentPage.value = numberOfPage.value;
+         }
+         offset.value = (currentPage.value - 1) * limit.value;
+         getTableData();
+      }
+
+      function handlePrevPage() {
+         currentPage.value--;
+         if (currentPage.value <= 1) {
+            currentPage.value = 1;
+         }
+         offset.value = (currentPage.value - 1) * limit.value;
+         getTableData();
+      }
+
+		onBeforeMount(() => {
+			getTableData();
+		});
 
       return {
-         blogs,
+         tableData,
+         totalItem,
+         numberOfPage,
+         currentPage,
+         limit,
+         offset,
+			// handles
+			handleChoosePage,
+         handleNextPage,
+         handlePrevPage,
       };
    },
 };
