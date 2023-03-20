@@ -272,7 +272,7 @@
          </section>
          <!-- contact mail -->
          <section class="contact-mail-section">
-            <ContactMail />
+            <SubscribeMail />
          </section>
       </div>
    </div>
@@ -283,7 +283,7 @@
 import TopPage from "@/components/TopPage.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
 import Statistical from "@/components/Statistical.vue";
-import ContactMail from "@/components/ContactMail.vue";
+import SubscribeMail from "@/components/SubscribeMail.vue";
 
 export default {
    name: "AboutPage",
@@ -291,7 +291,7 @@ export default {
       TopPage,
       ButtonV2,
       Statistical,
-      ContactMail,
+      SubscribeMail,
    },
    setup() {
       return {};

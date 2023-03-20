@@ -8,7 +8,7 @@
       </div>
       <div class="navigator-link">
          <router-link
-            :to="{ name: 'shop', params: { categoryName: 'show-all' } }"
+            :to="{ name: 'shop' }"
          >
             <i class="fa-solid fa-shop" v-if="icons"></i>
             Cửa hàng

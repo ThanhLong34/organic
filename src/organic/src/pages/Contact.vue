@@ -65,17 +65,26 @@
                      <div class="contact-input-row">
                         <div class="row">
                            <div class="col l-6 m-12 s-12">
-                              <InputV1 placeholder="Họ tên" />
+                              <InputV1
+                                 placeholder="Họ tên"
+                                 v-model="data.fullname"
+                              />
                            </div>
                            <div class="col l-6 m-12 s-12">
-                              <InputV1 placeholder="Email" />
+                              <InputV1
+                                 placeholder="Email"
+                                 v-model="data.email"
+                              />
                            </div>
                         </div>
                      </div>
-                     <InputV1 placeholder="Chủ đề" />
-                     <TextAreaV1 placeholder="Lời nhắn" />
-                     <button-v-2>
-                        Gửi góp ý
+                     <InputV1 placeholder="Chủ đề" v-model="data.subject" />
+                     <TextAreaV1
+                        placeholder="Lời nhắn"
+                        v-model="data.message"
+                     />
+                     <button-v-2 @click="handleSubmit">
+                        {{ isClickedSubmit ? "Vui lòng chờ..." : "Gửi góp ý" }}
                         <i class="fa-solid fa-arrow-right"></i>
                      </button-v-2>
                   </div>
@@ -83,15 +92,19 @@
             </div>
          </div>
       </div>
+      <ToastMessage v-if="isShowToastMessage" v-bind="toastMessage" />
    </div>
 </template>
 
 <script>
 /* eslint-disable */
+import { ref, reactive } from "vue";
+
 import TopPage from "@/components/TopPage.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
 import InputV1 from "@/components/InputV1.vue";
 import TextAreaV1 from "@/components/TextAreaV1.vue";
+import ToastMessage from "@/components/ToastMessage.vue";
 
 export default {
    name: "ContactPage",
@@ -100,6 +113,121 @@ export default {
       ButtonV2,
       InputV1,
       TextAreaV1,
+      ToastMessage,
+   },
+   setup(props) {
+      const isClickedSubmit = ref(false);
+      const isShowToastMessage = ref(false);
+      const toastMessage = {
+         message: "",
+         type: "success",
+         secondDisplayNone: 1200,
+         secondHideEffect: 4000,
+      };
+
+      const data = reactive({
+         fullname: "",
+         email: "",
+         subject: "",
+         message: "",
+      });
+
+      function handleDataProcessing() {
+         // Chế biến lại dữ liệu
+
+         if (typeof data.fullname === "string") {
+            data.fullname = data.fullname.trim();
+         }
+
+         if (typeof data.email === "string") {
+            data.email = data.email.trim();
+         }
+
+         if (typeof data.subject === "string") {
+            data.subject = data.subject.trim();
+         }
+
+         if (typeof data.message === "string") {
+            data.message = data.message.trim();
+         }
+      }
+
+      function validateBeforeSubmit() {
+         handleDataProcessing();
+
+         if (data.fullname === "") {
+            toastMessage.message = "Bạn chưa nhập họ tên";
+            toastMessage.type = "error";
+            isShowToastMessage.value = true;
+
+            setTimeout(() => {
+               isShowToastMessage.value = false;
+            }, 4000);
+            return false;
+         }
+
+         if (data.email === "") {
+            toastMessage.message = "Bạn chưa nhập email";
+            toastMessage.type = "error";
+            isShowToastMessage.value = true;
+
+            setTimeout(() => {
+               isShowToastMessage.value = false;
+            }, 4000);
+            return false;
+         }
+
+         if (data.subject === "") {
+            toastMessage.message = "Bạn chưa nhập chủ đề";
+            toastMessage.type = "error";
+            isShowToastMessage.value = true;
+
+            setTimeout(() => {
+               isShowToastMessage.value = false;
+            }, 4000);
+            return false;
+         }
+
+         if (data.message === "") {
+            toastMessage.message = "Bạn chưa nhập lời nhắn";
+            toastMessage.type = "error";
+            isShowToastMessage.value = true;
+
+            setTimeout(() => {
+               isShowToastMessage.value = false;
+            }, 4000);
+            return false;
+         }
+
+         return true;
+      }
+
+      function handleSubmit() {
+         if (!validateBeforeSubmit()) return;
+
+         isClickedSubmit.value = true;
+
+         return API.post(apiPath + `/contact/add.php`, data, (data) => {
+            if (data.code === 1) {
+               toastMessage.message = data.message;
+               toastMessage.type = "error";
+            } else {
+               toastMessage.message = data.message;
+               toastMessage.type = "error";
+            }
+
+            isShowToastMessage.value = true;
+            isClickedSubmit.value = false;
+         });
+      }
+
+      return {
+         isShowToastMessage,
+         toastMessage,
+         data,
+         isClickedSubmit,
+         handleSubmit,
+      };
    },
 };
 </script>

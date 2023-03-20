@@ -30,22 +30,17 @@
             <p class="sidebar-title">Danh mục:</p>
             <ul class="sidebar-category-list">
                <li
+                  v-for="item in productCategoryList"
                   :class="{
                      'sidebar-category-item': true,
-                     active: i === 1,
+                     active: item.id === 1,
                   }"
-                  v-for="i in 5"
-                  :key="i"
+                  :key="item.id"
                >
-                  <router-link
-                     :to="{
-                        name: 'shop',
-                        params: { categoryName: 'show-all' },
-                     }"
-                  >
+                  <a href="javascript:;">
                      <i class="fa-solid fa-caret-right"></i>
-                     Rau củ
-                  </router-link>
+                     {{ item.name }}
+                  </a>
                </li>
             </ul>
          </div>
@@ -74,7 +69,7 @@
                :modules="modulesSwiper"
             >
                <swiper-slide
-                  v-for="(item, index) in productsSeller"
+                  v-for="(item, index) in productListIsBestOffer"
                   :key="index"
                >
                   <ProductV2 :product="item" />
@@ -97,7 +92,10 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper";
 //#endregion
 
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "SidebarShopComponent",
@@ -108,52 +106,55 @@ export default {
    },
    setup() {
       const modulesSwiper = [Autoplay];
-      const productsSeller = reactive([
-         {
-            category: "Fresh",
-            image: "exp.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-            category: "Fresh",
-            image: "exp1.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-         {
-            category: "Fresh",
-            image: "exp2.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-            category: "Fresh",
-            image: "exp3.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-      ]);
+      const productCategoryList = ref([]);
+      const productListIsBestOffer = ref([]);
+
+      getProductCategoryList();
+      getProductListIsBestOffer();
+
+      function getProductCategoryList() {
+         return API.get(
+            apiPath + `/product_category/get_list.php`,
+            {},
+            (data) => {
+               if (data.code === 1) {
+                  productCategoryList.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                  }));
+               }
+            }
+         );
+      }
+
+      function getProductListIsBestOffer() {
+         return API.get(
+            apiPath + `/product/get_list.php`,
+            {
+               limit: 5,
+               offset: 0,
+               fillType: "isBestOffer",
+               fillValue: 1,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  productListIsBestOffer.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                     originPrice: +item.originPrice,
+                     promotionPrice: +item.promotionPrice,
+                     quantityReview: +item.quantityReview,
+                     productCategoryId: +item.productCategoryId,
+                  }));
+               }
+            }
+         );
+      }
 
       return {
          modulesSwiper,
-         productsSeller,
+         productCategoryList,
+         productListIsBestOffer,
       };
    },
 };

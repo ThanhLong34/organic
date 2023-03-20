@@ -3,6 +3,8 @@
       class="text-area-v1"
       :required="required"
       :placeholder="placeholder"
+      v-model="inputVal"
+      @input="$emit('update:modelValue', $event.target.value)"
    />
 </template>
 
@@ -16,6 +18,19 @@ export default {
          default: "",
       },
       required: Boolean,
+   },
+   data() {
+      return {
+         inputVal: "",
+      };
+   },
+   methods: {
+      resetValue() {
+         this.inputVal = "";
+      },
+      setValue(value) {
+         this.inputVal = value;
+      },
    },
 };
 </script>

@@ -3,23 +3,33 @@
       <router-link
          :to="{
             name: 'shop_details',
-            params: { productId: 1, productName: 'product-name' },
+            params: { productId: product.id, productName: 'product-name' },
          }"
       >
          <div class="product-v2-img">
             <img
-               :src="`${require(`@/assets/images/product/${product.image}`)}`"
+               :src="
+                  product.featureImageUrl
+                     ? product.featureImageUrl
+                     : `${require('@/assets/images/no-image.jpg')}`
+               "
                alt="product image"
             />
          </div>
          <div class="product-v2-info">
-            <div class="product-v2-category">{{ product.category }}</div>
+            <div class="product-v2-category">
+               {{ product.productCategoryName }}
+            </div>
             <h6 class="product-v2-name">{{ product.name }}</h6>
             <div class="product-v2-price">
-               <span class="product-v2-price-old">{{ product.priceOld }}đ</span>
+               <span class="product-v2-price-old"
+                  >{{ toVND(product.originPrice) }}</span
+               >
                <span class="product-v2-price-new"
-                  >{{ product.priceNew }}đ
-                  <span class="product-v2-unit">/ Kg</span></span
+                  >{{ toVND(product.promotionPrice) }}
+                  <span class="product-v2-unit"
+                     >/ {{ product.unit }}</span
+                  ></span
                >
             </div>
             <div class="product-v2-rating">
@@ -29,11 +39,15 @@
                      :key="i"
                      :class="{
                         'fa-solid fa-star': true,
-                        active: i <= product.star,
+                        active:
+                           i <=
+                           (product.averageRating ? product.averageRating : 0),
                      }"
                   ></i>
                </div>
-               <div class="product-v2-rating-total">&lpar;01&rpar;</div>
+               <div class="product-v2-rating-total">
+                  &lpar;{{ product.quantityReview }}&rpar;
+               </div>
             </div>
          </div>
       </router-link>
@@ -42,11 +56,18 @@
 
 <script>
 /* eslint-disable */
+import { toVND } from "@/helpers/functions";
+
 export default {
    name: "ProductV2Component",
    props: {
       product: Object,
    },
+	setup(props) {
+		return {
+			toVND
+		}
+	}
 };
 </script>
 

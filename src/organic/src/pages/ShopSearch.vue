@@ -50,7 +50,7 @@
          </section>
          <!-- contact mail -->
          <section class="contact-mail-section">
-            <ContactMail />
+            <SubscribeMail />
          </section>
       </div>
    </div>
@@ -60,7 +60,7 @@
 /* eslint-disable */
 import TopPage from "@/components/TopPage.vue";
 import ProductV2 from "@/components/ProductV2.vue";
-import ContactMail from "@/components/ContactMail.vue";
+import SubscribeMail from "@/components/SubscribeMail.vue";
 import Service from "@/components/Service.vue";
 import PageNumber from "@/components/PageNumber.vue";
 
@@ -71,7 +71,7 @@ export default {
    components: {
       TopPage,
       ProductV2,
-      ContactMail,
+      SubscribeMail,
       Service,
       PageNumber,
    },

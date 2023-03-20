@@ -5,13 +5,17 @@
             :to="{
                name: 'blog_details',
                params: {
-                  blogId: 1,
+                  blogId: blog.id,
                   blogTitle: 'blog-title',
                },
             }"
          >
             <img
-               :src="`${require(`@/assets/images/blog/${blog.image}`)}`"
+               :src="
+                  blog.featureImageUrl
+                     ? blog.featureImageUrl
+                     : `${require('@/assets/images/no-image.jpg')}`
+               "
                alt="blog image"
             />
          </router-link>
@@ -19,14 +23,14 @@
       <div class="blog-v1-txt">
          <time class="blog-v1-time">
             <i class="fa-solid fa-calendar-days"></i>
-            {{ blog.date }}
+            {{ blog.createdAt }}
          </time>
          <h6 class="blog-v1-title">
             <router-link
                :to="{
                   name: 'blog_details',
                   params: {
-                     blogId: 1,
+                     blogId: blog.id,
                      blogTitle: 'blog-title',
                   },
                }"

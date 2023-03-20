@@ -189,89 +189,128 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap");
 
 #app {
-   font-family: "Signika", sans-serif;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-   min-height: 100%;
-   width: 100vw;
-   position: relative;
-   /* user-select: none; */
+	font-family: "Signika", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	min-height: 100%;
+	width: 100vw;
+	position: relative;
+	/* user-select: none; */
 }
 
 * {
-   &::selection {
-      color: white;
-      background-color: $primaryColor;
-   }
+	&::selection {
+		color: white;
+		background-color: $primaryColor;
+	}
 }
 
 body {
-   &::-webkit-scrollbar {
-      width: 5px;
-   }
+	&::-webkit-scrollbar {
+		width: 5px;
+	}
 
-   &::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-      background-color: $bodyColor;
-   }
+	&::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		background-color: $bodyColor;
+	}
 
-   &::-webkit-scrollbar-thumb {
-      border-radius: 20px;
-      background-image: linear-gradient(45deg, #92c64e 0%, #4baf50 100%);
-   }
+	&::-webkit-scrollbar-thumb {
+		border-radius: 20px;
+		background-image: linear-gradient(45deg, #92c64e 0%, #4baf50 100%);
+	}
 }
 
 .router-view {
-   z-index: 0;
+	z-index: 0;
 }
 
 .header-fixed {
-   position: fixed;
-   top: -100px;
-   left: 0;
-   width: 100%;
-   z-index: $zIHeader + 1;
-   transition: all ease 0.3s;
-   opacity: 0;
+	position: fixed;
+	top: -100px;
+	left: 0;
+	width: 100%;
+	z-index: $zIHeader + 1;
+	transition: all ease 0.3s;
+	opacity: 0;
 
-   &.show {
-      top: 0;
-      opacity: 1;
-   }
+	&.show {
+		top: 0;
+		opacity: 1;
+	}
 }
 
 .overlay-main {
-   display: none;
-   position: fixed;
-   inset: 0;
-   z-index: $zIHeader - 900;
-   background-color: transparent;
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: $zIHeader - 900;
+	background-color: transparent;
 
-   &.show {
-      display: block;
-   }
+	&.show {
+		display: block;
+	}
 }
 
 .primary-text {
-   color: $primaryColor;
+	color: $primaryColor;
 
-   &.bold {
-      font-weight: bold;
-   }
+	&.bold {
+		font-weight: bold;
+	}
+}
+
+.align-start {
+	align-items: flex-start !important;
 }
 
 /* Override Swiper navigation */
 .swiper-button-next,
 .swiper-button-prev {
-   width: 30px !important;
-   height: 30px !important;
-   border-radius: 50% !important;
-   color: white !important;
-   background-image: linear-gradient(360deg, #92c64e, #4baf50) !important;
-   box-shadow: 0 1px 12px rgb(0 0 0 / 25%);
-   &::after {
-      font-size: 12px !important;
-      font-weight: bold !important;
-   }
+	width: 30px !important;
+	height: 30px !important;
+	border-radius: 50% !important;
+	color: white !important;
+	background-image: linear-gradient(360deg, #92c64e, #4baf50) !important;
+	box-shadow: 0 1px 12px rgb(0 0 0 / 25%);
+	&::after {
+		font-size: 12px !important;
+		font-weight: bold !important;
+	}
 }
+
+//? CUSTOMIZE ELEMENT UI PLUS
+.el-dialog {
+	border-radius: 1rem !important;
+}
+
+.el-overlay {
+	z-index: 9999 !important;
+}
+
+.el-popper {
+	z-index: 9000 !important;
+}
+
+.el-message, .el-notification {
+	z-index: 10000 !important;
+}
+
+.el-checkbox {
+	margin-bottom: 0;
+	margin-left: 0;
+
+	&:hover {
+		color: #409eff;
+	}
+}
+
+.el-select__popper {
+	z-index: 10001 !important;
+}
+
+.el-drawer__header {
+	margin-bottom: 8px !important;
+}
+
 </style>

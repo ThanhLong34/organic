@@ -2,12 +2,16 @@
    <div class="product-v1">
       <div class="product-v1-img">
          <img
-            :src="`${require(`@/assets/images/product/${product.image}`)}`"
+            :src="
+               product.featureImageUrl
+                  ? product.featureImageUrl
+                  : `${require('@/assets/images/no-image.jpg')}`
+            "
             alt="product image"
          />
       </div>
       <div class="product-v1-info">
-         <h6 class="product-v1-category">{{ product.category }}</h6>
+         <h6 class="product-v1-category">{{ product.productCategoryName }}</h6>
          <h5 class="product-v1-name">
             <router-link
                :to="{
@@ -18,11 +22,11 @@
             >
          </h5>
          <p class="product-v1-price">
-            <span>{{ product.price }}đ</span>
-            / Kg
+            <span>{{ toVND(product.promotionPrice) }}</span>
+            / {{ product.unit }}
          </p>
          <p class="product-v1-desc">
-            {{ product.description }}
+            {{ product.shortDescription }}
          </p>
          <div class="product-v1-rating">
             <div class="product-v1-rating-stars">
@@ -31,11 +35,11 @@
                   :key="i"
                   :class="{
                      'fa-solid fa-star': true,
-                     active: i <= product.star,
+                     active: i <= (product.averageRating ? product.averageRating : 0),
                   }"
                ></i>
             </div>
-            <div class="product-v1-rating-total">&lpar;01&rpar;</div>
+            <div class="product-v1-rating-total">&lpar;{{ product.quantityReview }}&rpar;</div>
          </div>
          <div class="product-v1-ctrl">
             <div class="product-v1-ctrl-quantity">
@@ -67,10 +71,11 @@
 </template>
 
 <script>
-/* eslint-disable */
+import { ref, reactive } from "vue";
+
 import ButtonIcon from "@/components/ButtonIcon.vue";
 
-import { ref, reactive } from "vue";
+import { toVND } from '@/helpers/functions';
 
 export default {
    name: "ProductV1Component",
@@ -98,6 +103,7 @@ export default {
       }
 
       return {
+         toVND,
          info,
          handleSubQuantity,
          handleAddQuantity,
@@ -116,16 +122,20 @@ export default {
 
    &-img {
       z-index: 1;
-      margin-right: -60px;
-      max-width: 232px;
+      margin-right: -48px;
+      width: 200px;
+
+		img {
+			object-fit: contain;
+		}
    }
 
    &-info {
+      flex: 1;
       background-color: white;
       border-radius: 15px;
-      padding: 36px 20px 36px 68px;
+      padding: 36px 20px 20px 68px;
       box-shadow: $cardShadow;
-      flex-grow: 1;
    }
 
    &-category {
@@ -194,6 +204,7 @@ export default {
 
    &-ctrl {
       display: flex;
+		flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       color: $darkTextColor;
@@ -206,6 +217,8 @@ export default {
          display: flex;
          align-items: center;
          justify-content: space-between;
+			margin-right: 16px;
+			margin-bottom: 16px;
 
          span {
             font-size: 20px;
@@ -233,6 +246,10 @@ export default {
          }
       }
 
+		&-other {
+			margin-bottom: 16px;
+		}
+
       &-wishlist-btn {
          margin-right: 8px;
       }
@@ -245,11 +262,12 @@ export default {
       &-img {
          margin-right: 0;
          position: relative;
-         top: 25px;
+         top: 52px;
          max-width: unset;
       }
 
       &-info {
+			width: 100%;
          padding: 36px 20px;
       }
    }
