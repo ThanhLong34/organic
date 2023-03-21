@@ -35,11 +35,15 @@
                   :key="i"
                   :class="{
                      'fa-solid fa-star': true,
-                     active: i <= (product.averageRating ? product.averageRating : 0),
+                     active:
+                        i <=
+                        (product.averageRating ? product.averageRating : 0),
                   }"
                ></i>
             </div>
-            <div class="product-v1-rating-total">&lpar;{{ product.quantityReview }}&rpar;</div>
+            <div class="product-v1-rating-total">
+               &lpar;{{ product.quantityReview }}&rpar;
+            </div>
          </div>
          <div class="product-v1-ctrl">
             <div class="product-v1-ctrl-quantity">
@@ -58,10 +62,22 @@
                </button>
             </div>
             <div class="product-v1-ctrl-other">
-               <button-icon class="product-v1-ctrl-wishlist-btn">
+               <button-icon
+                  :class="{
+                     'product-v1-ctrl-wishlist-btn': true,
+                     active: checkItemExistWishlistStore(product.id),
+                  }"
+                  @click="() => handleToggleWishlist(product.id)"
+               >
                   <i class="fa-regular fa-heart"></i>
                </button-icon>
-               <button-icon class="product-v1-ctrl-addtocart-btn">
+               <button-icon
+                  :class="{
+                     'product-v1-ctrl-addtocart-btn': true,
+                     active: checkItemExistCartStore(product.id),
+                  }"
+                  @click="() => handleToggleCart(product.id)"
+               >
                   <i class="fa-solid fa-cart-plus"></i>
                </button-icon>
             </div>
@@ -72,10 +88,12 @@
 
 <script>
 import { ref, reactive } from "vue";
+import { useStore } from "vuex";
 
 import ButtonIcon from "@/components/ButtonIcon.vue";
+import { ElNotification } from "element-plus";
 
-import { toVND } from '@/helpers/functions';
+import { toVND, checkItemExistWishlistStore, checkItemExistCartStore } from "@/helpers/functions";
 
 export default {
    name: "ProductV1Component",
@@ -84,11 +102,13 @@ export default {
    },
    props: {
       product: {
-			type: Object,
-			required: true
-		},
+         type: Object,
+         required: true,
+      },
    },
-   setup() {
+   setup(props) {
+      const store = useStore();
+
       const info = reactive({
          quantity: 1,
       });
@@ -105,11 +125,58 @@ export default {
          }
       }
 
+      function handleToggleWishlist(productId) {
+         if (!checkItemExistWishlistStore(productId)) {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã thêm sản phẩm vào danh sách thích",
+               type: "success",
+            });
+
+            store.dispatch("addItemWishlist", productId);
+         } else {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã xóa sản phẩm khỏi danh sách thích",
+               type: "info",
+            });
+
+            store.dispatch("removeItemWishlist", productId);
+         }
+      }
+
+      function handleToggleCart(productId) {
+         if (!checkItemExistCartStore(productId)) {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã thêm sản phẩm vào giỏ hàng",
+               type: "success",
+            });
+
+            store.dispatch("addItemCart", {
+               id: productId,
+               quantity: info.quantity,
+            });
+         } else {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã xóa sản phẩm khỏi giỏ hàng",
+               type: "info",
+            });
+
+            store.dispatch("removeItemCart", productId);
+         }
+      }
+
       return {
          toVND,
          info,
+         checkItemExistWishlistStore,
+         checkItemExistCartStore,
          handleSubQuantity,
          handleAddQuantity,
+         handleToggleWishlist,
+         handleToggleCart,
       };
    },
 };
@@ -128,9 +195,9 @@ export default {
       margin-right: -48px;
       width: 200px;
 
-		img {
-			object-fit: contain;
-		}
+      img {
+         object-fit: contain;
+      }
    }
 
    &-info {
@@ -207,7 +274,7 @@ export default {
 
    &-ctrl {
       display: flex;
-		flex-wrap: wrap;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       color: $darkTextColor;
@@ -220,8 +287,8 @@ export default {
          display: flex;
          align-items: center;
          justify-content: space-between;
-			margin-right: 16px;
-			margin-bottom: 16px;
+         margin-right: 16px;
+         margin-bottom: 16px;
 
          span {
             font-size: 20px;
@@ -249,9 +316,9 @@ export default {
          }
       }
 
-		&-other {
-			margin-bottom: 16px;
-		}
+      &-other {
+         margin-bottom: 16px;
+      }
 
       &-wishlist-btn {
          margin-right: 8px;
@@ -270,7 +337,7 @@ export default {
       }
 
       &-info {
-			width: 100%;
+         width: 100%;
          padding: 36px 20px;
       }
    }

@@ -55,12 +55,15 @@ function getItem($id)
 
    // Thực thi query
    $query = "SELECT `$tableName`.*, 
+      CEIL(AVG(`productreview`.`rating`)) AS 'averageRating',
+      COUNT(`productreview`.`productId`) AS 'quantityReview',
       `image`.`link` AS 'featureImageUrl', 
       `productcategory`.`name` AS 'productCategoryName', 
       `productcategory`.`deletedAt` AS 'productCategoryDeletedAt'
       FROM `$tableName` 
       LEFT JOIN `image` ON `image`.`id` = `$tableName`.`featureImageId`
       LEFT JOIN `productcategory` ON `productcategory`.`id` = `$tableName`.`productCategoryId`
+      LEFT JOIN `productreview` ON `productreview`.`productId` = `$tableName`.`id`
       WHERE `$tableName`.`id` = '$id' AND `$tableName`.`deletedAt` IS NULL LIMIT 1";
    performsQueryAndResponseToClient($query);
 

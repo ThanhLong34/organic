@@ -10,26 +10,30 @@
          </tr>
       </thead>
       <tbody>
-         <tr v-for="i in 2" :key="i">
+         <tr v-for="(item, index) in productList" :key="item.id">
             <td>
-               <p class="order-details-product-no">1</p>
+               <p class="order-details-product-no">{{ index + 1 }}</p>
             </td>
             <td class="hide-on-400">
                <div class="order-details-product-img">
                   <img
-                     src="@/assets/images/product/exp1.png"
+                     :src="
+                        item.featureImageUrl
+                           ? item.featureImageUrl
+                           : `${require('@/assets/images/no-image.jpg')}`
+                     "
                      alt="product image"
                   />
                </div>
             </td>
             <td>
-               <h6 class="order-details-product-name">Veggen Egg Fresh</h6>
+               <h6 class="order-details-product-name">{{ item.name }}</h6>
             </td>
             <td>
-               <div class="order-details-product-quantity">2</div>
+               <div class="order-details-product-quantity">{{ $store.state.cart.find(i => i.id === item.id).quantity }}</div>
             </td>
             <td>
-               <div class="order-details-product-price">180.000đ</div>
+               <div class="order-details-product-price">{{ toVND(item.promotionPrice) }}</div>
             </td>
          </tr>
       </tbody>
@@ -39,7 +43,9 @@
                <div class="order-details-subtotal-label">Tổng tiền:</div>
             </td>
             <td colspan="4">
-               <div class="order-details-subtotal-value">224.000đ</div>
+               <div class="order-details-subtotal-value">
+                  {{ toVND(totalCost) }}
+               </div>
             </td>
          </tr>
          <tr class="order-details-coupon">
@@ -47,7 +53,9 @@
                <div class="order-details-coupon-label">Giảm giá:</div>
             </td>
             <td colspan="4">
-               <div class="order-details-coupon-value">-30%</div>
+               <div class="order-details-coupon-value">
+                  &#45;{{ couponCode.percentValue }}&#37;
+               </div>
             </td>
          </tr>
          <tr class="order-details-coupon">
@@ -55,7 +63,7 @@
                <div class="order-details-coupon-label">Phí vận chuyển:</div>
             </td>
             <td colspan="4">
-               <div class="order-details-coupon-value">0đ</div>
+               <div class="order-details-coupon-value">{{ toVND(deliveryCost) }}</div>
             </td>
          </tr>
          <tr class="order-details-total">
@@ -63,7 +71,9 @@
                <div class="order-details-total-label">Tổng tiền trả:</div>
             </td>
             <td colspan="4">
-               <div class="order-details-total-value">180.000đ</div>
+               <div class="order-details-total-value">
+                  {{ toVND(paymentCost) }}
+               </div>
             </td>
          </tr>
          <tr class="order-details-shipping">
@@ -71,7 +81,7 @@
                <p class="order-details-shipping-para">
                   Hiện tại chúng tôi chỉ hỗ trợ hình thức thanh toán
                   <br />
-                  trả tiền mặt khi nhận hàng.
+                  trả tiền mặt khi nhận hàng
                </p>
             </td>
          </tr>
@@ -80,9 +90,20 @@
 </template>
 
 <script>
+import { toVND } from "@/helpers/functions";
 
 export default {
    name: "OrderDetailsComponent",
+   props: {
+      productList: Array,
+      couponCode: Object,
+      deliveryCost: Number,
+      totalCost: Number,
+      paymentCost: Number,
+   },
+   methods: {
+      toVND,
+   },
 };
 </script>
 

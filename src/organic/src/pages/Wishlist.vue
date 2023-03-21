@@ -15,16 +15,24 @@
                   <div class="wishlist-list">
                      <div class="row">
                         <div
+                           v-for="item in productList"
+                           :key="item.id"
                            class="col l-6 m-12 s-12"
-                           v-for="(item, index) in products"
-                           :key="index"
                         >
                            <div class="wishlist-item">
-                              <ProductWishlist :product="item" />
+                              <ProductWishlist
+                                 :product="item"
+                                 @onRemoveItemWishlist="
+                                    handleRemoveItemWishlist
+                                 "
+                              />
                            </div>
                         </div>
                      </div>
                   </div>
+               </div>
+               <div v-if="productList.length <= 0" class="col l-12 m-12 s-12">
+                  <p class="product-list-none-data">Không có sản phẩm</p>
                </div>
             </div>
          </div>
@@ -33,11 +41,15 @@
 </template>
 
 <script>
+import { ref, onBeforeMount } from "vue";
+import { useStore } from "vuex";
 
 import TopPage from "@/components/TopPage.vue";
 import HeadingSection from "@/components/HeadingSection.vue";
 import ProductWishlist from "@/components/ProductWishlist.vue";
-import { reactive } from "vue";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "WishlistPage",
@@ -47,51 +59,55 @@ export default {
       ProductWishlist,
    },
    setup() {
-      const products = reactive([
-         {
-				id: 1,
-            category: "Fresh",
-            image: "exp2.png",
-            name: "Vegan Egg Replacer",
-            price: "280.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-				id: 1,
-            category: "Fresh",
-            image: "exp1.png",
-            name: "Vegan Egg Replacer",
-            price: "280.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-         {
-				id: 1,
-            category: "Fresh",
-            image: "exp6.png",
-            name: "Vegan Egg Replacer",
-            price: "280.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-				id: 1,
-            category: "Fresh",
-            image: "exp7.png",
-            name: "Vegan Egg Replacer",
-            price: "280.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-      ]);
+      const store = useStore();
+      const wishlist = store.state.wishlist;
+      const productList = ref([]);
+
+      function getProductItem(productId) {
+         return API.get(
+            apiPath + `/product/get_item.php`,
+            {
+               id: productId,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  const product = {
+                     ...data.data,
+                     id: +data.data.id,
+                     featureImageId: +data.data.featureImageId,
+                     originPrice: +data.data.originPrice,
+                     promotionPrice: +data.data.promotionPrice,
+                     isSpecial: +data.data.isSpecial == 1,
+                     isNew: +data.data.isNew == 1,
+                     isBestOffer: +data.data.isBestOffer == 1,
+                     productCategoryId: +data.data.productCategoryId,
+                     averageRating: +data.data.averageRating,
+                  };
+
+                  productList.value.push(product);
+               }
+            }
+         );
+      }
+
+      function handleRemoveItemWishlist(productId) {
+         const idx = productList.value.findIndex((i) => i.id === productId);
+         if (idx > -1) {
+            productList.value.splice(idx, 1);
+         }
+      }
+
+      onBeforeMount(() => {
+         if (Array.isArray(wishlist)) {
+            wishlist.forEach((i) => {
+               getProductItem(i);
+            });
+         }
+      });
 
       return {
-         products,
+         productList,
+         handleRemoveItemWishlist,
       };
    },
 };
@@ -108,5 +124,11 @@ export default {
 
 .heading-section {
    margin-bottom: 50px;
+}
+
+.product-list-none-data {
+   color: #bbbbbb;
+   font-size: 1.8rem;
+   text-align: center;
 }
 </style>

@@ -1,10 +1,14 @@
 <template>
    <div class="viewcart-box">
-      <ul class="viewcart-list">
-         <li class="viewcart-item" v-for="i in 2" :key="i">
+      <ul v-if="productList.length > 0" class="viewcart-list">
+         <li class="viewcart-item" v-for="item in productList" :key="item.id">
             <div class="viewcart-item-img">
                <img
-                  src="@/assets/images/product/exp1.png"
+                  :src="
+                     item.featureImageUrl
+                        ? item.featureImageUrl
+                        : `${require('@/assets/images/no-image.jpg')}`
+                  "
                   alt="product image"
                />
             </div>
@@ -13,20 +17,30 @@
                   <router-link
                      :to="{
                         name: 'shop_details',
-                        params: { id: 1 },
+                        params: { id: item.id },
                      }"
                   >
-                     Green Bow
+                     {{ item.name }}
                   </router-link>
                </p>
-               <p class="viewcart-item-price">1 x <span>135.00</span></p>
+               <p class="viewcart-item-price">
+                  {{ $store.state.cart.find((i) => i.id === item.id).quantity }}
+                  x <span>{{ toVND(item.promotionPrice) }}</span>
+               </p>
             </div>
-            <button class="viewcart-item-remove-btn">&times;</button>
+            <button
+               class="viewcart-item-remove-btn"
+               @click="() => $store.dispatch('removeItemCart', item.id)"
+            >
+               &times;
+            </button>
          </li>
       </ul>
       <div class="viewcart-subtotal">
          <p>Tổng tiền:</p>
-         <p>420.000đ</p>
+         <p>
+            {{ toVND(totalCost) }}
+         </p>
       </div>
       <div class="viewcart-btns">
          <button class="viewcart-btn">
@@ -52,9 +66,73 @@
 </template>
 
 <script>
+import { ref, watchEffect } from "vue";
+import { useStore } from "vuex";
+
+import { toVND } from "@/helpers/functions";
+import * as API from "@/helpers/api.js";
+
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "ViewCartBoxComponent",
+   setup() {
+      const store = useStore();
+
+      const cart = store.state.cart;
+
+      const productList = ref([]);
+      const totalCost = ref(0);
+
+      function getProductItem(productId) {
+         return API.get(
+            apiPath + `/product/get_item.php`,
+            {
+               id: productId,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  const product = {
+                     ...data.data,
+                     id: +data.data.id,
+                     featureImageId: +data.data.featureImageId,
+                     originPrice: +data.data.originPrice,
+                     promotionPrice: +data.data.promotionPrice,
+                     isSpecial: +data.data.isSpecial == 1,
+                     isNew: +data.data.isNew == 1,
+                     isBestOffer: +data.data.isBestOffer == 1,
+                     productCategoryId: +data.data.productCategoryId,
+                     averageRating: +data.data.averageRating,
+                  };
+
+                  productList.value.push(product);
+
+                  const quantity = cart.find(
+                     (i) => i.id === productId
+                  ).quantity;
+                  totalCost.value += quantity * product.promotionPrice;
+               }
+            }
+         );
+      }
+
+      watchEffect(() => {
+         if (Array.isArray(cart)) {
+            productList.value = [];
+            totalCost.value = 0;
+
+            cart.forEach((i) => {
+               getProductItem(i.id);
+            });
+         }
+      });
+
+      return {
+         toVND,
+         productList,
+         totalCost,
+      };
+   },
 };
 </script>
 

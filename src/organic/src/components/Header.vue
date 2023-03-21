@@ -60,12 +60,12 @@
                   <router-link :to="{ name: 'wishlist' }">
                      <button class="access-btn access-wishlist">
                         <i class="fa-regular fa-heart"></i>
-                        <p class="access-number">3</p>
+                        <p class="access-number">{{ $store.state.wishlist.length }}</p>
                      </button>
                   </router-link>
                   <div class="access-btn access-viewcart">
                      <i class="fa-solid fa-cart-shopping"></i>
-                     <p class="access-number">12</p>
+                     <p class="access-number">{{ $store.state.cart.length }}</p>
                      <ViewCartBox />
                   </div>
                </div>
@@ -76,13 +76,15 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, reactive } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 import * as API from "@/helpers/api.js";
 
 import Navigator from "@/components/Navigator.vue";
 import ViewCartBox from "@/components/ViewCartBox.vue";
+
+import { getWishlist } from '@/helpers/local_storage';
 
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
