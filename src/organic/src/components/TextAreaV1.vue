@@ -1,6 +1,6 @@
 <template>
    <textarea
-      class="text-area-v1"
+		class="text-area-v1"
       :required="required"
       :placeholder="placeholder"
       v-model="inputVal"
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 export default {
    name: "TextAreaV1Component",
    props: {

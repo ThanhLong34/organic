@@ -21,9 +21,10 @@
                      <ul class="categories-list">
                         <!-- item -->
                         <li
+                           v-for="item in productCategoryList"
+                           :key="item.id"
+                           @click="() => handleChooseProductCategory(item.id)"
                            class="categories-item"
-                           v-for="(item, index) in productCategoryList"
-                           :key="index"
                         >
                            <div class="categories-item-img">
                               <img
@@ -75,13 +76,14 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { ref, computed, onMounted, reactive } from "vue";
+import { useRouter } from "vue-router";
+
+import * as API from "@/helpers/api.js";
 
 import Navigator from "@/components/Navigator.vue";
 import ViewCartBox from "@/components/ViewCartBox.vue";
 
-import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
@@ -98,11 +100,13 @@ export default {
    },
    emits: ["openMenuSidebar", "showOverlayMain", "hideOverlayMain"],
    setup(props, { emit }) {
+      const router = useRouter();
+
       const isShowCategoryBox = ref(false);
       const productCategoryList = ref([]);
 
-		//? GET DATA HERE
-		getProductCategoryList();
+      //? GET DATA HERE
+      getProductCategoryList();
 
       function getProductCategoryList() {
          return API.get(
@@ -138,11 +142,17 @@ export default {
          emit("openMenuSidebar");
       }
 
+      function handleChooseProductCategory(productCategoryId) {
+         handleToggleShowCategoryBox();
+         router.push({ name: "shop", params: { productCategoryId } });
+      }
+
       return {
          isShowCategoryBox,
          productCategoryList,
          handleToggleShowCategoryBox,
          handleOpenMenuSidebar,
+         handleChooseProductCategory,
       };
    },
 };

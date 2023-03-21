@@ -19,6 +19,9 @@ module.exports = {
 		"no-tabs": "off",
 		"no-unused-vars": ["warn"],
 		"space-before-function-paren": "off",
+		"spaced-comment": "off",
+		"eqeqeq": "off",
+		"quote-props": "off",
 		// override configuration set by extending "eslint:recommended"
 		"init-declarations": "off",
 		"no-cond-assign": ["error", "always"],

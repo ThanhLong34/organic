@@ -47,7 +47,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import Loader from "@/components/Loader.vue";
 import TopWebsite from "@/components/TopWebsite.vue";
 import GoToTopButton from "@/components/GoToTopButton.vue";
@@ -331,5 +331,17 @@ body {
    li + li {
       margin-top: 10px;
    }
+}
+
+.form-label {
+	display: block;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	font-size: 1.3rem;
+	font-weight: bold;
+
+	.required {
+		color: orangered;
+	}
 }
 </style>

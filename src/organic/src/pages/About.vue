@@ -279,7 +279,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import TopPage from "@/components/TopPage.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
 import Statistical from "@/components/Statistical.vue";
@@ -295,7 +295,7 @@ export default {
    },
 	methods: {
 		handleRedirectToShopPage() {
-			this.$router.push({ name: 'shop' });
+			this.$router.push({ name: 'shop', params: { productCategoryId: 0 } });
 		}
 	}
 };

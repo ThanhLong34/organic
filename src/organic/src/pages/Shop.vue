@@ -62,8 +62,10 @@
 </template>
 
 <script>
-/* eslint-disable */
-import { ref, reactive } from "vue";
+
+import { ref, reactive, onBeforeMount } from "vue";
+
+import { ElMessage } from "element-plus";
 
 import TopPage from "@/components/TopPage.vue";
 import ProductV2 from "@/components/ProductV2.vue";
@@ -71,8 +73,6 @@ import SubscribeMail from "@/components/SubscribeMail.vue";
 import Service from "@/components/Service.vue";
 import SidebarShop from "@/components/SidebarShop.vue";
 import PageNumber from "@/components/PageNumber.vue";
-
-import { ElMessage } from "element-plus";
 
 import * as API from "@/helpers/api.js";
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
@@ -148,7 +148,6 @@ export default {
       }
 
       function handleChoosePage(page) {
-         // console.log(page);
          currentPage.value = page;
          offset.value = (page - 1) * limit.value;
          getTableData();

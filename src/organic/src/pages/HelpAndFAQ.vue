@@ -80,7 +80,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import TopPage from "@/components/TopPage.vue";
 import { onMounted } from "vue";
 

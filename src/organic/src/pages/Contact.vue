@@ -65,26 +65,49 @@
                      <div class="contact-input-row">
                         <div class="row">
                            <div class="col l-6 m-12 s-12">
+                              <label for="" class="form-label">
+                                 Họ tên
+                                 <span class="required">*</span>
+                              </label>
                               <InputV1
-                                 placeholder="Họ tên"
-                                 v-model="data.fullname"
+                                 ref="fullnameRef"
+                                 placeholder="Nhập họ tên"
+                                 v-model="contact.fullname"
                               />
                            </div>
                            <div class="col l-6 m-12 s-12">
+                              <label for="" class="form-label">
+                                 Email
+                                 <span class="required">*</span>
+                              </label>
                               <InputV1
-                                 placeholder="Email"
-                                 v-model="data.email"
+                                 ref="emailRef"
+                                 placeholder="Nhập email"
+                                 v-model="contact.email"
                               />
                            </div>
                         </div>
                      </div>
-                     <InputV1 placeholder="Chủ đề" v-model="data.subject" />
+                     <label for="" class="form-label">
+                        Chủ đề
+                        <span class="required">*</span>
+                     </label>
+                     <InputV1
+                        ref="subjectRef"
+                        placeholder="Nhập chủ đề"
+                        v-model="contact.subject"
+                     />
+                     <label for="" class="form-label">
+                        Lời nhắn
+                        <span class="required">*</span>
+                     </label>
                      <TextAreaV1
-                        placeholder="Lời nhắn"
-                        v-model="data.message"
+                        ref="messageRef"
+                        placeholder="Nhập lời nhắn"
+                        v-model="contact.message"
                      />
                      <button-v-2 @click="handleSubmit">
-                        {{ isClickedSubmit ? "Vui lòng chờ..." : "Gửi góp ý" }}
+                        Gửi góp ý
                         <i class="fa-solid fa-arrow-right"></i>
                      </button-v-2>
                   </div>
@@ -92,19 +115,21 @@
             </div>
          </div>
       </div>
-      <ToastMessage v-if="isShowToastMessage" v-bind="toastMessage" />
    </div>
 </template>
 
 <script>
-/* eslint-disable */
 import { ref, reactive } from "vue";
+
+import { ElNotification } from "element-plus";
 
 import TopPage from "@/components/TopPage.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
 import InputV1 from "@/components/InputV1.vue";
 import TextAreaV1 from "@/components/TextAreaV1.vue";
-import ToastMessage from "@/components/ToastMessage.vue";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "ContactPage",
@@ -113,19 +138,14 @@ export default {
       ButtonV2,
       InputV1,
       TextAreaV1,
-      ToastMessage,
    },
    setup(props) {
-      const isClickedSubmit = ref(false);
-      const isShowToastMessage = ref(false);
-      const toastMessage = {
-         message: "",
-         type: "success",
-         secondDisplayNone: 1200,
-         secondHideEffect: 4000,
-      };
+      const fullnameRef = ref(null);
+      const emailRef = ref(null);
+      const subjectRef = ref(null);
+      const messageRef = ref(null);
 
-      const data = reactive({
+      const contact = reactive({
          fullname: "",
          email: "",
          subject: "",
@@ -135,67 +155,63 @@ export default {
       function handleDataProcessing() {
          // Chế biến lại dữ liệu
 
-         if (typeof data.fullname === "string") {
-            data.fullname = data.fullname.trim();
+         if (typeof contact.fullname === "string") {
+            contact.fullname = contact.fullname.trim();
          }
 
-         if (typeof data.email === "string") {
-            data.email = data.email.trim();
+         if (typeof contact.email === "string") {
+            contact.email = contact.email.trim();
          }
 
-         if (typeof data.subject === "string") {
-            data.subject = data.subject.trim();
+         if (typeof contact.subject === "string") {
+            contact.subject = contact.subject.trim();
          }
 
-         if (typeof data.message === "string") {
-            data.message = data.message.trim();
+         if (typeof contact.message === "string") {
+            contact.message = contact.message.trim();
          }
       }
 
       function validateBeforeSubmit() {
          handleDataProcessing();
 
-         if (data.fullname === "") {
-            toastMessage.message = "Bạn chưa nhập họ tên";
-            toastMessage.type = "error";
-            isShowToastMessage.value = true;
+         if (contact.fullname === "") {
+            ElNotification({
+               title: "Cảnh báo",
+               message: "Bạn chưa nhập họ tên",
+               type: "warning",
+            });
 
-            setTimeout(() => {
-               isShowToastMessage.value = false;
-            }, 4000);
             return false;
          }
 
-         if (data.email === "") {
-            toastMessage.message = "Bạn chưa nhập email";
-            toastMessage.type = "error";
-            isShowToastMessage.value = true;
+         if (contact.email === "") {
+            ElNotification({
+               title: "Cảnh báo",
+               message: "Bạn chưa nhập email",
+               type: "warning",
+            });
 
-            setTimeout(() => {
-               isShowToastMessage.value = false;
-            }, 4000);
             return false;
          }
 
-         if (data.subject === "") {
-            toastMessage.message = "Bạn chưa nhập chủ đề";
-            toastMessage.type = "error";
-            isShowToastMessage.value = true;
+         if (contact.subject === "") {
+            ElNotification({
+               title: "Cảnh báo",
+               message: "Bạn chưa nhập chủ đề",
+               type: "warning",
+            });
 
-            setTimeout(() => {
-               isShowToastMessage.value = false;
-            }, 4000);
             return false;
          }
 
-         if (data.message === "") {
-            toastMessage.message = "Bạn chưa nhập lời nhắn";
-            toastMessage.type = "error";
-            isShowToastMessage.value = true;
+         if (contact.message === "") {
+            ElNotification({
+               title: "Cảnh báo",
+               message: "Bạn chưa nhập lời nhắn",
+               type: "warning",
+            });
 
-            setTimeout(() => {
-               isShowToastMessage.value = false;
-            }, 4000);
             return false;
          }
 
@@ -205,28 +221,41 @@ export default {
       function handleSubmit() {
          if (!validateBeforeSubmit()) return;
 
-         isClickedSubmit.value = true;
-
-         return API.post(apiPath + `/contact/add.php`, data, (data) => {
+         return API.post(apiPath + `/contact/add.php`, contact, (data) => {
             if (data.code === 1) {
-               toastMessage.message = data.message;
-               toastMessage.type = "error";
-            } else {
-               toastMessage.message = data.message;
-               toastMessage.type = "error";
-            }
+               ElNotification({
+                  title: "Thành công",
+                  message: "Góp ý của bạn đã được gửi thành công",
+                  type: "success",
+               });
 
-            isShowToastMessage.value = true;
-            isClickedSubmit.value = false;
+               // Reset value
+               contact.fullname = "";
+               contact.email = "";
+               contact.subject = "";
+               contact.message = "";
+
+               fullnameRef.value.resetValue();
+               emailRef.value.resetValue();
+               subjectRef.value.resetValue();
+               messageRef.value.resetValue();
+            } else {
+               ElNotification({
+                  title: "Có lỗi",
+                  message: data.message,
+                  type: "error",
+               });
+            }
          });
       }
 
       return {
-         isShowToastMessage,
-         toastMessage,
-         data,
-         isClickedSubmit,
+         contact,
          handleSubmit,
+         fullnameRef,
+         emailRef,
+         subjectRef,
+         messageRef,
       };
    },
 };
@@ -324,6 +353,7 @@ export default {
       display: block;
       height: 65px;
       line-height: 65px;
+      margin-top: 12px;
    }
 
    @media (max-width: $maxTablet) {

@@ -41,7 +41,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
    name: "BlogV1Component",
    props: {

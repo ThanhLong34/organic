@@ -8,7 +8,7 @@
       </div>
       <div class="navigator-link">
          <router-link
-            :to="{ name: 'shop' }"
+            :to="{ name: 'shop', params: { productCategoryId: 0 } }"
          >
             <i class="fa-solid fa-shop" v-if="icons"></i>
             Cửa hàng
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 export default {
    name: "NavigatorComponent",
    props: {

@@ -40,7 +40,7 @@
 
       <div class="order-details-full-toshop-btn">
          <router-link
-            :to="{ name: 'shop' }"
+            :to="{ name: 'shop', params: { productCategoryId: 0 } }"
          >
             <button-v-5>TIẾP TỤC MUA SẮM</button-v-5>
          </router-link>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import OrderDetails from "@/components/OrderDetails.vue";
 import ButtonV5 from "./ButtonV5.vue";
 

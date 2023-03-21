@@ -196,7 +196,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import TopPage from "@/components/TopPage.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
 import ButtonIcon from "@/components/ButtonIcon.vue";
@@ -214,10 +213,10 @@ import { Autoplay, Thumbs, Navigation } from "swiper";
 import { ref, reactive, onMounted, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
 
-import * as API from "@/helpers/api.js";
-const apiPath = process.env.VUE_APP_SERVER_PATH_API;
-
 import { toVND } from "@/helpers/functions";
+import * as API from "@/helpers/api.js";
+
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "ShopDetailsPage",

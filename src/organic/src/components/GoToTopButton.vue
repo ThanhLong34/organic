@@ -11,7 +11,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 export default {
    name: "GoToTopButtonComponent",
    props: {

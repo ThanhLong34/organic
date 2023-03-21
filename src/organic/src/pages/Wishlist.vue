@@ -33,7 +33,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import TopPage from "@/components/TopPage.vue";
 import HeadingSection from "@/components/HeadingSection.vue";
 import ProductWishlist from "@/components/ProductWishlist.vue";

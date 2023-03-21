@@ -68,7 +68,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import ButtonV3 from "@/components/ButtonV3.vue";
 
 import { ref, reactive } from "vue";

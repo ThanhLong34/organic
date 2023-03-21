@@ -37,7 +37,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import { ref, onMounted } from "vue";
 
 export default {

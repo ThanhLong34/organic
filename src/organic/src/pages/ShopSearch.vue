@@ -17,32 +17,44 @@
                            <div class="information-content">
                               <p class="information-search">
                                  Tìm kiếm cho:
-                                 <span>Fresh Tomatoes</span>
+                                 <span>{{ searchValue }}</span>
                               </p>
                               <p class="information-total">
-                                 12 sản phẩm trên tổng 45
+                                 {{ tableData.length }} sản phẩm trên tổng
+                                 {{ totalItem }}
                               </p>
                            </div>
                         </div>
                         <!-- products -->
-                        <ul class="row product-list">
+                        <ul v-if="totalItem > 0" class="row product-list">
                            <li
                               class="col l-3 m-4 s-12"
-                              v-for="(item, index) in products"
-                              :key="index"
+                              v-for="item in tableData"
+                              :key="item.id"
                            >
                               <router-link
                                  :to="{
                                     name: 'shop_details',
-                                    params: { id: 1 },
+                                    params: { id: item.id },
                                  }"
                               >
                                  <ProductV2 :product="item" />
                               </router-link>
                            </li>
                         </ul>
+                        <p v-if="totalItem <= 0" class="product-list-none-data">
+                           Không có sản phẩm
+                        </p>
                         <!-- page number -->
-                        <PageNumber />
+                        <div v-if="totalItem > 0" class="pagination">
+                           <PageNumber
+                              :numberOfPage="numberOfPage"
+                              :currentPage="currentPage"
+                              @onChoosePage="handleChoosePage"
+                              @onPrevPage="handlePrevPage"
+                              @onNextPage="handleNextPage"
+                           />
+                        </div>
                      </div>
                   </div>
                </div>
@@ -57,14 +69,17 @@
 </template>
 
 <script>
-/* eslint-disable */
+import { ref, reactive, onBeforeMount } from "vue";
+import { useRoute } from "vue-router";
+
 import TopPage from "@/components/TopPage.vue";
 import ProductV2 from "@/components/ProductV2.vue";
 import SubscribeMail from "@/components/SubscribeMail.vue";
 import Service from "@/components/Service.vue";
 import PageNumber from "@/components/PageNumber.vue";
 
-import { reactive } from "vue";
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "ShopSearchPage",
@@ -76,55 +91,89 @@ export default {
       PageNumber,
    },
    setup() {
-      const products = reactive([
-         {
-				id: 1,
-            category: "Fresh",
-            image: "exp.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-				id: 1,
-            category: "Fresh",
-            image: "exp1.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-         {
-				id: 1,
-            category: "Fresh",
-            image: "exp2.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 4,
-         },
-         {
-				id: 1,
-            category: "Fresh",
-            image: "exp3.png",
-            name: "Vegan Egg Replacer",
-            priceOld: "280.00",
-            priceNew: "180.00",
-            description:
-               "Apparently we had reached a great height in the atmosphere.",
-            star: 5,
-         },
-      ]);
+      const route = useRoute();
+
+      // Table states
+      const tableData = ref([]);
+      const totalItem = ref(0);
+      const numberOfPage = ref(1);
+      const currentPage = ref(1);
+      const limit = ref(12);
+      const offset = ref(0);
+      const searchValue = ref("");
+
+      function getTableData() {
+         return API.get(
+            apiPath + `/product/get_list.php`,
+            {
+               limit: limit.value,
+               offset: offset.value,
+               searchType: "name",
+               searchValue: searchValue.value,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  // TABLE STATES
+                  tableData.value = data.data.map((item) => ({
+                     ...item,
+                     id: +item.id,
+                     featureImageId: +item.featureImageId,
+                     originPrice: +item.originPrice,
+                     promotionPrice: +item.promotionPrice,
+                     isSpecial: +item.isSpecial == 1,
+                     isNew: +item.isNew == 1,
+                     isBestOffer: +item.isBestOffer == 1,
+                     productCategoryId: +item.productCategoryId,
+                     averageRating: +item.averageRating,
+                  }));
+                  totalItem.value = +data.totalItem;
+                  numberOfPage.value = Math.ceil(totalItem.value / limit.value);
+               }
+            }
+         );
+      }
+
+      function handleChoosePage(page) {
+         currentPage.value = page;
+         offset.value = (page - 1) * limit.value;
+         getTableData();
+      }
+
+      function handleNextPage() {
+         currentPage.value++;
+         if (currentPage.value >= numberOfPage.value) {
+            currentPage.value = numberOfPage.value;
+         }
+         offset.value = (currentPage.value - 1) * limit.value;
+         getTableData();
+      }
+
+      function handlePrevPage() {
+         currentPage.value--;
+         if (currentPage.value <= 1) {
+            currentPage.value = 1;
+         }
+         offset.value = (currentPage.value - 1) * limit.value;
+         getTableData();
+      }
+
+      onBeforeMount(() => {
+         searchValue.value = route.params.productName;
+         getTableData();
+      });
 
       return {
-         products,
+         tableData,
+         totalItem,
+         numberOfPage,
+         currentPage,
+         limit,
+         offset,
+         searchValue,
+         // handles
+         handleChoosePage,
+         handleNextPage,
+         handlePrevPage,
       };
    },
 };
@@ -190,5 +239,11 @@ export default {
 
 .contact-mail-section {
    padding: 100px 0;
+}
+
+.product-list-none-data {
+	color: #bbbbbb;
+	font-size: 1.8rem;
+	text-align: center;
 }
 </style>

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import TopPage from "@/components/TopPage.vue";
 import InputV2 from "@/components/InputV2.vue";
 import TextAreaV2 from "@/components/TextAreaV2.vue";
