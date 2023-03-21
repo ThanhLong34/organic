@@ -2,31 +2,40 @@
    <div class="product-wishlist">
       <div class="product-wishlist-img">
          <img
-            :src="`${require(`@/assets/images/product/${product.image}`)}`"
+            :src="
+               product.featureImageUrl
+                  ? product.featureImageUrl
+                  : `${require('@/assets/images/no-image.jpg')}`
+            "
             alt="product image"
          />
       </div>
       <div class="product-wishlist-info">
-         <button class="product-wishlist-remove-btn">
+         <button
+            class="product-wishlist-remove-btn"
+            @click="handleRemoveItemWishlist"
+         >
             <i class="fa-solid fa-xmark"></i>
          </button>
-         <h6 class="product-wishlist-category">{{ product.category }}</h6>
+         <h6 class="product-wishlist-category">
+            {{ product.productCategoryName }}
+         </h6>
          <h5 class="product-wishlist-name">
             <router-link
                :to="{
                   name: 'shop_details',
-                  params: { id: 1 },
+                  params: { id: product.id },
                }"
             >
                {{ product.name }}
             </router-link>
          </h5>
          <p class="product-wishlist-price">
-            <span>{{ product.price }}đ</span>
-            / Kg
+            <span>{{ toVND(product.promotionPrice) }}</span>
+            / {{ product.unit }}
          </p>
          <p class="product-wishlist-desc">
-            {{ product.description }}
+            {{ product.shortDescription }}
          </p>
          <div class="product-wishlist-rating">
             <div class="product-wishlist-rating-stars">
@@ -35,11 +44,15 @@
                   :key="i"
                   :class="{
                      'fa-solid fa-star': true,
-                     active: i <= product.star,
+                     active:
+                        i <=
+                        (product.averageRating ? product.averageRating : 0),
                   }"
                ></i>
             </div>
-            <div class="product-wishlist-rating-total">&lpar;01&rpar;</div>
+            <div class="product-wishlist-rating-total">
+               &lpar;{{ product.quantityReview }}&rpar;
+            </div>
          </div>
          <div class="product-wishlist-ctrl">
             <div class="product-wishlist-ctrl-quantity">
@@ -58,8 +71,14 @@
                </button>
             </div>
             <div class="product-wishlist-ctrl-other">
-               <button-v-3 class="product-wishlist-addtocart-btn">
-                  Thêm vào giỏ
+               <button-v-3
+                  :class="{
+                     'product-wishlist-addtocart-btn': true,
+                     remove: checkItemExistCartStore(product.id),
+                  }"
+                  @click="() => handleToggleCart(product.id)"
+               >
+                  {{ checkItemExistCartStore(product.id) ? "Xóa khỏi giỏ" : "Thêm vào giỏ" }}
                </button-v-3>
             </div>
          </div>
@@ -68,20 +87,27 @@
 </template>
 
 <script>
-/* eslint-disable */
-import ButtonV3 from "@/components/ButtonV3.vue";
-
 import { ref, reactive } from "vue";
+import { useStore } from "vuex";
+import { toVND, checkItemExistCartStore } from "@/helpers/functions";
+import { ElNotification } from "element-plus";
+import ButtonV3 from "@/components/ButtonV3.vue";
 
 export default {
    name: "ProductWishlistComponent",
    components: {
       ButtonV3,
    },
+   emits: ["onRemoveItemWishlist"],
    props: {
-      product: Object,
+      product: {
+         type: Object,
+         required: true,
+      },
    },
-   setup() {
+   setup(props, { emit }) {
+      const store = useStore();
+
       const info = reactive({
          quantity: 1,
       });
@@ -98,10 +124,42 @@ export default {
          }
       }
 
+      function handleRemoveItemWishlist() {
+         store.dispatch("removeItemWishlist", props.product.id);
+         emit("onRemoveItemWishlist", props.product.id);
+      }
+
+      function handleToggleCart(productId) {
+         if (!checkItemExistCartStore(productId)) {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã thêm sản phẩm vào giỏ hàng",
+               type: "success",
+            });
+
+            store.dispatch("addItemCart", {
+               id: productId,
+               quantity: info.quantity,
+            });
+         } else {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã xóa sản phẩm khỏi giỏ hàng",
+               type: "info",
+            });
+
+            store.dispatch("removeItemCart", productId);
+         }
+      }
+
       return {
+         toVND,
          info,
+         checkItemExistCartStore,
          handleSubQuantity,
          handleAddQuantity,
+         handleRemoveItemWishlist,
+         handleToggleCart,
       };
    },
 };
@@ -114,11 +172,12 @@ export default {
    display: flex;
    align-items: center;
    margin-bottom: 50px;
+   position: relative;
 
    &-remove-btn {
       position: absolute;
-      top: 8px;
-      right: 8px;
+      top: 12px;
+      right: 12px;
       width: 30px;
       height: 30px;
       line-height: 30px;
@@ -139,16 +198,20 @@ export default {
 
    &-img {
       z-index: 1;
-      margin-right: -60px;
+      margin-right: -48px;
+      width: 200px;
+
+      img {
+         object-fit: contain;
+      }
    }
 
    &-info {
+      flex: 1;
       background-color: white;
       border-radius: 15px;
-      padding: 36px 20px 36px 68px;
+      padding: 36px 20px 20px 68px;
       box-shadow: $cardShadow;
-      flex-grow: 1;
-      position: relative;
    }
 
    &-category {
@@ -157,7 +220,6 @@ export default {
       border-radius: 20px;
       display: inline-block;
       color: white;
-      text-transform: uppercase;
       font-size: 12px;
       margin-bottom: 18px;
    }
@@ -218,6 +280,7 @@ export default {
 
    &-ctrl {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       color: $darkTextColor;
@@ -230,6 +293,8 @@ export default {
          display: flex;
          align-items: center;
          justify-content: space-between;
+         margin-right: 16px;
+         margin-bottom: 16px;
 
          span {
             font-size: 20px;
@@ -256,6 +321,20 @@ export default {
             color: white;
          }
       }
+
+      &-other {
+         margin-bottom: 16px;
+      }
+   }
+
+   &-addtocart-btn {
+      &.remove {
+         background: linear-gradient(-90deg, #b8b8b8 0%, #8f8f8f 100%);
+
+         & i {
+            background: #b3b3b3;
+         }
+      }
    }
 
    @media (max-width: $maxMobile) {
@@ -271,10 +350,12 @@ export default {
       &-img {
          margin-right: 0;
          position: relative;
-         top: 25px;
+         top: 52px;
+         max-width: unset;
       }
 
       &-info {
+         width: 100%;
          padding: 36px 20px;
       }
    }
@@ -284,10 +365,6 @@ export default {
       &-ctrl {
          flex-direction: column;
          align-items: flex-start;
-      }
-
-      &-addtocart-btn {
-         margin-top: 20px;
       }
    }
 }

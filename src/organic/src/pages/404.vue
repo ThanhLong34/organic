@@ -16,7 +16,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import TopPage from "@/components/TopPage.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
 

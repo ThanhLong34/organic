@@ -111,7 +111,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import ButtonV2 from "@/components/ButtonV2.vue";
 import InputV1 from "@/components/InputV1.vue";
 import TextAreaV1 from "@/components/TextAreaV1.vue";

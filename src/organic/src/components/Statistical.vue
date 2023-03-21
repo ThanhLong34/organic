@@ -66,7 +66,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import { ref, watch, onMounted } from "vue";
 import { checkElementInViewport } from "@/helpers/functions.js";
 

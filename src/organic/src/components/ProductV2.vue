@@ -22,9 +22,9 @@
             </div>
             <h6 class="product-v2-name">{{ product.name }}</h6>
             <div class="product-v2-price">
-               <span class="product-v2-price-old"
-                  >{{ toVND(product.originPrice) }}</span
-               >
+               <span class="product-v2-price-old">{{
+                  toVND(product.originPrice)
+               }}</span>
                <span class="product-v2-price-new"
                   >{{ toVND(product.promotionPrice) }}
                   <span class="product-v2-unit"
@@ -55,22 +55,21 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { toVND } from "@/helpers/functions";
 
 export default {
    name: "ProductV2Component",
    props: {
       product: {
-			type: Object,
-			required: true
-		},
+         type: Object,
+         required: true,
+      },
    },
-	setup(props) {
-		return {
-			toVND
-		}
-	}
+   setup(props) {
+      return {
+         toVND,
+      };
+   },
 };
 </script>
 

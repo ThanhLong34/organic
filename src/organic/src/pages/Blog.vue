@@ -39,7 +39,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import TopPage from "@/components/TopPage.vue";
 import Author from "@/components/Author.vue";
 import BlogV2 from "@/components/BlogV2.vue";
@@ -89,7 +89,6 @@ export default {
       }
 
       function handleChoosePage(page) {
-         // console.log(page);
          currentPage.value = page;
          offset.value = (page - 1) * limit.value;
          getTableData();

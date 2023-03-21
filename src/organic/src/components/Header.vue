@@ -21,9 +21,10 @@
                      <ul class="categories-list">
                         <!-- item -->
                         <li
+                           v-for="item in productCategoryList"
+                           :key="item.id"
+                           @click="() => handleChooseProductCategory(item.id)"
                            class="categories-item"
-                           v-for="(item, index) in productCategoryList"
-                           :key="index"
                         >
                            <div class="categories-item-img">
                               <img
@@ -59,12 +60,12 @@
                   <router-link :to="{ name: 'wishlist' }">
                      <button class="access-btn access-wishlist">
                         <i class="fa-regular fa-heart"></i>
-                        <p class="access-number">3</p>
+                        <p class="access-number">{{ $store.state.wishlist.length }}</p>
                      </button>
                   </router-link>
                   <div class="access-btn access-viewcart">
                      <i class="fa-solid fa-cart-shopping"></i>
-                     <p class="access-number">12</p>
+                     <p class="access-number">{{ $store.state.cart.length }}</p>
                      <ViewCartBox />
                   </div>
                </div>
@@ -75,13 +76,16 @@
 </template>
 
 <script>
-/* eslint-disable */
-import { ref, computed, onMounted, reactive } from "vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+import * as API from "@/helpers/api.js";
 
 import Navigator from "@/components/Navigator.vue";
 import ViewCartBox from "@/components/ViewCartBox.vue";
 
-import * as API from "@/helpers/api.js";
+import { getWishlist } from '@/helpers/local_storage';
+
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
@@ -98,11 +102,13 @@ export default {
    },
    emits: ["openMenuSidebar", "showOverlayMain", "hideOverlayMain"],
    setup(props, { emit }) {
+      const router = useRouter();
+
       const isShowCategoryBox = ref(false);
       const productCategoryList = ref([]);
 
-		//? GET DATA HERE
-		getProductCategoryList();
+      //? GET DATA HERE
+      getProductCategoryList();
 
       function getProductCategoryList() {
          return API.get(
@@ -138,11 +144,17 @@ export default {
          emit("openMenuSidebar");
       }
 
+      function handleChooseProductCategory(productCategoryId) {
+         handleToggleShowCategoryBox();
+         router.push({ name: "shop", params: { productCategoryId } });
+      }
+
       return {
          isShowCategoryBox,
          productCategoryList,
          handleToggleShowCategoryBox,
          handleOpenMenuSidebar,
+         handleChooseProductCategory,
       };
    },
 };

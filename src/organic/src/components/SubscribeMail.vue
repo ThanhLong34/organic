@@ -22,7 +22,7 @@
                      placeholder="Nhập email của bạn"
                      v-model="email"
                   />
-                  <button-v-2 @click="handleSubmit" :disable="isClickedSubmit">
+                  <button-v-2 @click="() => !isClickedSubmit && handleSubmit()" :disable="isClickedSubmit">
                      {{ isClickedSubmit ? "Vui lòng chờ..." : "Đăng ký ngay" }}
                      <i class="fa-solid fa-angles-right"></i>
                   </button-v-2>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import { ref } from "vue";
 
 import ButtonV2 from "@/components/ButtonV2.vue";
@@ -51,7 +51,6 @@ export default {
    setup() {
       const email = ref("");
       const isClickedSubmit = ref(false);
-      const buttonSend = ref(null);
 
       function handleDataProcessing() {
          // Chế biến lại dữ liệu

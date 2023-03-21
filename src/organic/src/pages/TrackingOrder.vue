@@ -46,7 +46,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import TopPage from "@/components/TopPage.vue";
 import HeadingSection from "@/components/HeadingSection.vue";
 import OrderDetailsFull from "@/components/OrderDetailsFull.vue";

@@ -1,5 +1,6 @@
-/* eslint-disable */
+
 import { createRouter, createWebHistory } from "vue-router";
+
 import store from "@/store/index.js";
 
 import Home from "../pages/Home.vue";
@@ -12,12 +13,12 @@ const routes = [
 		component: Home,
 	},
 	{
-		path: "/shop",
+		path: "/shop/:productCategoryId",
 		name: "shop",
 		component: () => import("../pages/Shop.vue"),
 	},
 	{
-		path: "/shop-search/:id",
+		path: "/shop-search/:productName",
 		name: "shop_search",
 		component: () => import("../pages/ShopSearch.vue"),
 	},

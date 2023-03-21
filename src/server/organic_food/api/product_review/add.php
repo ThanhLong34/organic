@@ -68,7 +68,7 @@ function addItem($fullname, $phone, $email, $comment, $rating, $productId)
 
    // Kiểm tra phone hoặc email gửi đi có mua sản phẩm chưa
    // Nếu chưa thì không cho gửi đánh giá
-   if (!checkPhoneAndEmailBuyProduct($phone, $email, $productId)) {
+   if (!checkPhone_Email_OrderStatusForBuyProduct($phone, $email, $productId)) {
       $response = new ResponseAPI(4, "Số điện thoại hoặc email không được phép gửi đánh giá bởi vì chưa mua sản phẩm này");
       $response->send();
       return;
@@ -104,12 +104,14 @@ function performsQueryAndResponseToClient($query)
 
 
 // Kiểm tra xem email có mua hàng không, nếu không mua sản phẩm thì không được phép gửi đánh giá
-function checkPhoneAndEmailBuyProduct($phone, $email, $productId) {
+// Kiểm tra xem đơn hàng đã được duyệt (orderStatusId 2) hoặc đã thanh toán chưa (orderStatusId 4)
+function checkPhone_Email_OrderStatusForBuyProduct($phone, $email, $productId) {
    global $connect;
 
    $query = "SELECT `order`.`id` FROM `order`, `product_order`
       WHERE `order`.`email` = '$email'
       AND `order`.`phone` = '$phone'
+      AND (`order`.`orderStatusId` = 2 OR `order`.`orderStatusId` = 4)
       AND `product_order`.`orderId` = `order`.`id`
       AND `product_order`.`productId` = '$productId'
       LIMIT 1";

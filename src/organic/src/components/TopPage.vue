@@ -15,7 +15,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 export default {
    name: "TopPageComponent",
    props: {

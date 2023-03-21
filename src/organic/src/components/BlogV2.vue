@@ -58,7 +58,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import ButtonV2 from "@/components/ButtonV2.vue";
 
 export default {

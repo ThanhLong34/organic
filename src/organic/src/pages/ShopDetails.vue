@@ -29,7 +29,12 @@
                               </swiper-slide>
                            </swiper>
                         </div>
-                        <button-icon>
+                        <button-icon
+                           :class="{
+                              active: checkItemExistWishlistStore(product.id),
+                           }"
+                           @click="() => handleToggleWishlist(product.id)"
+                        >
                            <i class="fa-regular fa-heart"></i>
                         </button-icon>
                      </div>
@@ -42,14 +47,26 @@
                         </h4>
                         <div class="shop-details-product-rating">
                            <div class="shop-details-product-rating-stars">
-                              <i class="fa-solid fa-star active"></i>
-                              <i class="fa-solid fa-star active"></i>
-                              <i class="fa-solid fa-star active"></i>
-                              <i class="fa-solid fa-star active"></i>
-                              <i class="fa-regular fa-star"></i>
+                              <i
+                                 v-for="i in 5"
+                                 :key="i"
+                                 :class="{
+                                    'fa-solid fa-star': true,
+                                    active:
+                                       i <=
+                                       (product.averageRating
+                                          ? product.averageRating
+                                          : 0),
+                                 }"
+                              ></i>
                            </div>
                            <div class="shop-details-product-rating-total">
-                              &lpar;1 đánh giá&rpar;
+                              &lpar;{{
+                                 product.quantityReview
+                                    ? product.quantityReview
+                                    : 0
+                              }}
+                              đánh giá&rpar;
                            </div>
                         </div>
                         <p class="shop-details-product-price">
@@ -92,9 +109,17 @@
                            </div>
                            <div class="shop-details-product-ctrl-other">
                               <button-v-2
-                                 class="shop-details-product-ctrl-addtocart-btn"
+                                 :class="{
+                                    'shop-details-product-ctrl-addtocart-btn': true,
+                                    remove: checkItemExistCartStore(product.id),
+                                 }"
+                                 @click="() => handleToggleCart(product.id)"
                               >
-                                 Thêm vào giỏ
+                                 {{
+                                    checkItemExistCartStore(product.id)
+                                       ? "Xóa khỏi giỏ"
+                                       : "Thêm vào giỏ"
+                                 }}
                                  <i class="fa-solid fa-cart-plus"></i>
                               </button-v-2>
                            </div>
@@ -196,7 +221,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import TopPage from "@/components/TopPage.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
 import ButtonIcon from "@/components/ButtonIcon.vue";
@@ -211,13 +235,16 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, Thumbs, Navigation } from "swiper";
 //#endregion
 
-import { ref, reactive, onMounted, onBeforeMount } from "vue";
+import { ref, reactive, onBeforeMount } from "vue";
+import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 
-import * as API from "@/helpers/api.js";
-const apiPath = process.env.VUE_APP_SERVER_PATH_API;
+import { ElNotification } from "element-plus";
 
-import { toVND } from "@/helpers/functions";
+import { toVND, checkItemExistWishlistStore, checkItemExistCartStore } from "@/helpers/functions";
+import * as API from "@/helpers/api.js";
+
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "ShopDetailsPage",
@@ -232,6 +259,7 @@ export default {
       SwiperSlide,
    },
    setup(props, { emit }) {
+      const store = useStore();
       const route = useRoute();
 
       const product = ref({});
@@ -271,6 +299,7 @@ export default {
                      isBestOffer: +data.data.isBestOffer == 1,
                      productCategoryId: +data.data.productCategoryId,
                      averageRating: +data.data.averageRating,
+                     quantityReview: +data.data.quantityReview,
                   };
                }
             }
@@ -334,6 +363,49 @@ export default {
          }
       }
 
+      function handleToggleWishlist(productId) {
+         if (!checkItemExistWishlistStore(productId)) {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã thêm sản phẩm vào danh sách thích",
+               type: "success",
+            });
+
+            store.dispatch("addItemWishlist", productId);
+         } else {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã xóa sản phẩm khỏi danh sách thích",
+               type: "info",
+            });
+
+            store.dispatch("removeItemWishlist", productId);
+         }
+      }
+
+      function handleToggleCart(productId) {
+         if (!checkItemExistCartStore(productId)) {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã thêm sản phẩm vào giỏ hàng",
+               type: "success",
+            });
+
+            store.dispatch("addItemCart", {
+               id: productId,
+               quantity: info.quantity,
+            });
+         } else {
+            ElNotification({
+               title: "Thông báo",
+               message: "Đã xóa sản phẩm khỏi giỏ hàng",
+               type: "info",
+            });
+
+            store.dispatch("removeItemCart", productId);
+         }
+      }
+
       onBeforeMount(async () => {
          await getProduct();
          await getImageListForProduct();
@@ -354,6 +426,10 @@ export default {
          thumbsSwiper,
          setThumbsSwiper,
          toVND,
+         checkItemExistWishlistStore,
+         checkItemExistCartStore,
+         handleToggleWishlist,
+         handleToggleCart,
       };
    },
 };
@@ -495,6 +571,14 @@ export default {
 
       &-addtocart-btn {
          margin-left: 40px;
+
+         &.remove {
+            background: linear-gradient(-90deg, #b8b8b8 0%, #8f8f8f 100%);
+
+            & i {
+               background: #b3b3b3;
+            }
+         }
       }
    }
 

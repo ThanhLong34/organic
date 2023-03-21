@@ -123,7 +123,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import TopPage from "@/components/TopPage.vue";
 
 export default {

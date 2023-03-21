@@ -16,7 +16,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 export default {
    name: "InputV1Component",
    props: {

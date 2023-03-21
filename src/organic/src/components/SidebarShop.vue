@@ -119,20 +119,18 @@
 </template>
 
 <script>
-/* eslint-disable */
+import { ref, reactive, onBeforeMount } from "vue";
+import { useRoute } from "vue-router";
 
-import ProductV2 from "@/components/ProductV2.vue";
-
-//#region Slider Swiper
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 // import required modules
 import { Autoplay } from "swiper";
-//#endregion
-
-import { ref, reactive, onBeforeMount } from "vue";
 
 import * as API from "@/helpers/api.js";
+
+import ProductV2 from "@/components/ProductV2.vue";
+
 const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
@@ -144,10 +142,13 @@ export default {
    },
    emits: ["onFillByProductCategory", "onSort"],
    setup(props, { emit }) {
+      const route = useRoute();
+
       const modulesSwiper = [Autoplay];
       const productCategoryList = ref([]);
       const productListIsBestOffer = ref([]);
       const currentProductCategoryId = ref("");
+      const routeParamsProductCategoryId = ref(0);
 
       const sortValue = ref("");
       const sortOptions = reactive({
@@ -169,8 +170,13 @@ export default {
                      id: +item.id,
                   }));
 
-                  currentProductCategoryId.value =
-                     productCategoryList.value[0]?.id ?? "";
+                  if (routeParamsProductCategoryId.value === 0) {
+                     currentProductCategoryId.value =
+                        productCategoryList.value[0]?.id ?? "";
+                  } else {
+							currentProductCategoryId.value = routeParamsProductCategoryId.value;
+						}
+
                   handleFillByProductCategory(currentProductCategoryId.value);
                }
             }
@@ -211,6 +217,10 @@ export default {
       }
 
       onBeforeMount(() => {
+         if (+route.params.productCategoryId > 0) {
+            routeParamsProductCategoryId.value = +route.params.productCategoryId;
+         }
+
          getProductCategoryList();
          getProductListIsBestOffer();
       });

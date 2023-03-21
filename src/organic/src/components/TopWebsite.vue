@@ -15,16 +15,16 @@
                      class="search-input"
                      type="text"
                      placeholder="Tìm kiếm sản phẩm..."
+                     v-model="productName"
+							@keypress="handleSearchProductByNameWhenEnter"
                   />
-                  <router-link
-                     :to="{
-                        name: 'shop_search',
-                        params: { id: 1 },
-                     }"
+                  <a
+                     href="javascript:;"
                      class="search-btn"
+							@click.prevent="handleSearchProductByName"
                   >
                      <i class="fa-solid fa-magnifying-glass"></i>
-                  </router-link>
+                  </a>
                </div>
             </div>
             <div class="col l-2 m-0 s-0">
@@ -44,10 +44,38 @@
 </template>
 
 <script>
-/* eslint-disable */
+import { ElNotification } from "element-plus";
+
 export default {
    name: "TopPageComponent",
-   setup() {},
+   data() {
+      return {
+         productName: "",
+      };
+   },
+   methods: {
+      handleSearchProductByName() {
+			if (this.productName === '') {
+				ElNotification({
+               title: "Cảnh báo",
+               message: "Bạn chưa nhập tên sản phẩm",
+               type: "warning",
+            });
+
+            return;
+			}
+
+         this.$router.push({
+            name: "shop_search",
+            params: { productName: this.productName },
+         });
+      },
+      handleSearchProductByNameWhenEnter(e) {
+			if (e.key === 'Enter') {
+				this.handleSearchProductByName();
+			}
+      },
+   },
 };
 </script>
 

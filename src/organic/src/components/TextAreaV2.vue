@@ -14,7 +14,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 export default {
    name: "TextAreaV1Component",
    props: {

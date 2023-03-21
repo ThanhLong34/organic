@@ -24,7 +24,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import Navigator from "./Navigator.vue";
 
 export default {

@@ -20,6 +20,7 @@
                         <router-link
                            :to="{
                               name: 'shop',
+                              params: { productCategoryId: 0 },
                            }"
                         >
                            <button-v-2>
@@ -580,7 +581,6 @@ import { ref, computed, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
-/* eslint-disable */
 import ButtonV1 from "@/components/ButtonV1.vue";
 import ButtonV2 from "@/components/ButtonV2.vue";
 import HeadingSection from "@/components/HeadingSection.vue";
@@ -596,10 +596,10 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper";
 //#endregion
 
-import * as API from "@/helpers/api.js";
-const apiPath = process.env.VUE_APP_SERVER_PATH_API;
-
 import { toVND } from "@/helpers/functions";
+import * as API from "@/helpers/api.js";
+
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "HomePage",
@@ -709,7 +709,7 @@ export default {
       }
 
       function handleRedirectToShopPage() {
-         router.push({ name: "shop", params: { categoryName: "show-all" } });
+         router.push({ name: "shop", params: { productCategoryId: 0 } });
       }
 
       function handleRedirectToBlogPage() {
