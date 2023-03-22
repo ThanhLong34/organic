@@ -120,10 +120,14 @@ function addItem(
          if (($couponCodePercentValue = updateQuantityAppliedForCouponCode($couponCodeId)) >= 0) {
             // Tính toán tiền phải thanh toán
             $paymentCost = calculatePaymentCost($deliveryCost, $totalCost, $couponCodePercentValue);
+         } else {
+            $response = new ResponseAPI(7, "Mã giảm giá đã hết hạn lượt dùng, đơn hàng chưa được đặt thành công, vui lòng bỏ áp dụng mã giảm giá hoặc chọn mã khác và đặt đơn lại");
+            $response->send();
+            return;
          }
       } else {
 
-         $response = new ResponseAPI(6, "Mã giảm giá đã được sử dụng, đơn hàng chưa được đặt thành công, vui lòng bỏ áp dụng mã giảm giá và đặt đơn lại");
+         $response = new ResponseAPI(6, "Mã giảm giá đã được sử dụng, đơn hàng chưa được đặt thành công, vui lòng bỏ áp dụng mã giảm giá hoặc chọn mã khác và đặt đơn lại");
          $response->send();
          return;
 
@@ -141,7 +145,10 @@ function addItem(
 
 
    if (performsQueryAndResponseToClient($query)) {
-      $response = new ResponseAPI(1, "Thành công");
+      $objRes = new stdClass;
+      $objRes->id = mysqli_insert_id($connect);
+
+      $response = new ResponseAPI(1, "Thành công", $objRes);
       $response->send();
 
       $newOrder = getOrderHasJustBeenInserted();
@@ -218,6 +225,8 @@ function updateQuantityAppliedForCouponCode($couponCodeId)
          $result = mysqli_query($connect, $query);
 
          return $couponCode->percentValue;
+      } else {
+         return -1;
       }
    }
 
@@ -239,8 +248,7 @@ function checkAllowCouponCodeApplied($couponCodeId, $phone, $email)
 
    $query = "SELECT * FROM `$tableName`
       WHERE `$tableName`.`couponCodeId` = '$couponCodeId'
-      AND `$tableName`.`phone` = '$phone'
-      OR `$tableName`.`email` = '$email'
+      AND (`$tableName`.`phone` = '$phone' OR `$tableName`.`email` = '$email')
    ";
    $result = mysqli_query($connect, $query);
 

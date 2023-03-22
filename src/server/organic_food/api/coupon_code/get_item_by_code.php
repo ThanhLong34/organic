@@ -72,8 +72,13 @@ function performsQueryAndResponseToClient($query)
    if ($result) {
       $item = $result->fetch_object();
       if ($item != null) {
-         $response = new ResponseAPI(1, "Thành công", $item, 1);
-         $response->send();
+         if ($item->isLimited == 0 || ($item->isLimited == 1 && $item->remainingQuantityApplied > 0)) {
+            $response = new ResponseAPI(1, "Thành công", $item, 1);
+            $response->send();
+         } else if ($item->isLimited == 1 && $item->remainingQuantityApplied <= 0) {
+            $response = new ResponseAPI(4, "Mã giảm giá đã hết lượt dùng");
+            $response->send();
+         }
       } else {
          $response = new ResponseAPI(2, "Không tìm thấy");
          $response->send();

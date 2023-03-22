@@ -1,6 +1,6 @@
 <template>
    <div class="checkout-success">
-      <TopPage :currentPage="'Checkout Success'" />
+      <TopPage :currentPage="'Đặt đơn hàng thành công'" />
 
       <div class="checkout-success-content">
          <div class="grid wide">
@@ -11,7 +11,7 @@
                      <br />
                      <span class="note"
                         >Trong vòng 15 phút sẽ có bộ phận CSKH gọi tới số
-                        <span>0123456789</span> để xác nhận đơn hàng của
+                        <span>{{ order.phone }}</span> để xác nhận đơn hàng của
                         bạn.</span
                      >
                      <br />
@@ -24,7 +24,7 @@
                         <template #strong>Chi tiết </template>
                         <template #default>đơn hàng</template>
                      </heading-section>
-                     <OrderDetailsFull />
+                     <OrderDetailsFull :orderId="+order.id" />
                   </div>
                </div>
             </div>
@@ -34,10 +34,12 @@
 </template>
 
 <script>
-
 import TopPage from "@/components/TopPage.vue";
 import HeadingSection from "@/components/HeadingSection.vue";
 import OrderDetailsFull from "@/components/OrderDetailsFull.vue";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "CheckoutSuccess",
@@ -45,6 +47,38 @@ export default {
       TopPage,
       HeadingSection,
       OrderDetailsFull,
+   },
+   data() {
+      return {
+         order: {},
+      };
+   },
+   methods: {
+      getOrder() {
+         return API.get(
+            apiPath + `/order/get_item.php`,
+            {
+               id: this.order.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.order = {
+                     ...data.data,
+                     id: +data.data.id,
+                     couponCodeId: +data.data.couponCodeId,
+                     deliveryCost: +data.data.deliveryCost,
+                     totalCost: +data.data.totalCost,
+                     paymentCost: +data.data.paymentCost,
+                     orderStatusId: +data.data.orderStatusId,
+                  };
+               }
+            }
+         );
+      },
+   },
+   created() {
+		this.order.id = this.$route.params.orderId;
+      this.getOrder();
    },
 };
 </script>
