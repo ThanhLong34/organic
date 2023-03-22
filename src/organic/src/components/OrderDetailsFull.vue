@@ -2,46 +2,49 @@
    <div class="order-details-full">
       <h6 class="order-details-full-row order-details-full-orther-number">
          <div class="order-details-full-label">Mã đơn hàng:</div>
-         <div class="order-details-full-value">#001</div>
+         <div class="order-details-full-value">&#35;{{ order.id }}</div>
       </h6>
       <div class="order-details-full-row order-details-full-orther-number">
          <div class="order-details-full-label">Thời gian:</div>
-         <div class="order-details-full-value">16/05/2022</div>
+         <div class="order-details-full-value">{{ order.createdAt }}</div>
       </div>
       <h6 class="order-details-full-row order-details-full-fullname">
          <div class="order-details-full-label">Họ tên:</div>
-         <div class="order-details-full-value">Thành Long</div>
+         <div class="order-details-full-value">{{ order.fullname }}</div>
       </h6>
       <div class="order-details-full-row order-details-full-street">
          <div class="order-details-full-label">Địa chỉ nhà:</div>
-         <div class="order-details-full-value">24 Vạn Xuân</div>
+         <div class="order-details-full-value">{{ order.streetAddress }}</div>
       </div>
       <div class="order-details-full-row order-details-full-city">
          <div class="order-details-full-label">Thành phố:</div>
-         <div class="order-details-full-value">Đà Lạt</div>
+         <div class="order-details-full-value">{{ order.city }}</div>
       </div>
       <div class="order-details-full-row order-details-full-phone">
          <div class="order-details-full-label">Số điện thoại:</div>
-         <div class="order-details-full-value">0353292241</div>
+         <div class="order-details-full-value">{{ order.phone }}</div>
       </div>
       <div class="order-details-full-row order-details-full-mail">
          <div class="order-details-full-label">Địa chỉ email:</div>
-         <div class="order-details-full-value">dragondevshop@gmail.com</div>
+         <div class="order-details-full-value">{{ order.email }}</div>
       </div>
       <div class="order-details-full-row order-details-full-notes">
          <div class="order-details-full-label">Ghi chú:</div>
          <div class="order-details-full-value">
-            Shop giao hàng sớm nhé, giao vào buổi chiều lúc 1h đến 5h em mới có
-            ở nhà nhé.
+            {{ order.notes }}
          </div>
       </div>
 
-      <OrderDetails />
+      <OrderDetails
+         :productList="productList"
+         :couponCode="couponCode"
+         :deliveryCost="0"
+         :totalCost="order.totalCost"
+         :paymentCost="order.paymentCost"
+      />
 
       <div class="order-details-full-toshop-btn">
-         <router-link
-            :to="{ name: 'shop', params: { productCategoryId: 0 } }"
-         >
+         <router-link :to="{ name: 'shop', params: { productCategoryId: 0 } }">
             <button-v-5>TIẾP TỤC MUA SẮM</button-v-5>
          </router-link>
       </div>
@@ -49,15 +52,98 @@
 </template>
 
 <script>
-
 import OrderDetails from "@/components/OrderDetails.vue";
 import ButtonV5 from "./ButtonV5.vue";
+
+import * as API from "@/helpers/api.js";
+const apiPath = process.env.VUE_APP_SERVER_PATH_API;
 
 export default {
    name: "OrderDetailsFullComponent",
    components: {
       OrderDetails,
       ButtonV5,
+   },
+	props: {
+		orderId: Number
+	},
+   data() {
+      return {
+         order: {},
+			couponCode: {},
+         productList: [],
+      };
+   },
+   methods: {
+      getOrder() {
+         return API.get(
+            apiPath + `/order/get_item.php`,
+            {
+               id: this.order.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.order = {
+                     ...data.data,
+                     id: +data.data.id,
+                     couponCodeId: +data.data.couponCodeId,
+                     deliveryCost: +data.data.deliveryCost,
+                     totalCost: +data.data.totalCost,
+                     paymentCost: +data.data.paymentCost,
+                     orderStatusId: +data.data.orderStatusId,
+                  };
+               }
+            }
+         );
+      },
+		getCouponCode() {
+			return API.get(
+            apiPath + `/coupon_code/get_item.php`,
+            {
+               id: this.order.couponCodeId,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.couponCode = {
+							...data.data,
+							id: +data.data.id,
+							percentValue: +data.data.percentValue
+						};
+               }
+            }
+         );
+		},
+      getProductOrder() {
+         return API.get(
+            apiPath + `/product_order/get_list_by_order_id.php`,
+            {
+               orderId: this.order.id,
+            },
+            (data) => {
+               if (data.code === 1) {
+                  this.productList = data.data.map((i) => ({
+                     ...i,
+							id: +i.id,
+							featureImageId: +i.featureImageId,
+                     originPrice: +i.originPrice,
+                     promotionPrice: +i.promotionPrice,
+                     isSpecial: +i.isSpecial == 1,
+                     isNew: +i.isNew == 1,
+                     isBestOffer: +i.isBestOffer == 1,
+                     productCategoryId: +i.productCategoryId,
+                     averageRating: +i.averageRating,
+                     quantity: +i.quantity,
+                  }));
+               }
+            }
+         );
+      },
+   },
+   async created() {
+      this.order.id = this.$props.orderId;
+      await this.getOrder();
+      await this.getCouponCode();
+      await this.getProductOrder();
    },
 };
 </script>

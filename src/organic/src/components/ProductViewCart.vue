@@ -98,7 +98,7 @@ export default {
       const store = useStore();
 
       const info = reactive({
-         quantity: store.state.cart.find(i => i.id === props.product.id).quantity,
+         quantity: store.state.cart.find(i => i.id === props.product.id)?.quantity ?? 1,
       });
 
       function handleSubQuantity() {

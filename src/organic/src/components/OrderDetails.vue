@@ -9,7 +9,7 @@
             <th>Giá</th>
          </tr>
       </thead>
-      <tbody>
+      <tbody v-if="productList && productList.length > 0">
          <tr v-for="(item, index) in productList" :key="item.id">
             <td>
                <p class="order-details-product-no">{{ index + 1 }}</p>
@@ -30,10 +30,19 @@
                <h6 class="order-details-product-name">{{ item.name }}</h6>
             </td>
             <td>
-               <div class="order-details-product-quantity">{{ $store.state.cart.find(i => i.id === item.id).quantity }}</div>
+               <div class="order-details-product-quantity">
+                  {{
+                     item.quantity
+                        ? item.quantity
+                        : $store.state.cart.find((i) => i.id === item.id)
+                             ?.quantity ?? null
+                  }}
+               </div>
             </td>
             <td>
-               <div class="order-details-product-price">{{ toVND(item.promotionPrice) }}</div>
+               <div class="order-details-product-price">
+                  {{ toVND(item.promotionPrice) }}
+               </div>
             </td>
          </tr>
       </tbody>
@@ -63,7 +72,9 @@
                <div class="order-details-coupon-label">Phí vận chuyển:</div>
             </td>
             <td colspan="4">
-               <div class="order-details-coupon-value">{{ toVND(deliveryCost) }}</div>
+               <div class="order-details-coupon-value">
+                  {{ toVND(deliveryCost) }}
+               </div>
             </td>
          </tr>
          <tr class="order-details-total">
@@ -95,7 +106,12 @@ import { toVND } from "@/helpers/functions";
 export default {
    name: "OrderDetailsComponent",
    props: {
-      productList: Array,
+      productList: {
+         type: Array,
+         default() {
+            return [];
+         },
+      },
       couponCode: Object,
       deliveryCost: Number,
       totalCost: Number,

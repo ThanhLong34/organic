@@ -43,7 +43,7 @@ const routes = [
 		component: () => import("../pages/Checkout.vue"),
 	},
 	{
-		path: "/checkout-success",
+		path: "/checkout-success/:orderId",
 		name: "checkout_success",
 		component: () => import("../pages/CheckoutSuccess.vue"),
 	},

@@ -46,10 +46,14 @@ export default createStore({
 			}
 		},
 		setCart(state, payload) {
-			state.cart = payload;
+			state.cart.length = 0;
+			if (Array.isArray(payload)) {
+				payload.forEach((o) => state.cart.push(o));
+			}
 		},
 		resetCart(state) {
-			state.cart = [];
+			// Không gán lại vì sẽ mất tham chiếu
+			state.cart.length = 0;
 		},
 		addItemCart(state, payload) {
 			if (Array.isArray(state.cart)) {

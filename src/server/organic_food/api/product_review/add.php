@@ -66,6 +66,13 @@ function addItem($fullname, $phone, $email, $comment, $rating, $productId)
       return;
    }
 
+   // Kiểm tra định dạng số điện thoại
+   if (!validatePhoneNumber($phone)) {
+      $response = new ResponseAPI(5, "Không đúng định dạng số điện thoại");
+      $response->send();
+      return;
+   }
+
    // Kiểm tra phone hoặc email gửi đi có mua sản phẩm chưa
    // Nếu chưa thì không cho gửi đánh giá
    if (!checkPhone_Email_OrderStatusForBuyProduct($phone, $email, $productId)) {
@@ -111,7 +118,7 @@ function checkPhone_Email_OrderStatusForBuyProduct($phone, $email, $productId) {
    $query = "SELECT `order`.`id` FROM `order`, `product_order`
       WHERE `order`.`email` = '$email'
       AND `order`.`phone` = '$phone'
-      AND (`order`.`orderStatusId` = 2 OR `order`.`orderStatusId` = 4)
+      AND `order`.`orderStatusId` = 4
       AND `product_order`.`orderId` = `order`.`id`
       AND `product_order`.`productId` = '$productId'
       LIMIT 1";

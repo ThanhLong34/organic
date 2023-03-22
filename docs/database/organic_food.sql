@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2023 at 04:32 PM
+-- Generation Time: Mar 22, 2023 at 09:43 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -81,7 +81,8 @@ INSERT INTO `contact` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, 
 (4, '10:23:48 17/03/2023', '09:11:46 18/03/2023', NULL, 'Phạm Thanh Sơn', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 'Có nha bạn', 1),
 (5, '10:35:52 17/03/2023', NULL, NULL, 'Tesgin 1', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0),
 (6, '10:35:56 17/03/2023', '10:36:56 17/03/2023', NULL, 'Tesgin 2', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0),
-(7, '10:36:01 17/03/2023', '21:59:01 17/03/2023', NULL, 'Tesgin 3', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0);
+(7, '10:36:01 17/03/2023', '21:59:01 17/03/2023', NULL, 'Tesgin 3', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0),
+(8, '10:16:53 21/03/2023', NULL, NULL, 'Thành Long', 'thanhlongedu0304@gmail.com', 'Chất lượng sản phẩm', 'Chất lượng sản phẩm tốt, đóng gói cẩn thận', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -107,8 +108,8 @@ CREATE TABLE `couponcode` (
 
 INSERT INTO `couponcode` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `code`, `description`, `isLimited`, `percentValue`, `remainingQuantityApplied`) VALUES
 (1, '13:39:52 17/03/2023', NULL, NULL, 'wtCrhTjWZdKC', 'Dành cho khách hàng đăng ký', 0, 20, 0),
-(2, '13:49:17 17/03/2023', NULL, NULL, 'yjGVkVoSeco7', 'Ưu đãi 30/4', 1, 15, 8),
-(3, '13:52:09 17/03/2023', '18:38:55 18/03/2023', NULL, 'HdrkmxeYxKIB', 'Ưu đãi 1/5', 1, 20, 9);
+(2, '13:49:17 17/03/2023', NULL, NULL, 'yjGVkVoSeco7', 'Ưu đãi 30/4', 1, 15, 0),
+(3, '13:52:09 17/03/2023', '18:38:55 18/03/2023', NULL, 'HdrkmxeYxKIB', 'Ưu đãi 1/5', 1, 20, 6);
 
 -- --------------------------------------------------------
 
@@ -286,11 +287,12 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `streetAddress`, `city`, `phone`, `email`, `notes`, `couponCodeId`, `deliveryCost`, `totalCost`, `paymentCost`, `orderStatusId`) VALUES
-(10, '19:34:52 17/03/2023', '22:35:28 17/03/2023', NULL, 'Thành Long', '24 Vạn Xuân', 'Đà Lạt', '0353292241', '2014468@dlu.edu.vn', '', 0, 0, 320000, 320000, 4),
-(11, '19:42:01 17/03/2023', '22:35:38 17/03/2023', NULL, 'Nguyễn Huế', '24 Vạn Kiếp', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'Nhớ giao hàng sớm nhé', 2, 0, 120000, 120000, 2),
-(12, '18:39:38 18/03/2023', '18:46:21 18/03/2023', NULL, 'Đơn hàng test', '24 ABC', 'Đà Lạt', '0123456789', 'thanhlongedu0304@gmail.com', 'AHIHI', 3, 20000, 120000, 112000, 2),
-(13, '18:42:08 18/03/2023', NULL, NULL, 'Đơn hàng test 2', '24 ABC', 'Đà Lạt', '0123456789', '2014468@dlu.edu.vn', 'AHIHI', 2, 0, 100000, 85000, 1),
-(16, '10:16:58 20/03/2023', NULL, NULL, 'Trần Thị Ngọc Ánh', '123 ABC affw', 'Đà Lạt', '0123456999', 'nguyenlong0304tester1@gmail.com', 'Giao hàng nhanh', 2, 0, 200000, 170000, 1);
+(26, '14:30:24 22/03/2023', '15:04:12 22/03/2023', NULL, 'Nguyễn Thành Long', '24 Vạn Xuân', 'TT Lạc Dương - Tỉnh Lâm Đồng', '0353292241', 'thanhlongedu0304@gmail.com', 'Shop giao hàng vào thứ 7 tuần này nhé', 1, 0, 3808000, 3046400, 4),
+(27, '14:34:25 22/03/2023', '15:04:08 22/03/2023', NULL, 'Thành Long', 'Abc test', 'Đà Lạt', '0353292241', '2014468@dlu.edu.vn', '', 2, 0, 382000, 324700, 4),
+(28, '14:36:56 22/03/2023', '15:04:05 22/03/2023', NULL, 'Bot Bot', '123 Nguyễn Văn Trỗi', 'Hà Nội', '0123456788', 'nguyenlong0304tester1@gmail.com', '', 2, 0, 1737000, 1476450, 4),
+(29, '14:39:52 22/03/2023', '15:03:59 22/03/2023', NULL, 'Nguyễn Thành Long', '24 Vạn Xuân', 'Đà Lạt', '0353292241', 'thanhlongedu0304@gmail.com', '', 0, 0, 581600, 581600, 4),
+(30, '15:14:46 22/03/2023', '15:15:06 22/03/2023', NULL, 'Bot Bot', 'Nguyễn Văn Trỗi', 'Đà Lạt', '0123456788', 'nguyenlong0304tester1@gmail.com', 'Shop giao hàng sớm nhé', 3, 0, 630000, 504000, 4),
+(32, '15:43:31 22/03/2023', NULL, NULL, 'Mimi', '213 ABC', 'Hà Nội', '0123456666', 'nguyenlong0304tester2@gmail.com', '', 3, 0, 300000, 240000, 1);
 
 -- --------------------------------------------------------
 
@@ -446,9 +448,8 @@ CREATE TABLE `productreview` (
 --
 
 INSERT INTO `productreview` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `phone`, `email`, `comment`, `rating`, `isShow`, `repliedAt`, `replyMessage`, `productId`) VALUES
-(7, '10:24:22 20/03/2023', NULL, NULL, 'Thành Long', '0353292241', '2014468@dlu.edu.vn', 'Sản phẩm tốt', 4, 1, NULL, NULL, 17),
-(8, '10:26:37 20/03/2023', NULL, NULL, 'Nguyễn Huế', '0123456789', '2014468@dlu.edu.vn', 'Sản phẩm mua về rất ưng ý', 5, 1, '21:04:48 20/03/2023', 'Cảm ơn bạn đã tin tưởng mua hàng của chúng tôi', 20),
-(9, '21:04:14 20/03/2023', NULL, NULL, 'Trần Thị Ngọc Ánh', '0123456999', 'nguyenlong0304tester1@gmail.com', 'Sản phẩm ngon và tươi', 4, 1, NULL, NULL, 20);
+(10, '15:07:26 22/03/2023', NULL, NULL, 'Nguyễn Thành Long', '0353292241', 'thanhlongedu0304@gmail.com', 'Sản phẩm tốt, chất lượng cao, mua về rất ưng ý', 5, 1, '15:17:03 22/03/2023', 'Cảm ơn bạn đã mua hàng của chúng tôi', 22),
+(11, '15:16:07 22/03/2023', NULL, NULL, 'Bot Bot', '0123456788', 'nguyenlong0304tester1@gmail.com', 'Mứt dâu khá ngon, nhưng hũ chưa được to lắm', 4, 1, '15:16:48 22/03/2023', 'Cảm ơn bạn đã mua hàng của chúng tôi, chúng tôi sẽ ghi nhận đánh giá của bạn', 22);
 
 -- --------------------------------------------------------
 
@@ -553,16 +554,17 @@ CREATE TABLE `product_order` (
 --
 
 INSERT INTO `product_order` (`productId`, `orderId`, `quantity`) VALUES
-(17, 10, 2),
-(20, 11, 1),
-(23, 11, 1),
-(18, 10, 1),
-(22, 10, 2),
-(29, 11, 1),
-(29, 12, 3),
-(23, 13, 3),
-(23, 12, 1),
-(20, 16, 2);
+(40, 26, 2),
+(30, 27, 2),
+(31, 27, 4),
+(26, 28, 3),
+(18, 28, 3),
+(39, 28, 3),
+(22, 29, 1),
+(45, 29, 1),
+(44, 29, 2),
+(22, 30, 3),
+(21, 32, 3);
 
 -- --------------------------------------------------------
 
@@ -927,7 +929,6 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (3, 93),
 (3, 95),
 (3, 90),
-(3, 94),
 (2, 85),
 (2, 74),
 (2, 53),
@@ -969,7 +970,8 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (1, 102),
 (1, 60),
 (1, 54),
-(2, 115);
+(2, 115),
+(2, 81);
 
 -- --------------------------------------------------------
 
@@ -1151,7 +1153,7 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `couponcode`
@@ -1169,7 +1171,7 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `orderstatus`
@@ -1193,7 +1195,7 @@ ALTER TABLE `productcategory`
 -- AUTO_INCREMENT for table `productreview`
 --
 ALTER TABLE `productreview`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `subscribe`

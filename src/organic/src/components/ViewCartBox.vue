@@ -24,7 +24,7 @@
                   </router-link>
                </p>
                <p class="viewcart-item-price">
-                  {{ $store.state.cart.find((i) => i.id === item.id).quantity }}
+                  {{ $store.state.cart.find((i) => i.id === item.id)?.quantity ?? null }}
                   x <span>{{ toVND(item.promotionPrice) }}</span>
                </p>
             </div>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, computed } from "vue";
 import { useStore } from "vuex";
 
 import { toVND } from "@/helpers/functions";
@@ -82,7 +82,18 @@ export default {
       const cart = store.state.cart;
 
       const productList = ref([]);
-      const totalCost = ref(0);
+		const totalCost = computed(() => {
+         let result = 0;
+         cart.forEach((i) => {
+            if (productList.value && productList.value.length > 0) {
+               const p = productList.value.find((p) => p.id === i.id);
+               if (p) {
+                  result += p.promotionPrice * i.quantity;
+               }
+            }
+         });
+         return result;
+      });
 
       function getProductItem(productId) {
          return API.get(
@@ -106,11 +117,6 @@ export default {
                   };
 
                   productList.value.push(product);
-
-                  const quantity = cart.find(
-                     (i) => i.id === productId
-                  ).quantity;
-                  totalCost.value += quantity * product.promotionPrice;
                }
             }
          );
@@ -119,7 +125,6 @@ export default {
       watchEffect(() => {
          if (Array.isArray(cart)) {
             productList.value = [];
-            totalCost.value = 0;
 
             cart.forEach((i) => {
                getProductItem(i.id);
