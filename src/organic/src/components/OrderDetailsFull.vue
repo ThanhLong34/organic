@@ -34,6 +34,12 @@
             {{ order.notes }}
          </div>
       </div>
+      <div class="order-details-full-row order-details-full-notes">
+         <div class="order-details-full-label">Trạng thái đơn hàng: </div>
+         <div class="order-details-full-value">
+            {{ order.orderStatusName }}
+         </div>
+      </div>
 
       <OrderDetails
          :productList="productList"
@@ -166,7 +172,7 @@ export default {
 
    &-label {
       font-weight: 700;
-      min-width: 200px;
+      min-width: 248px;
       color: $primaryColor;
    }
 
