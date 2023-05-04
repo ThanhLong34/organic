@@ -1,6 +1,6 @@
 <template>
    <div class="view-cart">
-      <TopPage :currentPage="'View Cart'" />
+      <TopPage :currentPage="'Giỏ Hàng'" />
 
       <div class="view-cart-content">
          <div class="view-cart-product">
