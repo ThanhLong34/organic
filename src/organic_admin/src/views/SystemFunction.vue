@@ -111,7 +111,7 @@
                   <div class="card-header pb-0">
                      <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                           <h6>Danh sách menu ({{ tableData.length }})</h6>
+                           <h6>Danh sách chức năng ({{ tableData.length }})</h6>
                         </div>
                         <div class="col-6 text-end" v-if="checkPermissionFunction(functions.AddSystemFunction)">
                            <argon-button
