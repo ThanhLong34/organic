@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2023 at 09:43 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: May 04, 2023 at 12:51 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,7 +37,7 @@ CREATE TABLE `blog` (
   `description` text DEFAULT NULL,
   `content` text DEFAULT NULL,
   `systemAdminId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `blog`
@@ -68,7 +68,7 @@ CREATE TABLE `contact` (
   `message` text NOT NULL,
   `replyMessage` text DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `contact`
@@ -76,13 +76,14 @@ CREATE TABLE `contact` (
 
 INSERT INTO `contact` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `email`, `subject`, `message`, `replyMessage`, `status`) VALUES
 (1, '09:38:50 17/03/2023', '09:10:16 18/03/2023', NULL, 'Nguyễn Thị Huế', '2014468@dlu.edu.vn', 'Hoàn tiền sản phẩm', 'Làm sao tôi có thể hoàn tiền sản phẩm mua nhầm?', 'Bạn có thể thương lượng với chúng tôi', 1),
-(2, '09:40:19 17/03/2023', '10:19:58 17/03/2023', NULL, 'Dương Mỹ Lộc', '2014468@dlu.edu.vn', 'Đổi sản phẩm', 'Làm sao tôi có thể đổi sản phẩm?', NULL, 0),
+(2, '09:40:19 17/03/2023', '17:39:43 04/05/2023', NULL, 'Dương Mỹ Lộc', '2014468@dlu.edu.vn', 'Đổi sản phẩm', 'Làm sao tôi có thể đổi sản phẩm?', 'Bạn có thể liên hệ với chúng tôi', 1),
 (3, '10:22:53 17/03/2023', '10:26:43 17/03/2023', NULL, 'Nguyễn Việt Hoàng', '2014468@dlu.edu.vn', 'Thời gian nhận hàng', 'Shop thường gửi hàng tới nơi lúc nào?', NULL, 0),
 (4, '10:23:48 17/03/2023', '09:11:46 18/03/2023', NULL, 'Phạm Thanh Sơn', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', 'Có nha bạn', 1),
 (5, '10:35:52 17/03/2023', NULL, NULL, 'Tesgin 1', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0),
 (6, '10:35:56 17/03/2023', '10:36:56 17/03/2023', NULL, 'Tesgin 2', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0),
 (7, '10:36:01 17/03/2023', '21:59:01 17/03/2023', NULL, 'Tesgin 3', '2014468@dlu.edu.vn', 'Có duyệt đơn hàng không', 'Shop có duyệt đơn hàng trước khi giao không?', NULL, 0),
-(8, '10:16:53 21/03/2023', NULL, NULL, 'Thành Long', 'thanhlongedu0304@gmail.com', 'Chất lượng sản phẩm', 'Chất lượng sản phẩm tốt, đóng gói cẩn thận', NULL, 0);
+(8, '10:16:53 21/03/2023', NULL, NULL, 'Thành Long', 'thanhlongedu0304@gmail.com', 'Chất lượng sản phẩm', 'Chất lượng sản phẩm tốt, đóng gói cẩn thận', NULL, 0),
+(17, '16:05:51 04/05/2023', NULL, NULL, 'Nguyễn Thành Long', 'thanhlongedu0304@gmail.com', 'Sản phẩm tốt', 'Sản phẩm tốt, giao hàng đúng hẹn, website đẹp', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,7 @@ CREATE TABLE `couponcode` (
   `isLimited` tinyint(1) NOT NULL DEFAULT 0,
   `percentValue` int(11) DEFAULT 0,
   `remainingQuantityApplied` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `couponcode`
@@ -125,7 +126,7 @@ CREATE TABLE `image` (
   `link` varchar(255) NOT NULL,
   `filename` varchar(255) NOT NULL,
   `size` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `image`
@@ -211,7 +212,6 @@ INSERT INTO `image` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `link`, `filen
 (250, '18:39:15 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6416f463af6d9.jpg', 'project_image6416f463af6d9.jpg', 218814),
 (251, '18:40:38 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6416f4b6f0076.png', 'project_image6416f4b6f0076.png', 161903),
 (252, '18:40:50 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6416f4c2f0f02.png', 'project_image6416f4c2f0f02.png', 161903),
-(253, '18:40:50 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6416f4c2f19d5.jpg', 'project_image6416f4c2f19d5.jpg', 218814),
 (254, '19:21:20 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6416fe4090d19.png', 'project_image6416fe4090d19.png', 191105),
 (255, '19:22:13 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6416fe75ee75d.jpg', 'project_image6416fe75ee75d.jpg', 218814),
 (256, '19:22:13 19/03/2023', NULL, NULL, 'http://localhost/projects/organic_food/upload/images/project_image6416fe75f2340.png', 'project_image6416fe75f2340.png', 191105),
@@ -280,7 +280,7 @@ CREATE TABLE `order` (
   `totalCost` int(11) DEFAULT 0,
   `paymentCost` int(11) DEFAULT 0,
   `orderStatusId` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `order`
@@ -292,7 +292,8 @@ INSERT INTO `order` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fullname`, `s
 (28, '14:36:56 22/03/2023', '15:04:05 22/03/2023', NULL, 'Bot Bot', '123 Nguyễn Văn Trỗi', 'Hà Nội', '0123456788', 'nguyenlong0304tester1@gmail.com', '', 2, 0, 1737000, 1476450, 4),
 (29, '14:39:52 22/03/2023', '15:03:59 22/03/2023', NULL, 'Nguyễn Thành Long', '24 Vạn Xuân', 'Đà Lạt', '0353292241', 'thanhlongedu0304@gmail.com', '', 0, 0, 581600, 581600, 4),
 (30, '15:14:46 22/03/2023', '15:15:06 22/03/2023', NULL, 'Bot Bot', 'Nguyễn Văn Trỗi', 'Đà Lạt', '0123456788', 'nguyenlong0304tester1@gmail.com', 'Shop giao hàng sớm nhé', 3, 0, 630000, 504000, 4),
-(32, '15:43:31 22/03/2023', NULL, NULL, 'Mimi', '213 ABC', 'Hà Nội', '0123456666', 'nguyenlong0304tester2@gmail.com', '', 3, 0, 300000, 240000, 1);
+(32, '15:43:31 22/03/2023', NULL, NULL, 'Mimi', '213 ABC', 'Hà Nội', '0123456666', 'nguyenlong0304tester2@gmail.com', '', 3, 0, 300000, 240000, 1),
+(33, '15:40:48 04/05/2023', '17:41:17 04/05/2023', NULL, 'Nguyễn Thành Long', '24 Vạn Xuân', 'Đà Lạt', '0353292241', 'thanhlongedu0304@gmail.com', '', 0, 0, 566000, 566000, 4);
 
 -- --------------------------------------------------------
 
@@ -306,7 +307,7 @@ CREATE TABLE `orderstatus` (
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orderstatus`
@@ -344,7 +345,7 @@ CREATE TABLE `product` (
   `isNew` tinyint(1) DEFAULT 0,
   `isBestOffer` tinyint(1) DEFAULT 0,
   `productCategoryId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product`
@@ -403,7 +404,7 @@ CREATE TABLE `productcategory` (
   `deletedAt` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `featureImageId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `productcategory`
@@ -441,7 +442,7 @@ CREATE TABLE `productreview` (
   `repliedAt` varchar(255) DEFAULT NULL,
   `replyMessage` text DEFAULT NULL,
   `productId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `productreview`
@@ -460,7 +461,7 @@ INSERT INTO `productreview` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `fulln
 CREATE TABLE `product_image` (
   `productId` int(11) NOT NULL,
   `imageId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product_image`
@@ -547,7 +548,7 @@ CREATE TABLE `product_order` (
   `productId` int(11) NOT NULL,
   `orderId` int(11) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product_order`
@@ -564,7 +565,11 @@ INSERT INTO `product_order` (`productId`, `orderId`, `quantity`) VALUES
 (45, 29, 1),
 (44, 29, 2),
 (22, 30, 3),
-(21, 32, 3);
+(21, 32, 3),
+(31, 33, 2),
+(30, 33, 2),
+(22, 33, 1),
+(24, 33, 2);
 
 -- --------------------------------------------------------
 
@@ -578,14 +583,13 @@ CREATE TABLE `subscribe` (
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `subscribe`
 --
 
 INSERT INTO `subscribe` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `email`) VALUES
-(10, '11:08:23 20/03/2023', NULL, NULL, '2014468@dlu.edu.vn'),
 (11, '11:09:06 20/03/2023', NULL, NULL, 'thanhlongedu0304@gmail.com'),
 (19, '14:26:56 20/03/2023', NULL, NULL, 'nguyenlong0304tester1@gmail.com');
 
@@ -607,16 +611,16 @@ CREATE TABLE `systemadmin` (
   `phone` varchar(255) NOT NULL,
   `avatarId` int(11) DEFAULT NULL,
   `systemRoleId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `systemadmin`
 --
 
 INSERT INTO `systemadmin` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `username`, `password`, `nickname`, `email`, `phone`, `avatarId`, `systemRoleId`) VALUES
-(4, '18:08:50 04/03/2023', '15:30:25 19/03/2023', NULL, 'dragondev0304', '0192023a7bbd73250516f069df18b500', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
+(4, '18:08:50 04/03/2023', '17:34:50 04/05/2023', NULL, 'dragondev0304', '0192023a7bbd73250516f069df18b500', 'Thành Long', 'dragondevshop@gmail.com', '0353292241', 18, 1),
 (5, '18:46:33 04/03/2023', '10:01:40 16/03/2023', NULL, 'client', '202cb962ac59075b964b07152d234b70', 'Client', 'dragondevshop@gmail.com', '0353292241', 26, 2),
-(16, '14:26:09 07/03/2023', '08:55:33 18/03/2023', NULL, 'websitemanager1', '90638fa097af66f3c8cc68fe3afb9acb', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
+(16, '14:26:09 07/03/2023', '11:39:30 04/05/2023', NULL, 'websitemanager1', '0192023a7bbd73250516f069df18b500', 'Quản lý website 1', '2014468@dlu.edu.vn', '0000001234', NULL, 3),
 (17, '11:36:09 11/03/2023', '15:30:52 19/03/2023', NULL, 'admin123', '0192023a7bbd73250516f069df18b500', 'Thành Long', 'thanhlongedu0304@gmail.com', '0353292241', 28, 3),
 (20, '09:17:22 18/03/2023', NULL, '09:18:03 18/03/2023', 'AdminTesting', '202cb962ac59075b964b07152d234b70', 'Admin Testing', '2014468@dlu.edu.vn', '0123456789', NULL, 4);
 
@@ -636,7 +640,7 @@ CREATE TABLE `systemfunction` (
   `description` varchar(1000) DEFAULT NULL,
   `method` varchar(255) DEFAULT NULL,
   `isBase` tinyint(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `systemfunction`
@@ -768,7 +772,7 @@ CREATE TABLE `systemmenu` (
   `routeName` varchar(255) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `isBase` tinyint(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `systemmenu`
@@ -809,7 +813,7 @@ CREATE TABLE `systemrole` (
   `updatedAt` varchar(255) DEFAULT NULL,
   `deletedAt` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `systemrole`
@@ -830,7 +834,7 @@ INSERT INTO `systemrole` (`id`, `createdAt`, `updatedAt`, `deletedAt`, `name`) V
 CREATE TABLE `systemrole_function` (
   `systemRoleId` int(11) NOT NULL,
   `systemFunctionId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `systemrole_function`
@@ -912,7 +916,6 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (3, 69),
 (3, 70),
 (3, 72),
-(3, 67),
 (3, 73),
 (3, 76),
 (3, 77),
@@ -971,7 +974,8 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 (1, 60),
 (1, 54),
 (2, 115),
-(2, 81);
+(2, 81),
+(3, 67);
 
 -- --------------------------------------------------------
 
@@ -982,7 +986,7 @@ INSERT INTO `systemrole_function` (`systemRoleId`, `systemFunctionId`) VALUES
 CREATE TABLE `systemrole_menu` (
   `systemRoleId` int(11) NOT NULL,
   `systemMenuId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `systemrole_menu`
@@ -994,7 +998,6 @@ INSERT INTO `systemrole_menu` (`systemRoleId`, `systemMenuId`) VALUES
 (1, 3),
 (1, 4),
 (1, 5),
-(3, 7),
 (3, 8),
 (3, 9),
 (3, 10),
@@ -1007,7 +1010,8 @@ INSERT INTO `systemrole_menu` (`systemRoleId`, `systemMenuId`) VALUES
 (1, 6),
 (3, 51),
 (3, 17),
-(3, 18);
+(3, 18),
+(3, 7);
 
 --
 -- Indexes for dumped tables
@@ -1093,8 +1097,7 @@ ALTER TABLE `product_order`
 -- Indexes for table `subscribe`
 --
 ALTER TABLE `subscribe`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `systemadmin`
@@ -1153,7 +1156,7 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `couponcode`
@@ -1165,13 +1168,13 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=299;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=302;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `orderstatus`
@@ -1201,7 +1204,7 @@ ALTER TABLE `productreview`
 -- AUTO_INCREMENT for table `subscribe`
 --
 ALTER TABLE `subscribe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `systemadmin`
