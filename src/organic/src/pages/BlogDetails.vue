@@ -1,6 +1,6 @@
 <template>
    <div class="blog-details">
-      <TopPage :currentPage="'Blog Details'" />
+      <TopPage :currentPage="'Chi Tiết Bài Viết'" />
 
       <div class="blog-details-content">
          <div class="grid wide">
